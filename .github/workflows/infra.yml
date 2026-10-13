@@ -1,0 +1,48 @@
+name: infra
+
+# OpenTofu lifecycle for the live GCP environment (infra/). Plans on PRs that
+# touch infra/, applies on main behind the `production` environment reviewer.
+# Authenticates to GCP keylessly via Workload Identity Federation.
+
+on:
+  pull_request:
+    paths: ['infra/**']
+  push:
+    branches: [main]
+    paths: ['infra/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+defaults:
+  run:
+    working-directory: infra
+
+env:
+  TF_VAR_project_id: ${{ vars.GCP_PROJECT_ID }}
+  TF_VAR_region: ${{ vars.GCP_REGION }}
+  WIF_PROVIDER: ${{ vars.WIF_PROVIDER }}
+  DEPLOY_SA_EMAIL: ${{ vars.DEPLOY_SA_EMAIL }}
+  TF_STATE_BUCKET: ${{ vars.TF_STATE_BUCKET }}
+
+jobs:
+  plan:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/tofu-init
+      - run: tofu fmt -check -recursive
+      - run: tofu validate
+      - run: tofu plan -input=false
+
+  apply:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/tofu-init
+      - run: tofu apply -auto-approve -input=false

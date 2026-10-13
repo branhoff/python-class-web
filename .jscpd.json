@@ -1,0 +1,8 @@
+{
+  "path": ["."],
+  "format": ["typescript", "markdown", "yaml", "makefile", "hcl"],
+  "ignore": ["**/node_modules/**", "**/.terraform/**", "LICENSE", "**/.terraform.lock.hcl"],
+  "threshold": 0,
+  "minLines": 5,
+  "minTokens": 50
+}

@@ -1,0 +1,10 @@
+node_modules/
+data/
+data-test/
+package-lock.json
+.habit-hooks/
+
+# OpenTofu/HCL — prettier has no parser for these.
+*.tf
+*.tfvars
+*.tfvars.example

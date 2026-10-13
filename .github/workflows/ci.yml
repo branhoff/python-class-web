@@ -1,0 +1,57 @@
+name: CI
+
+# The authoritative, non-bypassable quality gate. Make these jobs *required
+# status checks* in branch protection (Settings → Branches) so a PR cannot merge
+# while any is red. The coverage threshold inside `make coverage` turns the
+# `verify` check red when coverage drops — that is GitHub telling you the tests
+# are too thin. `integration` runs the shared repository contract against the
+# Firestore emulator, so the real backend cannot drift from the interface.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # full history so `make secrets` can scan it
+      - name: Install gitleaks
+        run: |
+          curl -sSfL https://github.com/gitleaks/gitleaks/releases/download/v8.24.2/gitleaks_8.24.2_linux_x64.tar.gz | tar -xz gitleaks
+          sudo mv gitleaks /usr/local/bin/
+      - name: Install habit-hooks
+        run: pipx install 'habit-hooks[typescript]'
+      - uses: ./.github/actions/setup-node-deps
+      - name: Full gate (types, lint, format, tests + coverage, structure)
+        run: make verify
+
+  mutation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-node-deps
+      - name: Grade test quality (break threshold enforced)
+        run: make mutation
+
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-node-deps
+      - name: Start the Firestore emulator
+        run: |
+          docker run -d --name firestore -p 127.0.0.1:8080:8080 \
+            gcr.io/google.com/cloudsdktool/google-cloud-cli:emulators \
+            gcloud emulators firestore start --host-port=0.0.0.0:8080
+          for _ in $(seq 1 60); do
+            nc -z 127.0.0.1 8080 && exit 0
+            sleep 2
+          done
+          docker logs firestore
+          exit 1
+      - name: Run the repository contract against Firestore
+        run: make test-integration

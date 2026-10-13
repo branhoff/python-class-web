@@ -1,0 +1,4 @@
+project_id        = "your-gcp-project-id"
+state_bucket_name = "python-class-web-tfstate-CHANGE-ME" # globally unique
+billing_account   = "XXXXXX-XXXXXX-XXXXXX"               # gcloud billing accounts list
+# github_repo     = "owner/python-class-web"

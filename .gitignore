@@ -1,0 +1,46 @@
+# Language-agnostic baseline. Append your language's block from TOOLING.md
+# ("Per-language .gitignore") when you adopt the template.
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+*.swp
+
+# Secrets — never commit; keep a committed .env.example instead
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local agent settings
+.claude/settings.local.json
+
+# Build / test artifacts (keep in sync with `make clean`)
+coverage/
+htmlcov/
+.coverage
+coverage.*
+*.lcov
+mutation-report/
+reports/
+*.log
+tmp/
+
+# OpenTofu / Terraform local state and plans (remote state lives in the bucket)
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+!*.tfvars.example
+
+# Node / TypeScript
+node_modules/
+dist/
+*.tsbuildinfo
+.env

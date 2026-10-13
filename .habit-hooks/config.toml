@@ -1,0 +1,12 @@
+plugins = ["typescript", "generic"]
+files = [
+  "src/**/*.ts",
+  "test/**/*.ts",
+  "**/*.md",
+  "**/*.yml",
+  "**/*.yaml",
+  "**/*.tf",
+  "**/*.toml",
+  "Makefile",
+  ".githooks/*",
+]

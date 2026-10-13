@@ -1,0 +1,65 @@
+name: deploy
+
+# Builds an immutable SHA-tagged image and rolls out a new Cloud Run revision,
+# but only after the CI gate (verify, mutation, integration) is green on main.
+# Keyless via Workload Identity Federation. The app has no secrets today, so
+# there is no secret-sync step; add one here (and Secret Manager containers in
+# infra/) when the first secret appears. See DEPLOY.md rule 4.
+
+on:
+  workflow_run:
+    workflows: ['CI']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    env:
+      PROJECT: ${{ vars.GCP_PROJECT_ID }}
+      REGION: ${{ vars.GCP_REGION }}
+      SERVICE: python-class-web
+      SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.WIF_PROVIDER }}
+          service_account: ${{ vars.DEPLOY_SA_EMAIL }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker "${REGION}-docker.pkg.dev" --quiet
+
+      - name: Repoint lockfile to public npm (CI only)
+        run: ./.github/scripts/public-npm-lock.sh
+
+      - name: Build and push image
+        run: |
+          IMAGE="${{ vars.AR_REPO }}/app:${SHA}"
+          docker build --platform linux/amd64 -t "$IMAGE" .
+          docker push "$IMAGE"
+          echo "IMAGE=$IMAGE" >> "$GITHUB_ENV"
+
+      - name: Deploy new revision
+        run: |
+          gcloud run services update "$SERVICE" \
+            --image="$IMAGE" \
+            --region="$REGION" \
+            --project="$PROJECT" \
+            --quiet
+
+      - name: Smoke test
+        run: |
+          URL=$(gcloud run services describe "$SERVICE" --region="$REGION" --project="$PROJECT" --format='value(status.url)')
+          curl --fail --silent --show-error --retry 5 --retry-delay 3 --retry-all-errors "$URL/health"

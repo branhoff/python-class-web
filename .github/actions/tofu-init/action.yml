@@ -1,0 +1,19 @@
+name: Authenticate to GCP and initialise OpenTofu
+description: >
+  Keyless Workload Identity Federation auth, then tofu init against the remote
+  state bucket. Reads WIF_PROVIDER, DEPLOY_SA_EMAIL and TF_STATE_BUCKET from the
+  calling workflow's env.
+runs:
+  using: composite
+  steps:
+    - uses: google-github-actions/auth@v2
+      with:
+        workload_identity_provider: ${{ env.WIF_PROVIDER }}
+        service_account: ${{ env.DEPLOY_SA_EMAIL }}
+    - uses: opentofu/setup-opentofu@v1
+      with:
+        tofu_wrapper: false
+    - name: tofu init
+      shell: bash
+      working-directory: infra
+      run: tofu init -backend-config="bucket=${{ env.TF_STATE_BUCKET }}"

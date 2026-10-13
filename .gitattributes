@@ -1,0 +1,11 @@
+* text=auto eol=lf
+
+# Lockfiles are generated: collapse in diffs, never hand-merge.
+package-lock.json  -diff linguist-generated
+pnpm-lock.yaml     -diff linguist-generated
+yarn.lock          -diff linguist-generated
+poetry.lock        -diff linguist-generated
+uv.lock            -diff linguist-generated
+Cargo.lock         -diff linguist-generated
+go.sum             -diff linguist-generated
+.terraform.lock.hcl -diff linguist-generated

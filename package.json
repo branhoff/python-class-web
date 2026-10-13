@@ -1,0 +1,46 @@
+{
+  "name": "python-class-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Web app for learning Python: notebook-style lessons with runnable cells",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env src/server.ts",
+    "dev": "node --watch --env-file-if-exists=.env src/server.ts",
+    "test": "node --test --test-reporter=spec \"test/**/*.test.ts\"",
+    "coverage": "node --test --experimental-test-coverage --test-coverage-exclude=\"src/server.ts\" --test-coverage-exclude=\"src/repository/firestore.ts\" --test-coverage-exclude=\"test/**\" --test-coverage-lines=90 --test-coverage-branches=85 --test-coverage-functions=90 \"test/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "habits": "habit-hooks",
+    "mutation": "stryker run",
+    "mutation:sandbox": "NODE_OPTIONS=\"--import ./scripts/sandbox-net-shim.mjs\" stryker run",
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm run coverage",
+    "prepare": "git config core.hooksPath .githooks || true"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "dependencies": {
+    "@google-cloud/firestore": "^9.3.1",
+    "@hono/node-server": "^1.13.7",
+    "hono": "^4.6.14",
+    "jose": "^6.2.12"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@stryker-mutator/core": "^10.0.0",
+    "@types/node": "^26.6.4",
+    "eslint": "^10.12.0",
+    "eslint-config-prettier": "^10.1.8",
+    "jscpd": "^5.4.0",
+    "knip": "^6.39.0",
+    "prettier": "^3.9.9",
+    "ts-morph": "^28.0.0",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.71.0"
+  }
+}

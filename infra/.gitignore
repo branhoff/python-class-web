@@ -1,0 +1,10 @@
+# OpenTofu / Terraform — never commit state (holds secrets) or local plugins.
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+# Keep: .terraform.lock.hcl (commit it — pins provider versions) and *.tf.
+# tfvars often hold inputs; commit a *.tfvars.example and gitignore real ones:
+*.tfvars
+!*.tfvars.example

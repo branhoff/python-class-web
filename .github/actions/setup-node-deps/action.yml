@@ -1,0 +1,14 @@
+name: Set up Node and install dependencies
+description: Node 26, lockfile repointed to public npm, frozen install.
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '26'
+    - name: Repoint lockfile to public npm (CI only)
+      shell: bash
+      run: ./.github/scripts/public-npm-lock.sh
+    - name: Install from lockfile
+      shell: bash
+      run: npm ci --registry=https://registry.npmjs.org

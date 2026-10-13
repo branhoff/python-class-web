@@ -1,0 +1,5 @@
+# Replace with real owners; pair with branch protection's "Require review from
+# Code Owners" so this is enforced, not advisory.
+*                 @<OWNER_OR_TEAM>
+/infra/           @<OWNER_OR_TEAM>
+/.github/         @<OWNER_OR_TEAM>

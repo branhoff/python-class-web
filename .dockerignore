@@ -1,0 +1,17 @@
+node_modules
+reports
+.git
+.github
+.githooks
+test
+scripts
+*.md
+.env
+.env.*
+tsconfig.json
+knip.json
+stryker.config.json
+eslint.config.js
+.prettierrc.json
+Dockerfile
+.dockerignore

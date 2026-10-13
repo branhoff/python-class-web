@@ -1,0 +1,16 @@
+# Keeps the (deliberately small) dependency surface patched. Add the ecosystem
+# for your language (npm | pip | gomod | cargo | ...); delete what you don't use.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: terraform
+    directory: /infra
+    schedule:
+      interval: weekly
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
