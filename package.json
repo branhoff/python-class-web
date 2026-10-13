@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "description": "Web app for learning Python: notebook-style lessons with runnable cells",
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "scripts": {
     "start": "node --env-file-if-exists=.env src/server.ts",
     "dev": "node --watch --env-file-if-exists=.env src/server.ts",
