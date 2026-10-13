@@ -16,6 +16,7 @@ locals {
     "roles/run.admin",
     "roles/datastore.owner",
     "roles/identitytoolkit.admin",
+    "roles/firebaseauth.admin",
     "roles/artifactregistry.writer",
     "roles/iam.serviceAccountAdmin",
     "roles/iam.serviceAccountUser",
