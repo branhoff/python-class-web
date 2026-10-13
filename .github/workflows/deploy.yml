@@ -2,7 +2,9 @@ name: deploy
 
 # Builds an immutable SHA-tagged image and rolls out a new Cloud Run revision,
 # but only after the CI gate (verify, mutation, integration) is green on main.
-# Keyless via Workload Identity Federation. The app has no secrets today, so
+# Keyless via Workload Identity Federation. When the same commit also changed
+# infra/, it first waits for that infra run (and its approval) to succeed; manual
+# runs skip the wait. The app has no secrets today, so
 # there is no secret-sync step; add one here (and Secret Manager containers in
 # infra/) when the first secret appears. See DEPLOY.md rule 4.
 
@@ -16,6 +18,7 @@ on:
 permissions:
   contents: read
   id-token: write
+  actions: read
 
 jobs:
   deploy:
@@ -30,6 +33,21 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Wait for the infra run on this commit, if there is one
+        if: github.event_name == 'workflow_run'
+        timeout-minutes: 120
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          run_id=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow infra.yml \
+            --commit "$SHA" --event push --json databaseId -q '.[0].databaseId // empty')
+          if [ -z "$run_id" ]; then
+            echo "No infra run for $SHA; this is an app-only change."
+            exit 0
+          fi
+          echo "Waiting for infra run $run_id (it may be awaiting approval)..."
+          gh run watch "$run_id" --repo "$GITHUB_REPOSITORY" --exit-status
 
       - uses: google-github-actions/auth@v2
         with:
