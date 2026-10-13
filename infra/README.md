@@ -5,8 +5,9 @@ can run OpenTofu:
 
 - **[`bootstrap/`](bootstrap/README.md)** - local state, run once by a human.
 - **this root** - remote state, runs in CI (`.github/workflows/infra.yml`):
-  a PR runs `fmt`, `validate` and `plan`; a merge to `main` runs `apply` behind
-  the `production` environment.
+  every run does `fmt`, `validate` and `plan` and posts the plan to the run
+  summary; on `main` (or a manual run), `apply` waits for the `production`
+  reviewer, then applies that exact saved plan.
 
 ## What this root manages
 

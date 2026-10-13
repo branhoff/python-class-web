@@ -1,15 +1,16 @@
 name: infra
 
-# OpenTofu lifecycle for the live GCP environment (infra/). Plans on PRs that
-# touch infra/, applies on main behind the `production` environment reviewer.
-# Authenticates to GCP keylessly via Workload Identity Federation.
+# OpenTofu lifecycle for the live GCP environment (infra/). Every trigger runs a
+# plan and shows it in the run summary. On main (and manual runs), `apply` waits
+# for the `production` environment reviewer, then applies that exact saved plan,
+# so what was reviewed is what runs. Keyless auth via Workload Identity Federation.
 
 on:
   pull_request:
-    paths: ['infra/**']
+    paths: ['infra/**', '.github/workflows/infra.yml', '.github/actions/tofu-init/**']
   push:
     branches: [main]
-    paths: ['infra/**']
+    paths: ['infra/**', '.github/workflows/infra.yml', '.github/actions/tofu-init/**']
   workflow_dispatch:
 
 permissions:
@@ -29,20 +30,37 @@ env:
 
 jobs:
   plan:
-    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/tofu-init
       - run: tofu fmt -check -recursive
       - run: tofu validate
-      - run: tofu plan -input=false
+      - run: tofu plan -input=false -out=tfplan
+      - name: Show the plan in the run summary
+        run: |
+          {
+            echo '## OpenTofu plan'
+            echo '```'
+            tofu show -no-color tfplan
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tfplan
+          path: infra/tfplan
+          retention-days: 7
 
   apply:
     if: github.event_name != 'pull_request'
+    needs: plan
     runs-on: ubuntu-latest
     environment: production
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/tofu-init
-      - run: tofu apply -auto-approve -input=false
+      - uses: actions/download-artifact@v4
+        with:
+          name: tfplan
+          path: infra
+      - run: tofu apply -input=false tfplan
