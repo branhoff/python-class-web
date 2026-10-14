@@ -71,3 +71,12 @@ test('shows no sign-in form when auth is unconfigured (dev)', async ({ page }) =
   await waitForPythonReady(page);
   await expect(page.locator('#auth form')).toHaveCount(0);
 });
+
+test('the sidebar and pager navigate between lessons', async ({ page }) => {
+  await page.goto('/lessons/functions');
+  await expect(page.locator('nav.sidebar')).toBeVisible();
+  const prev = page.locator('.pager a.prev');
+  await expect(prev).toContainText('Previous');
+  await prev.click();
+  await expect(page).toHaveURL(/\/lessons\/conditionals$/);
+});
