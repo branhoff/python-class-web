@@ -5,7 +5,7 @@
 
 import { authHeader } from './app-shell.js';
 
-// A sandbox cell has no tests, so it has nothing to pass — it only shows output.
+// A sandbox cell has no tests, so it has nothing to pass; it only shows output.
 // Only an exercise (hasTests) earns a pass/fail verdict.
 export function formatResult(result, hasTests) {
   const lines = [];

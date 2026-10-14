@@ -1,8 +1,8 @@
 // Preload shim for running Stryker in a socket-restricted shell (e.g. Claude
 // Code's Seatbelt sandbox, which denies all socket binding). Stryker spins up a
 // loopback logging server; the bind fails with EPERM and the run aborts. The
-// logging channel is purely diagnostic — mutation results travel over Stryker's
-// separate worker IPC — so neutralizing the socket here does not change the
+// logging channel is purely diagnostic (mutation results travel over Stryker's
+// separate worker IPC), so neutralizing the socket here does not change the
 // score. Loaded via `--import` in the `mutation:sandbox` script only; a normal
 // terminal or CI should use plain `make mutation` (sandbox fully intact).
 import net from 'node:net';

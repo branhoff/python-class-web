@@ -27,7 +27,7 @@ HYGIENE_CMD       ?= for f in $(HYGIENE_FILES); do [ -f "$$f" ] || { echo "missi
 # CI runs these keylessly via OIDC/WIF; locally you need `tofu` + cloud ADC.
 TF_STATE_BUCKET ?= $(error set TF_STATE_BUCKET to the bootstrap state bucket)
 
-.PHONY: help setup doctor gcp-setup hooks pyodide smoke firestore-emulator test-integration test coverage mutation mutation-sandbox lint format format-check typecheck structure secrets hygiene deadcode check verify clean tofu-plan tofu-apply
+.PHONY: help setup doctor gcp-setup hooks pyodide smoke firestore-emulator test-integration test coverage mutation mutation-sandbox lint format format-check typecheck structure prose secrets hygiene deadcode check verify clean tofu-plan tofu-apply
 
 # ── Setup ─────────────────────────────────────────────────────────────────────
 doctor:
@@ -61,7 +61,7 @@ smoke:
 # check = the fast gate (runs on every commit). verify = check + the slower
 # structural, dead-code, secret and hygiene checks. Neither runs mutation (too
 # slow; CI/manual).
-check: typecheck lint format-check coverage
+check: typecheck lint format-check coverage prose
 
 verify: check structure deadcode secrets hygiene
 
@@ -86,6 +86,10 @@ coverage:
 
 structure:
 	$(STRUCTURE_CMD)
+
+# Reject AI-tell punctuation (em/en dashes, curly quotes) in authored prose.
+prose:
+	@./scripts/check-prose.sh
 
 deadcode:
 	$(DEADCODE_CMD)

@@ -1,7 +1,7 @@
 /* Browser auth shell: fetches the public config, renders a sign-in header, and
    exposes authHeader() so the runner can authenticate progress calls. When the
-   app is unconfigured (dev), there is no config and no sign-in UI — the server
-   bypasses auth there. Not imported by the TS graph. */
+   app is unconfigured (dev), there is no config and no sign-in UI, and the
+   server bypasses auth there. Not imported by the TS graph. */
 
 import { createAuth } from './auth.js';
 
