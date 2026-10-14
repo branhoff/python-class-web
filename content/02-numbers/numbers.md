@@ -4,8 +4,6 @@ title: Numbers and arithmetic
 section: 2
 ---
 
-# Numbers and arithmetic
-
 Python does math with the usual operators: `+`, `-`, `*`, `/`, and `**` for
 powers. Division with `/` always produces a decimal (a `float`).
 

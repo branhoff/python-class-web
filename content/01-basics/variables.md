@@ -4,8 +4,6 @@ title: Variables and printing
 section: 1
 ---
 
-# Variables and printing
-
 A **variable** is a name that holds a value. You create one with `=`, and you
 show a value with the `print` function.
 
