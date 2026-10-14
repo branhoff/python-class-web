@@ -1,7 +1,7 @@
 import { marked } from 'marked';
 import type { Cell, Lesson } from './types.ts';
 
-function escapeHtml(text: string): string {
+export function escapeHtml(text: string): string {
   return text
     .replaceAll('&', '&amp;')
     .replaceAll('<', '&lt;')
@@ -14,10 +14,12 @@ function renderCell(cell: Cell): string {
   const hints = cell.hints
     .map((hint, i) => `<details><summary>Hint ${i + 1}</summary>${marked.parse(hint)}</details>`)
     .join('\n');
-  return `<section class="cell ${cell.kind}" data-cell-id="${escapeHtml(cell.id)}">
+  const tests = cell.tests ? ` data-tests="${escapeHtml(cell.tests)}"` : '';
+  return `<section class="cell ${cell.kind}" data-cell-id="${escapeHtml(cell.id)}"${tests}>
 ${prompt}
 <textarea spellcheck="false" rows="${cell.starter.split('\n').length + 1}">${escapeHtml(cell.starter)}</textarea>
-<button type="button" disabled>Run (coming soon)</button>
+<button type="button" class="run" disabled>Loading Python…</button>
+<pre class="output" aria-live="polite" hidden></pre>
 ${hints}
 </section>`;
 }
@@ -39,11 +41,18 @@ pre, textarea { font-family: ui-monospace, monospace; background: #f5f5f5; paddi
 textarea { width: 100%; box-sizing: border-box; }
 .cell { border-left: 4px solid #4b8bbe; padding-left: 1rem; margin: 1.5rem 0; }
 .cell.exercise { border-left-color: #e0a800; }
+.output { white-space: pre-wrap; }
+.output.pass { border-left: 4px solid #2e7d32; }
+.output.fail { border-left: 4px solid #c62828; }
+button.run { cursor: pointer; }
+button.run:disabled { cursor: default; }
 </style>
 </head>
 <body>
 <h1>${escapeHtml(lesson.title)}</h1>
 ${body}
+<script src="/pyodide/pyodide.js"></script>
+<script type="module" src="/static/lesson-runner.js"></script>
 </body>
 </html>
 `;

@@ -46,3 +46,6 @@ dist/
 .env
 build/
 .stryker-tmp/
+
+# Self-hosted Pyodide runtime (fetched by scripts/fetch-pyodide.sh, not committed)
+vendor/

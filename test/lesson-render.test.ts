@@ -42,9 +42,24 @@ test('cell code is escaped inside a textarea sized to its lines', () => {
   assert.match(html, /<textarea spellcheck="false" rows="2">x = 1<\/textarea>/);
 });
 
-test('hidden tests and solutions are not rendered', () => {
+test('the solution is never shipped, and tests ride only in the data-tests attribute', () => {
   const html = renderLesson(lesson);
-  assert.doesNotMatch(html, /SECRET_TESTS|SECRET_SOLUTION/);
+  assert.doesNotMatch(html, /SECRET_SOLUTION/);
+  assert.match(html, /data-tests="assert SECRET_TESTS"/);
+  assert.equal(html.match(/SECRET_TESTS/g)?.length, 1);
+});
+
+test('exercise and sandbox cells both get an enabled-later Run button and output area', () => {
+  const html = renderLesson(lesson);
+  assert.match(html, /<button type="button" class="run" disabled>Loading Python…<\/button>/);
+  assert.match(html, /<pre class="output" aria-live="polite" hidden><\/pre>/);
+  assert.match(html, /data-cell-id="play">/);
+});
+
+test('the page loads Pyodide and the lesson runner', () => {
+  const html = renderLesson(lesson);
+  assert.match(html, /<script src="\/pyodide\/pyodide\.js"><\/script>/);
+  assert.match(html, /<script type="module" src="\/static\/lesson-runner\.js"><\/script>/);
 });
 
 test('a cell without a prompt renders no prompt block', () => {
