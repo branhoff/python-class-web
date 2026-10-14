@@ -18,7 +18,11 @@ function fakeFetch(routes: Record<string, Route>) {
   const calls: { url: string }[] = [];
   const fetch: FetchLike = async (url) => {
     calls.push({ url });
-    const key = url.includes('signInWithPassword') ? 'signIn' : 'refresh';
+    const key = url.includes('signInWithPassword')
+      ? 'signIn'
+      : url.includes('accounts:signUp')
+        ? 'signUp'
+        : 'refresh';
     const { ok = true, data } = routes[key] ?? { data: {} };
     return { ok, json: async () => data };
   };
@@ -51,7 +55,6 @@ test('a rejected sign-in throws the API error message and stays signed out', asy
   assert.equal(await auth.getToken(), null);
 });
 
-// A signed-in session whose token has just expired, so the next getToken refreshes.
 async function expiredSession(refresh: Route) {
   const storage = memoryStorage();
   let clock = 1000;
@@ -73,6 +76,31 @@ test('getToken refreshes an expired token', async () => {
 test('a failed refresh signs the user out', async () => {
   const { auth } = await expiredSession({ ok: false, data: {} });
   assert.equal(await auth.getToken(), null);
+  assert.equal(auth.currentUser(), null);
+});
+
+test('a successful sign-up stores the session like a sign-in', async () => {
+  const storage = memoryStorage();
+  const { fetch } = fakeFetch({
+    signUp: {
+      data: { email: 'new@b.com', idToken: 'tokN', refreshToken: 'rN', expiresIn: '3600' },
+    },
+  });
+  const auth = createAuth({ apiKey: 'K', fetch, storage, now: () => 1000 });
+
+  assert.equal(await auth.signUp('new@b.com', 'pw'), 'new@b.com');
+  assert.equal(auth.currentUser(), 'new@b.com');
+  assert.equal(await auth.getToken(), 'tokN');
+});
+
+test('a rejected sign-up throws the API error and stays signed out', async () => {
+  const storage = memoryStorage();
+  const { fetch } = fakeFetch({
+    signUp: { ok: false, data: { error: { message: 'EMAIL_EXISTS' } } },
+  });
+  const auth = createAuth({ apiKey: 'K', fetch, storage, now: () => 1000 });
+
+  await assert.rejects(() => auth.signUp('dupe@b.com', 'pw'), /EMAIL_EXISTS/);
   assert.equal(auth.currentUser(), null);
 });
 

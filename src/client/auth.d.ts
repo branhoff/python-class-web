@@ -18,6 +18,7 @@ export interface AuthDeps {
 
 export interface Auth {
   signIn(email: string, password: string): Promise<string>;
+  signUp(email: string, password: string): Promise<string>;
   getToken(): Promise<string | null>;
   signOut(): void;
   currentUser(): string | null;
