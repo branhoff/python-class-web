@@ -18,8 +18,10 @@
     "habits": "habit-hooks",
     "mutation": "stryker run",
     "mutation:sandbox": "NODE_OPTIONS=\"--import ./scripts/sandbox-net-shim.mjs\" stryker run",
-    "check": "npm run typecheck && npm run lint && npm run format:check && npm run coverage",
-    "prepare": "git config core.hooksPath .githooks || true"
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm run coverage && npm run lessons:check",
+    "prepare": "git config core.hooksPath .githooks || true",
+    "lessons:check": "node scripts/check-lessons.ts",
+    "lessons:build": "node scripts/build-lessons.ts"
   },
   "engines": {
     "node": ">=22.18"
@@ -28,7 +30,8 @@
     "@google-cloud/firestore": "^9.3.1",
     "@hono/node-server": "^1.13.7",
     "hono": "^4.6.14",
-    "jose": "^6.2.12"
+    "jose": "^6.2.12",
+    "marked": "^18.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

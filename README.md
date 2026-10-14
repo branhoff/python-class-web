@@ -32,9 +32,10 @@ src/
   app.ts                  Hono routes (health, progress events and summary)
   auth.ts                 Authenticator contract (header -> our user ID)
   identity-platform.ts    ID-token verifier implementing it
+  lessons/                lesson parser, checker, Python test harness, HTML renderer
   progress.ts             progress derived from the event log
   repository/             storage contract + backends (memory now, Firestore next)
 test/                     node:test suites; contract.ts is shared by all backends
-content/                  lessons (to come)
+content/                  lessons as markdown with runnable cells (see docs/LESSON_FORMAT.md)
 infra/                    OpenTofu (bootstrap/ run once; live root runs in CI)
 ```

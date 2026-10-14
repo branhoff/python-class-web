@@ -8,3 +8,8 @@ package-lock.json
 *.tf
 *.tfvars
 *.tfvars.example
+
+# Lesson text is authored prose; keep it exactly as written.
+content/
+build/
+.stryker-tmp/
