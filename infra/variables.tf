@@ -29,6 +29,12 @@ variable "max_instances" {
 
 variable "authorized_domains" {
   type        = list(string)
-  description = "Domains allowed to host Identity Platform sign-in. Add the Cloud Run or custom domain once known."
-  default     = ["localhost"]
+  description = "Domains allowed to host Identity Platform sign-in."
+  default     = ["localhost", "python-class-web-250740822837.us-west1.run.app"]
+}
+
+variable "identity_platform_api_key" {
+  type        = string
+  description = "Public Identity Platform browser API key, served to the client for sign-in. Not a secret (it ships to browsers by design); empty leaves sign-in off. Set via the IDENTITY_PLATFORM_API_KEY repo variable."
+  default     = ""
 }
