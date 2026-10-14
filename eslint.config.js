@@ -8,7 +8,7 @@ import prettier from 'eslint-config-prettier';
 const DATASTORE_SDKS = ['@google-cloud/firestore', 'firebase-admin', 'firebase-admin/*', 'pg'];
 
 export default tseslint.config(
-  { ignores: ['node_modules/', 'dist/', 'build/', 'reports/', '.stryker-tmp/'] },
+  { ignores: ['node_modules/', 'dist/', 'build/', 'reports/', '.stryker-tmp/', 'vendor/'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
@@ -27,6 +27,17 @@ export default tseslint.config(
           patterns: [{ group: DATASTORE_SDKS.filter((n) => n.endsWith('/*')) }],
         },
       ],
+    },
+  },
+  {
+    // Browser glue served to the page; not part of the Node/TS graph.
+    files: ['src/client/**/*.js'],
+    languageOptions: {
+      globals: {
+        document: 'readonly',
+        fetch: 'readonly',
+        loadPyodide: 'readonly',
+      },
     },
   },
   prettier,

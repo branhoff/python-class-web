@@ -1,8 +1,11 @@
 import { serve } from '@hono/node-server';
+import { serveStatic } from '@hono/node-server/serve-static';
+import { Hono } from 'hono';
 import { createRemoteJWKSet } from 'jose';
 import { createApp } from './app.ts';
 import type { Authenticator } from './auth.ts';
 import { createIdentityPlatformAuthenticator } from './identity-platform.ts';
+import { createLessonSite } from './lessons/site.ts';
 import { createFirestoreProgressRepository } from './repository/firestore.ts';
 import { MemoryProgressRepository } from './repository/memory.ts';
 import type { ProgressRepository } from './repository/repository.ts';
@@ -35,5 +38,10 @@ function wire(): { repository: ProgressRepository; authenticate: Authenticator }
   return { repository: new MemoryProgressRepository(), authenticate: async () => devUser };
 }
 
-serve({ fetch: createApp(wire()).fetch, port });
+const root = new Hono();
+root.route('/', createApp(wire()));
+root.route('/', createLessonSite());
+root.use('/pyodide/*', serveStatic({ root: process.env['PYODIDE_ROOT'] ?? './vendor' }));
+
+serve({ fetch: root.fetch, port });
 console.log(`listening on :${port}`);

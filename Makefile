@@ -27,7 +27,7 @@ HYGIENE_CMD       ?= for f in $(HYGIENE_FILES); do [ -f "$$f" ] || { echo "missi
 # CI runs these keylessly via OIDC/WIF; locally you need `tofu` + cloud ADC.
 TF_STATE_BUCKET ?= $(error set TF_STATE_BUCKET to the bootstrap state bucket)
 
-.PHONY: help setup doctor gcp-setup hooks firestore-emulator test-integration test coverage mutation mutation-sandbox lint format format-check typecheck structure secrets hygiene deadcode check verify clean tofu-plan tofu-apply
+.PHONY: help setup doctor gcp-setup hooks pyodide firestore-emulator test-integration test coverage mutation mutation-sandbox lint format format-check typecheck structure secrets hygiene deadcode check verify clean tofu-plan tofu-apply
 
 # ── Setup ─────────────────────────────────────────────────────────────────────
 doctor:
@@ -45,6 +45,11 @@ gcp-setup:
 hooks:
 	git config core.hooksPath .githooks
 	@echo "git hooks enabled (core.hooksPath -> .githooks)"
+
+# Fetch the self-hosted in-browser Python runtime into vendor/ (not committed).
+# Needed to run lessons locally; the Docker build does the same step.
+pyodide:
+	@./scripts/fetch-pyodide.sh vendor/pyodide
 
 # ── The gate ──────────────────────────────────────────────────────────────────
 # check = the fast gate (runs on every commit). verify = check + the slower

@@ -5,6 +5,7 @@ reports
 .githooks
 test
 scripts
+!scripts/fetch-pyodide.sh
 *.md
 .env
 .env.*

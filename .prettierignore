@@ -13,3 +13,4 @@ package-lock.json
 content/
 build/
 .stryker-tmp/
+vendor/
