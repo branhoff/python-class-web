@@ -43,3 +43,25 @@ test('an exercise passes a correct solution and fails a wrong one', async ({ pag
   await expect(output).toContainText('✗');
   await expect(output).toHaveClass(/fail/);
 });
+
+test('passing an exercise records progress and restores it on reload', async ({ page }) => {
+  await page.goto('/lessons/functions');
+  await waitForPythonReady(page);
+
+  const cell = page.locator('[data-cell-id="double-number"]');
+  await cell
+    .locator('textarea')
+    .fill('def double_num(x):\n    return x * 2\n\nprint(double_num(5))');
+  await cell.locator('button.run').click();
+  await expect(cell.locator('.output')).toContainText('✓ Passed');
+  await expect(cell).toHaveClass(/completed/);
+  await expect(cell.locator('.badge')).toHaveText('✓ completed');
+
+  const summary = await page.request.get('/progress/summary');
+  expect(summary.ok()).toBeTruthy();
+  expect((await summary.json()).completedCells).toContain('double-number');
+
+  await page.reload();
+  await waitForPythonReady(page);
+  await expect(page.locator('[data-cell-id="double-number"]')).toHaveClass(/completed/);
+});
