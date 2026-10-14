@@ -52,6 +52,10 @@ test('cell ids must be fully made of allowed characters', () => {
   rejects(`${HEADER}:::cell id=bad_id\n:::\n`, 6, /needs an id/);
 });
 
+test('a cell attribute with a second = is rejected, not silently truncated', () => {
+  rejects(`${HEADER}:::cell id=a=b\n:::\n`, 6, /bad cell attribute "id=a=b"/);
+});
+
 test('multi-line starter, tests and solution keep their line breaks', () => {
   const [cell] = cellsOf(
     `${HEADER}:::cell id=a kind=exercise\n\`\`\`python starter\na\nb\n\`\`\`\n\`\`\`python tests\nc\nd\n\`\`\`\n\`\`\`python solution\ne\nf\n\`\`\`\n:::\n`,

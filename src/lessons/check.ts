@@ -14,7 +14,9 @@ export function checkLesson(lesson: Lesson, python: PythonRunner): string[] {
 
     const solved = python.exercise(block.solution!, block.tests!);
     if (!solved.ok) {
-      problems.push(`${where}: the solution fails its own tests: ${solved.message}`);
+      const reason =
+        solved.stage === 'code' ? 'the solution has an error' : 'the solution fails its own tests';
+      problems.push(`${where}: ${reason}: ${solved.message}`);
     }
     if (python.exercise(block.starter, block.tests!).ok) {
       problems.push(`${where}: the starter already passes the tests, so the exercise is trivial`);

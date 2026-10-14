@@ -53,3 +53,14 @@ test('learner code that raises SystemExit is contained', () => {
   assert.equal(result.ok, false);
   assert.equal(result.stage, 'code');
 });
+
+test('a print inside the tests block does not corrupt the result protocol', () => {
+  const result = pythonRunner.exercise('x = 1', 'print("noise")\nassert x == 1');
+  assert.deepEqual(result, { ok: true, stdout: '' });
+});
+
+test('output larger than the default spawn buffer is still returned', () => {
+  const result = pythonRunner.exercise('print("x" * 1_300_000)', 'assert True');
+  assert.equal(result.ok, true);
+  assert.equal(result.stdout, 'x'.repeat(1_300_000) + '\n');
+});

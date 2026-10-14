@@ -20,6 +20,7 @@ function callHarness(request: object): RunResult {
   const child = spawnSync(interpreter, ['-I', HARNESS], {
     input: JSON.stringify(request),
     timeout: 10_000,
+    maxBuffer: 16 * 1024 * 1024,
   });
   if (child.error || child.status !== 0) {
     throw new Error(`python harness failed: ${child.error?.message ?? child.stderr.toString()}`);
