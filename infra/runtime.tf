@@ -41,6 +41,15 @@ resource "google_cloud_run_v2_service" "app" {
         name  = "GCP_PROJECT"
         value = var.project_id
       }
+
+      # Public browser key, not a secret; absent key leaves sign-in off.
+      dynamic "env" {
+        for_each = var.identity_platform_api_key != "" ? [1] : []
+        content {
+          name  = "IDENTITY_PLATFORM_API_KEY"
+          value = var.identity_platform_api_key
+        }
+      }
     }
   }
 

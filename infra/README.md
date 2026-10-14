@@ -48,6 +48,12 @@ about $0. The bootstrap budget (default $10) emails billing admins at 50/90/100%
 Only email/password is configured here. Google or GitHub sign-in needs an OAuth
 client secret, which would land in state, so configure those out of band.
 
+The client signs in with the project's **public** Identity Platform browser API
+key. Set it as the `IDENTITY_PLATFORM_API_KEY` repo variable (it ships to
+browsers, so it is not a secret); leaving it unset keeps sign-in off. The Cloud
+Run host must also be in `authorized_domains` or Identity Platform rejects the
+sign-in origin.
+
 ## Teardown
 
 Firestore has delete protection on. Set `delete_protection_state` to
