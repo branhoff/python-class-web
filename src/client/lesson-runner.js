@@ -103,6 +103,12 @@ async function main() {
   let pyodide;
   try {
     pyodide = await loadPyodide({ indexURL: '/pyodide/' });
+    pyodide.setStdin({
+      stdin: () => {
+        const line = globalThis.prompt('Program input:');
+        return line === null ? '' : line + '\n';
+      },
+    });
     pyodide.runPython(GLUE);
     pyodide.globals.set('harness_src', await (await fetch('/static/harness.py')).text());
     pyodide.runPython('_load(harness_src)');
