@@ -25,15 +25,20 @@ function render() {
     '<form id="signin">' +
     '<input name="email" type="email" placeholder="email" required> ' +
     '<input name="password" type="password" placeholder="password" required> ' +
-    '<button type="submit">Sign in</button> <span class="err"></span></form>';
-  document.getElementById('signin').addEventListener('submit', onSignIn);
+    '<button type="submit">Sign in</button> ' +
+    '<button type="button" id="create">Create account</button> ' +
+    '<span class="err"></span></form>';
+  const form = document.getElementById('signin');
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    authenticate(form, 'signIn');
+  });
+  document.getElementById('create').addEventListener('click', () => authenticate(form, 'signUp'));
 }
 
-async function onSignIn(event) {
-  event.preventDefault();
-  const form = event.target;
+async function authenticate(form, method) {
   try {
-    await auth.signIn(form.email.value, form.password.value);
+    await auth[method](form.email.value, form.password.value);
     location.reload();
   } catch (error) {
     form.querySelector('.err').textContent = String(error.message ?? error);

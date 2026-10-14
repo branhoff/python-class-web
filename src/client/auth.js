@@ -24,14 +24,16 @@ export function createAuth({ apiKey, fetch, storage, now = () => Date.now() }) {
     else storage.removeItem(KEY);
   }
 
-  async function signIn(email, password) {
-    const res = await fetch(`${IDENTITY}/accounts:signInWithPassword?key=${apiKey}`, {
+  // signUp and signInWithPassword share request + response shape; only the
+  // Identity Platform endpoint differs.
+  async function passwordAuth(endpoint, email, password) {
+    const res = await fetch(`${IDENTITY}/accounts:${endpoint}?key=${apiKey}`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ email, password, returnSecureToken: true }),
     });
     const data = await res.json();
-    if (!res.ok) throw new Error(data.error?.message ?? 'SIGN_IN_FAILED');
+    if (!res.ok) throw new Error(data.error?.message ?? 'AUTH_FAILED');
     session = {
       email: data.email,
       idToken: data.idToken,
@@ -40,6 +42,14 @@ export function createAuth({ apiKey, fetch, storage, now = () => Date.now() }) {
     };
     persist();
     return session.email;
+  }
+
+  function signIn(email, password) {
+    return passwordAuth('signInWithPassword', email, password);
+  }
+
+  function signUp(email, password) {
+    return passwordAuth('signUp', email, password);
   }
 
   async function getToken() {
@@ -74,5 +84,5 @@ export function createAuth({ apiKey, fetch, storage, now = () => Date.now() }) {
     return session ? session.email : null;
   }
 
-  return { signIn, getToken, signOut, currentUser };
+  return { signIn, signUp, getToken, signOut, currentUser };
 }
