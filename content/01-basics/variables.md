@@ -15,7 +15,7 @@ print(greeting, name)
 ```
 :::
 
-Run the cell above — `print` writes its arguments separated by spaces. Try
+Run the cell above. `print` writes its arguments separated by spaces. Try
 changing `name` and running it again.
 
 ## Exercises
@@ -28,7 +28,9 @@ changing `name` and running it again.
 ```
 
 ```python tests
-assert stdout.strip() == "25", f"Expected your program to print 25, but it printed {stdout.strip()!r}."
+assert "age" in dir(), "Create a variable named age."
+assert age == 25, f"age should be 25, but it is {age!r}."
+assert stdout.strip() == "25", f"Your program should print 25, but it printed {stdout.strip()!r}."
 ```
 
 ```python solution
@@ -50,7 +52,10 @@ print them on one line separated by a space, like `Grace Hopper`.
 ```
 
 ```python tests
-assert stdout.strip() == "Grace Hopper", f"Expected 'Grace Hopper', but got {stdout.strip()!r}."
+assert "first" in dir() and "last" in dir(), "Create variables named first and last."
+assert first == "Grace", f"first should be 'Grace', but it is {first!r}."
+assert last == "Hopper", f"last should be 'Hopper', but it is {last!r}."
+assert stdout.strip() == "Grace Hopper", f"Your program should print 'Grace Hopper', but it printed {stdout.strip()!r}."
 ```
 
 ```python solution

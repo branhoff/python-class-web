@@ -1,4 +1,4 @@
-/* Identity Platform email/password auth over its REST API — no SDK dependency.
+/* Identity Platform email/password auth over its REST API, no SDK dependency.
    Pure w.r.t. injected deps (fetch, storage, now) so it is unit-tested in Node;
    the browser wires real fetch + localStorage. */
 
