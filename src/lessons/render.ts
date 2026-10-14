@@ -86,12 +86,14 @@ h2 { font-size: .85rem; margin-top: 2rem; }
 h3 { font-size: .7rem; }
 a { color: #1d2b53; }
 a:visited { color: #7e2553; }
-pre, textarea { font-family: 'Departure Mono', ui-monospace, monospace; background: #1d2b53; color: #fff1e8; padding: .75rem; border: 2px solid #000; border-radius: 0; font-size: 1rem; line-height: 1.4; }
-textarea { width: 100%; box-sizing: border-box; }
+pre, textarea, code { font-family: 'Departure Mono', ui-monospace, monospace; }
+pre, textarea { padding: .75rem; border: 2px solid #000; border-radius: 0; font-size: 1rem; line-height: 1.4; }
+pre { background: #fff1e8; color: #1a1a2e; }
+textarea { background: #1d2b53; color: #fff1e8; width: 100%; box-sizing: border-box; }
 .cell { border-left: 4px solid #29adff; padding-left: 1rem; margin: 1.5rem 0; }
 .cell.exercise { border-left-color: #ffa300; }
 .cell.completed { border-left-color: #00e436; }
-.output { white-space: pre-wrap; }
+.output { background: #5f574f; color: #fff1e8; white-space: pre-wrap; }
 .output.pass { border-color: #00e436; color: #00e436; }
 .output.fail { border-color: #ff004d; color: #ff004d; }
 button.run, .pager a { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .95rem; background: #1d2b53; color: #fff1e8; border: 2px solid #000; border-radius: 0; padding: .4rem .8rem; box-shadow: 3px 3px 0 #000; cursor: pointer; text-decoration: none; display: inline-block; }
