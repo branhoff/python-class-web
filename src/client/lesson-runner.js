@@ -32,13 +32,45 @@ def _run(code, tests):
     return json.dumps(_harness["run_exercise"](code, tests))
 `;
 
-function show(cell, result, hasTests) {
+function applyResult(cell, state, text) {
   const output = cell.querySelector('.output');
-  const { state, text } = formatResult(result, hasTests);
   output.hidden = false;
   output.classList.toggle('pass', state === 'pass');
   output.classList.toggle('fail', state === 'fail');
   output.textContent = text;
+}
+
+function markCompleted(cell) {
+  cell.classList.add('completed');
+  if (cell.querySelector('.badge')) return;
+  const badge = document.createElement('span');
+  badge.className = 'badge';
+  badge.textContent = '✓ completed';
+  cell.querySelector('button.run').after(badge);
+}
+
+// Best-effort: prod has no signed-in user yet (401), offline fails — neither
+// should break the lesson, so progress is fire-and-forget.
+function recordCompletion(cellId) {
+  fetch('/progress/events', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ cellId, kind: 'completed' }),
+  }).catch(() => {});
+}
+
+async function loadProgress() {
+  try {
+    const res = await fetch('/progress/summary');
+    if (!res.ok) return;
+    const summary = await res.json();
+    for (const id of summary.completedCells ?? []) {
+      const cell = document.querySelector(`[data-cell-id="${id}"]`);
+      if (cell) markCompleted(cell);
+    }
+  } catch {
+    // best-effort: no restored progress when unauthenticated or offline
+  }
 }
 
 function runCell(pyodide, button) {
@@ -52,7 +84,12 @@ function runCell(pyodide, button) {
   } catch (error) {
     result = { ok: false, message: String(error) };
   }
-  show(cell, result, hasTests);
+  const { state, text } = formatResult(result, hasTests);
+  applyResult(cell, state, text);
+  if (state === 'pass') {
+    markCompleted(cell);
+    recordCompletion(cell.dataset.cellId);
+  }
 }
 
 async function main() {
@@ -72,6 +109,7 @@ async function main() {
     button.textContent = 'Run';
     button.addEventListener('click', () => runCell(pyodide, button));
   }
+  await loadProgress();
 }
 
 if (typeof document !== 'undefined') main();

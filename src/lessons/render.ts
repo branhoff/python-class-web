@@ -46,6 +46,8 @@ textarea { width: 100%; box-sizing: border-box; }
 .output.fail { border-left: 4px solid #c62828; }
 button.run { cursor: pointer; }
 button.run:disabled { cursor: default; }
+.badge { color: #2e7d32; margin-left: .5rem; font-size: .9em; }
+.cell.completed { border-left-color: #2e7d32; }
 </style>
 </head>
 <body>
