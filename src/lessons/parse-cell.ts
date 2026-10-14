@@ -13,8 +13,9 @@ function isRole(word: string): word is Role {
 function parseAttributes(text: string, line: number): { id: string; kind: CellKind } {
   const attributes = new Map<string, string>();
   for (const token of text.split(/\s+/).filter(Boolean)) {
-    const [key, value] = token.split('=');
-    if ((key !== 'id' && key !== 'kind') || !value) {
+    const parts = token.split('=');
+    const [key, value] = parts;
+    if (parts.length !== 2 || (key !== 'id' && key !== 'kind') || !value) {
       throw new LessonError(`bad cell attribute "${token}" (use id=... kind=...)`, line);
     }
     attributes.set(key, value);

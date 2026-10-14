@@ -82,6 +82,15 @@ test('reports a solution that fails its own tests', () => {
   ]);
 });
 
+test('a solution that errors before its tests is labeled an error, not a test failure', () => {
+  const { python } = runner({
+    solved: { ok: false, stage: 'code', message: 'SyntaxError: bad (line 1)' },
+  });
+  assert.deepEqual(checkLesson(lessonWith(exercise), python), [
+    'demo/ex: the solution has an error: SyntaxError: bad (line 1)',
+  ]);
+});
+
 test('reports a starter that already passes', () => {
   const { python } = runner({ starter: pass });
   assert.deepEqual(checkLesson(lessonWith(exercise), python), [

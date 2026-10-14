@@ -23,7 +23,10 @@ def run_code(code, namespace):
 
 def run_tests(tests, namespace):
     try:
-        exec(compile(tests, "<tests>", "exec"), namespace)
+        # Discard any stdout the tests themselves print; only the JSON result
+        # may reach the harness's real stdout, which is the caller's protocol.
+        with contextlib.redirect_stdout(io.StringIO()):
+            exec(compile(tests, "<tests>", "exec"), namespace)
     except AssertionError as error:
         return str(error) or "A check failed."
     except BaseException as error:
