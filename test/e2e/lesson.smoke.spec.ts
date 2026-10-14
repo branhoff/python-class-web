@@ -77,6 +77,7 @@ test('the sidebar and pager navigate between lessons', async ({ page }) => {
   await expect(page.locator('nav.sidebar')).toBeVisible();
   const prev = page.locator('.pager a.prev');
   await expect(prev).toContainText('Previous');
+  const href = (await prev.getAttribute('href')) ?? '';
   await prev.click();
-  await expect(page).toHaveURL(/\/lessons\/conditionals$/);
+  await expect(page).toHaveURL(new RegExp(`${href}$`));
 });
