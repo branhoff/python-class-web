@@ -61,6 +61,24 @@ Notice that the `area` and `perimeter` methods have only the `self` parameter. T
 
 :::cell id=classes-demo3
 ```python starter
+class Rectangle:
+    """Represents a two-dimensional rectangle with methods to calculate its
+    area and perimeter."""
+
+    def __init__(self, width: float, height: float):
+        """Creates a Rectangle object with the specified width and height."""
+        self.width: float = width
+        self.height: float = height
+
+    def area(self) -> float:
+        """Returns the area of the rectangle."""
+        return self.width * self.height
+
+    def perimeter(self) -> float:
+        """Returns the perimeter of the rectangle."""
+        return 2 * self.width + 2 * self.height
+
+
 rect = Rectangle(2.5, 3)
 print("area = ", rect.area())
 print("perimeter = ", rect.perimeter())
@@ -114,6 +132,36 @@ Notice that for class names, instead of separating words with underscores ("snak
 
 :::cell id=classes-demo5
 ```python starter
+class BankAccount:
+    """Represents a bank account that the user can deposit money to and
+    withdraw money from."""
+
+    def __init__(self, account_ID: str, balance: float):
+        """Creates a bank account object with an account ID and balance."""
+        self._account_ID: str = account_ID
+        self._balance: float = balance
+
+    def get_account_ID(self) -> str:
+        """Returns the account ID."""
+        return self._account_ID
+
+    def set_account_ID(self, new_ID: str) -> None:
+        """Sets the account ID to a new value."""
+        self._account_ID = new_ID
+
+    def get_balance(self) -> float:
+        """Returns the current balance."""
+        return self._balance
+
+    def deposit(self, amount: float) -> None:
+        """Deposits the specified amount into the account."""
+        self._balance += amount
+
+    def withdraw(self, amount: float) -> None:
+        """Withdraws the specified amount from the account."""
+        self._balance -= amount
+
+
 account_1: BankAccount = BankAccount("235349", 730.29)
 print("account ID =", account_1.get_account_ID())
 account_1.set_account_ID("983341")

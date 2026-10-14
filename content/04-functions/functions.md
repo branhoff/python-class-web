@@ -29,7 +29,7 @@ When you make a function call that returns a value, make sure you don't accident
 
 ## Function definitions
 
-To define a function, you use the "def" keyword. For example, we could define a function that adds together three numbers as in the example below. Try calling the `sum_three` function below by typing `sum_three(-5, 189, 12)` underneath the `# Type here` comment and hit **&lt;Shift> + &lt;Enter>**
+To define a function, you use the "def" keyword. For example, we could define a function that adds together three numbers as in the example below. Try calling the `sum_three` function below by typing `print(sum_three(-5, 189, 12))` underneath the `# Type here` comment and hit **&lt;Shift> + &lt;Enter>**
 
 :::cell id=sum-three-try
 ```python starter
@@ -77,7 +77,20 @@ def print_choice_v2(num):
 
 :::cell id=print-choice-playground
 ```python starter
-# Try playing around with the function above here
+def print_choice_v1(num):
+    if num == 1:
+        print("one")
+        return   # immediately ends the function
+    print("not one")
+
+
+def print_choice_v2(num):
+    if num == 1:
+        print("one")
+    else:
+        print("not one")
+
+# Try calling the functions above here
 ```
 :::
 
@@ -89,6 +102,8 @@ The sum_three function could also be defined like this:
 ```python starter
 def sum(num_1, num_2, num_3):
     return num_1 + num_2 + num_3
+
+print(sum(-5, 189, 12))
 ```
 :::
 
@@ -269,6 +284,20 @@ So now if we try to run this program by calling it,
 
 :::cell id=stack-trace-call
 ```python starter
+def func_A() -> int:
+    num_A: int = -7
+    result_A: int = func_B(num_A)
+    return result_A
+
+def func_B(param_B: int) -> int:
+    num_B: int = 3
+    if param_B < 0:
+        func_C()
+    return param_B * num_B
+
+def func_C():
+    num_C = not_a_var
+
 func_A()
 ```
 :::

@@ -164,35 +164,34 @@ print(True)
 
 We can use the `type()` function to tell us what the type of a particular value
 is. Try these examples to find out the type of the values in the parentheses.
-Wrap each in `print()` if you want to see the result.
 
 :::cell id=print-and-types-demo13
 ```python starter
-type(4)
+print(type(4))
 ```
 :::
 
 :::cell id=print-and-types-demo14
 ```python starter
-type(4.0)
+print(type(4.0))
 ```
 :::
 
 :::cell id=print-and-types-demo15
 ```python starter
-type('4')
+print(type('4'))
 ```
 :::
 
 :::cell id=print-and-types-demo16
 ```python starter
-type(False)
+print(type(False))
 ```
 :::
 
 :::cell id=print-and-types-demo17
 ```python starter
-type("False")
+print(type("False"))
 ```
 :::
 

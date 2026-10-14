@@ -23,13 +23,25 @@ The first column has the keys and the second column has their associated values 
 
 :::cell id=dictionaries-demo2
 ```python starter
-state_capitals["Idaho"]
+state_capitals = {
+    "Washington" : "Olympia",
+    "Oregon"     : "Salem",
+    "Idaho"      : "Boise",
+    "Montana"    : "Helena"
+}
+print(state_capitals["Idaho"])
 ```
 :::
 
 :::cell id=dictionaries-demo3
 ```python starter
-state_capitals["Washington"]
+state_capitals = {
+    "Washington" : "Olympia",
+    "Oregon"     : "Salem",
+    "Idaho"      : "Boise",
+    "Montana"    : "Helena"
+}
+print(state_capitals["Washington"])
 ```
 :::
 
@@ -37,8 +49,14 @@ It's easy to add a new key-value pair:
 
 :::cell id=dictionaries-demo4
 ```python starter
+state_capitals = {
+    "Washington" : "Olympia",
+    "Oregon"     : "Salem",
+    "Idaho"      : "Boise",
+    "Montana"    : "Helena"
+}
 state_capitals["Florida"] = "Orlando"
-state_capitals["Florida"]
+print(state_capitals["Florida"])
 ```
 :::
 
@@ -46,8 +64,15 @@ Or to change an existing key-value pair:
 
 :::cell id=dictionaries-demo5
 ```python starter
+state_capitals = {
+    "Washington" : "Olympia",
+    "Oregon"     : "Salem",
+    "Idaho"      : "Boise",
+    "Montana"    : "Helena"
+}
+state_capitals["Florida"] = "Orlando"
 state_capitals["Florida"] = "Tallahassee"
-state_capitals["Florida"]
+print(state_capitals["Florida"])
 ```
 :::
 
@@ -55,8 +80,15 @@ You can delete an entry using `del`:
 
 :::cell id=dictionaries-demo6
 ```python starter
+state_capitals = {
+    "Washington" : "Olympia",
+    "Oregon"     : "Salem",
+    "Idaho"      : "Boise",
+    "Montana"    : "Helena"
+}
+state_capitals["Florida"] = "Tallahassee"
 del state_capitals["Florida"]
-state_capitals
+print(state_capitals)
 ```
 :::
 
@@ -64,6 +96,12 @@ If you print a dictionary, it will list all of its key-value pairs:
 
 :::cell id=dictionaries-demo7
 ```python starter
+state_capitals = {
+    "Washington" : "Olympia",
+    "Oregon"     : "Salem",
+    "Idaho"      : "Boise",
+    "Montana"    : "Helena"
+}
 print(state_capitals)
 ```
 :::
@@ -108,6 +146,12 @@ You can use `in` and `not in` to test whether a key is in a dictionary:
 
 :::cell id=dictionaries-demo10
 ```python starter
+capybara: dict[str, str | int] = {
+    "scientific name"   : "Hydrochoerus hydrochaeris",
+    "lifespan in years" : 10,
+    "classification"    : "rodent",
+    "size"              : "unusual"
+}
 print("classification" in capybara)
 print("genus" in capybara)
 ```
@@ -117,7 +161,13 @@ You can use `len` to get the number of key-value pairs in a dictionary:
 
 :::cell id=dictionaries-demo11
 ```python starter
-len(capybara)
+capybara: dict[str, str | int] = {
+    "scientific name"   : "Hydrochoerus hydrochaeris",
+    "lifespan in years" : 10,
+    "classification"    : "rodent",
+    "size"              : "unusual"
+}
+print(len(capybara))
 ```
 :::
 
@@ -125,6 +175,12 @@ You can use a for loop to iterate through a dictionary.
 
 :::cell id=dictionaries-demo12
 ```python starter
+capybara: dict[str, str | int] = {
+    "scientific name"   : "Hydrochoerus hydrochaeris",
+    "lifespan in years" : 10,
+    "classification"    : "rodent",
+    "size"              : "unusual"
+}
 attribute: str
 for attribute in capybara:
     print(attribute)
@@ -137,8 +193,14 @@ The `clear` method makes a dictionary empty:
 
 :::cell id=dictionaries-demo13
 ```python starter
+capybara: dict[str, str | int] = {
+    "scientific name"   : "Hydrochoerus hydrochaeris",
+    "lifespan in years" : 10,
+    "classification"    : "rodent",
+    "size"              : "unusual"
+}
 capybara.clear()
-len(capybara)
+print(len(capybara))
 ```
 :::
 

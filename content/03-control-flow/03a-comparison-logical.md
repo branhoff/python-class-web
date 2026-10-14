@@ -25,13 +25,13 @@ For example:
 
 :::cell id=comparison-logical-demo1
 ```python starter
-17 < 5 # False
+print(17 < 5)
 ```
 :::
 
 :::cell id=comparison-logical-demo2
 ```python starter
-3 != 12 # True
+print(3 != 12)
 ```
 :::
 
@@ -75,19 +75,19 @@ Each of these conditions is also either True or False.
 
 :::cell id=comparison-logical-demo3
 ```python starter
-17 >= 10 and 5 % 2 == 0   # True and False, which equals False
+print(17 >= 10 and 5 % 2 == 0)   # True and False, which equals False
 ```
 :::
 
 :::cell id=comparison-logical-demo4
 ```python starter
-17 >= 10 or 5 % 2 == 0    # True or False, which equals True
+print(17 >= 10 or 5 % 2 == 0)    # True or False, which equals True
 ```
 :::
 
 :::cell id=comparison-logical-demo5
 ```python starter
-not 17 >= 10              # not True, which equals False
+print(not 17 >= 10)              # not True, which equals False
 ```
 :::
 

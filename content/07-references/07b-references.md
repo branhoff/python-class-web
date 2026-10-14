@@ -8,6 +8,8 @@ section: 7
 
 Remember how variables refer to values, and how all values in Python are objects? It's possible for two or more variables to refer to the same object. We can tell whether this is the case by using the `is` operator.
 
+Each code box on this page runs on its own, with a fresh set of variables. Nothing you define in one box carries over to the next. That's why the boxes below repeat the variable definitions each time: so every box runs on its own and you can see exactly what it does.
+
 :::cell id=references-demo1
 ```python starter
 num_1: int = 1000
@@ -19,7 +21,9 @@ Test whether `num_1` and `num_2` are equal:
 
 :::cell id=references-demo2
 ```python starter
-num_1 == num_2
+num_1: int = 1000
+num_2: int = 1000
+print(num_1 == num_2)
 ```
 :::
 
@@ -27,7 +31,9 @@ Test whether `num_1` and `num_2` refer to the same object:
 
 :::cell id=references-demo3
 ```python starter
-num_1 is num_2
+num_1: int = 1000
+num_2: int = 1000
+print(num_1 is num_2)
 ```
 :::
 
@@ -35,8 +41,10 @@ Now make `num_1` and `num_2` refer to the same object and check again:
 
 :::cell id=references-demo4
 ```python starter
+num_1: int = 1000
+num_2: int = 1000
 num_1 = num_2
-num_1 is num_2
+print(num_1 is num_2)
 ```
 :::
 
@@ -44,16 +52,20 @@ Make `num_2` refer to a different object:
 
 :::cell id=references-demo5
 ```python starter
+num_1: int = 1000
+num_2: int = 1000
+num_1 = num_2
 num_2 = -89
-num_1 is num_2
+print(num_1)
+print(num_1 is num_2)
 ```
 :::
 
-The first line creates an object for the value `1000` and **binds** the variable `num_1` to it. The second line creates another object for the value `1000` and binds the variable `num_2` to it. Next we use the `==` operator to test whether `num_1` and `num_2` refer to values that are equal, which they do.
+Declaring `num_1` and `num_2` creates an object for the value `1000` and **binds** each variable to it. (They are two separate `1000` objects.) The `==` operator tests whether `num_1` and `num_2` refer to values that are equal, which they do.
 
-Then we use the `is` operator to test whether `num_1` and `num_2` refer to (are bound to) the same object, which they aren't. Next we assign `num_2` to `num_1`. This **rebinds** `num_1`, so that now it refers to the same object that `num_2` does. When we test again whether `num_1` and `num_2` refer to the same object, we see that they now do.
+The `is` operator tests whether `num_1` and `num_2` refer to (are bound to) the same object, which at first they don't. When we assign `num_1 = num_2`, this **rebinds** `num_1` so that it refers to the same object `num_2` does, and testing with `is` again shows that they now match.
 
-Next we have another assignment statement, which creates an object for the value `-89` and rebinds `num_2` to refer to that object. Now we see that `num_1` and `num_2` no longer refer to the same object. Assigning `-89` to `num_2` did not change the object for the value `1000`, which `num_1` still refers to. We cannot change the value of an integer object, because integers are immutable, but we can rebind a variable to a different object.
+The last box has one more assignment, `num_2 = -89`, which creates an object for the value `-89` and rebinds `num_2` to it. Now `num_1` and `num_2` no longer refer to the same object. Assigning `-89` to `num_2` did not change the object for the value `1000`, which `num_1` still refers to (notice `num_1` still prints `1000`). We cannot change the value of an integer object, because integers are immutable, but we can rebind a variable to a different object.
 
 You can think of a variable as like a sticky note that you can stick to different objects. You can have multiple sticky notes attached (bound) to the same object, and you can take a sticky note off one object and attach it to another object, even an object of another type.
 
@@ -72,7 +84,9 @@ Test whether `num_list_1` and `num_list_2` are equal:
 
 :::cell id=references-demo7
 ```python starter
-num_list_1 == num_list_2
+num_list_1: list[int] = [2, 9, 7]
+num_list_2: list[int] = [2, 9, 7]
+print(num_list_1 == num_list_2)
 ```
 :::
 
@@ -80,8 +94,10 @@ Now make them refer to the same object:
 
 :::cell id=references-demo8
 ```python starter
+num_list_1: list[int] = [2, 9, 7]
+num_list_2: list[int] = [2, 9, 7]
 num_list_1 = num_list_2
-num_list_1 is num_list_2
+print(num_list_1 is num_list_2)
 ```
 :::
 
@@ -89,8 +105,11 @@ Make `num_list_2` refer to a different object:
 
 :::cell id=references-demo9
 ```python starter
+num_list_1: list[int] = [2, 9, 7]
+num_list_2: list[int] = [2, 9, 7]
+num_list_1 = num_list_2
 num_list_2 = [23, -1, 19]
-num_list_1 is num_list_2
+print(num_list_1 is num_list_2)
 ```
 :::
 
@@ -100,29 +119,31 @@ Make `num_list_1` and `num_list_2` refer to the same object:
 
 :::cell id=references-demo10
 ```python starter
-num_list_1 = [3, 17, 12]
+num_list_1: list[int] = [3, 17, 12]
 num_list_2 = num_list_1
-num_list_1 is num_list_2
+print(num_list_1 is num_list_2)
 ```
 :::
 
-Change the object that `num_list_1` and `num_list_2` both refer to:
+Now change the object that `num_list_1` and `num_list_2` both refer to, and look at `num_list_1`:
 
 :::cell id=references-demo11
 ```python starter
+num_list_1: list[int] = [3, 17, 12]
+num_list_2 = num_list_1
 num_list_2[0] = 99
+print(num_list_1)
 ```
 :::
+
+They still refer to the same object:
 
 :::cell id=references-demo12
 ```python starter
-num_list_1
-```
-:::
-
-:::cell id=references-demo13
-```python starter
-num_list_1 is num_list_2
+num_list_1: list[int] = [3, 17, 12]
+num_list_2 = num_list_1
+num_list_2[0] = 99
+print(num_list_1 is num_list_2)
 ```
 :::
 
@@ -134,7 +155,7 @@ In this example, changing `num_list_2` does **not** result in creating a new obj
 
 This helps explain what happens when a function "changes" one of its parameters. Let's revisit a couple of examples we've seen previously:
 
-:::cell id=references-demo14
+:::cell id=references-demo13
 ```python starter
 # first example
 def square_val(val: int) -> None:
@@ -166,39 +187,51 @@ So if you need for a function to mutate a value, then that value needs to be of 
 
 We can make a copy of a list like this:
 
-:::cell id=references-demo15
+:::cell id=references-demo14
 ```python starter
 original_list: list[int | list[int]] = [1, [1, 2, 3]]
 copied_list: list[int | list[int]] = list(original_list)
 ```
 :::
 
-`copied_list` now holds a copy of `original_list`, but it's just a **shallow copy**.
+`copied_list` now holds a copy of `original_list`, but it's just a **shallow copy**. The outer list is a separate object:
+
+:::cell id=references-demo15
+```python starter
+original_list: list[int | list[int]] = [1, [1, 2, 3]]
+copied_list: list[int | list[int]] = list(original_list)
+print(original_list is copied_list)
+```
+:::
+
+But the elements are shared. The first element (the int) is the same object in both:
 
 :::cell id=references-demo16
 ```python starter
-original_list is copied_list
+original_list: list[int | list[int]] = [1, [1, 2, 3]]
+copied_list: list[int | list[int]] = list(original_list)
+print(original_list[0] is copied_list[0])
 ```
 :::
+
+And so is the second element (the inner list):
 
 :::cell id=references-demo17
 ```python starter
-original_list[0] is copied_list[0]
-```
-:::
-
-:::cell id=references-demo18
-```python starter
-original_list[1] is copied_list[1]
+original_list: list[int | list[int]] = [1, [1, 2, 3]]
+copied_list: list[int | list[int]] = list(original_list)
+print(original_list[1] is copied_list[1])
 ```
 :::
 
 We can see that although `original_list` and `copied_list` refer to different objects, the elements of `original_list` and the elements of `copied_list` refer to the same objects. If you mutate the list referenced by `original_list[1]`, and then print `copied_list`:
 
-:::cell id=references-demo19
+:::cell id=references-demo18
 ```python starter
+original_list: list[int | list[int]] = [1, [1, 2, 3]]
+copied_list: list[int | list[int]] = list(original_list)
 original_list[1][0] = 99
-copied_list
+print(copied_list)
 ```
 :::
 
@@ -210,23 +243,27 @@ A **deep copy**, however, would be an entirely separate copy (no shared sub-elem
 
 > Diagram: `original_list` and `copied_list` are separate outer list objects, and this time their inner lists are also separate objects. Every slot in `copied_list` points at its own copy, so there are no shared arrows between the two structures at any level. Mutating one structure cannot affect the other.
 
-We could have achieved a deep copy by also making a copy of any sublists (or other mutable sub-elements):
+We could have achieved a deep copy by also making a copy of any sublists (or other mutable sub-elements). Here the inner lists end up as separate objects:
 
-:::cell id=references-demo20
+:::cell id=references-demo19
 ```python starter
+original_list: list[int | list[int]] = [1, [1, 2, 3]]
 copied_list = list(original_list)
 copied_list[1] = list(original_list[1])
+print(original_list[1] is copied_list[1])
 ```
 :::
 
 There is a Python module that can be used to make deep copies, but we won't cover that here.
 
-Continuing with our shallow copy example, if you enter the following:
+Continuing with our shallow copy example, if you rebind `original_list[0]` and then print `copied_list`:
 
-:::cell id=references-demo21
+:::cell id=references-demo20
 ```python starter
+original_list: list[int | list[int]] = [1, [1, 2, 3]]
+copied_list: list[int | list[int]] = list(original_list)
 original_list[0] = 5
-copied_list
+print(copied_list)
 ```
 :::
 
@@ -234,33 +271,34 @@ You'll see that `copied_list` hasn't changed. That's because we're not mutating 
 
 > Diagram: starting from the shallow copy, `original_list[0]` now has an arrow pointing at a new int object `5`, while `copied_list[0]` still points at the old int object `1`. The inner list in the second slot is still shared by both outer lists. Rebinding one slot of `original_list` does not touch `copied_list`.
 
-We were able to mutate the object referred to by `original_list[1]` because it's a list, and lists are mutable. If we wanted, we could rebind `original_list[1]`, like this:
+We were able to mutate the object referred to by `original_list[1]` because it's a list, and lists are mutable. If we wanted, we could rebind `original_list[1]` instead, and `copied_list` wouldn't be affected, because we're not mutating a shared list, but instead rebinding `original_list[1]` to a new list object:
 
-:::cell id=references-demo22
+:::cell id=references-demo21
 ```python starter
+original_list: list[int | list[int]] = [1, [1, 2, 3]]
+copied_list: list[int | list[int]] = list(original_list)
 original_list[1] = [2, 4, 6, 8]
+print(copied_list)
 ```
 :::
-
-In which case `copied_list` wouldn't be affected, because we're not mutating a shared list, but instead rebinding `original_list[1]` to a new list object.
 
 ## Automatic Sharing
 
 Sometimes Python is able to figure out that it can save memory by automatically making variables refer to the same object.
 
-:::cell id=references-demo23
+:::cell id=references-demo22
 ```python starter
-num_1 = 5
-num_2 = 5
-num_1 is num_2
+num_1: int = 5
+num_2: int = 5
+print(num_1 is num_2)
 ```
 :::
 
-:::cell id=references-demo24
+:::cell id=references-demo23
 ```python starter
-name_1 = "Betty"
-name_2 = "Betty"
-name_1 is name_2
+name_1: str = "Betty"
+name_2: str = "Betty"
+print(name_1 is name_2)
 ```
 :::
 

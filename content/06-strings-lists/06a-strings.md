@@ -69,11 +69,6 @@ We can get the character at a certain position, or **index**, in a string by ind
 :::cell id=06a-strings-demo6
 ```python starter
 gem: str = "onyx"
-dino: str = "velociraptor"
-fruit: str = "strawberry"
-hero: str = "spiderman"
-poem: str = "mary had a little lamb"
-
 print(gem[2])
 print(gem[0])
 print(gem[len(gem) - 1])
@@ -84,6 +79,7 @@ We can also use negative indices, in which case we count from the back of the st
 
 :::cell id=06a-strings-demo7
 ```python starter
+dino: str = "velociraptor"
 print(dino[-1])
 print(dino[-12])
 ```
@@ -95,6 +91,7 @@ Slicing a string gives you back part of that string, based on the indices for th
 
 :::cell id=06a-strings-demo8
 ```python starter
+fruit: str = "strawberry"
 print(fruit[2:5])
 ```
 :::
@@ -103,6 +100,7 @@ Notice that the substring you get back starts at the first index, and goes up to
 
 :::cell id=06a-strings-demo9
 ```python starter
+hero: str = "spiderman"
 print(hero[:6])
 print(hero[6:])
 ```
@@ -112,6 +110,7 @@ The character at index 6 (the seventh character) doesn't get included in the fir
 
 :::cell id=06a-strings-demo10
 ```python starter
+poem: str = "mary had a little lamb"
 print(poem[::-1])
 ```
 :::
