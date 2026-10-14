@@ -4,8 +4,6 @@ title: Making decisions with if
 section: 3
 ---
 
-# Making decisions with `if`
-
 An `if` statement runs code only when a condition is `True`. Add `elif` for more
 cases and `else` for everything left over. Conditions use comparisons like `==`,
 `<`, `>`, and `>=`.

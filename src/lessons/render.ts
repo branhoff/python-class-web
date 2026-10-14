@@ -77,24 +77,36 @@ ${body}`;
 <meta charset="utf-8">
 <title>${escapeHtml(lesson.title)}</title>
 <style>
-body { font-family: system-ui, sans-serif; max-width: 64rem; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
-pre, textarea { font-family: ui-monospace, monospace; background: #f5f5f5; padding: .75rem; border-radius: 6px; }
+@font-face { font-family: 'Departure Mono'; src: url('/static/fonts/departure-mono.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Press Start 2P'; src: url('/static/fonts/press-start-2p.woff2') format('woff2'); font-display: swap; }
+body { font-family: system-ui, sans-serif; max-width: 64rem; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; color: #1a1a2e; background: #f0f0f4; }
+h1, h2, h3 { font-family: 'Press Start 2P', system-ui, sans-serif; color: #1d2b53; line-height: 1.7; }
+h1 { font-size: 1.15rem; letter-spacing: 1px; }
+h2 { font-size: .85rem; margin-top: 2rem; }
+h3 { font-size: .7rem; }
+a { color: #1d2b53; }
+a:visited { color: #7e2553; }
+pre, textarea { font-family: 'Departure Mono', ui-monospace, monospace; background: #1d2b53; color: #fff1e8; padding: .75rem; border: 2px solid #000; border-radius: 0; font-size: 1rem; line-height: 1.4; }
 textarea { width: 100%; box-sizing: border-box; }
-.cell { border-left: 4px solid #4b8bbe; padding-left: 1rem; margin: 1.5rem 0; }
-.cell.exercise { border-left-color: #e0a800; }
+.cell { border-left: 4px solid #29adff; padding-left: 1rem; margin: 1.5rem 0; }
+.cell.exercise { border-left-color: #ffa300; }
+.cell.completed { border-left-color: #00e436; }
 .output { white-space: pre-wrap; }
-.output.pass { border-left: 4px solid #2e7d32; }
-.output.fail { border-left: 4px solid #c62828; }
-button.run { cursor: pointer; }
-button.run:disabled { cursor: default; }
-.badge { color: #2e7d32; margin-left: .5rem; font-size: .9em; }
-.cell.completed { border-left-color: #2e7d32; }
-#auth { font-size: .9em; margin-bottom: 1rem; }
-#auth .err { color: #c62828; margin-left: .5rem; }
+.output.pass { border-color: #00e436; color: #00e436; }
+.output.fail { border-color: #ff004d; color: #ff004d; }
+button.run, .pager a { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .95rem; background: #1d2b53; color: #fff1e8; border: 2px solid #000; border-radius: 0; padding: .4rem .8rem; box-shadow: 3px 3px 0 #000; cursor: pointer; text-decoration: none; display: inline-block; }
+button.run:active, .pager a:active { box-shadow: 1px 1px 0 #000; transform: translate(2px, 2px); }
+button.run:disabled { background: #c2c3c7; color: #5f574f; box-shadow: 3px 3px 0 #5f574f; cursor: default; }
+.badge { font-family: 'Departure Mono', ui-monospace, monospace; color: #008751; margin-left: .5rem; font-size: .9em; }
+#auth { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .9em; margin-bottom: 1rem; }
+#auth .err { color: #ff004d; margin-left: .5rem; }
 .layout { display: flex; gap: 2rem; align-items: flex-start; }
-.sidebar { flex: 0 0 13rem; position: sticky; top: 1rem; font-size: .9em; }
-.sidebar ul { list-style: none; padding-left: .75rem; margin: .25rem 0; }
-.sidebar a[aria-current="page"] { font-weight: 600; }
+.sidebar { flex: 0 0 14rem; position: sticky; top: 1rem; background: #fff; border: 2px solid #1d2b53; padding: .75rem; }
+.sidebar summary { font-family: 'Press Start 2P', system-ui, sans-serif; font-size: .6rem; line-height: 1.6; cursor: pointer; margin: .4rem 0; }
+.sidebar ul { list-style: none; padding-left: .75rem; margin: .25rem 0 .75rem; }
+.sidebar li { margin: .3rem 0; }
+.sidebar a { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .95rem; text-decoration: none; }
+.sidebar a[aria-current="page"] { color: #7e2553; font-weight: 700; }
 main { flex: 1 1 auto; min-width: 0; }
 .pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3rem; }
 </style>

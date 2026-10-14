@@ -16,3 +16,4 @@ build/
 vendor/
 test-results/
 playwright-report/
+src/client/fonts/
