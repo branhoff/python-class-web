@@ -6,6 +6,10 @@ name: CI
 # `verify` check red when coverage drops — that is GitHub telling you the tests
 # are too thin. `integration` runs the shared repository contract against the
 # Firestore emulator, so the real backend cannot drift from the interface.
+#
+# Mutation testing is intentionally NOT here: it is slow and would gate every PR
+# and (via deploy's workflow_run) every release. Run it locally with
+# `make mutation`, or on demand via the separate "Mutation" workflow.
 
 on:
   push:
@@ -28,14 +32,6 @@ jobs:
       - uses: ./.github/actions/setup-node-deps
       - name: Full gate (types, lint, format, tests + coverage, structure)
         run: make verify
-
-  mutation:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: ./.github/actions/setup-node-deps
-      - name: Grade test quality (break threshold enforced)
-        run: make mutation
 
   integration:
     runs-on: ubuntu-latest

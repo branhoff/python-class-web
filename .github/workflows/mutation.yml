@@ -1,0 +1,18 @@
+name: Mutation
+
+# Mutation testing grades test *quality* by injecting bugs and checking the
+# suite notices. It is slow and would gate every PR and release if it lived in
+# CI, so it runs on demand only — trigger it from the Actions tab (or the gh
+# CLI) when landing substantial logic. Day to day, run `make mutation` locally.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  mutation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-node-deps
+      - name: Grade test quality (break threshold enforced)
+        run: make mutation
