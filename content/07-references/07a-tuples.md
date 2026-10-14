@@ -78,7 +78,9 @@ The big important difference between lists and tuples is that lists are mutable,
 
 :::cell id=tuples-demo4
 ```python starter
+numbers: list[int] = [3, 2, 1]
 numbers.sort()
+print(numbers)
 ```
 :::
 
@@ -100,8 +102,9 @@ We can assign a new value to an existing element of a list like this:
 
 :::cell id=tuples-demo6
 ```python starter
+members: list[str] = ["Tommy", "Johnny", "Joey", "Dee Dee"]
 members[0] = "Marky"  # using indexing to mutate a list
-members
+print(members)
 ```
 :::
 
@@ -109,8 +112,9 @@ We can also put a slice on the left side of the assignment. In this case the val
 
 :::cell id=tuples-demo7
 ```python starter
+birds: list[str] = ["starling", "blue jay", "mockingbird", "ostrich", "cuckoo"]
 birds[1:3] = ["robin", "chickadee"]  # using slicing to mutate a list
-birds
+print(birds)
 ```
 :::
 
@@ -118,29 +122,33 @@ The number of elements being assigned can be different than the size of the slic
 
 :::cell id=tuples-demo8
 ```python starter
+birds: list[str] = ["starling", "robin", "chickadee", "ostrich", "cuckoo"]
 birds[1:3] = ["hummingbird", "wren", "emu", "penguin"]
-birds
+print(birds)
 ```
 :::
 
 :::cell id=tuples-demo9
 ```python starter
+birds: list[str] = ["starling", "hummingbird", "wren", "emu", "penguin", "ostrich", "cuckoo"]
 birds[3:6] = ["cassowary"]
-birds
+print(birds)
 ```
 :::
 
 :::cell id=tuples-demo10
 ```python starter
+birds: list[str] = ["starling", "hummingbird", "wren", "cassowary", "cuckoo"]
 birds[1:1] = ["kiwi", "big bird"]
-birds
+print(birds)
 ```
 :::
 
 :::cell id=tuples-demo11
 ```python starter
+birds: list[str] = ["starling", "kiwi", "big bird", "hummingbird", "wren", "cassowary", "cuckoo"]
 birds[2:3] = []
-birds
+print(birds)
 ```
 :::
 
@@ -150,8 +158,11 @@ The slice `birds[:]` would create a slice of the entire list, that is, it would 
 
 :::cell id=tuples-demo12
 ```python starter
+birds: list[str] = ["starling", "kiwi", "hummingbird", "wren", "cassowary", "cuckoo"]
 birds_copy_1: list[str] = birds[:]
 birds_copy_2: list[str] = list(birds)
+print(birds_copy_1)
+print(birds_copy_2)
 ```
 :::
 
@@ -164,14 +175,15 @@ vocab_words.append("usagi")
 vocab_words.append("inazuma")
 vocab_words.append("hebi")
 vocab_words.append("kitsune")
-vocab_words
+print(vocab_words)
 ```
 :::
 
 :::cell id=tuples-demo14
 ```python starter
+vocab_words: list[str] = ["usagi", "inazuma", "hebi", "kitsune"]
 del vocab_words[2]
-vocab_words
+print(vocab_words)
 ```
 :::
 

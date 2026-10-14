@@ -24,6 +24,7 @@ Or you can do this:
 :::cell id=input-and-casting-demo2
 ```python starter
 name: str = input("Please enter your name: ")
+print("Hi", name)
 # make sure you actually enter something or this cell will keep running
 ```
 :::
@@ -39,6 +40,8 @@ you need to cast the string to an int or a float.
 ```python starter
 age: int = int(input("Please enter your age: "))
 height_in_meters: float = float(input("Please enter your height in meters: "))
+print(age)
+print(height_in_meters)
 # make sure you actually enter something or this cell will keep running
 ```
 :::
@@ -52,6 +55,8 @@ those functions on separate lines if we want:
 ```python starter
 str_age = input("Please enter your age: ") # str_age will refer to a string value
 int_age = int(str_age) # int_age will refer to an int value
+print(str_age)
+print(int_age)
 # make sure you actually enter something or this cell will keep running
 ```
 :::
@@ -75,7 +80,7 @@ You can also cast an int to a float:
 
 :::cell id=input-and-casting-demo6
 ```python starter
-float(18)
+print(float(18))
 ```
 :::
 
@@ -83,7 +88,7 @@ Or a float to an int, which truncates everything after the decimal point:
 
 :::cell id=input-and-casting-demo7
 ```python starter
-int(3.25)
+print(int(3.25))
 ```
 :::
 
@@ -91,13 +96,13 @@ You can also cast values to strings with `str()`.
 
 :::cell id=input-and-casting-demo8
 ```python starter
-str(-9.4)
+print(str(-9.4))
 ```
 :::
 
 :::cell id=input-and-casting-demo9
 ```python starter
-str(43)
+print(str(43))
 ```
 :::
 

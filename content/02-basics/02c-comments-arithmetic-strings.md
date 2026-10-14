@@ -34,8 +34,10 @@ rounded down result of division.
 
 :::cell id=comments-arithmetic-strings-demo2
 ```python starter
-floor_1: int = 7 // 2 # 3
-floor_2: int = -7 // 2 # -4
+floor_1: int = 7 // 2
+floor_2: int = -7 // 2
+print(floor_1)
+print(floor_2)
 ```
 :::
 
@@ -48,8 +50,10 @@ division.
 
 :::cell id=comments-arithmetic-strings-demo3
 ```python starter
-remainder_1: int = 14 % 3 # 2
-remainder_2: int = 3 % 5 # 3
+remainder_1: int = 14 % 3
+remainder_2: int = 3 % 5
+print(remainder_1)
+print(remainder_2)
 ```
 :::
 
@@ -57,8 +61,10 @@ Exponentiation is done with the `**` symbol.
 
 :::cell id=comments-arithmetic-strings-demo4
 ```python starter
-power_1: int = 3 ** 4 # 81
-power_2: int = 2 ** -3 # 0.125
+power_1: int = 3 ** 4
+power_2: float = 2 ** -3
+print(power_1)
+print(power_2)
 ```
 :::
 
@@ -69,8 +75,10 @@ first.
 
 :::cell id=comments-arithmetic-strings-demo5
 ```python starter
-result_1: int = 3 * 5 + 1 # 16, multiplication happens first
-result_2: int = 3 * (5 + 1) # 18, addition happens first
+result_1: int = 3 * 5 + 1  # multiplication happens first
+result_2: int = 3 * (5 + 1)  # addition happens first
+print(result_1)
+print(result_2)
 ```
 :::
 
@@ -84,6 +92,7 @@ my_sum: int = 0
 my_sum = my_sum + 8
 # the notation below is the equivalent of the notation above
 my_sum += 8
+print(my_sum)
 ```
 :::
 
@@ -99,13 +108,21 @@ num: int = 1
 
 :::cell id=comments-arithmetic-strings-demo8
 ```python starter
+num: int = 1
 num += 3 # same as num = num + 3
+print(num)
 num -= 3 # same as num = num - 3
+print(num)
 num *= 3 # same as num = num * 3
+print(num)
 num /= 3 # same as num = num / 3
+print(num)
 num //= 3 # same as num = num // 3
+print(num)
 num %= 3 # same as num = num % 3
+print(num)
 num **= 3 # same as num = num ** 3
+print(num)
 ```
 :::
 
@@ -117,6 +134,7 @@ You can get the absolute value of a number like this:
 :::cell id=comments-arithmetic-strings-demo9
 ```python starter
 answer: int = abs(-12)
+print(answer)
 ```
 :::
 

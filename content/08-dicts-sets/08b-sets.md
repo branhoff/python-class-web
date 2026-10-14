@@ -38,13 +38,15 @@ You can use `in` and `not in` to check whether a value is in the set:
 
 :::cell id=sets-demo3
 ```python starter
--7 in some_ints
+some_ints: set[int] = {1, -7, -3, 524, 0}
+print(-7 in some_ints)
 ```
 :::
 
 :::cell id=sets-demo4
 ```python starter
--7 not in some_ints
+some_ints: set[int] = {1, -7, -3, 524, 0}
+print(-7 not in some_ints)
 ```
 :::
 
@@ -52,15 +54,18 @@ You can `add` elements to a set or `remove` elements from a set:
 
 :::cell id=sets-demo5
 ```python starter
+some_ints: set[int] = {1, -7, -3, 524, 0}
 some_ints.remove(1)
-some_ints
+print(some_ints)
 ```
 :::
 
 :::cell id=sets-demo6
 ```python starter
+some_ints: set[int] = {1, -7, -3, 524, 0}
+some_ints.remove(1)
 some_ints.add(1)
-some_ints
+print(some_ints)
 ```
 :::
 
@@ -68,7 +73,8 @@ The `len` function tells you how many elements are in a set:
 
 :::cell id=sets-demo7
 ```python starter
-len(some_elements)
+some_elements: set[int | str | float | bool | tuple[int]] = {19, "watermelon", 12.6, False, (1, 2, 3)}
+print(len(some_elements))
 ```
 :::
 
@@ -76,8 +82,9 @@ The `clear` method empties a set:
 
 :::cell id=sets-demo8
 ```python starter
+some_elements: set[int | str | float | bool | tuple[int]] = {19, "watermelon", 12.6, False, (1, 2, 3)}
 some_elements.clear()
-len(some_elements)
+print(len(some_elements))
 ```
 :::
 
@@ -98,7 +105,9 @@ The intersection of two sets is a new set that contains every element that is in
 
 :::cell id=sets-demo10
 ```python starter
-set_A & set_B
+set_A: set[int] = {1, 2, 3}
+set_B: set[int] = {5, 3, 4}
+print(set_A & set_B)
 ```
 :::
 
@@ -108,7 +117,9 @@ The union of two sets is a new set that contains every element that is in **eith
 
 :::cell id=sets-demo11
 ```python starter
-set_A | set_B  # the union operator is the vertical bar symbol
+set_A: set[int] = {1, 2, 3}
+set_B: set[int] = {5, 3, 4}
+print(set_A | set_B)  # the union operator is the vertical bar symbol
 ```
 :::
 
@@ -118,6 +129,8 @@ The *difference* of two sets is a new set that contains every element that is in
 
 :::cell id=sets-demo12
 ```python starter
+set_A: set[int] = {1, 2, 3}
+set_B: set[int] = {5, 3, 4}
 print(set_A - set_B)
 print(set_B - set_A)
 ```
@@ -129,14 +142,18 @@ The symmetric difference of two sets is a new set that contains every element th
 
 :::cell id=sets-demo13
 ```python starter
-set_A ^ set_B
+set_A: set[int] = {1, 2, 3}
+set_B: set[int] = {5, 3, 4}
+print(set_A ^ set_B)
 ```
 :::
 
 :::cell id=sets-demo14
 ```python starter
+set_A: set[int] = {1, 2, 3}
+set_B: set[int] = {5, 3, 4}
 # this is the same as set_A ^ set_B
-(set_A | set_B) - (set_A & set_B)
+print((set_A | set_B) - (set_A & set_B))
 ```
 :::
 
@@ -144,6 +161,7 @@ We can iterate through a set with a for loop:
 
 :::cell id=sets-demo15
 ```python starter
+set_B: set[int] = {5, 3, 4}
 el: int
 for el in set_B:
     print(el * 2)
@@ -170,7 +188,7 @@ name_list: list[str] = ["Hannah", "Bob", "Carl",
 
 name: str
 name_set: set[str] = {name for name in name_list if name.lower() == name.lower()[::-1]}
-name_set
+print(name_set)
 ```
 :::
 

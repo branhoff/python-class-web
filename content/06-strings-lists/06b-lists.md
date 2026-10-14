@@ -103,18 +103,21 @@ Indexing and slicing work the same with lists as they do with strings. Try these
 
 :::cell id=06b-lists-demo7
 ```python starter
+some_primes: list[int] = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
 print(some_primes[0])
 ```
 :::
 
 :::cell id=06b-lists-demo8
 ```python starter
+some_primes: list[int] = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
 print(some_primes[0:10:2])
 ```
 :::
 
 :::cell id=06b-lists-demo9
 ```python starter
+some_names: list[str] = ["Groucho", "Harpo", "Chico", "Zeppo", "Karl"]
 print(some_names[::-2])
 ```
 :::
@@ -123,18 +126,21 @@ When you index into a nested list to get a sublist, you can then index into that
 
 :::cell id=06b-lists-demo10
 ```python starter
+some_stuff: list[int | str | float | list[str]] = [98, "Fido", -34.925, ["Phantom", "Tollbooth"]]
 print(some_stuff[3])
 ```
 :::
 
 :::cell id=06b-lists-demo11
 ```python starter
+some_stuff: list[int | str | float | list[str]] = [98, "Fido", -34.925, ["Phantom", "Tollbooth"]]
 print(some_stuff[3][1])
 ```
 :::
 
 :::cell id=06b-lists-demo12
 ```python starter
+some_stuff: list[int | str | float | list[str]] = [98, "Fido", -34.925, ["Phantom", "Tollbooth"]]
 print(some_stuff[3][1][0])
 ```
 :::
@@ -145,30 +151,35 @@ Also like strings, we can use `in` and `not in`. With these two operators, the s
 
 :::cell id=06b-lists-demo13
 ```python starter
+some_primes: list[int] = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
 print(13 in some_primes)
 ```
 :::
 
 :::cell id=06b-lists-demo14
 ```python starter
+some_primes: list[int] = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
 print(13 not in some_primes)
 ```
 :::
 
 :::cell id=06b-lists-demo15
 ```python starter
+some_stuff: list[int | str | float | list[str]] = [98, "Fido", -34.925, ["Phantom", "Tollbooth"]]
 print("Fido" in some_stuff)
 ```
 :::
 
 :::cell id=06b-lists-demo16
 ```python starter
+some_stuff: list[int | str | float | list[str]] = [98, "Fido", -34.925, ["Phantom", "Tollbooth"]]
 print("Phantom" in some_stuff)
 ```
 :::
 
 :::cell id=06b-lists-demo17
 ```python starter
+some_stuff: list[int | str | float | list[str]] = [98, "Fido", -34.925, ["Phantom", "Tollbooth"]]
 print("Phantom" in some_stuff[3])
 ```
 :::
@@ -195,12 +206,14 @@ There are `min` and `max` functions we can use. Try these:
 
 :::cell id=06b-lists-demo19
 ```python starter
+odds: list[int] = [7, 5, 9, 1, 13, 11, 3]
 print(min(odds))
 ```
 :::
 
 :::cell id=06b-lists-demo20
 ```python starter
+palindromes: list[str] = ["hannah", "tacocat", "bob", "mom", "dad"]
 print(max(palindromes))
 ```
 :::
@@ -209,12 +222,14 @@ The `min` and `max` functions wouldn't make sense for a list like `some_stuff`, 
 
 :::cell id=06b-lists-demo21
 ```python starter
+evens: list[int] = [8, 4, 10, 6, 2]
 evens.sort()
 ```
 :::
 
 :::cell id=06b-lists-demo22
 ```python starter
+palindromes: list[str] = ["hannah", "tacocat", "bob", "mom", "dad"]
 palindromes.sort()
 ```
 :::
@@ -223,12 +238,16 @@ You'll notice that nothing prints out when you try those. But now look at the li
 
 :::cell id=06b-lists-demo23
 ```python starter
+evens: list[int] = [8, 4, 10, 6, 2]
+evens.sort()
 print(evens)
 ```
 :::
 
 :::cell id=06b-lists-demo24
 ```python starter
+palindromes: list[str] = ["hannah", "tacocat", "bob", "mom", "dad"]
+palindromes.sort()
 print(palindromes)
 ```
 :::
@@ -247,6 +266,8 @@ We can concatenate lists with the `+` operator.
 
 :::cell id=06b-lists-demo26
 ```python starter
+odds: list[int] = [7, 5, 9, 1, 13, 11, 3]
+evens: list[int] = [8, 4, 10, 6, 2]
 print(evens + odds)
 ```
 :::
@@ -266,6 +287,7 @@ Lists are iterable, so we can use a `for` loop to access each element. For examp
 
 :::cell id=06b-lists-demo28
 ```python starter
+fun_floats: list[float] = [3.141, 2.718, 6.283, 1.618, 1.414, 2.502, 0.577, 1.303, 2.685, 1.282]
 number: float
 for number in fun_floats:
     print(number)
@@ -276,6 +298,7 @@ The following loop prints out a running total of the values in the list:
 
 :::cell id=06b-lists-demo29
 ```python starter
+fun_floats: list[float] = [3.141, 2.718, 6.283, 1.618, 1.414, 2.502, 0.577, 1.303, 2.685, 1.282]
 total: float = 0
 number: float
 for number in fun_floats:
@@ -318,6 +341,28 @@ We can make a list of `BankAccount` objects like this:
 
 :::cell id=06b-lists-demo31
 ```python starter
+class BankAccount:
+    """Represents a bank account for deposits and withdrawals."""
+
+    def __init__(self, account_ID: str, balance: float):
+        self._account_ID: str = account_ID
+        self._balance: float = balance
+
+    def get_account_ID(self) -> str:
+        return self._account_ID
+
+    def set_account_ID(self, new_ID) -> None:
+        self._account_ID = new_ID
+
+    def get_balance(self) -> float:
+        return self._balance
+
+    def deposit(self, amount: float) -> None:
+        self._balance += amount
+
+    def withdraw(self, amount: float) -> None:
+        self._balance -= amount
+
 account_1: BankAccount = BankAccount("235349", 730.29)
 account_2: BankAccount = BankAccount("783848", 240.89)
 account_3: BankAccount = BankAccount("732005", 1390.20)
@@ -329,6 +374,32 @@ What if we want to access the balance of the first account in the list? We can d
 
 :::cell id=06b-lists-demo32
 ```python starter
+class BankAccount:
+    """Represents a bank account for deposits and withdrawals."""
+
+    def __init__(self, account_ID: str, balance: float):
+        self._account_ID: str = account_ID
+        self._balance: float = balance
+
+    def get_account_ID(self) -> str:
+        return self._account_ID
+
+    def set_account_ID(self, new_ID) -> None:
+        self._account_ID = new_ID
+
+    def get_balance(self) -> float:
+        return self._balance
+
+    def deposit(self, amount: float) -> None:
+        self._balance += amount
+
+    def withdraw(self, amount: float) -> None:
+        self._balance -= amount
+
+account_1: BankAccount = BankAccount("235349", 730.29)
+account_2: BankAccount = BankAccount("783848", 240.89)
+account_3: BankAccount = BankAccount("732005", 1390.20)
+account_list: list[BankAccount] = [account_1, account_2, account_3]
 print(account_list[0].get_balance())
 ```
 :::
@@ -341,6 +412,7 @@ List comprehensions are a concise way to construct a new list by applying some t
 
 :::cell id=06b-lists-demo33
 ```python starter
+fun_floats: list[float] = [3.141, 2.718, 6.283, 1.618, 1.414, 2.502, 0.577, 1.303, 2.685, 1.282]
 fun_floats_doubled: list[float] = [2 * n for n in fun_floats]
 print(fun_floats_doubled)
 ```

@@ -26,7 +26,9 @@ statement below, `num_1` and `num_2` will both refer to the value 12.
 
 :::cell id=variables-demo2
 ```python starter
+num_1 = 12
 num_2 = num_1
+print(num_2)
 ```
 :::
 
@@ -34,6 +36,9 @@ You can print the value that a variable refers to like so:
 
 :::cell id=variables-demo3
 ```python starter
+radius = 19.2
+first_name = "Jane"
+is_even = True
 print(radius)
 print(first_name)
 print("The value of is_even is", is_even)

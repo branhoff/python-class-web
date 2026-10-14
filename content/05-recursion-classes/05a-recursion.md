@@ -18,6 +18,8 @@ def factorial(num: int) -> int:
         return 1
     else:
         return num * factorial(num - 1)
+
+print(factorial(5))
 ```
 :::
 
@@ -31,6 +33,8 @@ def factorial(num: int) -> int:
         return 1
 
     return num * factorial(num - 1)
+
+print(factorial(5))
 ```
 :::
 
@@ -52,6 +56,8 @@ def gcd(a: int, b: int) -> int:
         return b
 
     return gcd(b, a % b)
+
+print(gcd(48, 36))
 ```
 :::
 
@@ -70,6 +76,8 @@ def hailstone(num: int) -> int:
         return hailstone(num // 2) + 1
     else:
         return hailstone(num * 3 + 1) + 1
+
+print(hailstone(3))
 ```
 :::
 
