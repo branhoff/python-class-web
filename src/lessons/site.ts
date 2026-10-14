@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono';
 import { loadLessons } from './load.ts';
+import { buildNav } from './nav.ts';
 import { escapeHtml, renderLesson } from './render.ts';
 import type { Lesson } from './types.ts';
 
@@ -44,7 +45,9 @@ export function createLessonSite(
   authConfig: AuthConfig | null = null,
 ): Hono {
   const lessons = loadLessons(contentDir).map((loaded) => loaded.lesson);
-  const pages = new Map(lessons.map((lesson) => [lesson.id, renderLesson(lesson)]));
+  const pages = new Map(
+    lessons.map((lesson) => [lesson.id, renderLesson(lesson, buildNav(lessons, lesson.id))]),
+  );
   const app = new Hono();
 
   app.get('/', (c) => c.html(indexPage(lessons)));

@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { buildNav } from '../src/lessons/nav.ts';
 import { renderLesson } from '../src/lessons/render.ts';
 import type { Lesson } from '../src/lessons/types.ts';
 
@@ -65,4 +66,30 @@ test('the page loads Pyodide and the lesson runner', () => {
 test('a cell without a prompt renders no prompt block', () => {
   const html = renderLesson({ ...lesson, blocks: [lesson.blocks[2]!] });
   assert.doesNotMatch(html, /class="prompt"/);
+});
+
+test('with nav, renders the section sidebar and the prev/next pager', () => {
+  const nav = buildNav(
+    [
+      { id: 'intro', title: 'Intro', section: 1, blocks: [] },
+      lesson,
+      { id: 'next-one', title: 'Next One', section: 2, blocks: [] },
+    ],
+    lesson.id,
+  );
+  const html = renderLesson(lesson, nav);
+  assert.match(html, /<nav class="sidebar"/);
+  assert.match(html, /<summary>Section 1<\/summary>/);
+  assert.match(html, /<summary>Section 2<\/summary>/);
+  assert.match(html, /<a href="\/lessons\/intro">Intro<\/a>/);
+  assert.match(html, /aria-current="page"/);
+  assert.match(html, /class="pager"/);
+  assert.match(html, /Previous: Intro/);
+  assert.match(html, /Next: Next One/);
+});
+
+test('without nav, no sidebar or pager is rendered', () => {
+  const html = renderLesson(lesson);
+  assert.doesNotMatch(html, /class="sidebar"/);
+  assert.doesNotMatch(html, /class="pager"/);
 });
