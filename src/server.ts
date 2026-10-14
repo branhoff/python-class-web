@@ -38,9 +38,13 @@ function wire(): { repository: ProgressRepository; authenticate: Authenticator }
   return { repository: new MemoryProgressRepository(), authenticate: async () => devUser };
 }
 
+const idpApiKey = process.env['IDENTITY_PLATFORM_API_KEY'];
+const gcpProject = process.env['GCP_PROJECT'];
+const authConfig = idpApiKey && gcpProject ? { apiKey: idpApiKey, projectId: gcpProject } : null;
+
 const root = new Hono();
 root.route('/', createApp(wire()));
-root.route('/', createLessonSite());
+root.route('/', createLessonSite('content', authConfig));
 root.use('/pyodide/*', serveStatic({ root: process.env['PYODIDE_ROOT'] ?? './vendor' }));
 
 serve({ fetch: root.fetch, port });

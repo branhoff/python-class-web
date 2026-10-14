@@ -48,9 +48,12 @@ button.run { cursor: pointer; }
 button.run:disabled { cursor: default; }
 .badge { color: #2e7d32; margin-left: .5rem; font-size: .9em; }
 .cell.completed { border-left-color: #2e7d32; }
+#auth { font-size: .9em; margin-bottom: 1rem; }
+#auth .err { color: #c62828; margin-left: .5rem; }
 </style>
 </head>
 <body>
+<header id="auth"></header>
 <h1>${escapeHtml(lesson.title)}</h1>
 ${body}
 <script src="/pyodide/pyodide.js"></script>

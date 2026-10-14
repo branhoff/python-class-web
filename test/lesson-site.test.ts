@@ -35,3 +35,12 @@ test('the harness and runner are served to the browser with usable content types
   assert.equal(harness.status, 200);
   assert.match(await harness.text(), /def run_exercise/);
 });
+
+test('auth config is served when provided and empty otherwise', async () => {
+  const configured = createLessonSite('content', { apiKey: 'K', projectId: 'P' });
+  assert.deepEqual(await (await configured.request('/auth/config')).json(), {
+    apiKey: 'K',
+    projectId: 'P',
+  });
+  assert.deepEqual(await (await site.request('/auth/config')).json(), {});
+});
