@@ -65,3 +65,9 @@ test('passing an exercise records progress and restores it on reload', async ({ 
   await waitForPythonReady(page);
   await expect(page.locator('[data-cell-id="double-number"]')).toHaveClass(/completed/);
 });
+
+test('shows no sign-in form when auth is unconfigured (dev)', async ({ page }) => {
+  await page.goto('/lessons/functions');
+  await waitForPythonReady(page);
+  await expect(page.locator('#auth form')).toHaveCount(0);
+});

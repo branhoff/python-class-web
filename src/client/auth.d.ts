@@ -1,0 +1,26 @@
+export interface Storage {
+  getItem(key: string): string | null;
+  setItem(key: string, value: string): void;
+  removeItem(key: string): void;
+}
+
+export type FetchLike = (
+  url: string,
+  init?: { method?: string; headers?: Record<string, string>; body?: string },
+) => Promise<{ ok: boolean; json(): Promise<unknown> }>;
+
+export interface AuthDeps {
+  apiKey: string;
+  fetch: FetchLike;
+  storage: Storage;
+  now?: () => number;
+}
+
+export interface Auth {
+  signIn(email: string, password: string): Promise<string>;
+  getToken(): Promise<string | null>;
+  signOut(): void;
+  currentUser(): string | null;
+}
+
+export function createAuth(deps: AuthDeps): Auth;

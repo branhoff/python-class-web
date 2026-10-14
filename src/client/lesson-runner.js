@@ -3,6 +3,8 @@
    Not imported by the TS graph; served to the page by the lesson site.
    formatResult is the one piece of real logic and is unit-tested. */
 
+import { authHeader } from './app-shell.js';
+
 // A sandbox cell has no tests, so it has nothing to pass — it only shows output.
 // Only an exercise (hasTests) earns a pass/fail verdict.
 export function formatResult(result, hasTests) {
@@ -49,19 +51,23 @@ function markCompleted(cell) {
   cell.querySelector('button.run').after(badge);
 }
 
-// Best-effort: prod has no signed-in user yet (401), offline fails — neither
-// should break the lesson, so progress is fire-and-forget.
-function recordCompletion(cellId) {
-  fetch('/progress/events', {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ cellId, kind: 'completed' }),
-  }).catch(() => {});
+// Best-effort: a signed-out learner (401) or offline should not break the
+// lesson, so progress is fire-and-forget with the auth token when present.
+async function recordCompletion(cellId) {
+  try {
+    await fetch('/progress/events', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', ...(await authHeader()) },
+      body: JSON.stringify({ cellId, kind: 'completed' }),
+    });
+  } catch {
+    // best-effort
+  }
 }
 
 async function loadProgress() {
   try {
-    const res = await fetch('/progress/summary');
+    const res = await fetch('/progress/summary', { headers: await authHeader() });
     if (!res.ok) return;
     const summary = await res.json();
     for (const id of summary.completedCells ?? []) {

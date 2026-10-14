@@ -48,6 +48,8 @@ export default tseslint.config(
         document: 'readonly',
         fetch: 'readonly',
         loadPyodide: 'readonly',
+        localStorage: 'readonly',
+        location: 'readonly',
       },
     },
   },
