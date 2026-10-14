@@ -16,6 +16,7 @@ else
   bad "node >= 22.18" "https://nodejs.org or: brew install node / nvm install 26"
 fi
 have npm && ok "npm $(npm -v)" || bad "npm" "ships with node"
+have python3 && ok "python3 ($(python3 -V 2>&1 | cut -d" " -f2))" || bad "python3" "needed to check lesson solutions: brew install python"
 have make && ok "make" || bad "make" "xcode-select --install (macOS) / apt install build-essential"
 have git && ok "git" || bad "git" "https://git-scm.com"
 have gitleaks && ok "gitleaks" || bad "gitleaks" "brew install gitleaks (or https://github.com/gitleaks/gitleaks)"
