@@ -51,3 +51,15 @@ jobs:
           exit 1
       - name: Run the repository contract against Firestore
         run: make test-integration
+
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-node-deps
+      - name: Fetch the self-hosted Pyodide runtime
+        run: make pyodide
+      - name: Install the Playwright browser
+        run: npx playwright install --with-deps chromium
+      - name: Smoke-test the lesson UI in a real browser
+        run: make smoke

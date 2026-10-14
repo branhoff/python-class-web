@@ -14,3 +14,5 @@ content/
 build/
 .stryker-tmp/
 vendor/
+test-results/
+playwright-report/
