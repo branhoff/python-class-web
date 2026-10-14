@@ -27,7 +27,7 @@ HYGIENE_CMD       ?= for f in $(HYGIENE_FILES); do [ -f "$$f" ] || { echo "missi
 # CI runs these keylessly via OIDC/WIF; locally you need `tofu` + cloud ADC.
 TF_STATE_BUCKET ?= $(error set TF_STATE_BUCKET to the bootstrap state bucket)
 
-.PHONY: help setup doctor gcp-setup hooks pyodide firestore-emulator test-integration test coverage mutation mutation-sandbox lint format format-check typecheck structure secrets hygiene deadcode check verify clean tofu-plan tofu-apply
+.PHONY: help setup doctor gcp-setup hooks pyodide smoke firestore-emulator test-integration test coverage mutation mutation-sandbox lint format format-check typecheck structure secrets hygiene deadcode check verify clean tofu-plan tofu-apply
 
 # ── Setup ─────────────────────────────────────────────────────────────────────
 doctor:
@@ -50,6 +50,12 @@ hooks:
 # Needed to run lessons locally; the Docker build does the same step.
 pyodide:
 	@./scripts/fetch-pyodide.sh vendor/pyodide
+
+# Browser smoke test of the lesson UI (Playwright). Slow; separate from the gate.
+# Needs vendor/pyodide (run `make pyodide`) and a browser (`npx playwright install
+# chromium`). Boots the app itself via playwright.config.ts.
+smoke:
+	npm run smoke
 
 # ── The gate ──────────────────────────────────────────────────────────────────
 # check = the fast gate (runs on every commit). verify = check + the slower

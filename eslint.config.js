@@ -8,7 +8,18 @@ import prettier from 'eslint-config-prettier';
 const DATASTORE_SDKS = ['@google-cloud/firestore', 'firebase-admin', 'firebase-admin/*', 'pg'];
 
 export default tseslint.config(
-  { ignores: ['node_modules/', 'dist/', 'build/', 'reports/', '.stryker-tmp/', 'vendor/'] },
+  {
+    ignores: [
+      'node_modules/',
+      'dist/',
+      'build/',
+      'reports/',
+      '.stryker-tmp/',
+      'vendor/',
+      'test-results/',
+      'playwright-report/',
+    ],
+  },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {

@@ -49,3 +49,8 @@ build/
 
 # Self-hosted Pyodide runtime (fetched by scripts/fetch-pyodide.sh, not committed)
 vendor/
+
+# Playwright
+test-results/
+playwright-report/
+.playwright/
