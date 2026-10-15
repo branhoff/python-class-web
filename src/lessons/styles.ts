@@ -35,6 +35,9 @@ button.run:disabled { background: #c2c3c7; color: #5f574f; box-shadow: 3px 3px 0
 .sidebar summary { font-family: 'Press Start 2P', system-ui, sans-serif; font-size: .6rem; line-height: 1.6; cursor: pointer; margin: .4rem 0; }
 .sidebar summary .count { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .85rem; margin-left: .5rem; color: #5f574f; }
 .sidebar li.complete > a::before { content: '\\2713 '; color: #008751; }
+.sidebar li.project > a::before { content: '\\25B8 '; color: #7e2553; }
+.sidebar li.project > a { font-style: italic; }
+.projects { margin-top: 2.5rem; border-top: 2px solid #1d2b53; }
 .sidebar ul { list-style: none; padding-left: .75rem; margin: .25rem 0 .75rem; }
 .sidebar li { margin: .3rem 0; }
 .sidebar a { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .95rem; text-decoration: none; }
@@ -67,6 +70,7 @@ a { color: #1d2b53; }
 #auth .err { color: #ff004d; margin-left: .5rem; }
 .lessons { list-style: none; padding-left: 0; }
 .lessons li { margin: .4rem 0; }
+.lessons li.project a::before { content: '\\25B8 '; color: #7e2553; }
 .lessons a { font-family: 'Departure Mono', ui-monospace, monospace; font-size: 1rem; }
 .back { font-family: 'Departure Mono', ui-monospace, monospace; }
 `;

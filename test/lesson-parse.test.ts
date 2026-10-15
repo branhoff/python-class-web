@@ -121,3 +121,15 @@ test('cell problems are reported', () => {
   rejects(cell('id=a', '```python starter\nx\n'), 6, /cell is never closed/);
   rejects(cell('id=a', '```python starter\nx\n```python\n'), 7, /code block is never closed/);
 });
+
+test('an "after" front matter field marks a project and names the lesson it follows', () => {
+  const project = parseLesson(
+    '---\nid: p\ntitle: A project\nsection: 2\nafter: input-and-casting\n---\nBody\n',
+  );
+  assert.equal(project.after, 'input-and-casting');
+});
+
+test('a lesson without "after" has no after property at all', () => {
+  const lesson = parseLesson(`${HEADER}\nBody\n`);
+  assert.equal('after' in lesson, false);
+});

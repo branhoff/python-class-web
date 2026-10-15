@@ -47,7 +47,8 @@ function renderSection(section: NavSection, current: string): string {
     .map((lesson) => {
       const marker = lesson.id === current ? ' aria-current="page"' : '';
       const exercises = escapeHtml(lesson.exerciseIds.join(','));
-      return `<li data-exercises="${exercises}"><a href="/lessons/${encodeURIComponent(lesson.id)}"${marker}>${escapeHtml(lesson.title)}</a></li>`;
+      const kind = lesson.project ? ' class="project"' : '';
+      return `<li${kind} data-exercises="${exercises}"><a href="/lessons/${encodeURIComponent(lesson.id)}"${marker}>${escapeHtml(lesson.title)}</a></li>`;
     })
     .join('\n');
   const open = section.lessons.some((lesson) => lesson.id === current) ? ' open' : '';
@@ -62,6 +63,23 @@ function renderSidebar(nav: LessonNav): string {
 function pagerLink(lesson: NavLesson | null, label: string, cssClass: string): string {
   if (!lesson) return '<span></span>';
   return `<a class="${cssClass}" href="/lessons/${encodeURIComponent(lesson.id)}">${label}: ${escapeHtml(lesson.title)}</a>`;
+}
+
+function renderProjects(nav: LessonNav): string {
+  if (nav.projects.length === 0) return '';
+  const items = nav.projects
+    .map(
+      (project) =>
+        `<li><a href="/lessons/${encodeURIComponent(project.id)}">${escapeHtml(project.title)}</a></li>`,
+    )
+    .join('\n');
+  return `<section class="projects">
+<h2>Projects</h2>
+<p>Practice what you learned in your own editor. Each project has its own page.</p>
+<ul>
+${items}
+</ul>
+</section>`;
 }
 
 function renderPager(nav: LessonNav): string {
@@ -85,6 +103,7 @@ ${renderSidebar(nav)}
 <main>
 ${heading}
 ${body}
+${renderProjects(nav)}
 ${renderPager(nav)}
 </main>
 </div>`

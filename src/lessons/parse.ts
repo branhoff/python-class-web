@@ -69,5 +69,12 @@ export function parseLesson(source: string): Lesson {
   }
   flush();
 
-  return { id: requireField(fields, 'id'), title: requireField(fields, 'title'), section, blocks };
+  const lesson: Lesson = {
+    id: requireField(fields, 'id'),
+    title: requireField(fields, 'title'),
+    section,
+    blocks,
+  };
+  const after = fields.get('after');
+  return after ? { ...lesson, after } : lesson;
 }

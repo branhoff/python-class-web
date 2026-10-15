@@ -76,7 +76,7 @@ export function renderCourse(course: Course, lessons: Lesson[]): string {
       const items = section.lessons
         .map(
           (lesson) =>
-            `<li><a href="/lessons/${encodeURIComponent(lesson.id)}">${escapeHtml(lesson.title)}</a></li>`,
+            `<li${lesson.project ? ' class="project"' : ''}><a href="/lessons/${encodeURIComponent(lesson.id)}">${escapeHtml(lesson.title)}</a></li>`,
         )
         .join('\n');
       return `<h2>Section ${section.section}</h2>\n<ul class="lessons">\n${items}\n</ul>`;
