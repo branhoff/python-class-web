@@ -45,6 +45,7 @@ export default tseslint.config(
     files: ['src/client/**/*.js'],
     languageOptions: {
       globals: {
+        CustomEvent: 'readonly',
         document: 'readonly',
         fetch: 'readonly',
         loadPyodide: 'readonly',
