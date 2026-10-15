@@ -14,7 +14,7 @@ test('the home page has a title and lists every course card on its own line', ()
 test('a course page with no lessons still renders, with a title and a way back', () => {
   const python = COURSES[0]!;
   const html = renderCourse(python, []);
-  assert.match(html, /<title>Python<\/title>/);
+  assert.match(html, /<title>Programming 101 with Python<\/title>/);
   assert.match(html, /<a href="\/">← All courses<\/a>/);
   assert.doesNotMatch(html, /<h2>Section/);
 });
@@ -67,11 +67,19 @@ test('a course with no exercises has a total of zero', () => {
   });
 });
 
-test('every coming-soon course appears as a card, and the ampersand in a title is escaped', () => {
+test('every unavailable course appears as a card with the tag for its status', () => {
   const html = renderHome(COURSES, {});
-  for (const title of ['C and C++', 'Game Dev with PICO-8']) {
+  for (const title of ['Programming 102 with Python', 'C and C++', 'Game Dev with PICO-8']) {
     assert.match(html, new RegExp(`<span class="title">${title.replace('+', '\\+')}</span>`));
   }
-  assert.match(html, /<span class="title">Algorithms &amp; Data Structures<\/span>/);
-  assert.equal(html.match(/Coming soon/g)?.length, 3);
+  assert.equal(html.match(/Coming soon/g)?.length, 2);
+  assert.equal(html.match(/In planning/g)?.length, 1);
+});
+
+test('the 102 card follows the 101 card', () => {
+  const html = renderHome(COURSES, {});
+  assert.ok(
+    html.indexOf('Programming 101 with Python') < html.indexOf('Programming 102 with Python'),
+  );
+  assert.ok(html.indexOf('Programming 102 with Python') < html.indexOf('C and C++'));
 });

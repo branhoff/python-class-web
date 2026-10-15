@@ -42,7 +42,7 @@ test('the account page is served with its script and the course data it needs', 
   assert.match(html, /src="\/static\/account.js"/);
   const data = JSON.parse(html.match(/id="account-data">(.*?)<\/script>/)![1]!);
   assert.equal(data.courses[0].id, 'python');
-  assert.equal(data.courses[0].title, 'Python');
+  assert.equal(data.courses[0].title, 'Programming 101 with Python');
   assert.ok(data.courses[0].total > 0);
   assert.ok(data.courses[0].itemIds.length === data.courses[0].total);
 });
@@ -50,7 +50,7 @@ test('the account page is served with its script and the course data it needs', 
 test('only courses that have lessons appear in the account progress', () => {
   const meta = { python: { total: 2, itemIds: ['a', 'b'] } };
   assert.deepEqual(accountCourses(COURSES, meta), [
-    { id: 'python', title: 'Python', total: 2, itemIds: ['a', 'b'] },
+    { id: 'python', title: 'Programming 101 with Python', total: 2, itemIds: ['a', 'b'] },
   ]);
 });
 

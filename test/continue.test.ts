@@ -85,13 +85,13 @@ test('completed items from another course do not count as history here', () => {
   assert.equal(target(null, ['x-from-another-course']), null);
 });
 
-test('the label says Continue when resuming and Next up when moving on', () => {
-  assert.equal(continueLabel({ page: pages[1]!, reason: 'resume' }), 'Continue: Loops');
-  assert.equal(continueLabel({ page: pages[2]!, reason: 'next' }), 'Next up: Functions');
+test('the label is just the page title, whether resuming or moving on', () => {
+  assert.equal(continueLabel({ page: pages[1]!, reason: 'resume' }), 'Loops');
+  assert.equal(continueLabel({ page: pages[2]!, reason: 'next' }), 'Functions');
 });
 
 test('a project is labelled as one', () => {
-  assert.equal(continueLabel({ page: pages[3]!, reason: 'next' }), 'Next up: Project: Guessing');
+  assert.equal(continueLabel({ page: pages[3]!, reason: 'next' }), 'Guessing (project)');
 });
 
 test('each account has its own remembered page, and signed out has one too', () => {
