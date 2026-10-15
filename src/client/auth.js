@@ -16,7 +16,33 @@ function readSession(storage) {
   }
 }
 
-export function createAuth({ apiKey, fetch, storage, now = () => Date.now() }) {
+const MESSAGES = {
+  EMAIL_EXISTS: 'An account with that email already exists. Try signing in instead.',
+  INVALID_LOGIN_CREDENTIALS: 'That email and password do not match an account.',
+  INVALID_PASSWORD: 'That email and password do not match an account.',
+  EMAIL_NOT_FOUND: 'That email and password do not match an account.',
+  INVALID_EMAIL: 'That does not look like an email address.',
+  MISSING_PASSWORD: 'Enter a password.',
+  TOO_MANY_ATTEMPTS_TRY_LATER: 'Too many attempts. Wait a few minutes and try again.',
+  USER_DISABLED: 'This account has been disabled.',
+};
+
+export function describeAuthError(error) {
+  const code = String(error?.message ?? error)
+    .split(' : ')[0]
+    .trim();
+  if (code === 'WEAK_PASSWORD') return 'Choose a password with at least 6 characters.';
+  return MESSAGES[code] ?? 'Something went wrong. Please try again.';
+}
+
+export function createAuth({
+  apiKey,
+  fetch,
+  storage,
+  now = () => Date.now(),
+  identityUrl = IDENTITY,
+  tokenUrl = SECURETOKEN,
+}) {
   let session = readSession(storage);
 
   function persist() {
@@ -27,7 +53,7 @@ export function createAuth({ apiKey, fetch, storage, now = () => Date.now() }) {
   // signUp and signInWithPassword share request + response shape; only the
   // Identity Platform endpoint differs.
   async function passwordAuth(endpoint, email, password) {
-    const res = await fetch(`${IDENTITY}/accounts:${endpoint}?key=${apiKey}`, {
+    const res = await fetch(`${identityUrl}/accounts:${endpoint}?key=${apiKey}`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ email, password, returnSecureToken: true }),
@@ -52,10 +78,22 @@ export function createAuth({ apiKey, fetch, storage, now = () => Date.now() }) {
     return passwordAuth('signUp', email, password);
   }
 
+  async function resetPassword(email) {
+    const res = await fetch(`${identityUrl}/accounts:sendOobCode?key=${apiKey}`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ requestType: 'PASSWORD_RESET', email }),
+    });
+    if (!res.ok) {
+      const data = await res.json();
+      throw new Error(data.error?.message ?? 'AUTH_FAILED');
+    }
+  }
+
   async function getToken() {
     if (!session) return null;
     if (now() < session.expiresAt - REFRESH_SKEW_MS) return session.idToken;
-    const res = await fetch(`${SECURETOKEN}/token?key=${apiKey}`, {
+    const res = await fetch(`${tokenUrl}/token?key=${apiKey}`, {
       method: 'POST',
       headers: { 'content-type': 'application/x-www-form-urlencoded' },
       body: `grant_type=refresh_token&refresh_token=${encodeURIComponent(session.refreshToken)}`,
@@ -84,5 +122,5 @@ export function createAuth({ apiKey, fetch, storage, now = () => Date.now() }) {
     return session ? session.email : null;
   }
 
-  return { signIn, signUp, getToken, signOut, currentUser };
+  return { signIn, signUp, resetPassword, getToken, signOut, currentUser };
 }

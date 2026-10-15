@@ -13,6 +13,8 @@ import type { Lesson } from './types.ts';
 export interface AuthConfig {
   apiKey: string;
   projectId: string;
+  identityUrl?: string;
+  tokenUrl?: string;
 }
 
 function asset(relativePath: string): string {

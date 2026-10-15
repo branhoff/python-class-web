@@ -27,7 +27,8 @@ HYGIENE_CMD       ?= for f in $(HYGIENE_FILES); do [ -f "$$f" ] || { echo "missi
 # CI runs these keylessly via OIDC/WIF; locally you need `tofu` + cloud ADC.
 TF_STATE_BUCKET ?= $(error set TF_STATE_BUCKET to the bootstrap state bucket)
 
-.PHONY: help setup doctor gcp-setup hooks pyodide smoke firestore-emulator test-integration test coverage solutions mutation mutation-solutions mutation-sandbox lint format format-check typecheck structure prose secrets hygiene deadcode check verify clean tofu-plan tofu-apply
+# `dev` needs DEV_AUTH_USER (no sign-in); `dev-auth` runs a fake sign-in server.
+.PHONY: help setup doctor gcp-setup hooks dev dev-auth pyodide smoke firestore-emulator test-integration test coverage solutions mutation mutation-solutions mutation-sandbox lint format format-check typecheck structure prose secrets hygiene deadcode check verify clean tofu-plan tofu-apply
 
 # ── Setup ─────────────────────────────────────────────────────────────────────
 doctor:
@@ -56,6 +57,16 @@ pyodide:
 # chromium`). Boots the app itself via playwright.config.ts.
 smoke:
 	npm run smoke
+
+# Run locally. `make dev` needs DEV_AUTH_USER=<name> and has no sign-in UI; every
+# request acts as that user. `make dev-auth` starts a local stand-in for Identity
+# Platform so sign-up, sign-in and password reset all work with no cloud project.
+# Both keep progress in memory, so it resets when the server restarts.
+dev:
+	npm run dev
+
+dev-auth:
+	AUTH_EMULATOR=1 npm run dev
 
 # ── The gate ──────────────────────────────────────────────────────────────────
 # check = the fast gate (runs on every commit). verify = check + the slower
@@ -172,6 +183,8 @@ help:
 	@echo "  make hygiene       Fail if a required repo hygiene file is missing"
 	@echo "  make test          Run the test suite"
 	@echo "  make coverage      Run tests with enforced coverage thresholds"
+	@echo "  make dev           Run locally as DEV_AUTH_USER (no sign-in)"
+	@echo "  make dev-auth      Run locally with a fake sign-in server (sign up, sign in)"
 	@echo "  make solutions     Run lesson solution tests with 100% coverage enforced"
 	@echo "  make mutation      Grade test quality with mutation testing (slow)"
 	@echo "  make lint          Lint"

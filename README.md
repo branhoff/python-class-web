@@ -23,10 +23,26 @@ make doctor    # check required tools; prints how to install anything missing
 make setup     # run doctor, install deps, enable the pre-commit hook
 make verify    # the full gate; must be green before a change is done
 make help      # all targets
-DEV_AUTH_USER=me make dev   # run locally (in-memory storage, dev-only auth)
+DEV_AUTH_USER=me make dev   # run locally as one fixed user (in-memory, no sign-in UI)
+make dev-auth               # run locally with a fake sign-in server (see below)
 make firestore-emulator     # containerized emulator; then, in another shell:
 make test-integration
 ```
+
+### Trying sign-in locally
+
+`make dev-auth` starts the app with a small in-repo stand-in for Identity
+Platform (`src/dev-identity.ts`), mounted at `/dev-identity`. It speaks the same
+REST endpoints and error codes as the real service and signs real RS256 tokens,
+so the server checks them through the same code as production. Sign up, sign
+in, token refresh and password reset all work with no cloud project. Accounts
+and progress live in memory and vanish when you restart. A password reset
+prints a line to the terminal instead of sending an email.
+
+It is development only: the server refuses to start with `AUTH_EMULATOR=1` when
+`GCP_PROJECT` is also set. In production, sign-in turns on when the service has
+both `GCP_PROJECT` and `IDENTITY_PLATFORM_API_KEY`; the key reaches Cloud Run
+through an approved `infra` apply.
 
 ## Layout
 
