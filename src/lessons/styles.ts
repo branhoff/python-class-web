@@ -1,3 +1,11 @@
+const TOPBAR_STYLE = `.topbar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.25rem; min-height: 2.75rem; }
+.topbar-left { min-width: 0; }
+a.account-link { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .95rem; background: #fff1e8; color: #1d2b53; border: 2px solid #000; border-radius: 0; padding: .4rem .8rem; box-shadow: 3px 3px 0 #000; text-decoration: none; max-width: 18rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-left: auto; }
+a.account-link:visited { color: #1d2b53; }
+a.account-link:active { box-shadow: 1px 1px 0 #000; transform: translate(2px, 2px); }
+a.account-link.signed-in::before { content: '\\25CF'; color: #008751; margin-right: .45rem; }
+`;
+
 export const LESSON_STYLE = `
 @font-face { font-family: 'Departure Mono'; src: url('/static/fonts/departure-mono.woff2') format('woff2'); font-display: swap; }
 @font-face { font-family: 'Press Start 2P'; src: url('/static/fonts/press-start-2p.woff2') format('woff2'); font-display: swap; }
@@ -27,9 +35,6 @@ button.run, .pager a, a.home { font-family: 'Departure Mono', ui-monospace, mono
 button.run:active, .pager a:active, a.home:active { box-shadow: 1px 1px 0 #000; transform: translate(2px, 2px); }
 button.run:disabled { background: #c2c3c7; color: #5f574f; box-shadow: 3px 3px 0 #5f574f; cursor: default; }
 .badge { font-family: 'Departure Mono', ui-monospace, monospace; color: #008751; margin-left: .5rem; font-size: .9em; }
-#auth { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .9em; margin-bottom: 1rem; }
-#auth .err { color: #ff004d; margin-left: .5rem; }
-.topbar { margin-bottom: 1rem; }
 .layout { display: flex; gap: 2rem; align-items: flex-start; }
 .sidebar { flex: 0 0 14rem; position: sticky; top: 1rem; background: #fff; border: 2px solid #1d2b53; padding: .75rem; }
 .sidebar summary { font-family: 'Press Start 2P', system-ui, sans-serif; font-size: .6rem; line-height: 1.6; cursor: pointer; margin: .4rem 0; }
@@ -44,7 +49,7 @@ button.run:disabled { background: #c2c3c7; color: #5f574f; box-shadow: 3px 3px 0
 .sidebar a[aria-current="page"] { color: #7e2553; font-weight: 700; }
 main { flex: 1 1 auto; min-width: 0; }
 .pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3rem; }
-`;
+${TOPBAR_STYLE}`;
 
 export const HOME_STYLE = `
 @font-face { font-family: 'Press Start 2P'; src: url('/static/fonts/press-start-2p.woff2') format('woff2'); font-display: swap; }
@@ -66,11 +71,26 @@ a { color: #1d2b53; }
 .bar { height: .9rem; border: 2px solid #000; background: #fff; margin-top: .5rem; }
 .bar > span { display: block; height: 100%; width: 0; background: #00e436; }
 .count { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .85rem; margin-top: .35rem; }
-#auth { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .9em; margin-bottom: 1rem; }
-#auth .err { color: #ff004d; margin-left: .5rem; }
 .lessons { list-style: none; padding-left: 0; }
 .lessons li { margin: .4rem 0; }
 .lessons li.project a::before { content: '\\25B8 '; color: #7e2553; }
 .lessons a { font-family: 'Departure Mono', ui-monospace, monospace; font-size: 1rem; }
 .back { font-family: 'Departure Mono', ui-monospace, monospace; }
+${TOPBAR_STYLE}.panel { background: #fff1e8; border: 3px solid #000; box-shadow: 5px 5px 0 #000; padding: 1.25rem; max-width: 30rem; margin: 1.5rem 0; }
+.panel p { margin: .5rem 0; }
+.tabs { display: flex; gap: .5rem; margin-bottom: 1rem; }
+.tab { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .95rem; background: #fff; color: #1d2b53; border: 2px solid #000; border-radius: 0; padding: .4rem .8rem; cursor: pointer; }
+.tab[aria-selected="true"] { background: #1d2b53; color: #fff1e8; }
+.field { display: block; margin: .75rem 0; font-family: 'Departure Mono', ui-monospace, monospace; font-size: .9rem; }
+.field input { display: block; width: 100%; box-sizing: border-box; margin-top: .25rem; font-family: inherit; font-size: 1rem; padding: .5rem; border: 2px solid #000; border-radius: 0; background: #fff; color: #1a1a2e; }
+.field input:focus { outline: 3px solid #29adff; outline-offset: 0; }
+button.btn { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .95rem; background: #7e2553; color: #fff1e8; border: 2px solid #000; border-radius: 0; padding: .4rem .8rem; box-shadow: 3px 3px 0 #000; cursor: pointer; }
+button.btn:active { box-shadow: 1px 1px 0 #000; transform: translate(2px, 2px); }
+button.btn:disabled { background: #c2c3c7; color: #5f574f; box-shadow: 3px 3px 0 #5f574f; cursor: default; }
+button.link { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .85rem; background: none; border: 0; color: #1d2b53; text-decoration: underline; cursor: pointer; padding: 0; }
+.actions { display: flex; align-items: center; gap: 1.25rem; margin-top: .75rem; }
+.error { color: #ff004d; font-family: 'Departure Mono', ui-monospace, monospace; font-size: .9rem; min-height: 1.2em; }
+.notice { color: #008751; font-family: 'Departure Mono', ui-monospace, monospace; font-size: .9rem; }
+.account-courses { list-style: none; padding: 0; max-width: 30rem; }
+.account-courses li { margin: 1rem 0; }
 `;

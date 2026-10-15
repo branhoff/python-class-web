@@ -51,6 +51,7 @@ export default tseslint.config(
         loadPyodide: 'readonly',
         localStorage: 'readonly',
         location: 'readonly',
+        URLSearchParams: 'readonly',
       },
     },
   },

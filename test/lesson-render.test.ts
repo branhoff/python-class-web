@@ -130,7 +130,7 @@ test('with nav, a Home button links to the course list above the lesson', () => 
   const html = renderLesson(lesson, buildNav([lesson], lesson.id));
   assert.match(
     html,
-    /<nav class="topbar" aria-label="Site"><a class="home" href="\/">Home<\/a><\/nav>/,
+    /<nav class="topbar" aria-label="Site"><span class="topbar-left"><a class="home" href="\/">Home<\/a><\/span>/,
   );
   assert.ok(html.indexOf('class="home"') < html.indexOf('class="layout"'));
 });

@@ -1,3 +1,4 @@
+import { renderTopbar } from './chrome.ts';
 import type { Course } from './courses.ts';
 import { buildNav, exerciseCellIds } from './nav.ts';
 import { escapeHtml } from './render.ts';
@@ -20,7 +21,7 @@ export function courseProgressMeta(
   return meta;
 }
 
-function head(title: string): string {
+export function head(title: string): string {
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -56,7 +57,7 @@ export function renderHome(
   const cards = courses.map(courseCard).join('\n');
   return `${head('Courses')}
 <body>
-<header id="auth"></header>
+${renderTopbar()}
 <h1>Choose a course</h1>
 <div class="grid">
 ${cards}
@@ -84,7 +85,7 @@ export function renderCourse(course: Course, lessons: Lesson[]): string {
     .join('\n');
   return `${head(course.title)}
 <body>
-<header id="auth"></header>
+${renderTopbar()}
 <p class="back"><a href="/">← All courses</a></p>
 <h1>${escapeHtml(course.title)}</h1>
 <p>${escapeHtml(course.description)}</p>
