@@ -5,6 +5,7 @@ locals {
     "identitytoolkit.googleapis.com",
     "artifactregistry.googleapis.com",
     "iam.googleapis.com",
+    "monitoring.googleapis.com",
   ]
 }
 

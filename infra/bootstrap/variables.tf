@@ -49,6 +49,12 @@ variable "billing_account" {
   description = "Billing account id (XXXXXX-XXXXXX-XXXXXX) the budget is created under. Find it with `gcloud billing accounts list`."
 }
 
+variable "alert_email" {
+  type        = string
+  description = "Address that also receives the budget alerts. The infra/ root sends its uptime alerts to the same address. Empty keeps the default recipients only."
+  default     = ""
+}
+
 variable "budget_amount" {
   type        = number
   description = "Monthly budget alerting ceiling, in whole currency units. Everything scales to zero, so the expected floor is about 0."
