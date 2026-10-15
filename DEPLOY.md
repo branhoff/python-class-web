@@ -91,6 +91,15 @@ redeploys `main` (`.github/scripts/redeploy-main.sh`), but only when CI passed
 on its head commit; if CI is still running, the deploy that follows CI puts it
 live, and if CI failed it warns instead of shipping a broken build.
 
+Infra runs are also serialized (`concurrency` in `infra.yml`), so two runs cannot
+fight over the state lock or approve out of order. Live runs share one group and
+are never cancelled mid-apply; a newer run replaces one still queued behind it.
+Before applying, the `apply` job refuses a plan if a newer live run exists
+(`.github/scripts/refuse-superseded-apply.sh`), because applying it would write
+older settings. Pull request plans run without the state lock and each PR cancels
+its own older plan. Dependabot groups its updates per ecosystem so it opens one
+infra PR, not several at once.
+
 ### 6. Artifacts are immutable and traceable
 
 Build and push one artifact per release, tagged with the **git SHA**, never a
