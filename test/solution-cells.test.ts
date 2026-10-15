@@ -76,6 +76,13 @@ test('a PROGRAM string that is never closed is rejected', () => {
   assert.throws(() => splitScriptTests("PROGRAM = r'''\nprint(1)\n"), /never closed/);
 });
 
+test('the never-closed error says which closing quotes are missing', () => {
+  assert.throws(
+    () => splitScriptTests("PROGRAM = r'''\nprint(1)\n"),
+    (error: Error) => error.message === "the PROGRAM string is never closed with '''",
+  );
+});
+
 test('code between the PROGRAM string and the tests marker is rejected', () => {
   const stray = scriptCell.replace("'''\n\n", "'''\nx = 1\n\n");
   assert.throws(() => splitScriptTests(stray), /nothing between/);
