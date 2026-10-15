@@ -31,10 +31,12 @@ class TestAuditSolution(unittest.TestCase):
         self.assertTrue(found("def f():\n    return 1", "loops"))
         self.assertTrue(found("names = []\nnames.append(1)", "lists"))
         self.assertTrue(found("x = [1, 2]", "loops"))
+        self.assertTrue(found("assert 1 == 1", "functions"))
 
     def test_accepts_features_once_taught(self):
         self.assertEqual(found("print(1 < 2)", "comparison-logical"), [])
         self.assertEqual(found("def f():\n    return 1", "functions"), [])
+        self.assertEqual(found("assert 1 == 1", "testing-and-debugging"), [])
         self.assertEqual(found("names = []\nnames.append(1)", "tuples"), [])
         self.assertEqual(found("n = [a for a in [1, 2] if a > 1]", "lists"), [])
         self.assertEqual(found("n = 5 // 2 + abs(-3) % 2 ** 2", "comments-arithmetic-strings"), [])
