@@ -2,14 +2,22 @@
 # for your language (npm | pip | gomod | cargo | ...); delete what you don't use.
 version: 2
 updates:
+  # One PR per ecosystem per week, so Dependabot does not open several infra
+  # plans in the same second.
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
+    groups:
+      actions:
+        patterns: ['*']
   - package-ecosystem: terraform
     directory: /infra
     schedule:
       interval: weekly
+    groups:
+      terraform:
+        patterns: ['*']
   - package-ecosystem: npm
     directory: /
     schedule:

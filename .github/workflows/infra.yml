@@ -4,6 +4,12 @@ name: infra
 # plan and shows it in the run summary. On main (and manual runs), `apply` waits
 # for the `production` environment reviewer, then applies that exact saved plan,
 # so what was reviewed is what runs. Keyless auth via Workload Identity Federation.
+#
+# Runs are serialized so they cannot collide. Live runs (main and manual) share
+# one group and are never cancelled mid-flight; a newer one replaces any run still
+# queued behind it. The apply job refuses a plan once a newer live run exists.
+# Pull request runs only plan: each PR cancels its own older plan and plans
+# without the state lock, so two PRs opened together do not collide on it.
 
 on:
   pull_request:
@@ -12,6 +18,10 @@ on:
     branches: [main]
     paths: ['infra/**', '.github/workflows/infra.yml', '.github/actions/tofu-init/**']
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.event_name == 'pull_request' && format('infra-plan-{0}', github.ref) || 'infra-live' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
@@ -37,7 +47,7 @@ jobs:
       - uses: ./.github/actions/tofu-init
       - run: tofu fmt -check -recursive
       - run: tofu validate
-      - run: tofu plan -input=false -out=tfplan
+      - run: tofu plan -input=false -out=tfplan ${{ github.event_name == 'pull_request' && '-lock=false' || '' }}
       - name: Show the plan in the run summary
         run: |
           {
@@ -64,6 +74,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/tofu-init
+      - name: Refuse a plan that a newer run has superseded
+        working-directory: .
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: .github/scripts/refuse-superseded-apply.sh
       - uses: actions/download-artifact@v8
         with:
           name: tfplan
