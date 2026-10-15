@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono';
+import { accountCourses, renderAccount } from './account.ts';
 import { COURSES, type Course } from './courses.ts';
 import { courseProgressMeta, renderCourse, renderHome } from './home.ts';
 import { loadLessons } from './load.ts';
@@ -10,12 +11,9 @@ import { buildNav } from './nav.ts';
 import { renderLesson } from './render.ts';
 import type { Lesson } from './types.ts';
 
-export interface AuthConfig {
-  apiKey: string;
-  projectId: string;
-  identityUrl?: string;
-  tokenUrl?: string;
-}
+export type AuthConfig =
+  | { apiKey: string; projectId: string; identityUrl?: string; tokenUrl?: string }
+  | { devUser: string };
 
 function asset(relativePath: string): string {
   return readFileSync(fileURLToPath(new URL(relativePath, import.meta.url)), 'utf8');
@@ -47,10 +45,13 @@ export function createLessonSite(
       pages.set(lesson.id, renderLesson(lesson, buildNav(lessons, lesson.id)));
     }
   }
-  const home = renderHome(COURSES, courseProgressMeta(courseLessons));
+  const progressMeta = courseProgressMeta(courseLessons);
+  const home = renderHome(COURSES, progressMeta);
+  const account = renderAccount(accountCourses(COURSES, progressMeta));
   const app = new Hono();
 
   app.get('/', (c) => c.html(home));
+  app.get('/account', (c) => c.html(account));
   app.get('/courses/:courseId', (c) => {
     const courseId = c.req.param('courseId');
     const course = courseById.get(courseId);

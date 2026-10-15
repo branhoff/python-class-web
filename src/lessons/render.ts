@@ -1,6 +1,7 @@
 import hljs from 'highlight.js/lib/core';
 import python from 'highlight.js/lib/languages/python';
 import { Marked, type Tokens } from 'marked';
+import { renderTopbar } from './chrome.ts';
 import type { LessonNav, NavLesson, NavSection } from './nav.ts';
 import { LESSON_STYLE } from './styles.ts';
 import type { Cell, Lesson } from './types.ts';
@@ -97,7 +98,7 @@ export function renderLesson(lesson: Lesson, nav?: LessonNav): string {
     .join('\n');
   const heading = `<h1>${escapeHtml(lesson.title)}</h1>`;
   const content = nav
-    ? `<nav class="topbar" aria-label="Site"><a class="home" href="/">Home</a></nav>
+    ? `${renderTopbar('<a class="home" href="/">Home</a>')}
 <div class="layout">
 ${renderSidebar(nav)}
 <main>
@@ -117,7 +118,6 @@ ${body}`;
 <style>${LESSON_STYLE}</style>
 </head>
 <body>
-<header id="auth"></header>
 ${content}
 <script src="/pyodide/pyodide.js"></script>
 <script type="module" src="/static/lesson-runner.js"></script>

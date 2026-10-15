@@ -65,7 +65,7 @@ async function wire(): Promise<Wiring> {
   return {
     repository: new MemoryProgressRepository(),
     authenticate: async () => mode.user,
-    authConfig: null,
+    authConfig: { devUser: mode.user },
   };
 }
 

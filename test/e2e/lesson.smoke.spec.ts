@@ -66,10 +66,11 @@ test('passing an exercise records progress and restores it on reload', async ({ 
   await expect(page.locator('[data-cell-id="double-number"]')).toHaveClass(/completed/);
 });
 
-test('shows no sign-in form when auth is unconfigured (dev)', async ({ page }) => {
+test('shows a Sign in button, not a form, at the top of a lesson page', async ({ page }) => {
   await page.goto('/lessons/functions');
   await waitForPythonReady(page);
-  await expect(page.locator('#auth form')).toHaveCount(0);
+  await expect(page.locator('input[type="email"]')).toHaveCount(0);
+  await expect(page.locator('#account-link')).toBeVisible();
 });
 
 test('the sidebar and pager navigate between lessons', async ({ page }) => {

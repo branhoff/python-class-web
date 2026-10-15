@@ -39,6 +39,11 @@ in, token refresh and password reset all work with no cloud project. Accounts
 and progress live in memory and vanish when you restart. A password reset
 prints a line to the terminal instead of sending an email.
 
+Every page has a Sign in button at the top right that opens `/account`, where
+learners sign in, create an account, reset a password, sign out and see their
+progress. Locally with `make dev` (a fixed user) the button shows that user
+instead, and on a server with no sign-in configured the account page says so.
+
 It is development only: the server refuses to start with `AUTH_EMULATOR=1` when
 `GCP_PROJECT` is also set. In production, sign-in turns on when the service has
 both `GCP_PROJECT` and `IDENTITY_PLATFORM_API_KEY`; the key reaches Cloud Run
