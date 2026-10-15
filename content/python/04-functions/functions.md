@@ -371,3 +371,255 @@ print(is_even(3))
 print(is_even(48))
 ```
 :::
+
+## Projects
+
+Build these in VS Code, in your project folder. Click a project name to open it.
+Give every function a docstring.
+
+<details id="project-distance-fallen">
+<summary>Project: Distance fallen</summary>
+
+Use this formula to find how far an object falls in a given time because of
+gravity:
+
+d = (1/2)gt<sup>2</sup>
+
+where d is the distance in meters, g is 9.8, and t is the time in seconds.
+
+Write a function called `distance_fallen` that takes a time in seconds as an
+argument and returns the distance the object has fallen in that time. Here is
+how it could be used:
+
+```python
+dist = distance_fallen(4.5)
+print(dist)
+```
+
+Save the file as `distance_fallen.py`.
+
+
+<details>
+<summary>Show a solution</summary>
+
+:::cell id=solution-distance-fallen
+Try the project on your own first. This is one working solution, followed by its tests. Press **Run** to run the tests. Read them to see what thorough testing looks like, then change the solution and run again to watch a test fail.
+
+```python starter
+def distance_fallen(time: float) -> float:
+    """Return the distance in meters an object falls in `time` seconds."""
+    gravity: float = 9.8
+    return 0.5 * gravity * time * time
+
+
+# ---- Tests ----
+import sys
+import unittest
+
+
+class TestDistanceFallen(unittest.TestCase):
+    def test_an_object_has_not_fallen_at_time_zero(self):
+        self.assertEqual(distance_fallen(0), 0)
+
+    def test_one_second_of_falling_is_half_of_gravity(self):
+        self.assertAlmostEqual(distance_fallen(1), 4.9)
+
+    def test_the_example_from_the_project(self):
+        self.assertAlmostEqual(distance_fallen(4.5), 99.225)
+
+    def test_a_whole_number_of_seconds(self):
+        self.assertAlmostEqual(distance_fallen(10), 490)
+
+    def test_doubling_the_time_quadruples_the_distance(self):
+        self.assertAlmostEqual(distance_fallen(6), 4 * distance_fallen(3))
+
+    def test_a_fraction_of_a_second(self):
+        self.assertAlmostEqual(distance_fallen(0.5), 1.225)
+
+    def test_a_negative_time_gives_the_same_distance_as_a_positive_one(self):
+        self.assertAlmostEqual(distance_fallen(-2), distance_fallen(2))
+
+
+# ---- Run the tests ----
+loader = unittest.defaultTestLoader
+suite = unittest.TestSuite(loader.loadTestsFromTestCase(case) for case in [TestDistanceFallen])
+unittest.TextTestRunner(stream=sys.stdout, verbosity=2).run(suite)
+```
+:::
+
+</details>
+</details>
+
+<details id="project-fibonacci-number">
+<summary>Project: Fibonacci number</summary>
+
+The first and second numbers in the Fibonacci sequence are both 1. After that,
+each number is the sum of the two before it: 1, 1, 2, 3, 5, 8, 13, 21, 34, 55,
+89, and so on.
+
+Write a function called `fibonacci` that takes a positive integer and returns
+the number at that position in the sequence. For example, `fibonacci(1)` is 1,
+`fibonacci(3)` is 2 and `fibonacci(5)` is 5. The function does not print
+anything. It returns a value:
+
+```python
+term = fibonacci(17)
+```
+
+Do not use recursion. Your function must not call itself.
+
+Save the file as `fibonacci.py`.
+
+
+<details>
+<summary>Show a solution</summary>
+
+:::cell id=solution-fibonacci-number
+Try the project on your own first. This is one working solution, followed by its tests. Press **Run** to run the tests. Read them to see what thorough testing looks like, then change the solution and run again to watch a test fail. The testing tools used here (classes and `unittest`) are not part of the course yet, so do not worry about how they work.
+
+```python starter
+def fibonacci(number: int) -> int:
+    """Return the number at position `number` of the Fibonacci sequence."""
+    previous: int = 0
+    current: int = 1
+    for step in range(number - 1):
+        following: int = previous + current
+        previous = current
+        current = following
+    return current
+
+
+# ---- Tests ----
+import sys
+import unittest
+
+
+class TestFibonacci(unittest.TestCase):
+    def test_the_first_two_numbers_are_both_one(self):
+        self.assertEqual(fibonacci(1), 1)
+        self.assertEqual(fibonacci(2), 1)
+
+    def test_each_number_is_the_sum_of_the_two_before_it(self):
+        self.assertEqual(fibonacci(3), 2)
+        self.assertEqual(fibonacci(4), 3)
+        self.assertEqual(fibonacci(5), 5)
+
+    def test_a_larger_position(self):
+        self.assertEqual(fibonacci(17), 1597)
+
+
+# ---- Run the tests ----
+loader = unittest.defaultTestLoader
+suite = unittest.TestSuite(loader.loadTestsFromTestCase(case) for case in [TestFibonacci])
+unittest.TextTestRunner(stream=sys.stdout, verbosity=2).run(suite)
+```
+:::
+
+</details>
+</details>
+
+<details id="project-hailstone-steps">
+<summary>Project: Hailstone steps</summary>
+
+A hailstone sequence starts with a positive integer. If the number is even,
+divide it by two to get the next number. If it is odd, multiply it by three and
+add one. Repeat with each new number. Starting from 3, the sequence is 3, 10, 5,
+16, 8, 4, 2, 1.
+
+Write a function called `hailstone_step` that takes the starting number and
+returns how many steps it takes to reach 1. Stop once you reach 1. A starting
+value of 1 takes 0 steps. A starting value of 3 takes 7 steps. The function does
+not print anything. It returns a value:
+
+```python
+answer = hailstone_step(1000)
+print(answer)
+```
+
+Do not use recursion.
+
+Save the file as `hailstone_step.py`.
+
+
+<details>
+<summary>Show a solution</summary>
+
+:::cell id=solution-hailstone-steps
+Try the project on your own first. This is one working solution, followed by its tests. Press **Run** to run the tests. Read them to see what thorough testing looks like, then change the solution and run again to watch a test fail.
+
+```python starter
+def next_hailstone(num: int) -> int:
+    """Return the number that follows `num` in a hailstone sequence."""
+    if num % 2 == 0:
+        return num // 2
+    return num * 3 + 1
+
+
+def hailstone_step(num: int) -> int:
+    """Return how many steps a hailstone sequence takes to reach 1."""
+    steps: int = 0
+    while num != 1:
+        num = next_hailstone(num)
+        steps += 1
+    return steps
+
+
+# ---- Tests ----
+import sys
+import unittest
+
+
+class TestNextHailstone(unittest.TestCase):
+    def test_an_even_number_is_halved(self):
+        self.assertEqual(next_hailstone(6), 3)
+        self.assertEqual(next_hailstone(2), 1)
+
+    def test_an_odd_number_is_tripled_and_increased_by_one(self):
+        self.assertEqual(next_hailstone(3), 10)
+        self.assertEqual(next_hailstone(1), 4)
+
+    def test_halving_gives_a_whole_number_not_a_decimal(self):
+        self.assertIsInstance(next_hailstone(10), int)
+
+
+class TestHailstoneStep(unittest.TestCase):
+    def test_starting_at_one_takes_zero_steps(self):
+        self.assertEqual(hailstone_step(1), 0)
+
+    def test_two_halves_to_one_in_a_single_step(self):
+        self.assertEqual(hailstone_step(2), 1)
+
+    def test_three_takes_seven_steps(self):
+        # 3, 10, 5, 16, 8, 4, 2, 1
+        self.assertEqual(hailstone_step(3), 7)
+
+    def test_five_takes_five_steps(self):
+        # 5, 16, 8, 4, 2, 1
+        self.assertEqual(hailstone_step(5), 5)
+
+    def test_six_takes_one_step_more_than_three(self):
+        # 6, 3, then the 7 steps from 3
+        self.assertEqual(hailstone_step(6), 8)
+
+    def test_a_power_of_two_only_halves(self):
+        self.assertEqual(hailstone_step(64), 6)
+
+    def test_a_longer_sequence(self):
+        self.assertEqual(hailstone_step(1000), 111)
+
+    def test_a_sequence_that_climbs_high_before_falling(self):
+        self.assertEqual(hailstone_step(27), 111)
+
+    def test_the_result_is_a_whole_number(self):
+        self.assertIsInstance(hailstone_step(7), int)
+
+
+# ---- Run the tests ----
+loader = unittest.defaultTestLoader
+suite = unittest.TestSuite(loader.loadTestsFromTestCase(case) for case in [TestNextHailstone, TestHailstoneStep])
+unittest.TextTestRunner(stream=sys.stdout, verbosity=2).run(suite)
+```
+:::
+
+</details>
+</details>

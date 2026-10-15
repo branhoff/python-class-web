@@ -93,3 +93,42 @@ static preview (cells are not runnable yet).
 The harness that runs code lives in `src/lessons/harness.py`. The same file is
 meant to run under Pyodide in the browser so CI and learners get the same
 results.
+
+## Project solution cells
+
+Each IDE project ends with a "Show a solution" block holding sandbox cells whose
+ids start with `solution-`. **A solution may only use what the course has taught
+by the lesson it sits in.** `scripts/audit_solution.py` enforces this by reading
+the solution's syntax tree against a table of "first taught in" lessons. When a
+lesson starts teaching something, update that table.
+
+Tests are for students to read, so they may use `unittest`, classes and
+`unittest.mock`. There are two layouts:
+
+**Functions and classes (one cell).** The cell is one Python file in three parts:
+
+1. the solution,
+2. a `# ---- Tests ----` line, then `unittest` test cases, and
+3. a `# ---- Run the tests ----` line, then the lines that run the cases.
+
+The run section builds the suite from the listed `TestCase` classes. It does not
+call `unittest.main()`, because the browser runs cells with `exec` and `main`
+would not find them.
+
+**Plain scripts (two cells).** Early projects that read `input()` come before
+functions are taught, so the solution cannot be wrapped in `def`. The
+`solution-<slug>` cell is the plain script. A second cell, `tests-<slug>`,
+starts with `PROGRAM = r'''` followed by an exact copy of the script, then the
+tests and run sections above. The tests run `PROGRAM` with pretend `input()`.
+The extractor fails if the copy differs from the solution cell.
+
+`make solutions` extracts each cell into `build/solutions/<slug>/`
+(`scripts/extract-solutions.ts`) and checks that the solution passes the
+taught-features audit, that the cell prints `OK`, and that the tests cover 100%
+of the solution's lines and branches (coverage.py). `make mutation` also
+mutation-tests every solution and every injected bug must be caught: mutmut for
+function and class solutions, cosmic-ray for plain scripts (mutmut only changes
+code inside functions). A line where a change cannot alter behavior may carry
+`# pragma: no mutate` and a comment saying why. The Python tools are pinned in
+`scripts/solutions-requirements.txt` and installed into a throwaway virtualenv
+under `build/`, so they never touch the Node dependency surface.

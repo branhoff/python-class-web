@@ -266,3 +266,469 @@ def echo_until_quit(words: list) -> None:
 echo_until_quit(["red", "green", "quit", "blue"])
 ```
 :::
+
+## Projects
+
+Build these in VS Code, in your project folder. Click a project name to open it.
+
+<details id="project-min-and-max">
+<summary>Project: Smallest and largest</summary>
+
+Write a program that asks how many numbers the user wants to enter (at least
+one), then asks for that many numbers. When all the numbers are in, print the
+smallest and the largest. Do not use lists or any other data structure. When you
+run it, the output should match this format:
+
+```
+How many numbers would you like to enter?
+3
+Please enter 3 numbers.
+3
+5
+7
+
+min: 3
+max: 7
+```
+
+Hints: how many numbers do you need to keep track of at one time? If someone
+read you a list of numbers and asked for the largest and smallest at the end,
+what would you remember as you went? How should you set up your variables? What
+happens if the user enters only one number?
+
+Save the file as `min_max_number.py`.
+
+
+<details>
+<summary>Show a solution</summary>
+
+:::cell id=solution-min-and-max
+Try the project on your own first. This is one working solution. Press **Run**, and a box asks for each input. Type the sample values from the project description to see the same output.
+
+```python starter
+print("How many numbers would you like to enter?")
+count = int(input())
+while count < 1:
+    print("Please enter at least one number.")
+    count = int(input())
+
+print("Please enter", count, "numbers.")
+smallest = int(input())
+largest = smallest
+for i in range(count - 1):
+    number = int(input())
+    # Using <= would also work: equal numbers swap in the same value.
+    if number < smallest:  # pragma: no mutate
+        smallest = number
+    if number > largest:  # pragma: no mutate
+        largest = number
+
+print()
+print("min:", smallest)
+print("max:", largest)
+```
+:::
+
+:::cell id=tests-min-and-max
+These tests check the solution above. They run a copy of the program, kept in `PROGRAM`, and give it pretend input. The testing tools here are not part of the course yet, so do not worry about how they work. Read the test names and the expected outputs: together they list what the program must do. Press **Run** to run the tests.
+
+```python starter
+PROGRAM = r'''
+print("How many numbers would you like to enter?")
+count = int(input())
+while count < 1:
+    print("Please enter at least one number.")
+    count = int(input())
+
+print("Please enter", count, "numbers.")
+smallest = int(input())
+largest = smallest
+for i in range(count - 1):
+    number = int(input())
+    # Using <= would also work: equal numbers swap in the same value.
+    if number < smallest:  # pragma: no mutate
+        smallest = number
+    if number > largest:  # pragma: no mutate
+        largest = number
+
+print()
+print("min:", smallest)
+print("max:", largest)
+'''
+
+# ---- Tests ----
+import io
+import sys
+import unittest
+from contextlib import redirect_stdout
+from unittest import mock
+
+
+def run_program(*typed_lines: str) -> str:
+    """Run the program as if the user typed each line, and return what it printed."""
+    answers = iter(typed_lines)
+
+    def fake_input(prompt: str = "") -> str:
+        print(prompt, end="")
+        return next(answers)
+
+    output = io.StringIO()
+    with mock.patch("builtins.input", fake_input), redirect_stdout(output):
+        exec(compile(PROGRAM.strip(), "solution.py", "exec"), {})
+    return output.getvalue()
+
+
+class TestMinAndMax(unittest.TestCase):
+    def test_matches_the_sample_run_exactly(self):
+        self.assertEqual(
+            run_program("3", "3", "5", "7"),
+            "How many numbers would you like to enter?\n"
+            "Please enter 3 numbers.\n"
+            "\n"
+            "min: 3\n"
+            "max: 7\n",
+        )
+
+    def test_a_single_number_is_both_the_min_and_the_max(self):
+        self.assertEqual(
+            run_program("1", "42"),
+            "How many numbers would you like to enter?\n"
+            "Please enter 1 numbers.\n"
+            "\n"
+            "min: 42\n"
+            "max: 42\n",
+        )
+
+    def test_two_numbers_in_either_order(self):
+        self.assertTrue(run_program("2", "1", "9").endswith("min: 1\nmax: 9\n"))
+        self.assertTrue(run_program("2", "9", "1").endswith("min: 1\nmax: 9\n"))
+
+    def test_largest_first_and_smallest_last(self):
+        self.assertTrue(run_program("3", "9", "5", "1").endswith("min: 1\nmax: 9\n"))
+
+    def test_smallest_first_and_largest_last(self):
+        self.assertTrue(run_program("3", "1", "5", "9").endswith("min: 1\nmax: 9\n"))
+
+    def test_extremes_in_the_middle(self):
+        self.assertTrue(
+            run_program("5", "5", "1", "9", "4", "6").endswith("min: 1\nmax: 9\n")
+        )
+
+    def test_all_numbers_equal(self):
+        self.assertTrue(run_program("3", "4", "4", "4").endswith("min: 4\nmax: 4\n"))
+
+    def test_negative_numbers(self):
+        self.assertTrue(
+            run_program("3", "-5", "-20", "-1").endswith("min: -20\nmax: -1\n")
+        )
+
+    def test_the_last_number_is_read(self):
+        self.assertTrue(run_program("2", "5", "100").endswith("min: 5\nmax: 100\n"))
+        self.assertTrue(run_program("2", "5", "-100").endswith("min: -100\nmax: 5\n"))
+
+    def test_asks_again_when_the_count_is_zero(self):
+        self.assertEqual(
+            run_program("0", "2", "8", "3"),
+            "How many numbers would you like to enter?\n"
+            "Please enter at least one number.\n"
+            "Please enter 2 numbers.\n"
+            "\n"
+            "min: 3\n"
+            "max: 8\n",
+        )
+
+    def test_asks_again_until_the_count_is_at_least_one(self):
+        output = run_program("-4", "0", "1", "6")
+        self.assertEqual(output.count("Please enter at least one number.\n"), 2)
+        self.assertTrue(output.endswith("min: 6\nmax: 6\n"))
+
+
+# ---- Run the tests ----
+loader = unittest.defaultTestLoader
+suite = unittest.TestSuite(loader.loadTestsFromTestCase(case) for case in [TestMinAndMax])
+unittest.TextTestRunner(stream=sys.stdout, verbosity=2).run(suite)
+```
+:::
+
+</details>
+</details>
+
+<details id="project-find-factors">
+<summary>Project: Find the factors</summary>
+
+Write a program that asks for a positive integer and prints every positive
+integer that divides it evenly, including 1 and the number itself, in ascending
+order. When you run it, the output should match this format:
+
+```
+Please enter a positive integer: 12
+The factors of 12 are:
+1
+2
+3
+4
+6
+12
+```
+
+Save the file as `find_factors.py`.
+
+
+<details>
+<summary>Show a solution</summary>
+
+:::cell id=solution-find-factors
+Try the project on your own first. This is one working solution. Press **Run**, and a box asks for each input. Type the sample values from the project description to see the same output.
+
+```python starter
+number = int(input("Please enter a positive integer: "))
+print("The factors of", number, "are:")
+# A larger range end (such as number * 2) would also work: no number above it divides it.
+for candidate in range(1, number + 1):  # pragma: no mutate
+    # Using <= 0 would also work: a remainder is never negative here.
+    if number % candidate == 0:  # pragma: no mutate
+        print(candidate)
+```
+:::
+
+:::cell id=tests-find-factors
+These tests check the solution above. They run a copy of the program, kept in `PROGRAM`, and give it pretend input. The testing tools here are not part of the course yet, so do not worry about how they work. Read the test names and the expected outputs: together they list what the program must do. Press **Run** to run the tests.
+
+```python starter
+PROGRAM = r'''
+number = int(input("Please enter a positive integer: "))
+print("The factors of", number, "are:")
+# A larger range end (such as number * 2) would also work: no number above it divides it.
+for candidate in range(1, number + 1):  # pragma: no mutate
+    # Using <= 0 would also work: a remainder is never negative here.
+    if number % candidate == 0:  # pragma: no mutate
+        print(candidate)
+'''
+
+# ---- Tests ----
+import io
+import sys
+import unittest
+from contextlib import redirect_stdout
+from unittest import mock
+
+
+def run_program(*typed_lines: str) -> str:
+    """Run the program as if the user typed each line, and return what it printed."""
+    answers = iter(typed_lines)
+
+    def fake_input(prompt: str = "") -> str:
+        print(prompt, end="")
+        return next(answers)
+
+    output = io.StringIO()
+    with mock.patch("builtins.input", fake_input), redirect_stdout(output):
+        exec(compile(PROGRAM.strip(), "solution.py", "exec"), {})
+    return output.getvalue()
+
+
+class TestFindFactors(unittest.TestCase):
+    def assert_factors(self, number, factors):
+        expected = (
+            f"Please enter a positive integer: The factors of {number} are:\n"
+            + "".join(f"{factor}\n" for factor in factors)
+        )
+        self.assertEqual(run_program(str(number)), expected)
+
+    def test_matches_the_sample_run_exactly(self):
+        self.assert_factors(12, [1, 2, 3, 4, 6, 12])
+
+    def test_one_has_only_itself_as_a_factor(self):
+        self.assert_factors(1, [1])
+
+    def test_a_prime_has_only_one_and_itself(self):
+        self.assert_factors(13, [1, 13])
+
+    def test_two_is_the_smallest_prime(self):
+        self.assert_factors(2, [1, 2])
+
+    def test_a_perfect_square_lists_its_root_once(self):
+        self.assert_factors(36, [1, 2, 3, 4, 6, 9, 12, 18, 36])
+
+    def test_a_larger_number(self):
+        self.assert_factors(100, [1, 2, 4, 5, 10, 20, 25, 50, 100])
+
+    def test_zero_and_negative_numbers_list_no_factors(self):
+        self.assert_factors(0, [])
+        self.assert_factors(-6, [])
+
+
+# ---- Run the tests ----
+loader = unittest.defaultTestLoader
+suite = unittest.TestSuite(loader.loadTestsFromTestCase(case) for case in [TestFindFactors])
+unittest.TextTestRunner(stream=sys.stdout, verbosity=2).run(suite)
+```
+:::
+
+</details>
+</details>
+
+<details id="project-number-guessing">
+<summary>Project: Number guessing game</summary>
+
+Write a program where one player picks a number and a second player tries to
+guess it. The program first asks for the number to guess. Then it keeps asking
+for guesses. After a wrong guess it prints "Too high - try again:" or "Too low -
+try again:". It stops only when the guess is right, and then prints how many
+guesses it took. When you run it, the output should match this format:
+
+```
+Enter the number for the player to guess.
+-10
+Enter your guess.
+10
+Too high - try again:
+5
+Too high - try again:
+-200
+Too low - try again:
+-10
+You guessed it in 4 tries.
+```
+
+If the player guesses on the first try, print "You guessed it in 1 try."
+
+Save the file as `guess_num.py`.
+
+
+<details>
+<summary>Show a solution</summary>
+
+:::cell id=solution-number-guessing
+Try the project on your own first. This is one working solution. Press **Run**, and a box asks for each input. Type the sample values from the project description to see the same output.
+
+```python starter
+print("Enter the number for the player to guess.")
+secret = int(input())
+
+print("Enter your guess.")
+guess = int(input())
+tries = 1
+while guess != secret:
+    # Using <= would also work: the loop only runs while guess != secret.
+    if guess < secret:  # pragma: no mutate
+        print("Too low - try again:")
+    else:
+        print("Too high - try again:")
+    guess = int(input())
+    tries += 1
+
+# Using <= 1 would also work: tries is never below 1.
+if tries == 1:  # pragma: no mutate
+    print("You guessed it in 1 try.")
+else:
+    print("You guessed it in", tries, "tries.")
+```
+:::
+
+:::cell id=tests-number-guessing
+These tests check the solution above. They run a copy of the program, kept in `PROGRAM`, and give it pretend input. The testing tools here are not part of the course yet, so do not worry about how they work. Read the test names and the expected outputs: together they list what the program must do. Press **Run** to run the tests.
+
+```python starter
+PROGRAM = r'''
+print("Enter the number for the player to guess.")
+secret = int(input())
+
+print("Enter your guess.")
+guess = int(input())
+tries = 1
+while guess != secret:
+    # Using <= would also work: the loop only runs while guess != secret.
+    if guess < secret:  # pragma: no mutate
+        print("Too low - try again:")
+    else:
+        print("Too high - try again:")
+    guess = int(input())
+    tries += 1
+
+# Using <= 1 would also work: tries is never below 1.
+if tries == 1:  # pragma: no mutate
+    print("You guessed it in 1 try.")
+else:
+    print("You guessed it in", tries, "tries.")
+'''
+
+# ---- Tests ----
+import io
+import sys
+import unittest
+from contextlib import redirect_stdout
+from unittest import mock
+
+
+def run_program(*typed_lines: str) -> str:
+    """Run the program as if the user typed each line, and return what it printed."""
+    answers = iter(typed_lines)
+
+    def fake_input(prompt: str = "") -> str:
+        print(prompt, end="")
+        return next(answers)
+
+    output = io.StringIO()
+    with mock.patch("builtins.input", fake_input), redirect_stdout(output):
+        exec(compile(PROGRAM.strip(), "solution.py", "exec"), {})
+    return output.getvalue()
+
+
+class TestNumberGuessing(unittest.TestCase):
+    START = "Enter the number for the player to guess.\nEnter your guess.\n"
+
+    def test_matches_the_sample_run_exactly(self):
+        self.assertEqual(
+            run_program("-10", "10", "5", "-200", "-10"),
+            self.START
+            + "Too high - try again:\n"
+            + "Too high - try again:\n"
+            + "Too low - try again:\n"
+            + "You guessed it in 4 tries.\n",
+        )
+
+    def test_a_correct_first_guess_uses_the_singular_try(self):
+        self.assertEqual(
+            run_program("7", "7"), self.START + "You guessed it in 1 try.\n"
+        )
+
+    def test_two_guesses_use_the_plural_tries(self):
+        self.assertEqual(
+            run_program("7", "3", "7"),
+            self.START + "Too low - try again:\nYou guessed it in 2 tries.\n",
+        )
+
+    def test_a_guess_above_the_number_is_too_high(self):
+        self.assertEqual(
+            run_program("7", "8", "7"),
+            self.START + "Too high - try again:\nYou guessed it in 2 tries.\n",
+        )
+
+    def test_a_guess_one_below_the_number_is_too_low(self):
+        self.assertIn("Too low - try again:\n", run_program("7", "6", "7"))
+
+    def test_a_guess_one_above_the_number_is_too_high(self):
+        self.assertIn("Too high - try again:\n", run_program("7", "8", "7"))
+
+    def test_zero_and_negative_numbers_work(self):
+        self.assertEqual(
+            run_program("0", "-1", "0"),
+            self.START + "Too low - try again:\nYou guessed it in 2 tries.\n",
+        )
+
+    def test_counts_every_wrong_guess(self):
+        output = run_program("5", "1", "2", "3", "4", "6", "5")
+        self.assertEqual(output.count("try again:"), 5)
+        self.assertTrue(output.endswith("You guessed it in 6 tries.\n"))
+
+
+# ---- Run the tests ----
+loader = unittest.defaultTestLoader
+suite = unittest.TestSuite(loader.loadTestsFromTestCase(case) for case in [TestNumberGuessing])
+unittest.TextTestRunner(stream=sys.stdout, verbosity=2).run(suite)
+```
+:::
+
+</details>
+</details>

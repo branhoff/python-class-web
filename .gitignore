@@ -54,3 +54,6 @@ vendor/
 test-results/
 playwright-report/
 .playwright/
+
+# Python bytecode from the solution tooling
+__pycache__/

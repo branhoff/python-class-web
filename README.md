@@ -40,5 +40,6 @@ src/
   repository/             storage contract + backends (memory now, Firestore next)
 test/                     node:test suites; contract.ts is shared by all backends
 content/                  one folder per course (content/python/...); lessons as markdown (see docs/LESSON_FORMAT.md)
+scripts/                  lesson build/check tools, plus the solution test runners (see docs/LESSON_FORMAT.md)
 infra/                    OpenTofu (bootstrap/ run once; live root runs in CI)
 ```

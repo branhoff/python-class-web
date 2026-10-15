@@ -537,3 +537,303 @@ def contain_string(string_list: list[str], target_string: str) -> list[str]:
 print(contain_string(["cats", "tacks", "scat", "stack"], "cat"))
 ```
 :::
+
+## Projects
+
+Build these in VS Code, in your project folder. Click a project name to open it.
+
+<details id="project-find-median">
+<summary>Project: Find the median</summary>
+
+Write a function named `find_median` that takes a list of numbers and returns
+their median. You will need to sort the list first. If you are not sure how the
+median works, look it up before you start.
+
+```python
+list_of_nums = [13, 7, -3, 82, 4]
+result = find_median(list_of_nums)
+```
+
+Save the file as `find_median.py`.
+
+
+<details>
+<summary>Show a solution</summary>
+
+:::cell id=solution-find-median
+Try the project on your own first. This is one working solution, followed by its tests. Press **Run** to run the tests. Read them to see what thorough testing looks like, then change the solution and run again to watch a test fail. The testing tools used here (classes and `unittest`) are not part of the course yet, so do not worry about how they work.
+
+```python starter
+def find_median(numbers: list) -> float:
+    """Return the median of a list of numbers without changing the list."""
+    ordered: list = numbers[:]
+    ordered.sort()
+    middle: int = len(ordered) // 2
+    if len(ordered) % 2 == 0:
+        return (ordered[middle - 1] + ordered[middle]) / 2
+    return ordered[middle]
+
+
+# ---- Tests ----
+import sys
+import unittest
+
+
+class TestFindMedian(unittest.TestCase):
+    def test_a_single_number_is_its_own_median(self):
+        self.assertEqual(find_median([5]), 5)
+
+    def test_an_odd_length_list_returns_the_middle_number(self):
+        self.assertEqual(find_median([1, 2, 3]), 2)
+
+    def test_the_example_from_the_project(self):
+        self.assertEqual(find_median([13, 7, -3, 82, 4]), 7)
+
+    def test_an_even_length_list_averages_the_two_middle_numbers(self):
+        self.assertEqual(find_median([1, 2, 3, 4]), 2.5)
+
+    def test_two_numbers_average_to_the_value_between_them(self):
+        self.assertEqual(find_median([10, 20]), 15)
+
+    def test_an_even_length_list_can_have_a_median_that_is_not_in_the_list(self):
+        self.assertEqual(find_median([1, 2, 3, 10, 20, 30]), 6.5)
+
+    def test_an_unsorted_list_is_sorted_first(self):
+        self.assertEqual(find_median([9, 1, 5, 3, 7]), 5)
+        self.assertEqual(find_median([8, 2, 6, 4]), 5)
+
+    def test_negative_numbers_are_handled(self):
+        self.assertEqual(find_median([-5, -1, -3]), -3)
+        self.assertEqual(find_median([-4, -2]), -3)
+
+    def test_repeated_numbers_are_handled(self):
+        self.assertEqual(find_median([4, 4, 4, 9]), 4)
+
+    def test_the_original_list_is_left_unchanged(self):
+        numbers = [13, 7, -3, 82, 4]
+        find_median(numbers)
+        self.assertEqual(numbers, [13, 7, -3, 82, 4])
+
+
+# ---- Run the tests ----
+loader = unittest.defaultTestLoader
+suite = unittest.TestSuite(loader.loadTestsFromTestCase(case) for case in [TestFindMedian])
+unittest.TextTestRunner(stream=sys.stdout, verbosity=2).run(suite)
+```
+:::
+
+</details>
+</details>
+
+<details id="project-add-surname">
+<summary>Project: Add a surname</summary>
+
+Write a function named `add_surname` that takes a list of first names. It returns
+a new list holding only the names that start with "K", each with the surname
+"Hoffman" added after a space. You can assume every name starts with a capital
+letter. For example, given this list:
+
+```python
+["Kiki", "Krystal", "Pavel", "MaryKay", "Annie", "Koala"]
+```
+
+the function returns:
+
+```python
+['Kiki Hoffman', 'Krystal Hoffman', 'Koala Hoffman']
+```
+
+Save the file as `add_surname.py`.
+
+
+<details>
+<summary>Show a solution</summary>
+
+:::cell id=solution-add-surname
+Try the project on your own first. This is one working solution, followed by its tests. Press **Run** to run the tests. Read them to see what thorough testing looks like, then change the solution and run again to watch a test fail. The testing tools used here (classes and `unittest`) are not part of the course yet, so do not worry about how they work.
+
+```python starter
+def add_surname(first_names: list) -> list:
+    """Return the names starting with "K", each followed by " Hoffman"."""
+    return [name + " Hoffman" for name in first_names if name[0] == "K"]
+
+
+# ---- Tests ----
+import sys
+import unittest
+
+
+class TestAddSurname(unittest.TestCase):
+    def test_the_example_from_the_project(self):
+        names = ["Kiki", "Krystal", "Pavel", "MaryKay", "Annie", "Koala"]
+        expected = ["Kiki Hoffman", "Krystal Hoffman", "Koala Hoffman"]
+        self.assertEqual(add_surname(names), expected)
+
+    def test_an_empty_list_gives_an_empty_list(self):
+        self.assertEqual(add_surname([]), [])
+
+    def test_a_name_starting_with_k_gets_the_surname(self):
+        self.assertEqual(add_surname(["Kim"]), ["Kim Hoffman"])
+
+    def test_a_name_not_starting_with_k_is_left_out(self):
+        self.assertEqual(add_surname(["Pavel"]), [])
+
+    def test_a_k_in_the_middle_of_a_name_does_not_count(self):
+        self.assertEqual(add_surname(["MaryKay", "Ik"]), [])
+
+    def test_a_lower_case_k_does_not_count(self):
+        self.assertEqual(add_surname(["kiki"]), [])
+
+    def test_a_single_letter_name_is_handled(self):
+        self.assertEqual(add_surname(["K", "A"]), ["K Hoffman"])
+
+    def test_names_keep_their_original_order(self):
+        self.assertEqual(
+            add_surname(["Zed", "Kyle", "Kai", "Ann"]),
+            ["Kyle Hoffman", "Kai Hoffman"],
+        )
+
+    def test_the_original_list_is_left_unchanged(self):
+        names = ["Kiki", "Pavel"]
+        add_surname(names)
+        self.assertEqual(names, ["Kiki", "Pavel"])
+
+
+# ---- Run the tests ----
+loader = unittest.defaultTestLoader
+suite = unittest.TestSuite(loader.loadTestsFromTestCase(case) for case in [TestAddSurname])
+unittest.TextTestRunner(stream=sys.stdout, verbosity=2).run(suite)
+```
+:::
+
+</details>
+</details>
+
+<details id="project-std-dev-of-ages">
+<summary>Project: Standard deviation of ages</summary>
+
+Write a class called `Person` with two **private** data members: the person's
+name and age. Its `__init__` method takes the two values and stores them. It also
+has a `get_age` method.
+
+Then write a separate function, outside the class, called `std_dev`. It takes a
+list of `Person` objects and returns the standard deviation of their ages. Use the population standard
+deviation: find the mean age, average the squared gaps from the mean over all the
+people, then take the square root.
+
+To find a standard deviation you need a square root. Raising a number to the
+power 0.5 gives its square root, so `9 ** 0.5` is `3.0`. Python also has a
+`sqrt()` function, but it needs an import, which we have not covered.
+
+Here is how the class and function could be used:
+
+```python
+person1 = Person("Katie", 73)
+person2 = Person("Tran", 24)
+person3 = Person("Hanna", 48)
+person_list = [person1, person2, person3]
+answer = std_dev(person_list)
+```
+
+Save the file as `std_dev.py`.
+
+
+<details>
+<summary>Show a solution</summary>
+
+:::cell id=solution-std-dev-of-ages
+Try the project on your own first. This is one working solution, followed by its tests. Press **Run** to run the tests. Read them to see what thorough testing looks like, then change the solution and run again to watch a test fail.
+
+```python starter
+class Person:
+    """A person with a name and an age."""
+
+    def __init__(self, name: str, age: int) -> None:
+        """Store the person's name and age."""
+        self._name: str = name
+        self._age: int = age
+
+    def get_age(self) -> int:
+        """Return the person's age."""
+        return self._age
+
+
+def std_dev(person_list: list) -> float:
+    """Return the standard deviation of the ages in a list of Person objects."""
+    total: float = 0
+    for person in person_list:
+        total += person.get_age()
+    mean: float = total / len(person_list)
+
+    squared_gaps: float = 0
+    for person in person_list:
+        squared_gaps += (person.get_age() - mean) ** 2
+    return (squared_gaps / len(person_list)) ** 0.5
+
+
+# ---- Tests ----
+import sys
+import unittest
+
+
+def people_aged(*ages: int) -> list:
+    """Build a list of Person objects with the given ages."""
+    return [Person("Someone", age) for age in ages]
+
+
+class TestPerson(unittest.TestCase):
+    def test_get_age_returns_the_age_given_to_the_constructor(self):
+        self.assertEqual(Person("Katie", 73).get_age(), 73)
+
+    def test_the_name_is_stored(self):
+        # There is no getter for the name, so look at the stored values directly.
+        self.assertIn("Katie", vars(Person("Katie", 73)).values())
+
+    def test_the_name_and_age_are_private(self):
+        person = Person("Katie", 73)
+        self.assertFalse(hasattr(person, "name"))
+        self.assertFalse(hasattr(person, "age"))
+
+
+class TestStdDev(unittest.TestCase):
+    def test_the_example_from_the_project(self):
+        people = [Person("Katie", 73), Person("Tran", 24), Person("Hanna", 48)]
+        self.assertAlmostEqual(std_dev(people), 20.0056, places=3)
+
+    def test_a_known_population_standard_deviation(self):
+        self.assertEqual(std_dev(people_aged(2, 4, 4, 4, 5, 5, 7, 9)), 2.0)
+
+    def test_people_of_the_same_age_have_no_spread(self):
+        self.assertEqual(std_dev(people_aged(30, 30)), 0)
+
+    def test_one_person_has_no_spread(self):
+        self.assertEqual(std_dev(people_aged(40)), 0)
+
+    def test_two_ages_differ_from_the_mean_by_half_the_gap(self):
+        self.assertEqual(std_dev(people_aged(10, 20)), 5.0)
+
+    def test_the_order_of_the_people_does_not_matter(self):
+        self.assertEqual(
+            std_dev(people_aged(9, 2, 5, 4, 7, 4, 5, 4)),
+            std_dev(people_aged(2, 4, 4, 4, 5, 5, 7, 9)),
+        )
+
+    def test_the_result_is_a_population_deviation_not_a_sample_one(self):
+        # A sample deviation would divide by one less and give about 1.414.
+        self.assertEqual(std_dev(people_aged(1, 3)), 1.0)
+
+    def test_the_list_of_people_is_left_unchanged(self):
+        people = people_aged(10, 20)
+        std_dev(people)
+        self.assertEqual([person.get_age() for person in people], [10, 20])
+
+
+# ---- Run the tests ----
+loader = unittest.defaultTestLoader
+suite = unittest.TestSuite(loader.loadTestsFromTestCase(case) for case in [TestPerson, TestStdDev])
+unittest.TextTestRunner(stream=sys.stdout, verbosity=2).run(suite)
+```
+:::
+
+</details>
+</details>
