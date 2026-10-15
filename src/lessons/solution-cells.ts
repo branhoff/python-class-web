@@ -29,13 +29,11 @@ function testsSection(afterTestsMarker: string | undefined, extra: string[]): st
   return `${tests!.trimEnd()}\n`;
 }
 
-// A function-style solution cell: the solution, then its tests, then the lines that run them.
 export function splitSolution(code: string): SolutionParts {
   const [solution, afterSolution, ...extra] = code.split(TESTS_MARKER);
   return { solution: `${solution!.trimEnd()}\n`, tests: testsSection(afterSolution, extra) };
 }
 
-// A script-style tests cell: a PROGRAM string holding a copy of the solution, then the tests.
 export function splitScriptTests(code: string): ScriptTestsParts {
   if (!code.startsWith(PROGRAM_PREFIX)) {
     throw new Error(`must start with ${PROGRAM_PREFIX.trim()}`);
