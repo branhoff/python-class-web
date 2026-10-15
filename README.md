@@ -87,6 +87,29 @@ require-corp` to every response. Anything the pages load from another origin
   everything is same-origin. If the headers are missing, the cells say Python
   is unavailable and explain why.
 
+## What counts as done
+
+Progress is an append-only log of events per learner (`completed`, `reopened`,
+`attempt`), and a learner's state is derived from it (`src/progress.ts`). Two
+kinds of thing can be finished:
+
+- an **exercise** cell, finished when its tests pass in the browser;
+- a **project**, which is built on the learner's own computer, so it is finished
+  when the learner ticks "I finished this project". Ticking records `completed`
+  for the id `project:<page id>`, and unticking records `reopened`, which takes
+  it back out (the log itself is never edited).
+
+A lesson or project page is complete when everything it contains is finished.
+The sidebar check marks, the section counts, the course card and the account
+page all count both kinds. The total is the number of exercises plus the number
+of projects.
+
+**Continue where you left off.** Each lesson page remembers the learner's last
+page in `localStorage`, per account. The home and course pages offer a link to
+that page if it still has something to finish, or to the next page that does.
+On a device that remembers nothing, the server's most recent completed item
+stands in. The rule is `continueTarget` in `src/client/continue.js`.
+
 ## How the HTML is tested
 
 `src/lessons/render.ts` and `home.ts` build pages as strings. The tests check

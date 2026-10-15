@@ -6,7 +6,7 @@ export interface NavLesson {
 }
 
 interface SectionLesson extends NavLesson {
-  exerciseIds: string[];
+  itemIds: string[];
   project: boolean;
 }
 
@@ -23,10 +23,11 @@ export interface LessonNav {
   next: NavLesson | null;
 }
 
-export function exerciseCellIds(lesson: Lesson): string[] {
-  return lesson.blocks.flatMap((block) =>
+export function progressItemIds(lesson: Lesson): string[] {
+  const exercises = lesson.blocks.flatMap((block) =>
     block.type === 'cell' && block.kind === 'exercise' ? [block.id] : [],
   );
+  return lesson.after === undefined ? exercises : [...exercises, `project:${lesson.id}`];
 }
 
 export function buildNav(lessons: Lesson[], currentId: string): LessonNav {
@@ -39,7 +40,7 @@ export function buildNav(lessons: Lesson[], currentId: string): LessonNav {
     list.push({
       id: lesson.id,
       title: lesson.title,
-      exerciseIds: exerciseCellIds(lesson),
+      itemIds: progressItemIds(lesson),
       project: lesson.after !== undefined,
     });
     bySection.set(lesson.section, list);

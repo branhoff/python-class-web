@@ -123,7 +123,7 @@ async function runCell(runner, button) {
     markCompleted(cell);
     recordCompletion(cell.dataset.cellId);
     document.dispatchEvent(
-      new CustomEvent('cell-completed', { detail: { cellId: cell.dataset.cellId } }),
+      new CustomEvent('item-done', { detail: { id: cell.dataset.cellId, done: true } }),
     );
   }
 }

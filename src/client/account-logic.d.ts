@@ -35,6 +35,6 @@ export interface ProgressRow {
 }
 
 export function progressRows(
-  courses: { id: string; title: string; total: number; exerciseIds: string[] }[],
+  courses: { id: string; title: string; total: number; itemIds: string[] }[],
   completed: Set<string>,
 ): ProgressRow[];

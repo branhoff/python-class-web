@@ -1,5 +1,5 @@
 /* Browser-only: fills in each available course's progress bar from the learner's
-   completed cells. The page embeds, per course, the exercise cell ids and total;
+   completed cells. The page embeds, per course, the ids of everything that can be finished (exercises and projects) and the total;
    we fetch /progress/summary and count how many are done. Best-effort: a
    signed-out learner (401) or offline just shows zero progress, never an error.
    Not imported by the TS graph; served to the home page. */
@@ -31,7 +31,7 @@ function paint(card, done, total) {
   const fill = card.querySelector('.bar > span');
   if (fill) fill.style.width = `${pct}%`;
   const count = card.querySelector('.count');
-  if (count) count.textContent = `${done} of ${total} exercises done`;
+  if (count) count.textContent = `${done} of ${total} done`;
 }
 
 async function main() {
@@ -40,7 +40,7 @@ async function main() {
   for (const card of document.querySelectorAll('.course.available')) {
     const info = meta[card.dataset.course];
     if (!info) continue;
-    const done = info.exerciseIds.filter((id) => completed.has(id)).length;
+    const done = info.itemIds.filter((id) => completed.has(id)).length;
     paint(card, done, info.total);
   }
 }

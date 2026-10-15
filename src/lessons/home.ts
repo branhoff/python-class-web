@@ -1,13 +1,21 @@
 import { renderTopbar } from './chrome.ts';
 import type { Course } from './courses.ts';
-import { buildNav, exerciseCellIds } from './nav.ts';
+import { buildNav, progressItemIds } from './nav.ts';
 import { escapeHtml } from './render.ts';
 import { HOME_STYLE } from './styles.ts';
 import type { Lesson } from './types.ts';
 
+interface CoursePage {
+  id: string;
+  title: string;
+  project: boolean;
+  itemIds: string[];
+}
+
 export interface CourseProgress {
   total: number;
-  exerciseIds: string[];
+  itemIds: string[];
+  pages: CoursePage[];
 }
 
 export function courseProgressMeta(
@@ -15,8 +23,14 @@ export function courseProgressMeta(
 ): Record<string, CourseProgress> {
   const meta: Record<string, CourseProgress> = {};
   for (const [courseId, lessons] of courseLessons) {
-    const exerciseIds = lessons.flatMap(exerciseCellIds);
-    meta[courseId] = { total: exerciseIds.length, exerciseIds };
+    const pages = lessons.map((lesson) => ({
+      id: lesson.id,
+      title: lesson.title,
+      project: lesson.after !== undefined,
+      itemIds: progressItemIds(lesson),
+    }));
+    const itemIds = pages.flatMap((page) => page.itemIds);
+    meta[courseId] = { total: itemIds.length, itemIds, pages };
   }
   return meta;
 }
@@ -59,12 +73,14 @@ export function renderHome(
 <body>
 ${renderTopbar()}
 <h1>Choose a course</h1>
+<section id="continue" class="continue" aria-label="Continue where you left off" hidden></section>
 <div class="grid">
 ${cards}
 </div>
 <script type="application/json" id="progress-meta">${JSON.stringify(meta)}</script>
 <script type="module" src="/static/app-shell.js"></script>
 <script type="module" src="/static/home.js"></script>
+<script type="module" src="/static/continue.js"></script>
 </body>
 </html>
 `;
@@ -96,8 +112,11 @@ ${renderTopbar()}
 <p class="back"><a href="/">← All courses</a></p>
 <h1>${escapeHtml(course.title)}</h1>
 <p>${escapeHtml(course.description)}</p>
+<section id="continue" class="continue" aria-label="Continue where you left off" hidden></section>
 ${body}
+<script type="application/json" id="progress-meta">${JSON.stringify(courseProgressMeta(new Map([[course.id, lessons]])))}</script>
 <script type="module" src="/static/app-shell.js"></script>
+<script type="module" src="/static/continue.js"></script>
 </body>
 </html>
 `;

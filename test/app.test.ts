@@ -42,7 +42,7 @@ test('recording a completed cell shows up in the summary', async () => {
     { cellId: 'c1', kind: 'completed', at: 1000 },
   ]);
   const summary = await app.request('/progress/summary', { headers: auth });
-  assert.deepEqual(await summary.json(), { completedCells: ['c1'] });
+  assert.deepEqual(await summary.json(), { completedCells: ['c1'], lastCompletedCell: 'c1' });
 });
 
 test('attempt events are accepted', async () => {
@@ -50,6 +50,19 @@ test('attempt events are accepted', async () => {
   const res = await postEvent(app, JSON.stringify({ cellId: 'c1', kind: 'attempt' }));
   assert.equal(res.status, 201);
   assert.equal((await repository.listEvents('user-1'))[0]?.kind, 'attempt');
+});
+
+test('a reopened event takes a cell back out of the summary', async () => {
+  const { app } = build();
+  await postEvent(app, JSON.stringify({ cellId: 'project:avg', kind: 'completed' }));
+  await postEvent(app, JSON.stringify({ cellId: 'project:avg', kind: 'reopened' }));
+  const summary = await app.request('/progress/summary', {
+    headers: auth,
+  });
+  assert.deepEqual(await summary.json(), {
+    completedCells: [],
+    lastCompletedCell: 'project:avg',
+  });
 });
 
 test('invalid event bodies are rejected with an explanation', async () => {
@@ -66,7 +79,7 @@ test('invalid event bodies are rejected with an explanation', async () => {
     const res = await postEvent(app, body);
     assert.equal(res.status, 400, body);
     assert.deepEqual(await res.json(), {
-      error: 'cellId and kind (attempt|completed) are required',
+      error: 'cellId and kind (attempt|completed|reopened) are required',
     });
   }
 });

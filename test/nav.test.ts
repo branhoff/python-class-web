@@ -35,7 +35,7 @@ test('each sidebar lesson lists its exercise cell ids, not its sandbox cells', (
   };
   const nav = buildNav([withCells, lesson('plain', 1)], 'e');
   assert.deepEqual(
-    nav.sections[0]!.lessons.map((l) => l.exerciseIds),
+    nav.sections[0]!.lessons.map((l) => l.itemIds),
     [['do-it', 'do-it-too'], []],
   );
 });
@@ -82,10 +82,10 @@ test('projects appear in their section after the lessons and are flagged as proj
   );
 });
 
-test('a project belongs to the pager like any page and has no exercises', () => {
+test('a project belongs to the pager like any page, and the project itself is its item', () => {
   const course = [lesson('a', 1), project('p', 1, 'a'), lesson('b', 2)];
   const nav = buildNav(course, 'p');
   assert.deepEqual(nav.prev, { id: 'a', title: 'A' });
   assert.deepEqual(nav.next, { id: 'b', title: 'B' });
-  assert.deepEqual(nav.sections[0]!.lessons[1]!.exerciseIds, []);
+  assert.deepEqual(nav.sections[0]!.lessons[1]!.itemIds, ['project:p']);
 });
