@@ -60,3 +60,13 @@ test('a fence with extra words after the language is still highlighted as that l
   assert.match(html, /<span class="hljs-keyword">if<\/span>/);
   assert.match(html, /class="language-python"/);
 });
+
+test('the Home button keeps its light text once the link has been visited', () => {
+  const html = renderLesson(lesson, buildNav([lesson], lesson.id));
+  const css = html.slice(html.indexOf('<style>'), html.indexOf('</style>'));
+  const visited = css.indexOf('a:visited {');
+  const home = css.indexOf('a.home');
+  assert.ok(visited >= 0 && home > visited, 'a.home must come after a:visited');
+  assert.match(css, /a\.home[^{]*\{[^}]*color: #fff1e8/);
+  assert.doesNotMatch(css, /(^|[\s,])\.home[\s,{:]/m);
+});

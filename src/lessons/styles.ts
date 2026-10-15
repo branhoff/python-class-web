@@ -23,8 +23,8 @@ textarea { background: #1d2b53; color: #fff1e8; width: 100%; box-sizing: border-
 .output { background: #5f574f; color: #fff1e8; white-space: pre-wrap; }
 .output.pass { border-color: #00e436; color: #00e436; }
 .output.fail { border-color: #ff004d; color: #ff004d; }
-button.run, .pager a, .home { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .95rem; background: #7e2553; color: #fff1e8; border: 2px solid #000; border-radius: 0; padding: .4rem .8rem; box-shadow: 3px 3px 0 #000; cursor: pointer; text-decoration: none; display: inline-block; }
-button.run:active, .pager a:active, .home:active { box-shadow: 1px 1px 0 #000; transform: translate(2px, 2px); }
+button.run, .pager a, a.home { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .95rem; background: #7e2553; color: #fff1e8; border: 2px solid #000; border-radius: 0; padding: .4rem .8rem; box-shadow: 3px 3px 0 #000; cursor: pointer; text-decoration: none; display: inline-block; }
+button.run:active, .pager a:active, a.home:active { box-shadow: 1px 1px 0 #000; transform: translate(2px, 2px); }
 button.run:disabled { background: #c2c3c7; color: #5f574f; box-shadow: 3px 3px 0 #5f574f; cursor: default; }
 .badge { font-family: 'Departure Mono', ui-monospace, monospace; color: #008751; margin-left: .5rem; font-size: .9em; }
 #auth { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .9em; margin-bottom: 1rem; }
