@@ -24,6 +24,19 @@ test('loads markdown lessons from nested folders, in path order', () => {
   assert.equal(loaded[0]!.path, join(dir, 'a', 'one.md'));
 });
 
+test('only .md files load, and they come back sorted whatever order they were written in', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'lessons-'));
+  for (const id of ['m', 'z', 'a', 'k']) writeFileSync(join(dir, `${id}.md`), lessonSource(id));
+  writeFileSync(join(dir, 'md'), 'not a lesson');
+  writeFileSync(join(dir, 'x.mdx'), 'not a lesson');
+  writeFileSync(join(dir, 'notes.md.bak'), 'not a lesson');
+  writeFileSync(join(dir, 'README.txt'), 'not a lesson');
+  assert.deepEqual(
+    loadLessons(dir).map(({ lesson }) => lesson.id),
+    ['a', 'k', 'm', 'z'],
+  );
+});
+
 test('a broken lesson names its file and line', () => {
   const dir = mkdtempSync(join(tmpdir(), 'lessons-'));
   writeFileSync(join(dir, 'bad.md'), 'no front matter');

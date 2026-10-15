@@ -68,3 +68,8 @@ test('auth config is served when provided and empty otherwise', async () => {
   });
   assert.deepEqual(await (await site.request('/auth/config')).json(), {});
 });
+
+test('the harness is served as Python source text', async () => {
+  const harness = await site.request('/static/harness.py');
+  assert.equal(harness.headers.get('content-type'), 'text/x-python; charset=utf-8');
+});

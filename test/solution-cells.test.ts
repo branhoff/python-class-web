@@ -1,6 +1,11 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { splitScriptTests, splitSolution } from '../src/lessons/solution-cells.ts';
+import {
+  SOLUTION_PREFIX,
+  TESTS_PREFIX,
+  splitScriptTests,
+  splitSolution,
+} from '../src/lessons/solution-cells.ts';
 
 const cell = [
   'def double(n):',
@@ -78,4 +83,23 @@ test('code between the PROGRAM string and the tests marker is rejected', () => {
 
 test('a script tests cell without a tests marker is rejected', () => {
   assert.throws(() => splitScriptTests("PROGRAM = r'''\nx\n'''\n"), /exactly one "# ---- Tests/);
+});
+
+test('solution and tests cells are recognised by these id prefixes', () => {
+  assert.equal(SOLUTION_PREFIX, 'solution-');
+  assert.equal(TESTS_PREFIX, 'tests-');
+});
+
+test('test methods only count at the start of a line, not inside a string', () => {
+  const inString = cell.replace('    def test_double(self):', '    note = "def test_double"');
+  assert.throws(() => splitSolution(inString), /no test methods/);
+});
+
+test('the error for a script cell without a PROGRAM string shows the expected opening line', () => {
+  assert.throws(
+    () => splitScriptTests(cell),
+    (error: Error) => {
+      return error.message === "must start with PROGRAM = r'''";
+    },
+  );
 });
