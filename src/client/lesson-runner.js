@@ -1,45 +1,39 @@
-/* Browser-only glue: boots Pyodide, then runs each cell's code (and tests, for
-   exercises) through the shared harness.py so grading matches the CLI checker.
-   Not imported by the TS graph; served to the page by the lesson site.
-   formatResult is the one piece of real logic and is unit-tested. */
+/* Browser-only glue: runs each cell's code (and tests, for exercises) in a web
+   worker through the shared harness.py, so grading matches the CLI checker and
+   a loop that never ends cannot freeze the page. Output streams into the cell,
+   input() shows an inline box, and Stop interrupts the program. The run logic is
+   in py-runner.js. formatResult and verdictOf are unit-tested. */
 
 import { authHeader } from './app-shell.js';
+import { createPythonRunner, pythonSupport } from './py-runner.js';
 
 // A sandbox cell has no tests, so it has nothing to pass; it only shows output.
 // Only an exercise (hasTests) earns a pass/fail verdict.
-export function formatResult(result, hasTests) {
-  const lines = [];
-  if (result.stdout) lines.push(result.stdout.replace(/\n$/, ''));
+export function verdictOf(result, hasTests) {
   if (!result.ok) {
-    lines.push(`✗ ${result.message ?? 'Something went wrong.'}`);
-    return { state: 'fail', text: lines.join('\n') };
+    return { state: 'fail', lines: [`✗ ${result.message ?? 'Something went wrong.'}`] };
   }
-  if (hasTests) {
-    lines.push('✓ Passed');
-    return { state: 'pass', text: lines.join('\n') };
-  }
-  if (!result.stdout) lines.push('(ran with no output)');
-  return { state: 'ran', text: lines.join('\n') };
+  if (hasTests) return { state: 'pass', lines: ['✓ Passed'] };
+  return { state: 'ran', lines: result.stdout ? [] : ['(ran with no output)'] };
 }
 
-const GLUE = `
-import json
+export function formatResult(result, hasTests) {
+  const { state, lines } = verdictOf(result, hasTests);
+  const shown = result.stdout ? [result.stdout.replace(/\n$/, ''), ...lines] : lines;
+  return { state, text: shown.join('\n') };
+}
 
-_harness = {"__name__": "harness"}
-
-def _load(src):
-    exec(compile(src, "harness.py", "exec"), _harness)
-
-def _run(code, tests):
-    return json.dumps(_harness["run_exercise"](code, tests))
-`;
-
-function applyResult(cell, state, text) {
+function showVerdict(cell, state, lines) {
   const output = cell.querySelector('.output');
   output.hidden = false;
   output.classList.toggle('pass', state === 'pass');
   output.classList.toggle('fail', state === 'fail');
-  output.textContent = text;
+  const text = output.textContent;
+  const gap = text === '' || text.endsWith('\n') ? '' : '\n';
+  const verdict = document.createElement('span');
+  verdict.className = `verdict ${state}`;
+  verdict.textContent = lines.join('\n');
+  output.append(gap, verdict);
 }
 
 function markCompleted(cell) {
@@ -79,19 +73,52 @@ async function loadProgress() {
   }
 }
 
-function runCell(pyodide, button) {
+async function runCell(runner, button) {
   const cell = button.closest('.cell');
+  const output = cell.querySelector('.output');
+  const stdin = cell.querySelector('form.stdin');
+  const stop = cell.querySelector('button.stop');
   const hasTests = cell.dataset.tests !== undefined;
-  pyodide.globals.set('code', cell.querySelector('textarea').value);
-  pyodide.globals.set('tests', cell.dataset.tests ?? '');
+  const send = (event) => {
+    event.preventDefault();
+    const line = stdin.elements.line.value;
+    stdin.elements.line.value = '';
+    stdin.hidden = true;
+    output.textContent += `${line}\n`;
+    runner.provideInput(line);
+  };
+
+  output.hidden = false;
+  output.textContent = '';
+  output.classList.remove('pass', 'fail');
+  stop.hidden = false;
+  stop.onclick = () => runner.stop();
+  stdin.addEventListener('submit', send);
+  button.textContent = 'Running…';
+
   let result;
   try {
-    result = JSON.parse(pyodide.runPython('_run(code, tests)'));
+    result = await runner.run(
+      { code: cell.querySelector('textarea').value, tests: cell.dataset.tests ?? '' },
+      {
+        onOutput: (text) => {
+          output.textContent += text;
+        },
+        onInputRequest: () => {
+          stdin.hidden = false;
+          stdin.elements.line.focus();
+        },
+      },
+    );
   } catch (error) {
-    result = { ok: false, message: String(error) };
+    result = { ok: false, message: String(error.message ?? error) };
   }
-  const { state, text } = formatResult(result, hasTests);
-  applyResult(cell, state, text);
+
+  stdin.removeEventListener('submit', send);
+  stdin.hidden = true;
+  stop.hidden = true;
+  const { state, lines } = verdictOf(result, hasTests);
+  showVerdict(cell, state, lines);
   if (state === 'pass') {
     markCompleted(cell);
     recordCompletion(cell.dataset.cellId);
@@ -101,29 +128,45 @@ function runCell(pyodide, button) {
   }
 }
 
+const BUTTON_TEXT = { loading: 'Loading Python…', ready: 'Run', unavailable: 'Python unavailable' };
+
+function paintButtons(buttons, state) {
+  for (const button of buttons) {
+    button.disabled = state !== 'ready';
+    if (state !== 'running') button.textContent = BUTTON_TEXT[state];
+  }
+}
+
+function explainUnavailable(buttons, reason) {
+  paintButtons(buttons, 'unavailable');
+  const notice = document.createElement('p');
+  notice.className = 'notice-error';
+  notice.setAttribute('role', 'alert');
+  notice.textContent = reason;
+  document.querySelector('h1')?.after(notice);
+}
+
+async function startRunner(buttons) {
+  const support = pythonSupport();
+  if (!support.ok) return explainUnavailable(buttons, support.reason);
+  let runner;
+  try {
+    const harness = await (await fetch('/static/harness.py')).text();
+    runner = createPythonRunner({
+      spawn: () => new Worker('/static/py-worker.js', { type: 'module' }),
+      harness,
+    });
+  } catch {
+    return explainUnavailable(buttons, 'Python could not be loaded. Reload the page to try again.');
+  }
+  runner.onState((state) => paintButtons(buttons, state));
+  paintButtons(buttons, runner.state);
+  for (const button of buttons) button.addEventListener('click', () => runCell(runner, button));
+}
+
 async function main() {
   const buttons = [...document.querySelectorAll('button.run')];
-  let pyodide;
-  try {
-    pyodide = await loadPyodide({ indexURL: '/pyodide/' });
-    pyodide.setStdin({
-      stdin: () => {
-        const line = globalThis.prompt('Program input:');
-        return line === null ? '' : line + '\n';
-      },
-    });
-    pyodide.runPython(GLUE);
-    pyodide.globals.set('harness_src', await (await fetch('/static/harness.py')).text());
-    pyodide.runPython('_load(harness_src)');
-  } catch {
-    for (const button of buttons) button.textContent = 'Python unavailable';
-    return;
-  }
-  for (const button of buttons) {
-    button.disabled = false;
-    button.textContent = 'Run';
-    button.addEventListener('click', () => runCell(pyodide, button));
-  }
+  await startRunner(buttons);
   await loadProgress();
 }
 

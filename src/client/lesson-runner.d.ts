@@ -8,3 +8,8 @@ export function formatResult(
   result: RunResult,
   hasTests: boolean,
 ): { state: 'pass' | 'fail' | 'ran'; text: string };
+
+export function verdictOf(
+  result: RunResult,
+  hasTests: boolean,
+): { state: 'pass' | 'fail' | 'ran'; lines: string[] };

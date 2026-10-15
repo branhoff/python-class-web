@@ -21,7 +21,7 @@ test('every page has the same top-right account button, and none has an inline s
       path,
     );
     assert.doesNotMatch(html, /id="auth"/, path);
-    assert.doesNotMatch(html, /<input/, path);
+    assert.doesNotMatch(html, /<input[^>]*type="(email|password)"/, path);
   }
 });
 

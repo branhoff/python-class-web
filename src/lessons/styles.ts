@@ -29,10 +29,19 @@ textarea { background: #1d2b53; color: #fff1e8; width: 100%; box-sizing: border-
 .cell.exercise { border-left-color: #ffa300; }
 .cell.completed { border-left-color: #00e436; }
 .output { background: #5f574f; color: #fff1e8; white-space: pre-wrap; }
-.output.pass { border-color: #00e436; color: #00e436; }
-.output.fail { border-color: #ff004d; color: #ff004d; }
-button.run, .pager a, a.home { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .95rem; background: #7e2553; color: #fff1e8; border: 2px solid #000; border-radius: 0; padding: .4rem .8rem; box-shadow: 3px 3px 0 #000; cursor: pointer; text-decoration: none; display: inline-block; }
-button.run:active, .pager a:active, a.home:active { box-shadow: 1px 1px 0 #000; transform: translate(2px, 2px); }
+.output.pass { border-color: #00e436; }
+.verdict.pass { color: #00e436; }
+.output.fail { border-color: #ff004d; }
+.verdict.fail { color: #ff77a8; }
+button.run, button.stop, button.send, .pager a, a.home { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .95rem; background: #7e2553; color: #fff1e8; border: 2px solid #000; border-radius: 0; padding: .4rem .8rem; box-shadow: 3px 3px 0 #000; cursor: pointer; text-decoration: none; display: inline-block; }
+button.run:active, button.stop:active, button.send:active, .pager a:active, a.home:active { box-shadow: 1px 1px 0 #000; transform: translate(2px, 2px); }
+button.stop { background: #ab5236; margin-left: .5rem; }
+button.stop[hidden] { display: none; }
+.stdin { display: flex; gap: .5rem; margin-top: .5rem; }
+.stdin[hidden] { display: none; }
+.stdin input { flex: 1 1 auto; min-width: 0; font-family: 'Departure Mono', ui-monospace, monospace; font-size: 1rem; padding: .4rem .6rem; border: 2px solid #000; border-radius: 0; background: #fff; color: #1a1a2e; }
+.stdin input:focus { outline: 3px solid #29adff; outline-offset: 0; }
+.notice-error { font-family: 'Departure Mono', ui-monospace, monospace; color: #ff004d; border: 2px solid #ff004d; background: #fff; padding: .5rem .75rem; }
 button.run:disabled { background: #c2c3c7; color: #5f574f; box-shadow: 3px 3px 0 #5f574f; cursor: default; }
 .badge { font-family: 'Departure Mono', ui-monospace, monospace; color: #008751; margin-left: .5rem; font-size: .9em; }
 .layout { display: flex; gap: 2rem; align-items: flex-start; }

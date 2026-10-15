@@ -49,11 +49,17 @@ test('an unknown lesson is a 404', async () => {
   assert.equal(res.status, 404);
 });
 
-test('the harness and runner are served to the browser with usable content types', async () => {
-  const runner = await site.request('/static/lesson-runner.js');
-  assert.equal(runner.status, 200);
-  assert.match(runner.headers.get('content-type') ?? '', /javascript/);
-  assert.match(await runner.text(), /loadPyodide/);
+test('the harness, runner and Python worker are served to the browser with usable content types', async () => {
+  for (const [path, marker] of [
+    ['/static/lesson-runner.js', /createPythonRunner/],
+    ['/static/py-runner.js', /KeyboardInterrupt|SIGINT/],
+    ['/static/py-worker.js', /loadPyodide/],
+  ] as const) {
+    const res = await site.request(path);
+    assert.equal(res.status, 200, path);
+    assert.match(res.headers.get('content-type') ?? '', /javascript/, path);
+    assert.match(await res.text(), marker, path);
+  }
 
   const harness = await site.request('/static/harness.py');
   assert.equal(harness.status, 200);
