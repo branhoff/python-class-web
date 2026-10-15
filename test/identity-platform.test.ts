@@ -38,6 +38,10 @@ test('missing or malformed headers are rejected', async () => {
   const valid = await sign({ sub: 'abc' });
   assert.equal(await auth2(`x Bearer ${valid}`), null);
   assert.equal(await auth2(`Bearer ${valid}\nextra`), null);
+  assert.equal(await auth2(` Bearer ${valid}`), null);
+  assert.equal(await auth2(`bearer ${valid}`), null);
+  assert.equal(await auth2(`Bearer${valid}`), null);
+  assert.equal(await auth2(`Bearer ${valid}`), 'idp:abc');
 });
 
 test('wrong audience, issuer, expiry, or missing subject are rejected', async () => {
