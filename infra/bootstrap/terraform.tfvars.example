@@ -1,4 +1,5 @@
 project_id        = "your-gcp-project-id"
 state_bucket_name = "python-class-web-tfstate-CHANGE-ME" # globally unique
 billing_account   = "XXXXXX-XXXXXX-XXXXXX"               # gcloud billing accounts list
+alert_email       = "you@example.com"                    # budget alerts; also set the ALERT_EMAIL repo variable
 # github_repo     = "owner/python-class-web"

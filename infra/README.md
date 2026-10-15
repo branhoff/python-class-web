@@ -11,15 +11,34 @@ can run OpenTofu:
 
 ## What this root manages
 
-| file         | resources                                                                                                        |
-| ------------ | ---------------------------------------------------------------------------------------------------------------- |
-| `main.tf`    | API enablement, the Firestore `(default)` database (delete-protected), Identity Platform config (email/password) |
-| `runtime.tf` | runtime service account (`roles/datastore.user` only), the Cloud Run service, public invoker binding             |
+| file            | resources                                                                                                        |
+| --------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `main.tf`       | API enablement, the Firestore `(default)` database (delete-protected), Identity Platform config (email/password) |
+| `runtime.tf`    | runtime service account (`roles/datastore.user` only), the Cloud Run service, public invoker binding             |
+| `monitoring.tf` | email notification channel, an uptime check on `/health`, and alert policies for downtime and server errors      |
 
 There is no Secret Manager and no database password: Cloud Run reaches Firestore
 through its service identity, and ID-token verification uses Google's public
 keys. Add secret _containers_ here (placeholder version plus `ignore_changes`)
 and a sync step in `deploy.yml` when the first real secret appears.
+
+## Monitoring and alerts
+
+`monitoring.tf` checks `/health` every 15 minutes from three US regions and emails
+`alert_email` when more than one region fails, or when the service returns more
+than five server errors in five minutes. That is the lightest uptime check Cloud
+Monitoring offers (at least three regions, at most every 15 minutes), so an
+outage can take up to about 30 minutes to be noticed. Set the address with the
+`ALERT_EMAIL` repo variable; leaving it empty turns all of it off. The checks sit
+inside the free allowance.
+
+The budget alerts go to the same address through their own channel in
+`bootstrap/`, because the two roots do not share state.
+
+**Order when first enabling this:** the CI deployer needs the monitoring roles
+that `bootstrap/` grants, and it cannot grant them to itself. Set `alert_email`
+in `bootstrap/terraform.tfvars` and run `tofu apply` there first, then approve
+the `infra` run. Without the roles, the apply fails with a permission error.
 
 ## Ownership split
 

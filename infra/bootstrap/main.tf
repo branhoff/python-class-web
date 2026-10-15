@@ -7,6 +7,7 @@ locals {
     "sts.googleapis.com",
     "storage.googleapis.com",
     "artifactregistry.googleapis.com",
+    "monitoring.googleapis.com",
   ]
 
   # Roles the CI deployer needs so the infra/ root can manage the environment on
@@ -21,6 +22,11 @@ locals {
     "roles/iam.serviceAccountAdmin",
     "roles/iam.serviceAccountUser",
     "roles/serviceusage.serviceUsageAdmin",
+    # The infra/ root manages the uptime check, alert policies and the email
+    # notification channel.
+    "roles/monitoring.uptimeCheckConfigEditor",
+    "roles/monitoring.alertPolicyEditor",
+    "roles/monitoring.notificationChannelEditor",
     # The infra/ root binds a project-level role to the runtime SA, so the
     # deployer must read and set the project IAM policy. It cannot grant this to
     # itself; this bootstrap, run by an owner, is what grants it.
