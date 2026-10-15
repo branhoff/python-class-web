@@ -47,7 +47,7 @@ async function progressSection() {
         {},
         el('strong', {}, row.title),
         bar,
-        el('div', { class: 'count' }, `${row.done} of ${row.total} exercises done`),
+        el('div', { class: 'count' }, `${row.done} of ${row.total} done`),
       ),
     );
   }

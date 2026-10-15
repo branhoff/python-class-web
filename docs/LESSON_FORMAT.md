@@ -29,7 +29,9 @@ after: loops
 ---
 ```
 
-`after` names the lesson the project follows. A project is a normal page, with
+`after` names the lesson the project follows. A project page has an "I finished
+this project" checkbox, because projects are built locally; ticking it counts
+toward the learner's progress like a passed exercise. A project is a normal page, with
 three differences: it is listed in the sidebar and on the course page under its
 section, after that section's lessons, and marked with a small arrow; the lesson
 it follows ends with an automatic "Projects" list linking to it; and its

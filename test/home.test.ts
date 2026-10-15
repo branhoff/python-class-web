@@ -43,7 +43,14 @@ test('course progress counts only exercise cells, not markdown or sandbox cells'
     },
   ];
   assert.deepEqual(courseProgressMeta(new Map([['python', lessons]])), {
-    python: { total: 2, exerciseIds: ['drill-a', 'drill-b'] },
+    python: {
+      total: 2,
+      itemIds: ['drill-a', 'drill-b'],
+      pages: [
+        { id: 'one', title: 'One', project: false, itemIds: ['drill-a'] },
+        { id: 'two', title: 'Two', project: false, itemIds: ['drill-b'] },
+      ],
+    },
   });
 });
 
@@ -52,7 +59,11 @@ test('a course with no exercises has a total of zero', () => {
     { id: 'one', title: 'One', section: 1, blocks: [cell('try-it', 'sandbox')] },
   ];
   assert.deepEqual(courseProgressMeta(new Map([['python', lessons]])), {
-    python: { total: 0, exerciseIds: [] },
+    python: {
+      total: 0,
+      itemIds: [],
+      pages: [{ id: 'one', title: 'One', project: false, itemIds: [] }],
+    },
   });
 });
 

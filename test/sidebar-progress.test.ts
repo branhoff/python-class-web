@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { lessonDone, parseExercises, sectionCount } from '../src/client/sidebar-progress.js';
+import { lessonDone, parseItems, sectionCount } from '../src/client/sidebar-progress.js';
 
 test('a lesson is done when it has exercises and all of them are completed', () => {
   assert.equal(lessonDone(['a', 'b'], new Set(['a', 'b', 'z'])), true);
@@ -32,11 +32,11 @@ test('a partly done lesson does not count toward its section', () => {
 });
 
 test('exercise ids are read from the comma separated attribute', () => {
-  assert.deepEqual(parseExercises('a,b'), ['a', 'b']);
-  assert.deepEqual(parseExercises('only'), ['only']);
+  assert.deepEqual(parseItems('a,b'), ['a', 'b']);
+  assert.deepEqual(parseItems('only'), ['only']);
 });
 
 test('a missing or empty attribute means no exercises', () => {
-  assert.deepEqual(parseExercises(''), []);
-  assert.deepEqual(parseExercises(undefined), []);
+  assert.deepEqual(parseItems(''), []);
+  assert.deepEqual(parseItems(undefined), []);
 });

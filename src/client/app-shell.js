@@ -45,6 +45,11 @@ async function boot() {
 
 export const ready = typeof document === 'undefined' ? Promise.resolve({ auth, config }) : boot();
 
+export async function signedIn() {
+  const { auth: session, config: settings } = await ready;
+  return Boolean((session && session.currentUser()) || settings.devUser);
+}
+
 export async function authHeader() {
   const token = auth ? await auth.getToken() : null;
   return token ? { Authorization: `Bearer ${token}` } : {};

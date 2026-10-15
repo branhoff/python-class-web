@@ -2,18 +2,22 @@ import { renderTopbar } from './chrome.ts';
 import type { Course } from './courses.ts';
 import { head, type CourseProgress } from './home.ts';
 
-export interface AccountCourse extends CourseProgress {
+export interface AccountCourse {
   id: string;
   title: string;
+  total: number;
+  itemIds: string[];
 }
 
 export function accountCourses(
   courses: readonly Course[],
-  meta: Record<string, CourseProgress>,
+  meta: Record<string, Pick<CourseProgress, 'total' | 'itemIds'>>,
 ): AccountCourse[] {
   return courses.flatMap((course) => {
     const progress = meta[course.id];
-    return progress ? [{ id: course.id, title: course.title, ...progress }] : [];
+    return progress
+      ? [{ id: course.id, title: course.title, total: progress.total, itemIds: progress.itemIds }]
+      : [];
   });
 }
 

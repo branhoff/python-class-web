@@ -121,7 +121,7 @@ test('the sidebar tags each lesson with its exercise ids and each section with a
     ],
   };
   const html = renderLesson(withExercise, buildNav([withExercise], withExercise.id));
-  assert.match(html, /<li data-exercises="drill-a,drill-b"><a href="\/lessons\/drills"/);
+  assert.match(html, /<li data-items="drill-a,drill-b"><a href="\/lessons\/drills"/);
   assert.match(html, /<summary>Section 1<span class="count"><\/span><\/summary>/);
   assert.match(html, /<script type="module" src="\/static\/sidebar-progress.js">/);
 });
@@ -167,6 +167,9 @@ test('projects are marked in the sidebar', () => {
     blocks: [],
   };
   const html = renderLesson(lesson, buildNav([lesson, projectPage], lesson.id));
-  assert.match(html, /<li class="project" data-exercises=""><a href="\/lessons\/my-project">/);
-  assert.match(html, /<li data-exercises="ex"><a href="\/lessons\/demo"/);
+  assert.match(
+    html,
+    /<li class="project" data-items="project:my-project"><a href="\/lessons\/my-project">/,
+  );
+  assert.match(html, /<li data-items="ex"><a href="\/lessons\/demo"/);
 });

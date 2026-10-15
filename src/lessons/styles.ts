@@ -4,6 +4,12 @@ a.account-link { font-family: 'Departure Mono', ui-monospace, monospace; font-si
 a.account-link:visited { color: #1d2b53; }
 a.account-link:active { box-shadow: 1px 1px 0 #000; transform: translate(2px, 2px); }
 a.account-link.signed-in::before { content: '\\25CF'; color: #008751; margin-right: .45rem; }
+.continue { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; background: #fff1e8; border: 3px solid #000; box-shadow: 5px 5px 0 #000; padding: .75rem 1rem; margin: 1.25rem 0; }
+.continue[hidden] { display: none; }
+.continue-label { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .75rem; text-transform: uppercase; letter-spacing: 1px; color: #5f574f; }
+a.continue-link { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .95rem; background: #7e2553; color: #fff1e8; border: 2px solid #000; border-radius: 0; padding: .4rem .8rem; box-shadow: 3px 3px 0 #000; text-decoration: none; }
+a.continue-link:visited { color: #fff1e8; }
+a.continue-link:active { box-shadow: 1px 1px 0 #000; transform: translate(2px, 2px); }
 `;
 
 export const LESSON_STYLE = `
@@ -57,7 +63,12 @@ button.run:disabled { background: #c2c3c7; color: #5f574f; box-shadow: 3px 3px 0
 .sidebar a[aria-current="page"] { color: #7e2553; font-weight: 700; }
 main { flex: 1 1 auto; min-width: 0; }
 .pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3rem; }
-${TOPBAR_STYLE}`;
+${TOPBAR_STYLE}.project-done { margin-top: 2rem; padding: .75rem 1rem; background: #fff1e8; border: 3px solid #000; box-shadow: 5px 5px 0 #000; }
+.project-done .check { display: flex; align-items: center; gap: .6rem; font-family: 'Departure Mono', ui-monospace, monospace; font-size: 1rem; cursor: pointer; }
+.project-done input[type="checkbox"] { width: 1.4rem; height: 1.4rem; accent-color: #00e436; cursor: pointer; }
+.project-done input[type="checkbox"]:disabled { cursor: default; }
+.project-done .hint { margin: .5rem 0 0; font-size: .9rem; color: #5f574f; }
+`;
 
 export const HOME_STYLE = `
 @font-face { font-family: 'Press Start 2P'; src: url('/static/fonts/press-start-2p.woff2') format('woff2'); font-display: swap; }

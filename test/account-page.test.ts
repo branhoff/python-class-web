@@ -44,18 +44,18 @@ test('the account page is served with its script and the course data it needs', 
   assert.equal(data.courses[0].id, 'python');
   assert.equal(data.courses[0].title, 'Python');
   assert.ok(data.courses[0].total > 0);
-  assert.ok(data.courses[0].exerciseIds.length === data.courses[0].total);
+  assert.ok(data.courses[0].itemIds.length === data.courses[0].total);
 });
 
 test('only courses that have lessons appear in the account progress', () => {
-  const meta = { python: { total: 2, exerciseIds: ['a', 'b'] } };
+  const meta = { python: { total: 2, itemIds: ['a', 'b'] } };
   assert.deepEqual(accountCourses(COURSES, meta), [
-    { id: 'python', title: 'Python', total: 2, exerciseIds: ['a', 'b'] },
+    { id: 'python', title: 'Python', total: 2, itemIds: ['a', 'b'] },
   ]);
 });
 
 test('course data cannot close the script tag it is embedded in', () => {
-  const html = renderAccount([{ id: 'x', title: '</script><b>', total: 0, exerciseIds: [] }]);
+  const html = renderAccount([{ id: 'x', title: '</script><b>', total: 0, itemIds: [] }]);
   assert.doesNotMatch(html, /<\/script><b>/);
   assert.match(html, /\\u003c\/script>\\u003cb>/);
 });

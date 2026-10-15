@@ -11,7 +11,7 @@ export interface AppDeps {
 
 type AppEnv = { Variables: { userId: string } };
 
-const EVENT_KINDS: readonly string[] = ['attempt', 'completed'];
+const EVENT_KINDS: readonly string[] = ['attempt', 'completed', 'reopened'];
 
 export function createApp({ repository, authenticate, now = Date.now }: AppDeps): Hono<AppEnv> {
   const app = new Hono<AppEnv>();
@@ -36,7 +36,7 @@ export function createApp({ repository, authenticate, now = Date.now }: AppDeps)
     const body: unknown = await c.req.json().catch(() => null);
     const { cellId, kind } = (body ?? {}) as { cellId?: unknown; kind?: unknown };
     if (typeof cellId !== 'string' || cellId === '' || !EVENT_KINDS.includes(String(kind))) {
-      return c.json({ error: 'cellId and kind (attempt|completed) are required' }, 400);
+      return c.json({ error: 'cellId and kind (attempt|completed|reopened) are required' }, 400);
     }
     await repository.appendEvent(c.get('userId'), {
       cellId,

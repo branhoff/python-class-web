@@ -49,9 +49,9 @@ type SidebarLesson = NavSection['lessons'][number];
 
 function renderSidebarItem(lesson: SidebarLesson, current: string): string {
   const marker = lesson.id === current ? ' aria-current="page"' : '';
-  const exercises = escapeHtml(lesson.exerciseIds.join(','));
+  const exercises = escapeHtml(lesson.itemIds.join(','));
   const kind = lesson.project ? ' class="project"' : '';
-  return `<li${kind} data-exercises="${exercises}"><a href="/lessons/${encodeURIComponent(lesson.id)}"${marker}>${escapeHtml(lesson.title)}</a></li>`;
+  return `<li${kind} data-items="${exercises}"><a href="/lessons/${encodeURIComponent(lesson.id)}"${marker}>${escapeHtml(lesson.title)}</a></li>`;
 }
 
 function renderSection(section: NavSection, current: string): string {
@@ -93,6 +93,13 @@ ${items}
 </section>`;
 }
 
+function renderProjectDone(projectId: string): string {
+  return `<section class="project-done">
+<label class="check"><input type="checkbox" id="project-done" data-item="project:${escapeHtml(projectId)}" disabled> <span>I finished this project</span></label>
+<p id="project-done-hint" class="hint">Projects run on your own computer, so you tell us when you are done.</p>
+</section>`;
+}
+
 function renderPager(nav: LessonNav): string {
   return `<nav class="pager" aria-label="Lesson navigation">
 ${pagerLink(nav.prev, 'Previous', 'prev')}
@@ -112,9 +119,10 @@ export function renderLesson(lesson: Lesson, nav?: LessonNav): string {
     ? `${renderTopbar('<a class="home" href="/">Home</a>')}
 <div class="layout">
 ${renderSidebar(nav)}
-<main>
+<main data-lesson-id="${escapeHtml(lesson.id)}">
 ${heading}
 ${body}
+${lesson.after === undefined ? '' : renderProjectDone(lesson.id)}
 ${renderProjects(nav)}
 ${renderPager(nav)}
 </main>
@@ -133,6 +141,7 @@ ${content}
 <script src="/pyodide/pyodide.js"></script>
 <script type="module" src="/static/lesson-runner.js"></script>
 <script type="module" src="/static/sidebar-progress.js"></script>
+<script type="module" src="/static/continue.js"></script>${nav && lesson.after !== undefined ? '\n<script type="module" src="/static/project-done.js"></script>' : ''}
 </body>
 </html>
 `;

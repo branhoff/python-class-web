@@ -36,7 +36,7 @@ export function checkForm({ mode, email, password }) {
 
 export function progressRows(courses, completed) {
   return courses.map((course) => {
-    const done = course.exerciseIds.filter((id) => completed.has(id)).length;
+    const done = course.itemIds.filter((id) => completed.has(id)).length;
     const pct = course.total === 0 ? 0 : Math.round((done / course.total) * 100);
     return { id: course.id, title: course.title, done, total: course.total, pct };
   });

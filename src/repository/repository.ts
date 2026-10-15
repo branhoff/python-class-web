@@ -1,4 +1,4 @@
-export type ProgressEventKind = 'attempt' | 'completed';
+export type ProgressEventKind = 'attempt' | 'completed' | 'reopened';
 
 export interface ProgressEvent {
   cellId: string;

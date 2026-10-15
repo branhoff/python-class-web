@@ -97,8 +97,8 @@ test('a new password must have at least six characters, an existing one is not c
 
 test('progress rows count finished exercises per course and round the percentage', () => {
   const courses = [
-    { id: 'python', title: 'Python', total: 3, exerciseIds: ['a', 'b', 'c'] },
-    { id: 'empty', title: 'Empty', total: 0, exerciseIds: [] },
+    { id: 'python', title: 'Python', total: 3, itemIds: ['a', 'b', 'c'] },
+    { id: 'empty', title: 'Empty', total: 0, itemIds: [] },
   ];
   assert.deepEqual(progressRows(courses, new Set(['a', 'b', 'zzz'])), [
     { id: 'python', title: 'Python', done: 2, total: 3, pct: 67 },

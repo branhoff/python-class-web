@@ -54,7 +54,10 @@ test('a learner can sign up and the token works against the progress API', async
   });
   assert.equal(posted.status, 201);
   const summary = await app.request('/progress/summary', { headers });
-  assert.deepEqual(await summary.json(), { completedCells: ['loops-ex1'] });
+  assert.deepEqual(await summary.json(), {
+    completedCells: ['loops-ex1'],
+    lastCompletedCell: 'loops-ex1',
+  });
 });
 
 test('progress belongs to the account: another learner sees none of it', async () => {
@@ -73,7 +76,7 @@ test('progress belongs to the account: another learner sees none of it', async (
   const summary = await app.request('/progress/summary', {
     headers: { Authorization: `Bearer ${await auth.getToken()}` },
   });
-  assert.deepEqual(await summary.json(), { completedCells: [] });
+  assert.deepEqual(await summary.json(), { completedCells: [], lastCompletedCell: null });
 });
 
 test('after signing out, the same learner can sign back in', async () => {

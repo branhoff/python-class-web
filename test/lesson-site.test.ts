@@ -18,8 +18,8 @@ test('the home page embeds each available course total and exercise ids', async 
   const html = await (await site.request('/')).text();
   const meta = JSON.parse(html.match(/id="progress-meta">(.*?)<\/script>/)![1]!);
   assert.ok(meta.python.total > 0);
-  assert.ok(meta.python.exerciseIds.includes('double-number'));
-  assert.equal(meta.python.exerciseIds.length, meta.python.total);
+  assert.ok(meta.python.itemIds.includes('double-number'));
+  assert.equal(meta.python.itemIds.length, meta.python.total);
 });
 
 test('an available course page lists its lessons by section', async () => {
