@@ -53,7 +53,13 @@ async function boot() {
     // unconfigured or offline: leave the header empty, no sign-in
   }
   if (!config.apiKey) return;
-  auth = createAuth({ apiKey: config.apiKey, fetch, storage: localStorage });
+  auth = createAuth({
+    apiKey: config.apiKey,
+    fetch,
+    storage: localStorage,
+    identityUrl: config.identityUrl,
+    tokenUrl: config.tokenUrl,
+  });
   render();
 }
 
