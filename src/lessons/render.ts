@@ -43,17 +43,25 @@ ${hints}
 </section>`;
 }
 
+type SidebarLesson = NavSection['lessons'][number];
+
+function renderSidebarItem(lesson: SidebarLesson, current: string): string {
+  const marker = lesson.id === current ? ' aria-current="page"' : '';
+  const exercises = escapeHtml(lesson.exerciseIds.join(','));
+  const kind = lesson.project ? ' class="project"' : '';
+  return `<li${kind} data-exercises="${exercises}"><a href="/lessons/${encodeURIComponent(lesson.id)}"${marker}>${escapeHtml(lesson.title)}</a></li>`;
+}
+
 function renderSection(section: NavSection, current: string): string {
-  const items = section.lessons
-    .map((lesson) => {
-      const marker = lesson.id === current ? ' aria-current="page"' : '';
-      const exercises = escapeHtml(lesson.exerciseIds.join(','));
-      const kind = lesson.project ? ' class="project"' : '';
-      return `<li${kind} data-exercises="${exercises}"><a href="/lessons/${encodeURIComponent(lesson.id)}"${marker}>${escapeHtml(lesson.title)}</a></li>`;
-    })
-    .join('\n');
+  const items = (lessons: SidebarLesson[]) =>
+    lessons.map((lesson) => renderSidebarItem(lesson, current)).join('\n');
+  const projects = section.lessons.filter((lesson) => lesson.project);
+  const projectGroup =
+    projects.length === 0
+      ? ''
+      : `\n<p class="group-label" aria-hidden="true">Projects</p>\n<ul aria-label="Projects">\n${items(projects)}\n</ul>`;
   const open = section.lessons.some((lesson) => lesson.id === current) ? ' open' : '';
-  return `<details${open}><summary>Section ${section.section}<span class="count"></span></summary>\n<ul>\n${items}\n</ul>\n</details>`;
+  return `<details${open}><summary>Section ${section.section}<span class="count"></span></summary>\n<ul>\n${items(section.lessons.filter((lesson) => !lesson.project))}\n</ul>${projectGroup}\n</details>`;
 }
 
 function renderSidebar(nav: LessonNav): string {
@@ -96,7 +104,8 @@ export function renderLesson(lesson: Lesson, nav?: LessonNav): string {
       block.type === 'cell' ? renderCell(block) : (marked.parse(block.text) as string),
     )
     .join('\n');
-  const heading = `<h1>${escapeHtml(lesson.title)}</h1>`;
+  const title = lesson.after === undefined ? lesson.title : `Project: ${lesson.title}`;
+  const heading = `<h1>${escapeHtml(title)}</h1>`;
   const content = nav
     ? `${renderTopbar('<a class="home" href="/">Home</a>')}
 <div class="layout">
@@ -114,7 +123,7 @@ ${body}`;
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>${escapeHtml(lesson.title)}</title>
+<title>${escapeHtml(title)}</title>
 <style>${LESSON_STYLE}</style>
 </head>
 <body>
