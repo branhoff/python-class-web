@@ -43,3 +43,17 @@ content/                  one folder per course (content/python/...); lessons as
 scripts/                  lesson build/check tools, plus the solution test runners (see docs/LESSON_FORMAT.md)
 infra/                    OpenTofu (bootstrap/ run once; live root runs in CI)
 ```
+
+## How the HTML is tested
+
+`src/lessons/render.ts` and `home.ts` build pages as strings. The tests check
+the structure a learner relies on (the Run button, the sidebar, that the solution
+is never shipped), not the exact markup. Pinning every tag and
+CSS value would break on each intentional style change and say little about
+correctness.
+
+The two pieces of real logic in that code are tested directly: whether a cell
+shows a prompt, and how hints are numbered. The CSS lives in
+`src/lessons/styles.ts`, which holds no behavior and is excluded from mutation
+testing in `stryker.config.json`. Mutants there would only change a colour or a
+margin, so they would add noise without finding bugs.
