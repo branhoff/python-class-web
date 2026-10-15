@@ -104,7 +104,7 @@ a { color: #1d2b53; }
 a:visited { color: #7e2553; }
 pre, textarea, code { font-family: 'Departure Mono', ui-monospace, monospace; }
 pre, textarea { padding: .75rem; border: 2px solid #000; border-radius: 0; font-size: 1rem; line-height: 1.4; }
-pre { background: #fff1e8; color: #1a1a2e; }
+pre { background: #fff1e8; color: #1a1a2e; white-space: pre-wrap; overflow-wrap: break-word; }
 .hljs-comment { color: #5f574f; font-style: italic; }
 .hljs-keyword, .hljs-literal, .hljs-meta { color: #7e2553; }
 .hljs-string { color: #008751; }
