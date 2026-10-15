@@ -18,6 +18,27 @@ section: 4
 
 All three fields are required. `section` is the course section number.
 
+A fourth field, `after`, is optional and marks the page as a **project**:
+
+```
+---
+id: number-guessing
+title: Number guessing game
+section: 3
+after: loops
+---
+```
+
+`after` names the lesson the project follows. A project is a normal page, with
+three differences: it is listed in the sidebar and on the course page under its
+section, after that section's lessons, and marked with a small arrow; the lesson
+it follows ends with an automatic "Projects" list linking to it; and its
+solution may only use what the course has taught up to and including that
+lesson. Put project files in a `projects/` folder inside the section folder,
+numbered (`01-name.md`) so they sort after the lessons and in the order you want.
+`npm run lessons:check` fails if `after` names a lesson that does not exist, is
+itself a project, or sits in a different section.
+
 ## Cells
 
 A cell sits between `:::cell ...` and `:::` lines. Everything outside a cell is
@@ -96,7 +117,7 @@ results.
 
 ## Project solution cells
 
-Each IDE project ends with a "Show a solution" block holding sandbox cells whose
+Each project page ends with a "Show a solution" block holding sandbox cells whose
 ids start with `solution-`. **A solution may only use what the course has taught
 by the lesson it sits in.** `scripts/audit_solution.py` enforces this by reading
 the solution's syntax tree against a table of "first taught in" lessons. When a

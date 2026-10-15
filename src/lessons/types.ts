@@ -22,6 +22,7 @@ export interface Lesson {
   id: string;
   title: string;
   section: number;
+  after?: string;
   blocks: Block[];
 }
 

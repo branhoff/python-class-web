@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { checkLesson } from '../src/lessons/check.ts';
+import { checkLesson, checkProjects } from '../src/lessons/check.ts';
 import type { PythonRunner } from '../src/lessons/run-python.ts';
 import type { Cell, Lesson } from '../src/lessons/types.ts';
 
@@ -95,5 +95,32 @@ test('reports a starter that already passes', () => {
   const { python } = runner({ starter: pass });
   assert.deepEqual(checkLesson(lessonWith(exercise), python), [
     'demo/ex: the starter already passes the tests, so the exercise is trivial',
+  ]);
+});
+
+function page(id: string, section: number, after?: string): Lesson {
+  const base: Lesson = { id, title: id, section, blocks: [] };
+  return after === undefined ? base : { ...base, after };
+}
+
+test('projects that follow a real lesson in the same section are fine', () => {
+  assert.deepEqual(checkProjects([page('a', 1), page('p', 1, 'a')]), []);
+});
+
+test('a project that follows a lesson that does not exist is reported', () => {
+  assert.deepEqual(checkProjects([page('a', 1), page('p', 1, 'missing')]), [
+    'p: "after: missing" is not a lesson in this course',
+  ]);
+});
+
+test('a project cannot follow another project', () => {
+  assert.deepEqual(checkProjects([page('a', 1), page('p', 1, 'a'), page('q', 1, 'p')]), [
+    'q: "after: p" is itself a project',
+  ]);
+});
+
+test('a project must sit in the same section as its lesson', () => {
+  assert.deepEqual(checkProjects([page('a', 1), page('p', 2, 'a')]), [
+    "p: section 2 differs from its lesson's section 1",
   ]);
 });

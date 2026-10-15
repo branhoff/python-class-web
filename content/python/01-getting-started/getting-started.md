@@ -114,41 +114,17 @@ Use the section list on the left to jump between lessons, or the Previous and
 Next buttons at the bottom of each lesson to go in order. Start with the next
 lesson and work forward.
 
-## Projects
+## How projects work
 
 Every project in this course is written the same way. Read the description,
-create a file with the name it gives, write your solution, and run it in VS Code.
-Projects appear at the end of the lesson they follow. Each one is a collapsible
-section: click its name to open it.
+create a file with the name it gives, write your solution, and run it in VS
+Code. Each project has its own page. You will find it in the sidebar under its
+section, marked with a small arrow, and in a list at the end of the lesson it
+follows. Each page also has a collapsible solution with tests. Try the project
+yourself first.
 
-The first project checks that your setup works.
-
-<details id="project-first-python-file">
-<summary>Project: Your first Python file</summary>
-
-Create a Python file named `my_color.py` in your project folder. Type the
-following code into the file, using **your name** and the **current date**. You
-can try it here first: press **Run** and a box asks for your color.
-
-:::cell id=first-python-file
-```python starter
-# Author: Your Name
-# Date: 01/15/2026
-# Description: Asks the user for their favorite color and then
-#              prints out a statement with the variable
-
-fave_color = input("Please enter your favorite color: ")
-print("Your favorite color is " + fave_color + ".")
-```
-:::
-
-Save the file in VS Code and run it there too. The program asks for your favorite color. After you
-type one, it prints "Your favorite color is" followed by what you typed.
-
-If you can do this, your editor and Python are working and you are ready for the
-rest of the course.
-
-</details>
+The first project checks that your setup works:
+[Your first Python file](/lessons/first-python-file).
 
 ## Reading the tests
 
@@ -189,30 +165,29 @@ python3 -m coverage report -m
 
 ## All projects
 
-Open the lesson to find the project. Each project name below links to its
-section.
+Every project, in course order. Each name links to its page.
 
-| Project                                                                 | Lesson                                                        |
-| ----------------------------------------------------------------------- | ------------------------------------------------------------- |
-| [Your first Python file](/lessons/getting-started#project-first-python-file) | [Getting started](/lessons/getting-started)                   |
-| [Average of five numbers](/lessons/input-and-casting#project-average-of-five) | [Input and casting](/lessons/input-and-casting)               |
-| [Celsius to Fahrenheit](/lessons/input-and-casting#project-celsius-to-fahrenheit) | [Input and casting](/lessons/input-and-casting)               |
-| [Making change](/lessons/input-and-casting#project-making-change)       | [Input and casting](/lessons/input-and-casting)               |
-| [Smallest and largest](/lessons/loops#project-min-and-max)              | [Loops](/lessons/loops)                                       |
-| [Find the factors](/lessons/loops#project-find-factors)                 | [Loops](/lessons/loops)                                       |
-| [Number guessing game](/lessons/loops#project-number-guessing)          | [Loops](/lessons/loops)                                       |
-| [Distance fallen](/lessons/functions#project-distance-fallen)           | [Functions](/lessons/functions)                               |
-| [Fibonacci number](/lessons/functions#project-fibonacci-number)         | [Functions](/lessons/functions)                               |
-| [Hailstone steps](/lessons/functions#project-hailstone-steps)           | [Functions](/lessons/functions)                               |
-| [Multiply with recursion](/lessons/recursion#project-multiply-recursively) | [Recursion](/lessons/recursion)                            |
-| [Taxicab](/lessons/classes#project-taxicab)                             | [Classes](/lessons/classes)                                   |
-| [Find the median](/lessons/lists#project-find-median)                   | [Lists](/lessons/lists)                                       |
-| [Add a surname](/lessons/lists#project-add-surname)                     | [Lists](/lessons/lists)                                       |
-| [Standard deviation of ages](/lessons/lists#project-std-dev-of-ages)    | [Lists](/lessons/lists)                                       |
-| [Square a list in place](/lessons/references#project-square-list)       | [References](/lessons/references)                             |
-| [Reverse a list in place](/lessons/references#project-reverse-list)     | [References](/lessons/references)                             |
-| [Count the letters](/lessons/dictionaries#project-count-letters)        | [Dictionaries](/lessons/dictionaries)                         |
-| [Words in both](/lessons/sets#project-words-in-both)                    | [Sets](/lessons/sets)                                         |
-| [Employee directory](/lessons/sets#project-employee-directory)          | [Sets](/lessons/sets)                                         |
-| [Add Three game](/lessons/sets#project-add-three-game)                  | [Sets](/lessons/sets) (final project)                         |
-| [Builders game](/lessons/sets#project-builders-game)                    | [Sets](/lessons/sets) (final project)                         |
+| Project | Follows the lesson |
+| --- | --- |
+| [Your first Python file](/lessons/first-python-file) | [Getting started](/lessons/getting-started) |
+| [Average of five numbers](/lessons/average-of-five) | [Input and casting](/lessons/input-and-casting) |
+| [Celsius to Fahrenheit](/lessons/celsius-to-fahrenheit) | [Input and casting](/lessons/input-and-casting) |
+| [Making change](/lessons/making-change) | [Input and casting](/lessons/input-and-casting) |
+| [Smallest and largest](/lessons/min-and-max) | [Loops](/lessons/loops) |
+| [Find the factors](/lessons/find-factors) | [Loops](/lessons/loops) |
+| [Number guessing game](/lessons/number-guessing) | [Loops](/lessons/loops) |
+| [Distance fallen](/lessons/distance-fallen) | [Functions](/lessons/functions) |
+| [Fibonacci number](/lessons/fibonacci-number) | [Functions](/lessons/functions) |
+| [Hailstone steps](/lessons/hailstone-steps) | [Functions](/lessons/functions) |
+| [Multiply with recursion](/lessons/multiply-recursively) | [Recursion](/lessons/recursion) |
+| [Taxicab](/lessons/taxicab) | [Classes](/lessons/classes) |
+| [Find the median](/lessons/find-median) | [Lists](/lessons/lists) |
+| [Add a surname](/lessons/add-surname) | [Lists](/lessons/lists) |
+| [Standard deviation of ages](/lessons/std-dev-of-ages) | [Lists](/lessons/lists) |
+| [Square a list in place](/lessons/square-list) | [References](/lessons/references) |
+| [Reverse a list in place](/lessons/reverse-list) | [References](/lessons/references) |
+| [Count the letters](/lessons/count-letters) | [Dictionaries](/lessons/dictionaries) |
+| [Words in both](/lessons/words-in-both) | [Sets](/lessons/sets) |
+| [Employee directory](/lessons/employee-directory) | [Sets](/lessons/sets) |
+| [Add Three game (final project)](/lessons/add-three-game) | [Sets](/lessons/sets) |
+| [Builders game (final project)](/lessons/builders-game) | [Sets](/lessons/sets) |

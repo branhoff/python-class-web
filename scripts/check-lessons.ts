@@ -1,9 +1,12 @@
-import { checkLesson } from '../src/lessons/check.ts';
+import { checkLesson, checkProjects } from '../src/lessons/check.ts';
 import { loadLessons } from '../src/lessons/load.ts';
 import { pythonRunner } from '../src/lessons/run-python.ts';
 
 const lessons = loadLessons('content');
-const problems = lessons.flatMap(({ lesson }) => checkLesson(lesson, pythonRunner));
+const problems = [
+  ...lessons.flatMap(({ lesson }) => checkLesson(lesson, pythonRunner)),
+  ...checkProjects(lessons.map(({ lesson }) => lesson)),
+];
 
 for (const problem of problems) {
   console.error(problem);

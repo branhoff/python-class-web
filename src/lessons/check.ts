@@ -24,3 +24,22 @@ export function checkLesson(lesson: Lesson, python: PythonRunner): string[] {
   }
   return problems;
 }
+
+export function checkProjects(lessons: Lesson[]): string[] {
+  const problems: string[] = [];
+  const byId = new Map(lessons.map((lesson) => [lesson.id, lesson]));
+  for (const project of lessons) {
+    if (project.after === undefined) continue;
+    const parent = byId.get(project.after);
+    if (!parent) {
+      problems.push(`${project.id}: "after: ${project.after}" is not a lesson in this course`);
+    } else if (parent.after !== undefined) {
+      problems.push(`${project.id}: "after: ${project.after}" is itself a project`);
+    } else if (parent.section !== project.section) {
+      problems.push(
+        `${project.id}: section ${project.section} differs from its lesson's section ${parent.section}`,
+      );
+    }
+  }
+  return problems;
+}

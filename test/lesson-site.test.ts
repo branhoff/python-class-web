@@ -68,3 +68,18 @@ test('auth config is served when provided and empty otherwise', async () => {
   });
   assert.deepEqual(await (await site.request('/auth/config')).json(), {});
 });
+
+test('a project page is served like a lesson, and the course page lists it under its section', async () => {
+  const page = await site.request('/lessons/number-guessing');
+  assert.equal(page.status, 200);
+  assert.match(await page.text(), /<h1>Number guessing game<\/h1>/);
+  const course = await (await site.request('/courses/python')).text();
+  assert.match(course, /<li class="project"><a href="\/lessons\/number-guessing">/);
+});
+
+test('every lesson links its projects, and each project names a real lesson', async () => {
+  const loops = await (await site.request('/lessons/loops')).text();
+  assert.match(loops, /href="\/lessons\/min-and-max"/);
+  assert.match(loops, /href="\/lessons\/find-factors"/);
+  assert.match(loops, /href="\/lessons\/number-guessing"/);
+});
