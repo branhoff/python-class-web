@@ -38,9 +38,8 @@ export function continueTarget({ pages, lastId, completed, lastCompletedCell }) 
   return next ? { page: next, reason: 'next' } : null;
 }
 
-export function continueLabel({ page, reason }) {
-  const title = page.project ? `Project: ${page.title}` : page.title;
-  return `${reason === 'resume' ? 'Continue' : 'Next up'}: ${title}`;
+export function continueLabel({ page }) {
+  return page.project ? `${page.title} (project)` : page.title;
 }
 
 export function storageKey(user) {

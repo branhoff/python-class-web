@@ -46,6 +46,8 @@ export function head(title: string): string {
 </head>`;
 }
 
+const UNAVAILABLE_TAG = { 'coming-soon': 'Coming soon', planned: 'In planning' } as const;
+
 function courseCard(course: Course): string {
   const title = escapeHtml(course.title);
   const desc = escapeHtml(course.description);
@@ -53,7 +55,7 @@ function courseCard(course: Course): string {
     return `<div class="course soon">
 <span class="title">${title}</span>
 <span class="desc">${desc}</span>
-<span class="tag">Coming soon</span>
+<span class="tag">${UNAVAILABLE_TAG[course.status]}</span>
 </div>`;
   }
   return `<a class="course available" href="/courses/${encodeURIComponent(course.id)}" data-course="${escapeHtml(course.id)}">

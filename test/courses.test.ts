@@ -2,14 +2,14 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { COURSES } from '../src/lessons/courses.ts';
 
-test('the catalog lists Python as available and the other courses as coming soon', () => {
+test('the catalog lists Programming 101 as available, 102 as planned and the rest as coming soon', () => {
   assert.deepEqual(
     COURSES.map((course) => [course.id, course.title, course.status]),
     [
-      ['python', 'Python', 'available'],
+      ['python', 'Programming 101 with Python', 'available'],
+      ['python-102', 'Programming 102 with Python', 'planned'],
       ['c-cpp', 'C and C++', 'coming-soon'],
       ['pico-8', 'Game Dev with PICO-8', 'coming-soon'],
-      ['algorithms', 'Algorithms & Data Structures', 'coming-soon'],
     ],
   );
 });
