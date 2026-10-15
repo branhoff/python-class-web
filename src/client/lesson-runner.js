@@ -95,6 +95,9 @@ function runCell(pyodide, button) {
   if (state === 'pass') {
     markCompleted(cell);
     recordCompletion(cell.dataset.cellId);
+    document.dispatchEvent(
+      new CustomEvent('cell-completed', { detail: { cellId: cell.dataset.cellId } }),
+    );
   }
 }
 
