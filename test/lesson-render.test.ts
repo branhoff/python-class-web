@@ -173,3 +173,24 @@ test('projects are marked in the sidebar', () => {
   );
   assert.match(html, /<li data-items="ex"><a href="\/lessons\/demo"/);
 });
+
+test('every code cell has a Reset button that starts off, right after Run and before Stop', () => {
+  const html = renderLesson(lesson);
+  const cells = html.match(/<section class="cell[\s\S]*?<\/section>/g)!;
+  assert.equal(cells.length, 2);
+  for (const cell of cells) {
+    const run = cell.indexOf('class="run"');
+    const reset = cell.indexOf('class="reset"');
+    const stop = cell.indexOf('class="stop"');
+    assert.ok(run >= 0 && run < reset && reset < stop);
+    assert.match(
+      cell,
+      /<button type="button" class="reset" disabled aria-label="Reset this cell to its original code">Reset<\/button>/,
+    );
+  }
+});
+
+test('the code a cell ships with is the text of its textarea, which is what Reset restores', () => {
+  const html = renderLesson(lesson);
+  assert.ok(html.includes('>if a &lt; b:\n    pass</textarea>'));
+});

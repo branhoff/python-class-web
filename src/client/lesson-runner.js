@@ -5,6 +5,7 @@
    in py-runner.js. formatResult and verdictOf are unit-tested. */
 
 import { authHeader } from './app-shell.js';
+import { pressReset, resetControl } from './cell-reset.js';
 import { createPythonRunner, pythonSupport } from './py-runner.js';
 
 // A sandbox cell has no tests, so it has nothing to pass; it only shows output.
@@ -73,6 +74,36 @@ async function loadProgress() {
   }
 }
 
+function setupReset(cell) {
+  const editor = cell.querySelector('textarea');
+  const button = cell.querySelector('button.reset');
+  const original = editor.defaultValue;
+  let undoValue = null;
+  const paint = () => {
+    const control = resetControl({ value: editor.value, original, undoValue });
+    button.textContent = control.label;
+    button.disabled = control.disabled || cell.classList.contains('running');
+  };
+  editor.addEventListener('input', () => {
+    undoValue = null;
+    paint();
+  });
+  button.addEventListener('click', () => {
+    const next = pressReset({ value: editor.value, original, undoValue });
+    editor.value = next.value;
+    undoValue = next.undoValue;
+    paint();
+    editor.focus();
+  });
+  cell.addEventListener('cell-state', paint);
+  paint();
+}
+
+function setRunning(cell, running) {
+  cell.classList.toggle('running', running);
+  cell.dispatchEvent(new CustomEvent('cell-state'));
+}
+
 async function runCell(runner, button) {
   const cell = button.closest('.cell');
   const output = cell.querySelector('.output');
@@ -95,6 +126,7 @@ async function runCell(runner, button) {
   stop.onclick = () => runner.stop();
   stdin.addEventListener('submit', send);
   button.textContent = 'Running…';
+  setRunning(cell, true);
 
   let result;
   try {
@@ -117,6 +149,7 @@ async function runCell(runner, button) {
   stdin.removeEventListener('submit', send);
   stdin.hidden = true;
   stop.hidden = true;
+  setRunning(cell, false);
   const { state, lines } = verdictOf(result, hasTests);
   showVerdict(cell, state, lines);
   if (state === 'pass') {
@@ -165,6 +198,7 @@ async function startRunner(buttons) {
 }
 
 async function main() {
+  for (const cell of document.querySelectorAll('.cell')) setupReset(cell);
   const buttons = [...document.querySelectorAll('button.run')];
   await startRunner(buttons);
   await loadProgress();

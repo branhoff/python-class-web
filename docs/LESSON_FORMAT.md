@@ -88,6 +88,11 @@ Inside a cell:
 
 ## How code runs
 
+Every cell has a **Reset** button that puts the editor back to the code the page
+shipped with (the textarea's original content, so no extra data is needed). After
+a reset the button reads **Undo reset** until the learner types again, so a
+mis-click cannot destroy their work. It is off while the cell is running.
+
 Every cell runs in a web worker. Output appears as the program prints it,
 `input()` shows a box under the cell where the learner types a line, and a Stop
 button interrupts the program. A program that runs for more than 10 seconds
