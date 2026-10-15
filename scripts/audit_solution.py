@@ -13,8 +13,9 @@ import sys
 LESSONS = [
     "getting-started", "print-and-types", "variables", "comments-arithmetic-strings",
     "input-and-casting", "error-messages", "problem-solving", "comparison-logical",
-    "conditionals", "loops", "code-tracing", "functions", "recursion", "classes",
-    "strings", "lists", "tuples", "references", "dictionaries", "sets",
+    "conditionals", "loops", "code-tracing", "functions", "testing-and-debugging",
+    "recursion", "classes", "strings", "lists", "tuples", "references", "dictionaries",
+    "sets",
 ]
 
 # Syntax nodes: node class name -> lesson that first teaches it (None = never).
@@ -22,13 +23,14 @@ NODES = {
     "Compare": "comparison-logical", "BoolOp": "comparison-logical",
     "If": "conditionals", "While": "loops", "For": "loops",
     "Break": None, "Continue": None,  # taught, but the loops lesson says to avoid them
-    "FunctionDef": "functions", "Return": "functions", "ClassDef": "classes",
+    "FunctionDef": "functions", "Return": "functions", "Assert": "testing-and-debugging",
+    "ClassDef": "classes",
     "List": "lists", "ListComp": "lists", "Tuple": "tuples", "Dict": "dictionaries",
     "Set": "sets", "SetComp": "sets", "Delete": "tuples",
     "IfExp": None, "Lambda": None, "DictComp": None, "GeneratorExp": None,
     "Try": None, "Raise": None, "With": None, "Global": None, "Nonlocal": None,
     "Import": None, "ImportFrom": None, "Yield": None, "JoinedStr": None,
-    "Starred": None, "Assert": None, "Match": None, "NamedExpr": None,
+    "Starred": None, "Match": None, "NamedExpr": None,
 }
 
 # Builtin functions: name -> lesson that first teaches it.
