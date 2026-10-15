@@ -55,3 +55,12 @@ test('a course with no exercises has a total of zero', () => {
     python: { total: 0, exerciseIds: [] },
   });
 });
+
+test('every coming-soon course appears as a card, and the ampersand in a title is escaped', () => {
+  const html = renderHome(COURSES, {});
+  for (const title of ['C and C++', 'Game Dev with PICO-8']) {
+    assert.match(html, new RegExp(`<span class="title">${title.replace('+', '\\+')}</span>`));
+  }
+  assert.match(html, /<span class="title">Algorithms &amp; Data Structures<\/span>/);
+  assert.equal(html.match(/Coming soon/g)?.length, 3);
+});
