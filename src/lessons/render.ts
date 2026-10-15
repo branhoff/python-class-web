@@ -1,6 +1,10 @@
-import { marked } from 'marked';
+import hljs from 'highlight.js/lib/core';
+import python from 'highlight.js/lib/languages/python';
+import { Marked, type Tokens } from 'marked';
 import type { LessonNav, NavLesson, NavSection } from './nav.ts';
 import type { Cell, Lesson } from './types.ts';
+
+hljs.registerLanguage('python', python);
 
 export function escapeHtml(text: string): string {
   return text
@@ -9,6 +13,18 @@ export function escapeHtml(text: string): string {
     .replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;');
 }
+
+function highlightCode({ text, lang }: Tokens.Code): string {
+  const language = (lang ?? '').trim().split(/\s+/)[0];
+  const body =
+    language === 'python' || language === 'py'
+      ? hljs.highlight(text, { language: 'python' }).value
+      : escapeHtml(text);
+  const classAttr = language ? ` class="language-${escapeHtml(language)}"` : '';
+  return `<pre><code${classAttr}>${body}</code></pre>\n`;
+}
+
+const marked = new Marked({ renderer: { code: highlightCode } });
 
 function renderCell(cell: Cell): string {
   const prompt = cell.prompt ? `<div class="prompt">${marked.parse(cell.prompt)}</div>` : '';
@@ -89,6 +105,11 @@ a:visited { color: #7e2553; }
 pre, textarea, code { font-family: 'Departure Mono', ui-monospace, monospace; }
 pre, textarea { padding: .75rem; border: 2px solid #000; border-radius: 0; font-size: 1rem; line-height: 1.4; }
 pre { background: #fff1e8; color: #1a1a2e; }
+.hljs-comment { color: #5f574f; font-style: italic; }
+.hljs-keyword, .hljs-literal, .hljs-meta { color: #7e2553; }
+.hljs-string { color: #008751; }
+.hljs-number { color: #ab5236; }
+.hljs-built_in, .hljs-title { color: #1d2b53; }
 textarea { background: #1d2b53; color: #fff1e8; width: 100%; box-sizing: border-box; }
 .cell { border-left: 4px solid #29adff; padding-left: 1rem; margin: 1.5rem 0; }
 .cell.exercise { border-left-color: #ffa300; }
