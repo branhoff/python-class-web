@@ -57,6 +57,23 @@ test('exercise and sandbox cells both get an enabled-later Run button and output
   assert.match(html, /data-cell-id="play">/);
 });
 
+test('python fences are highlighted; py alias works; other and bare fences are escaped', () => {
+  const html = renderLesson({
+    ...lesson,
+    blocks: [
+      { type: 'markdown', text: '```python\nif x:\n    y = 1  # c\n```' },
+      { type: 'markdown', text: '```py\nz = "s"\n```' },
+      { type: 'markdown', text: '```text\n2 < 3\n```' },
+      { type: 'markdown', text: '```\nplain < text\n```' },
+    ],
+  });
+  assert.match(html, /<span class="hljs-keyword">if<\/span>/);
+  assert.match(html, /class="language-python"/);
+  assert.match(html, /class="language-py"/);
+  assert.match(html, /<pre><code class="language-text">2 &lt; 3<\/code><\/pre>/);
+  assert.match(html, /<pre><code>plain &lt; text<\/code><\/pre>/);
+});
+
 test('the page loads Pyodide and the lesson runner', () => {
   const html = renderLesson(lesson);
   assert.match(html, /<script src="\/pyodide\/pyodide\.js"><\/script>/);
