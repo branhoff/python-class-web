@@ -5,9 +5,13 @@ export interface NavLesson {
   title: string;
 }
 
+interface SectionLesson extends NavLesson {
+  exerciseIds: string[];
+}
+
 export interface NavSection {
   section: number;
-  lessons: NavLesson[];
+  lessons: SectionLesson[];
 }
 
 export interface LessonNav {
@@ -17,14 +21,20 @@ export interface LessonNav {
   next: NavLesson | null;
 }
 
+export function exerciseCellIds(lesson: Lesson): string[] {
+  return lesson.blocks.flatMap((block) =>
+    block.type === 'cell' && block.kind === 'exercise' ? [block.id] : [],
+  );
+}
+
 export function buildNav(lessons: Lesson[], currentId: string): LessonNav {
   const order = lessons.map((lesson): NavLesson => ({ id: lesson.id, title: lesson.title }));
   const index = order.findIndex((lesson) => lesson.id === currentId);
 
-  const bySection = new Map<number, NavLesson[]>();
+  const bySection = new Map<number, SectionLesson[]>();
   for (const lesson of lessons) {
     const list = bySection.get(lesson.section) ?? [];
-    list.push({ id: lesson.id, title: lesson.title });
+    list.push({ id: lesson.id, title: lesson.title, exerciseIds: exerciseCellIds(lesson) });
     bySection.set(lesson.section, list);
   }
   const sections = [...bySection.entries()]

@@ -96,8 +96,8 @@ test('with nav, renders the section sidebar and the prev/next pager', () => {
   );
   const html = renderLesson(lesson, nav);
   assert.match(html, /<nav class="sidebar"/);
-  assert.match(html, /<summary>Section 1<\/summary>/);
-  assert.match(html, /<summary>Section 2<\/summary>/);
+  assert.match(html, /<summary>Section 1<span class="count"><\/span><\/summary>/);
+  assert.match(html, /<summary>Section 2<span class="count"><\/span><\/summary>/);
   assert.match(html, /<a href="\/lessons\/intro">Intro<\/a>/);
   assert.match(html, /aria-current="page"/);
   assert.match(html, /class="pager"/);
@@ -109,6 +109,21 @@ test('without nav, no sidebar or pager is rendered', () => {
   const html = renderLesson(lesson);
   assert.doesNotMatch(html, /class="sidebar"/);
   assert.doesNotMatch(html, /class="pager"/);
+});
+
+test('the sidebar tags each lesson with its exercise ids and each section with a count slot', () => {
+  const withExercise: Lesson = {
+    ...lesson,
+    id: 'drills',
+    blocks: [
+      { type: 'cell', id: 'drill-a', kind: 'exercise', prompt: '', starter: '', hints: [] },
+      { type: 'cell', id: 'drill-b', kind: 'exercise', prompt: '', starter: '', hints: [] },
+    ],
+  };
+  const html = renderLesson(withExercise, buildNav([withExercise], withExercise.id));
+  assert.match(html, /<li data-exercises="drill-a,drill-b"><a href="\/lessons\/drills"/);
+  assert.match(html, /<summary>Section 1<span class="count"><\/span><\/summary>/);
+  assert.match(html, /<script type="module" src="\/static\/sidebar-progress.js">/);
 });
 
 test('with nav, a Home button links to the course list above the lesson', () => {

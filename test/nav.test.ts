@@ -21,6 +21,25 @@ test('groups lessons by section in ascending order, keeping course order within'
   );
 });
 
+test('each sidebar lesson lists its exercise cell ids, not its sandbox cells', () => {
+  const withCells: Lesson = {
+    id: 'e',
+    title: 'E',
+    section: 1,
+    blocks: [
+      { type: 'markdown', text: 'intro' },
+      { type: 'cell', id: 'try-it', kind: 'sandbox', prompt: '', starter: '', hints: [] },
+      { type: 'cell', id: 'do-it', kind: 'exercise', prompt: '', starter: '', hints: [] },
+      { type: 'cell', id: 'do-it-too', kind: 'exercise', prompt: '', starter: '', hints: [] },
+    ],
+  };
+  const nav = buildNav([withCells, lesson('plain', 1)], 'e');
+  assert.deepEqual(
+    nav.sections[0]!.lessons.map((l) => l.exerciseIds),
+    [['do-it', 'do-it-too'], []],
+  );
+});
+
 test('prev and next follow course order across sections', () => {
   assert.deepEqual(buildNav(lessons, 'b').prev, { id: 'a', title: 'A' });
   assert.deepEqual(buildNav(lessons, 'b').next, { id: 'c', title: 'C' });

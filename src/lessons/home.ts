@@ -1,5 +1,5 @@
 import type { Course } from './courses.ts';
-import { buildNav } from './nav.ts';
+import { buildNav, exerciseCellIds } from './nav.ts';
 import { escapeHtml } from './render.ts';
 import { HOME_STYLE } from './styles.ts';
 import type { Lesson } from './types.ts';
@@ -14,11 +14,7 @@ export function courseProgressMeta(
 ): Record<string, CourseProgress> {
   const meta: Record<string, CourseProgress> = {};
   for (const [courseId, lessons] of courseLessons) {
-    const exerciseIds = lessons.flatMap((lesson) =>
-      lesson.blocks
-        .filter((block) => block.type === 'cell' && block.kind === 'exercise')
-        .map((block) => (block as { id: string }).id),
-    );
+    const exerciseIds = lessons.flatMap(exerciseCellIds);
     meta[courseId] = { total: exerciseIds.length, exerciseIds };
   }
   return meta;

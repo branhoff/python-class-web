@@ -46,11 +46,12 @@ function renderSection(section: NavSection, current: string): string {
   const items = section.lessons
     .map((lesson) => {
       const marker = lesson.id === current ? ' aria-current="page"' : '';
-      return `<li><a href="/lessons/${encodeURIComponent(lesson.id)}"${marker}>${escapeHtml(lesson.title)}</a></li>`;
+      const exercises = escapeHtml(lesson.exerciseIds.join(','));
+      return `<li data-exercises="${exercises}"><a href="/lessons/${encodeURIComponent(lesson.id)}"${marker}>${escapeHtml(lesson.title)}</a></li>`;
     })
     .join('\n');
   const open = section.lessons.some((lesson) => lesson.id === current) ? ' open' : '';
-  return `<details${open}><summary>Section ${section.section}</summary>\n<ul>\n${items}\n</ul>\n</details>`;
+  return `<details${open}><summary>Section ${section.section}<span class="count"></span></summary>\n<ul>\n${items}\n</ul>\n</details>`;
 }
 
 function renderSidebar(nav: LessonNav): string {
@@ -101,6 +102,7 @@ ${body}`;
 ${content}
 <script src="/pyodide/pyodide.js"></script>
 <script type="module" src="/static/lesson-runner.js"></script>
+<script type="module" src="/static/sidebar-progress.js"></script>
 </body>
 </html>
 `;

@@ -33,6 +33,8 @@ button.run:disabled { background: #c2c3c7; color: #5f574f; box-shadow: 3px 3px 0
 .layout { display: flex; gap: 2rem; align-items: flex-start; }
 .sidebar { flex: 0 0 14rem; position: sticky; top: 1rem; background: #fff; border: 2px solid #1d2b53; padding: .75rem; }
 .sidebar summary { font-family: 'Press Start 2P', system-ui, sans-serif; font-size: .6rem; line-height: 1.6; cursor: pointer; margin: .4rem 0; }
+.sidebar summary .count { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .85rem; margin-left: .5rem; color: #5f574f; }
+.sidebar li.complete > a::before { content: '\\2713 '; color: #008751; }
 .sidebar ul { list-style: none; padding-left: .75rem; margin: .25rem 0 .75rem; }
 .sidebar li { margin: .3rem 0; }
 .sidebar a { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .95rem; text-decoration: none; }
