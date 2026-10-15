@@ -15,7 +15,7 @@
 | Final projects    | Local only for the POC: spec, setup guide, starter kit (stub + pytest suite). No upload; completion is self-reported. |
 | Authoring         | Markdown + a small cell syntax, in git, built into the site. CI runs every reference solution against its tests.      |
 | Language          | TypeScript on Node (template's JS/TS tooling column).                                                                 |
-| Lesson content    | Lives in this repo under `content/`.                                                                                  |
+| Lesson content    | Lives in this repo under `content/<course>/` (one folder per course).                                                 |
 | Datastore         | Firestore (native mode, `(default)` database).                                                                        |
 | Auth              | Identity Platform (Firebase Auth), email/password first.                                                              |
 | Hosting           | Google Cloud Run.                                                                                                     |

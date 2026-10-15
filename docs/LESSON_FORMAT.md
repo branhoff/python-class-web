@@ -1,8 +1,10 @@
 # Lesson format
 
-A lesson is one markdown file under `content/`, for example
-`content/04-functions/functions.md`. It is plain markdown plus a front matter
-block and a `:::cell` directive for runnable cells.
+A lesson is one markdown file under `content/<course>/`, for example
+`content/python/04-functions/functions.md`. Each top-level folder under
+`content/` is one course (its folder name is the course id). A lesson file is
+plain markdown plus a front matter block and a `:::cell` directive for runnable
+cells.
 
 ## Front matter
 
@@ -63,9 +65,10 @@ Inside a cell:
 
 ## How code runs
 
-- **Sandbox cells** share one interpreter session per lesson, in page order,
-  like a notebook, so a later cell can call a function defined earlier.
-  (Decision to confirm when the browser runner exists.)
+- **Sandbox cells** run in isolation: each cell runs on its own in a fresh
+  namespace, so nothing defined in one cell carries over to another. A cell that
+  uses a variable or function must define it, and only `print(...)` shows output
+  (a bare trailing expression does not auto-display).
 - **Exercises** run the learner's code in a fresh namespace, then run the tests
   in that same namespace. The tests see everything the learner defined, plus
   `stdout`, the text the learner's program printed.

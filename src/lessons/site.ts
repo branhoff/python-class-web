@@ -1,10 +1,13 @@
 import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono';
+import { COURSES, type Course } from './courses.ts';
+import { courseProgressMeta, renderCourse, renderHome } from './home.ts';
 import { loadLessons } from './load.ts';
 import { buildNav } from './nav.ts';
-import { escapeHtml, renderLesson } from './render.ts';
+import { renderLesson } from './render.ts';
 import type { Lesson } from './types.ts';
 
 export interface AuthConfig {
@@ -18,39 +21,40 @@ function asset(relativePath: string): string {
 
 const HARNESS = asset('./harness.py');
 
-function indexPage(lessons: Lesson[]): string {
-  const items = lessons
-    .map(
-      (lesson) =>
-        `<li><a href="/lessons/${encodeURIComponent(lesson.id)}">${escapeHtml(lesson.title)}</a></li>`,
-    )
-    .join('\n');
-  return `<!doctype html>
-<html lang="en">
-<head><meta charset="utf-8"><title>Python lessons</title></head>
-<body>
-<header id="auth"></header>
-<h1>Lessons</h1>
-<ul>
-${items}
-</ul>
-<script type="module" src="/static/app-shell.js"></script>
-</body>
-</html>
-`;
+function loadCourses(contentDir: string): Map<string, Lesson[]> {
+  const byCourse = new Map<string, Lesson[]>();
+  for (const course of COURSES) {
+    if (course.status !== 'available') continue;
+    byCourse.set(
+      course.id,
+      loadLessons(join(contentDir, course.id)).map((loaded) => loaded.lesson),
+    );
+  }
+  return byCourse;
 }
 
 export function createLessonSite(
   contentDir = 'content',
   authConfig: AuthConfig | null = null,
 ): Hono {
-  const lessons = loadLessons(contentDir).map((loaded) => loaded.lesson);
-  const pages = new Map(
-    lessons.map((lesson) => [lesson.id, renderLesson(lesson, buildNav(lessons, lesson.id))]),
-  );
+  const courseLessons = loadCourses(contentDir);
+  const courseById = new Map<string, Course>(COURSES.map((course) => [course.id, course]));
+  const pages = new Map<string, string>();
+  for (const lessons of courseLessons.values()) {
+    for (const lesson of lessons) {
+      pages.set(lesson.id, renderLesson(lesson, buildNav(lessons, lesson.id)));
+    }
+  }
+  const home = renderHome(COURSES, courseProgressMeta(courseLessons));
   const app = new Hono();
 
-  app.get('/', (c) => c.html(indexPage(lessons)));
+  app.get('/', (c) => c.html(home));
+  app.get('/courses/:courseId', (c) => {
+    const courseId = c.req.param('courseId');
+    const course = courseById.get(courseId);
+    const lessons = courseLessons.get(courseId);
+    return course && lessons ? c.html(renderCourse(course, lessons)) : c.notFound();
+  });
   app.get('/lessons/:id', (c) => {
     const page = pages.get(c.req.param('id'));
     return page ? c.html(page) : c.notFound();
