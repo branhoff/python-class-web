@@ -73,13 +73,20 @@ export function renderCourse(course: Course, lessons: Lesson[]): string {
   const { sections } = buildNav(lessons, lessons[0]?.id ?? '');
   const body = sections
     .map((section) => {
-      const items = section.lessons
-        .map(
-          (lesson) =>
-            `<li${lesson.project ? ' class="project"' : ''}><a href="/lessons/${encodeURIComponent(lesson.id)}">${escapeHtml(lesson.title)}</a></li>`,
-        )
-        .join('\n');
-      return `<h2>Section ${section.section}</h2>\n<ul class="lessons">\n${items}\n</ul>`;
+      const list = (project: boolean) => {
+        const items = section.lessons
+          .filter((lesson) => lesson.project === project)
+          .map(
+            (lesson) =>
+              `<li><a href="/lessons/${encodeURIComponent(lesson.id)}">${escapeHtml(lesson.title)}</a></li>`,
+          )
+          .join('\n');
+        return `<ul class="lessons">\n${items}\n</ul>`;
+      };
+      const projectGroup = section.lessons.some((lesson) => lesson.project)
+        ? `\n<h3 class="group-label">Projects</h3>\n${list(true)}`
+        : '';
+      return `<h2>Section ${section.section}</h2>\n${list(false)}${projectGroup}`;
     })
     .join('\n');
   return `${head(course.title)}

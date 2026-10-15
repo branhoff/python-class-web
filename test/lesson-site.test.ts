@@ -72,9 +72,16 @@ test('auth config is served when provided and empty otherwise', async () => {
 test('a project page is served like a lesson, and the course page lists it under its section', async () => {
   const page = await site.request('/lessons/number-guessing');
   assert.equal(page.status, 200);
-  assert.match(await page.text(), /<h1>Number guessing game<\/h1>/);
+  assert.match(await page.text(), /<h1>Project: Number guessing game<\/h1>/);
   const course = await (await site.request('/courses/python')).text();
-  assert.match(course, /<li class="project"><a href="\/lessons\/number-guessing">/);
+  const projects = course.slice(
+    course.indexOf('<h2>Section 3</h2>'),
+    course.indexOf('<h2>Section 4</h2>'),
+  );
+  assert.match(
+    projects,
+    /<h3 class="group-label">Projects<\/h3>\s*<ul class="lessons">[\s\S]*\/lessons\/number-guessing/,
+  );
 });
 
 test('every lesson links its projects, and each project names a real lesson', async () => {
