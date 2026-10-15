@@ -4,12 +4,36 @@ import { createLessonSite } from '../src/lessons/site.ts';
 
 const site = createLessonSite();
 
-test('the index lists each lesson with a link', async () => {
+test('the home page shows a square for each course, available and coming soon', async () => {
   const res = await site.request('/');
   assert.equal(res.status, 200);
   assert.match(res.headers.get('content-type') ?? '', /text\/html/);
   const html = await res.text();
+  assert.match(html, /<a class="course available" href="\/courses\/python"/);
+  assert.match(html, /class="course soon"[\s\S]*Coming soon/);
+  assert.match(html, /id="progress-meta"/);
+});
+
+test('the home page embeds each available course total and exercise ids', async () => {
+  const html = await (await site.request('/')).text();
+  const meta = JSON.parse(html.match(/id="progress-meta">(.*?)<\/script>/)![1]!);
+  assert.ok(meta.python.total > 0);
+  assert.ok(meta.python.exerciseIds.includes('double-number'));
+  assert.equal(meta.python.exerciseIds.length, meta.python.total);
+});
+
+test('an available course page lists its lessons by section', async () => {
+  const res = await site.request('/courses/python');
+  assert.equal(res.status, 200);
+  const html = await res.text();
   assert.match(html, /<a href="\/lessons\/functions">Functions<\/a>/);
+  assert.match(html, /<h2>Section 4<\/h2>/);
+  assert.match(html, /All courses/);
+});
+
+test('a coming-soon course has no page, and an unknown course is a 404', async () => {
+  assert.equal((await site.request('/courses/javascript')).status, 404);
+  assert.equal((await site.request('/courses/nope')).status, 404);
 });
 
 test('a known lesson renders its runnable page', async () => {

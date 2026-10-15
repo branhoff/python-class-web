@@ -1,8 +1,11 @@
 # python-class-web
 
-A web version of the `python_class_101` course: log in, work through
-notebook-style lessons with runnable exercise cells, and finish each section with
-a project you build and test on your own machine.
+A web app for learning to code in the browser. The home page is a catalog of
+courses, shown as squares; pick one to work through notebook-style lessons with
+runnable exercise cells, and finish each section with a project you build and
+test on your own machine. The first course is a web version of the
+`python_class_101` course; more are placeholders for now. Each learner's
+progress (exercises completed) is tracked per course and shown on the home page.
 
 Status: **early scaffold.** The plan and decisions are in
 [`docs/PLAN.md`](docs/PLAN.md); quality rules in [`AGENTS.md`](AGENTS.md);
@@ -36,6 +39,6 @@ src/
   progress.ts             progress derived from the event log
   repository/             storage contract + backends (memory now, Firestore next)
 test/                     node:test suites; contract.ts is shared by all backends
-content/                  lessons as markdown with runnable cells (see docs/LESSON_FORMAT.md)
+content/                  one folder per course (content/python/...); lessons as markdown (see docs/LESSON_FORMAT.md)
 infra/                    OpenTofu (bootstrap/ run once; live root runs in CI)
 ```
