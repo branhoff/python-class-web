@@ -27,7 +27,12 @@
 
 - Web framework on Node (Hono as in `ring-capture`, vs. alternatives).
 - Front-end approach for the lesson player.
-- `input()` handling in cells: inline prompt (proposed) vs. canned input.
+
+## Decided: how learner code runs
+
+Learner code runs in a web worker, never on the page's main thread and never on
+the server. `input()` shows an inline box under the cell (decided over canned
+input, so projects behave like they do in a terminal). See the README for how.
 
 ## Storage must stay swappable (Firestore -> Postgres)
 

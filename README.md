@@ -65,6 +65,28 @@ scripts/                  lesson build/check tools, plus the solution test runne
 infra/                    OpenTofu (bootstrap/ run once; live root runs in CI)
 ```
 
+## How Python runs in the browser
+
+Learner code runs in Pyodide inside a **web worker** (`src/client/py-worker.js`),
+so a loop that never ends cannot freeze the page. The page side is
+`src/client/py-runner.js`: it runs one program at a time, streams output into
+the cell, and enforces the limits. The server never executes learner code.
+
+- **Output** is streamed from the harness as the program writes it, so a prompt
+  such as "Please enter five numbers." is visible before the program asks.
+- **`input()`** blocks the worker on shared memory (`Atomics.wait`) while the page
+  shows an inline box. The typed line is echoed into the output like a terminal.
+- **Stop and the time limit** write a signal into a shared interrupt flag, which
+  makes Python raise `KeyboardInterrupt`. If Python does not respond within 1.5
+  seconds (code stuck in a long C-level loop), the worker is ended and replaced.
+  The 10 second limit does not count time spent waiting for typed input.
+- **Shared memory needs cross-origin isolation.** `src/isolation.ts` adds
+  `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy:
+require-corp` to every response. Anything the pages load from another origin
+  must now allow it (send a CORP header, or be fetched with CORS); today
+  everything is same-origin. If the headers are missing, the cells say Python
+  is unavailable and explain why.
+
 ## How the HTML is tested
 
 `src/lessons/render.ts` and `home.ts` build pages as strings. The tests check

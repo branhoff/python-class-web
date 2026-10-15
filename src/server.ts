@@ -6,6 +6,7 @@ import { createApp } from './app.ts';
 import { createDevIdentity } from './dev-identity.ts';
 import type { Authenticator } from './auth.ts';
 import { createIdentityPlatformAuthenticator } from './identity-platform.ts';
+import { crossOriginIsolation } from './isolation.ts';
 import { createLessonSite, type AuthConfig } from './lessons/site.ts';
 import { createFirestoreProgressRepository } from './repository/firestore.ts';
 import { MemoryProgressRepository } from './repository/memory.ts';
@@ -72,6 +73,7 @@ async function wire(): Promise<Wiring> {
 const { devIdentity, authConfig, ...deps } = await wire();
 
 const root = new Hono();
+root.use('*', crossOriginIsolation);
 root.route('/', createApp(deps));
 if (devIdentity) root.route('/dev-identity', devIdentity);
 root.route('/', createLessonSite('content', authConfig));

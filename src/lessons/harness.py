@@ -11,8 +11,31 @@ def describe(error, filename):
     return f"{type(error).__name__}: {error}{where}"
 
 
-def run_code(code, namespace):
-    output = io.StringIO()
+class Output:
+    """Collects what a program prints and passes each write on as it happens."""
+
+    def __init__(self, on_write=None):
+        self.parts = []
+        self.on_write = on_write
+
+    def write(self, text):
+        self.parts.append(text)
+        if text and self.on_write is not None:
+            self.on_write(text)
+        return len(text)
+
+    def flush(self):
+        pass
+
+    def isatty(self):
+        return False
+
+    def getvalue(self):
+        return "".join(self.parts)
+
+
+def run_code(code, namespace, on_write=None):
+    output = Output(on_write)
     try:
         with contextlib.redirect_stdout(output):
             exec(compile(code, "<your code>", "exec"), namespace)
@@ -42,9 +65,9 @@ def check_syntax(code):
     return {"ok": True}
 
 
-def run_exercise(code, tests):
+def run_exercise(code, tests, on_write=None):
     namespace = {"__name__": "__main__"}
-    stdout, failure = run_code(code, namespace)
+    stdout, failure = run_code(code, namespace, on_write)
     if failure:
         return {"ok": False, "stage": "code", "message": failure, "stdout": stdout}
     namespace["stdout"] = stdout

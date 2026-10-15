@@ -45,13 +45,27 @@ export default tseslint.config(
     files: ['src/client/**/*.js'],
     languageOptions: {
       globals: {
+        clearTimeout: 'readonly',
         CustomEvent: 'readonly',
         document: 'readonly',
         fetch: 'readonly',
         loadPyodide: 'readonly',
         localStorage: 'readonly',
         location: 'readonly',
+        setTimeout: 'readonly',
+        TextEncoder: 'readonly',
+        Worker: 'readonly',
         URLSearchParams: 'readonly',
+      },
+    },
+  },
+  {
+    // The Python web worker: a module worker with its own global scope.
+    files: ['src/client/py-worker.js'],
+    languageOptions: {
+      globals: {
+        self: 'readonly',
+        TextDecoder: 'readonly',
       },
     },
   },

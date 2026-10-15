@@ -86,6 +86,13 @@ Inside a cell:
 
 ## How code runs
 
+Every cell runs in a web worker. Output appears as the program prints it,
+`input()` shows a box under the cell where the learner types a line, and a Stop
+button interrupts the program. A program that runs for more than 10 seconds
+(not counting time spent waiting for typed input) is stopped with a message
+about loops. Tests for `exercise` cells run in the same worker after the
+learner's code.
+
 - **Sandbox cells** run in isolation: each cell runs on its own in a fresh
   namespace, so nothing defined in one cell carries over to another. A cell that
   uses a variable or function must define it, and only `print(...)` shows output

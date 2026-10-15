@@ -38,7 +38,9 @@ function renderCell(cell: Cell): string {
 ${prompt}
 <textarea spellcheck="false" rows="${cell.starter.split('\n').length + 1}">${escapeHtml(cell.starter)}</textarea>
 <button type="button" class="run" disabled>Loading Python…</button>
+<button type="button" class="stop" hidden>Stop</button>
 <pre class="output" aria-live="polite" hidden></pre>
+<form class="stdin" hidden><input name="line" type="text" autocomplete="off" spellcheck="false" aria-label="Type the program's input, then press Enter"><button type="submit" class="send">Enter</button></form>
 ${hints}
 </section>`;
 }

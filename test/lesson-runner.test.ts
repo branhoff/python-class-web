@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { formatResult } from '../src/client/lesson-runner.js';
+import { formatResult, verdictOf } from '../src/client/lesson-runner.js';
 
 test('an exercise that passes its tests shows a pass verdict', () => {
   assert.deepEqual(formatResult({ ok: true, stdout: '' }, true), {
@@ -28,4 +28,24 @@ test('a sandbox cell that printed nothing still confirms it ran', () => {
     state: 'ran',
     text: '(ran with no output)',
   });
+});
+
+test('the verdict alone leaves out the output, which is streamed into the cell', () => {
+  assert.deepEqual(verdictOf({ ok: true, stdout: '196\n' }, true), {
+    state: 'pass',
+    lines: ['✓ Passed'],
+  });
+  assert.deepEqual(verdictOf({ ok: true, stdout: '196\n' }, false), { state: 'ran', lines: [] });
+  assert.deepEqual(verdictOf({ ok: true, stdout: '' }, false), {
+    state: 'ran',
+    lines: ['(ran with no output)'],
+  });
+  assert.deepEqual(verdictOf({ ok: false, message: 'Stopped.', stdout: 'a' }, false), {
+    state: 'fail',
+    lines: ['✗ Stopped.'],
+  });
+});
+
+test('a failure without a message still says something went wrong', () => {
+  assert.deepEqual(verdictOf({ ok: false }, true).lines, ['✗ Something went wrong.']);
 });
