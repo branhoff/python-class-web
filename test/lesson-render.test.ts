@@ -110,3 +110,16 @@ test('without nav, no sidebar or pager is rendered', () => {
   assert.doesNotMatch(html, /class="sidebar"/);
   assert.doesNotMatch(html, /class="pager"/);
 });
+
+test('with nav, a Home button links to the course list above the lesson', () => {
+  const html = renderLesson(lesson, buildNav([lesson], lesson.id));
+  assert.match(
+    html,
+    /<nav class="topbar" aria-label="Site"><a class="home" href="\/">Home<\/a><\/nav>/,
+  );
+  assert.ok(html.indexOf('class="home"') < html.indexOf('class="layout"'));
+});
+
+test('without nav, there is no Home button', () => {
+  assert.doesNotMatch(renderLesson(lesson), /class="home"/);
+});

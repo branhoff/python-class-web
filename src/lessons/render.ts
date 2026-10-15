@@ -78,7 +78,8 @@ export function renderLesson(lesson: Lesson, nav?: LessonNav): string {
     .join('\n');
   const heading = `<h1>${escapeHtml(lesson.title)}</h1>`;
   const content = nav
-    ? `<div class="layout">
+    ? `<nav class="topbar" aria-label="Site"><a class="home" href="/">Home</a></nav>
+<div class="layout">
 ${renderSidebar(nav)}
 <main>
 ${heading}
