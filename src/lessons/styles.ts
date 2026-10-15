@@ -1,6 +1,3 @@
-// Pure CSS templates, kept apart from the page logic so mutation testing skips them.
-// They hold no behavior; the render tests cover the structure around them.
-
 export const LESSON_STYLE = `
 @font-face { font-family: 'Departure Mono'; src: url('/static/fonts/departure-mono.woff2') format('woff2'); font-display: swap; }
 @font-face { font-family: 'Press Start 2P'; src: url('/static/fonts/press-start-2p.woff2') format('woff2'); font-display: swap; }
