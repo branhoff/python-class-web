@@ -55,3 +55,37 @@ test('an unknown current id yields no prev or next', () => {
   assert.equal(nav.prev, null);
   assert.equal(nav.next, null);
 });
+
+function project(id: string, section: number, after: string): Lesson {
+  return { ...lesson(id, section), after };
+}
+
+test('a lesson lists the projects that follow it, in course order', () => {
+  const course = [lesson('a', 1), lesson('b', 1), project('p1', 1, 'a'), project('p2', 1, 'a')];
+  assert.deepEqual(
+    buildNav(course, 'a').projects.map((p) => p.id),
+    ['p1', 'p2'],
+  );
+  assert.deepEqual(buildNav(course, 'b').projects, []);
+  assert.deepEqual(buildNav(course, 'p1').projects, []);
+});
+
+test('projects appear in their section after the lessons and are flagged as projects', () => {
+  const course = [lesson('a', 1), lesson('b', 2), project('p', 1, 'a')];
+  const nav = buildNav(course, 'a');
+  assert.deepEqual(
+    nav.sections[0]!.lessons.map((l) => [l.id, l.project]),
+    [
+      ['a', false],
+      ['p', true],
+    ],
+  );
+});
+
+test('a project belongs to the pager like any page and has no exercises', () => {
+  const course = [lesson('a', 1), project('p', 1, 'a'), lesson('b', 2)];
+  const nav = buildNav(course, 'p');
+  assert.deepEqual(nav.prev, { id: 'a', title: 'A' });
+  assert.deepEqual(nav.next, { id: 'b', title: 'B' });
+  assert.deepEqual(nav.sections[0]!.lessons[1]!.exerciseIds, []);
+});

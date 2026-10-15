@@ -138,3 +138,35 @@ test('with nav, a Home button links to the course list above the lesson', () => 
 test('without nav, there is no Home button', () => {
   assert.doesNotMatch(renderLesson(lesson), /class="home"/);
 });
+
+test('a lesson page lists its projects, each linked to its own page', () => {
+  const projectPage: Lesson = {
+    id: 'my-project',
+    title: 'My <b> project',
+    section: 1,
+    after: 'demo',
+    blocks: [],
+  };
+  const html = renderLesson(lesson, buildNav([lesson, projectPage], lesson.id));
+  assert.match(html, /<section class="projects">\s*<h2>Projects<\/h2>/);
+  assert.match(html, /<li><a href="\/lessons\/my-project">My &lt;b&gt; project<\/a><\/li>/);
+  assert.ok(html.indexOf('class="projects"') < html.indexOf('class="pager"'));
+});
+
+test('a lesson with no projects has no Projects section', () => {
+  const html = renderLesson(lesson, buildNav([lesson], lesson.id));
+  assert.doesNotMatch(html, /class="projects"/);
+});
+
+test('projects are marked in the sidebar', () => {
+  const projectPage: Lesson = {
+    id: 'my-project',
+    title: 'Mine',
+    section: 1,
+    after: 'demo',
+    blocks: [],
+  };
+  const html = renderLesson(lesson, buildNav([lesson, projectPage], lesson.id));
+  assert.match(html, /<li class="project" data-exercises=""><a href="\/lessons\/my-project">/);
+  assert.match(html, /<li data-exercises="ex"><a href="\/lessons\/demo"/);
+});

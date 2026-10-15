@@ -72,7 +72,7 @@ for (const { lesson } of loadLessons('content')) {
       write(
         join(outDir, slug),
         tests ? scriptFiles(solution, tests) : functionFiles(solution),
-        lesson.id,
+        lesson.after ?? lesson.id,
       );
     } catch (error) {
       throw new Error(`${lesson.id}/${slug}: ${(error as Error).message}`, { cause: error });
