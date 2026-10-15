@@ -27,7 +27,7 @@ HYGIENE_CMD       ?= for f in $(HYGIENE_FILES); do [ -f "$$f" ] || { echo "missi
 # CI runs these keylessly via OIDC/WIF; locally you need `tofu` + cloud ADC.
 TF_STATE_BUCKET ?= $(error set TF_STATE_BUCKET to the bootstrap state bucket)
 
-.PHONY: help setup doctor gcp-setup hooks pyodide smoke firestore-emulator test-integration test coverage mutation mutation-sandbox lint format format-check typecheck structure prose secrets hygiene deadcode check verify clean tofu-plan tofu-apply
+.PHONY: help setup doctor gcp-setup hooks pyodide smoke firestore-emulator test-integration test coverage solutions mutation mutation-solutions mutation-sandbox lint format format-check typecheck structure prose secrets hygiene deadcode check verify clean tofu-plan tofu-apply
 
 # ── Setup ─────────────────────────────────────────────────────────────────────
 doctor:
@@ -61,7 +61,7 @@ smoke:
 # check = the fast gate (runs on every commit). verify = check + the slower
 # structural, dead-code, secret and hygiene checks. Neither runs mutation (too
 # slow; CI/manual).
-check: typecheck lint format-check coverage prose
+check: typecheck lint format-check coverage solutions prose
 
 verify: check structure deadcode secrets hygiene
 
@@ -84,6 +84,11 @@ test:
 coverage:
 	$(COVERAGE_CMD)
 
+# Lesson solution cells: each one's tests must pass and cover 100% of its lines
+# and branches. Builds a throwaway Python venv under build/ on first use.
+solutions:
+	@./scripts/check-solutions.sh
+
 structure:
 	$(STRUCTURE_CMD)
 
@@ -103,12 +108,16 @@ hygiene:
 # Mutation testing grades test quality, not just coverage. Slow and may bind a
 # local socket, so it is intentionally OUT of `check`/pre-commit — run it
 # deliberately or in CI before landing substantial logic.
-mutation:
+mutation: mutation-solutions
 	$(MUTATION_CMD)
+
+# Mutation-test the lesson solution cells: every injected bug must be caught.
+mutation-solutions:
+	@./scripts/mutate-solutions.sh
 
 # Same run for a shell that forbids socket binding (e.g. an agent sandbox): a
 # preload shim no-ops Stryker's diagnostic logging socket. Opt-in; scores match.
-mutation-sandbox:
+mutation-sandbox: mutation-solutions
 	npm run mutation:sandbox
 
 # ── Firestore emulator ────────────────────────────────────────────────────────
@@ -148,7 +157,7 @@ tofu-apply:
 # ── Clean ───────────────────────────────────────────────────────────────────
 # Remove the same artifacts .gitignore hides, so the two don't drift apart.
 clean:
-	rm -rf reports/ node_modules/.cache
+	rm -rf reports/ node_modules/.cache build/solutions build/solutions-venv
 
 # ── Help ──────────────────────────────────────────────────────────────────────
 help:
@@ -163,6 +172,7 @@ help:
 	@echo "  make hygiene       Fail if a required repo hygiene file is missing"
 	@echo "  make test          Run the test suite"
 	@echo "  make coverage      Run tests with enforced coverage thresholds"
+	@echo "  make solutions     Run lesson solution tests with 100% coverage enforced"
 	@echo "  make mutation      Grade test quality with mutation testing (slow)"
 	@echo "  make lint          Lint"
 	@echo "  make format        Auto-format in place"
