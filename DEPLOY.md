@@ -83,6 +83,14 @@ owns: the **image tag** and the **secret versions**. Mark those
 `ignore_changes` in IaC. Otherwise every deploy and every `apply` revert each
 other and you chase phantom drift forever.
 
+`ignore_changes` stops the plan from _proposing_ an image change. It does not
+stop a **saved plan applied later** from writing back the image that was live
+when the plan was made. If deploys land while an apply waits for approval, the
+apply can leave an older image running. So the last step of the `apply` job
+redeploys `main` (`.github/scripts/redeploy-main.sh`), but only when CI passed
+on its head commit; if CI is still running, the deploy that follows CI puts it
+live, and if CI failed it warns instead of shipping a broken build.
+
 ### 6. Artifacts are immutable and traceable
 
 Build and push one artifact per release, tagged with the **git SHA**, never a
@@ -133,6 +141,7 @@ PR  ──▶ ci.yml      verify + mutation         (the quality gate — see AG
 
 merge main ──▶ ci.yml      (gate runs again)
            ──▶ infra.yml   tofu apply          (gated by a `production` environment)
+                            → then redeploy main if its CI passed (rule 5)
            ──▶ deploy.yml   on CI success: build+push SHA artifact
                             → sync secrets → release/update the runtime
 ```
