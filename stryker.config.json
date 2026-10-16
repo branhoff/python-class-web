@@ -9,6 +9,7 @@
   "concurrency": 1,
   "mutate": [
     "src/**/*.ts",
+    "!src/**/*.d.ts",
     "!src/server.ts",
     "!src/repository/firestore.ts",
     "!src/lessons/styles.ts"
