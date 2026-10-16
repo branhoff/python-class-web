@@ -46,11 +46,9 @@ test('a violation in the page is reported, so the check above can fail', async (
   const violations = await watchViolations(page);
   await page.goto('/');
   await page.evaluate(() => {
-    try {
-      new Function('return 1')();
-    } catch {
-      return;
-    }
+    const image = new Image();
+    image.src = 'https://example.invalid/blocked.png';
+    document.body.append(image);
   });
-  expect(violations.length).toBeGreaterThan(0);
+  await expect.poll(() => violations.length).toBeGreaterThan(0);
 });
