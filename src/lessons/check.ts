@@ -10,7 +10,7 @@ export function checkLesson(lesson: Lesson, python: PythonRunner): string[] {
     if (!syntax.ok) {
       problems.push(`${where}: starter has a syntax error: ${syntax.message}`);
     }
-    if (block.kind !== 'exercise') continue;
+    if (block.kind === 'sandbox') continue;
 
     const solved = python.exercise(block.solution!, block.tests!);
     if (!solved.ok) {

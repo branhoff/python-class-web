@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { parseLesson } from '../src/lessons/parse.ts';
-import { HEADER, rejects } from './lesson-helpers.ts';
+import { HEADER, cellsOf, rejects } from './lesson-helpers.ts';
 
 test('parses front matter, markdown, a sandbox cell and an exercise', () => {
   const lesson = parseLesson(`${HEADER}
@@ -117,6 +117,7 @@ test('cell problems are reported', () => {
   rejects(cell('id=a', starter + solution), 6, /cannot have tests or a solution/);
   rejects(cell('id=a kind=exercise', starter + tests), 6, /needs "python tests" and/);
   rejects(cell('id=a kind=exercise', starter + solution), 6, /needs "python tests" and/);
+  rejects(cell('id=a kind=check', starter + tests), 6, /check "a" needs "python tests" and/);
   rejects(cell('id=a', starter + starter), 10, /two "python starter" blocks/);
   rejects(cell('id=a', '```python starter\nx\n'), 6, /cell is never closed/);
   rejects(cell('id=a', '```python starter\nx\n```python\n'), 7, /code block is never closed/);
@@ -132,4 +133,12 @@ test('an "after" front matter field marks a project and names the lesson it foll
 test('a lesson without "after" has no after property at all', () => {
   const lesson = parseLesson(`${HEADER}\nBody\n`);
   assert.equal('after' in lesson, false);
+});
+
+test('a check cell is parsed like an exercise, with tests and a solution', () => {
+  const source = `${HEADER}:::cell id=c kind=check\n\`\`\`python starter\nx = None\n\`\`\`\n\`\`\`python tests\nassert x == 1\n\`\`\`\n\`\`\`python solution\nx = 1\n\`\`\`\n:::\n`;
+  const [cell] = cellsOf(source);
+  assert.equal(cell!.kind, 'check');
+  assert.equal(cell!.tests, 'assert x == 1');
+  assert.equal(cell!.solution, 'x = 1');
 });
