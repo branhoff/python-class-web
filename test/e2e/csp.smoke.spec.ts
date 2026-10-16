@@ -7,6 +7,11 @@ async function watchViolations(page: Page): Promise<string[]> {
   page.on('console', (msg) => {
     if (VIOLATION.test(msg.text())) seen.push(msg.text());
   });
+  await page.addInitScript(() => {
+    document.addEventListener('securitypolicyviolation', (event) => {
+      console.error(`Refused to load ${event.blockedURI} (${event.violatedDirective})`);
+    });
+  });
   return seen;
 }
 
