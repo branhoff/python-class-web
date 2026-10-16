@@ -97,12 +97,15 @@ Google Identity Platform endpoints that sign-in calls, and `'wasm-unsafe-eval'`
 for Pyodide. Styles may be inline because each page carries its CSS in a `<style>`
 tag.
 
-The policy is sent as **Content-Security-Policy-Report-Only**, so a missing source
-is logged in the browser console instead of breaking a page. It is enforced by
-changing the header name in `src/security-headers.ts` once production has been
-watched with the console open on every kind of page, sign-in and a code run. A
-policy that blocks the Python worker would break every code cell, so check before
-enforcing. `Strict-Transport-Security` waits for the custom domain (#86).
+By default the policy is sent as **Content-Security-Policy-Report-Only**, so a
+missing source is logged in the browser console instead of breaking a page. Set
+`CSP_ENFORCE=1` (the `csp_enforce` variable in `infra/`) to enforce it. The browser
+smoke tests (`make smoke`, and the CI `smoke` job) run with it enforced, so a
+policy that blocks the Python worker fails a test. Real Google sign-in cannot be
+tried in CI, so production stays report-only until it has been watched with the
+console open on a lesson page, a code run, sign-in and password reset. A blocked
+source shows as a `[Report Only]` message that names it.
+`Strict-Transport-Security` waits for the custom domain (#86).
 
 ## What counts as done
 

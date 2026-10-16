@@ -42,6 +42,14 @@ resource "google_cloud_run_v2_service" "app" {
         value = var.project_id
       }
 
+      dynamic "env" {
+        for_each = var.csp_enforce ? [1] : []
+        content {
+          name  = "CSP_ENFORCE"
+          value = "1"
+        }
+      }
+
       # Public browser key, not a secret; absent key leaves sign-in off.
       dynamic "env" {
         for_each = var.identity_platform_api_key != "" ? [1] : []

@@ -75,7 +75,7 @@ const { devIdentity, authConfig, ...deps } = await wire();
 
 const root = new Hono();
 root.use('*', crossOriginIsolation);
-root.use('*', securityHeaders);
+root.use('*', securityHeaders(process.env['CSP_ENFORCE'] === '1'));
 root.route('/', createApp(deps));
 if (devIdentity) root.route('/dev-identity', devIdentity);
 root.route('/', createLessonSite('content', authConfig));

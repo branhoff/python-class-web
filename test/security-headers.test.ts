@@ -4,9 +4,12 @@ import { Hono } from 'hono';
 import { securityHeaders } from '../src/security-headers.ts';
 import { createLessonSite } from '../src/lessons/site.ts';
 
-function appWithHeaders() {
+const REPORT_ONLY = 'content-security-policy-report-only';
+const ENFORCING = 'content-security-policy';
+
+function appWithHeaders(enforce = false) {
   const app = new Hono();
-  app.use('*', securityHeaders);
+  app.use('*', securityHeaders(enforce));
   app.get('/page', (c) => c.html('<p>hi</p>'));
   app.get('/boom', () => {
     throw new Error('boom');
@@ -15,23 +18,22 @@ function appWithHeaders() {
   return app;
 }
 
-async function reportedPolicy(path = '/page'): Promise<string> {
-  const policy = (await appWithHeaders().request(path)).headers.get(
-    'content-security-policy-report-only',
-  );
-  assert.ok(policy, `${path} reports a policy`);
-  return policy;
+async function policy(enforce = false, path = '/page'): Promise<string> {
+  const header = enforce ? ENFORCING : REPORT_ONLY;
+  const value = (await appWithHeaders(enforce).request(path)).headers.get(header);
+  assert.ok(value, `${path} sends ${header}`);
+  return value;
 }
 
 async function directive(name: string): Promise<string[]> {
-  const found = (await reportedPolicy()).split('; ').find((part) => part.startsWith(`${name} `));
+  const found = (await policy()).split('; ').find((part) => part.startsWith(`${name} `));
   assert.ok(found, `the policy has a ${name} directive`);
   return found.split(' ').slice(1);
 }
 
 test('every response carries the hardening headers, including errors and not-found', async () => {
   const app = appWithHeaders();
-  const expected = await reportedPolicy();
+  const expected = await policy();
   for (const [path, status] of [
     ['/page', 200],
     ['/', 200],
@@ -42,16 +44,22 @@ test('every response carries the hardening headers, including errors and not-fou
   ] as const) {
     const res = await app.request(path);
     assert.equal(res.status, status, path);
-    assert.equal(res.headers.get('content-security-policy-report-only'), expected, path);
+    assert.equal(res.headers.get(REPORT_ONLY), expected, path);
     assert.equal(res.headers.get('x-content-type-options'), 'nosniff', path);
     assert.equal(res.headers.get('referrer-policy'), 'strict-origin-when-cross-origin', path);
     assert.equal(res.headers.get('x-frame-options'), 'DENY', path);
   }
 });
 
-test('the policy is only reported for now, so it cannot break a page', async () => {
+test('by default the policy is only reported, so it cannot break a page', async () => {
   const res = await appWithHeaders().request('/page');
-  assert.equal(res.headers.get('content-security-policy'), null);
+  assert.equal(res.headers.get(ENFORCING), null);
+});
+
+test('when enforcing, the same policy is sent as the enforcing header and not the report-only one', async () => {
+  const res = await appWithHeaders(true).request('/page');
+  assert.equal(res.headers.get(ENFORCING), await policy());
+  assert.equal(res.headers.get(REPORT_ONLY), null);
 });
 
 test('scripts and workers come only from this origin, and no script may be inline or use eval', async () => {
@@ -64,7 +72,7 @@ test('scripts and workers come only from this origin, and no script may be inlin
 });
 
 test('the only outside hosts are the two Identity Platform sign-in endpoints', async () => {
-  const outside = ((await reportedPolicy()).match(/https:\/\/[a-z.]+/g) ?? []).sort();
+  const outside = ((await policy()).match(/https:\/\/[a-z.]+/g) ?? []).sort();
   assert.deepEqual(outside, [
     'https://identitytoolkit.googleapis.com',
     'https://securetoken.googleapis.com',

@@ -19,12 +19,13 @@ const CONTENT_SECURITY_POLICY = [
   "frame-ancestors 'none'",
 ].join('; ');
 
-const POLICY_HEADER = 'Content-Security-Policy-Report-Only';
-
-export const securityHeaders: MiddlewareHandler = async (c, next) => {
-  await next();
-  c.header(POLICY_HEADER, CONTENT_SECURITY_POLICY);
-  c.header('X-Content-Type-Options', 'nosniff');
-  c.header('Referrer-Policy', 'strict-origin-when-cross-origin');
-  c.header('X-Frame-Options', 'DENY');
-};
+export function securityHeaders(enforce: boolean): MiddlewareHandler {
+  const policyHeader = enforce ? 'Content-Security-Policy' : 'Content-Security-Policy-Report-Only';
+  return async (c, next) => {
+    await next();
+    c.header(policyHeader, CONTENT_SECURITY_POLICY);
+    c.header('X-Content-Type-Options', 'nosniff');
+    c.header('Referrer-Policy', 'strict-origin-when-cross-origin');
+    c.header('X-Frame-Options', 'DENY');
+  };
+}
