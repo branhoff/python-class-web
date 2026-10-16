@@ -34,6 +34,12 @@ textarea { background: #1d2b53; color: #fff1e8; width: 100%; box-sizing: border-
 .cell { border-left: 4px solid #29adff; padding-left: 1rem; margin: 1.5rem 0; }
 .cell.exercise { border-left-color: #ffa300; }
 .cell.check { border-left-style: dashed; }
+main table { width: 100%; border-collapse: collapse; margin: 1.25rem 0; background: #1d2b53; color: #fff1e8; border: 2px solid #000; box-shadow: 4px 4px 0 #000; font-family: 'Departure Mono', ui-monospace, monospace; font-size: .95rem; line-height: 1.4; }
+main th, main td { border: 1px solid #83769c; padding: .35rem .75rem; text-align: left; }
+main thead th { border-bottom: 2px solid #fff1e8; font-weight: normal; color: #ffec27; }
+main thead:not(:has(th:not(:empty))) { display: none; }
+main table a, main table a:visited { color: #29adff; }
+main table code { background: none; padding: 0; }
 .legend { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .85rem; color: #5f574f; }
 .legend .swatch { display: inline-block; width: 0; height: 1em; border-left: 4px solid #29adff; vertical-align: text-bottom; margin: 0 .25rem 0 .5rem; }
 .legend .swatch.exercise { border-left-color: #ffa300; }
