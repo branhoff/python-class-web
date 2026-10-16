@@ -74,30 +74,58 @@ original problem into smaller sub-problems, then break each sub-problem into
 even smaller ones. Repeat until you have a list of steps detailed enough to
 translate into code. This list of steps is often called pseudocode.
 
-As an example, consider painting your house, which is a big job. It might seem
-overwhelming at first, but you can break it into these sub-tasks:
+As an example, suppose you want a program that works out what a customer owes
+at a coffee shop. It might seem like a lot at first, but you can break it into
+these sub-tasks:
 
-- buy paint
-- paint house
-- clean up
+- get the order
+- work out the total
+- show the total
 
-Those sub-tasks can in turn be broken down further:
+Each step sounds clear until you ask what it means. What do we mean by "get the
+order"? The program needs to know how many coffees and how many muffins the
+customer wants. And "work out the total" from what? Let's break the steps down
+further:
 
-- buy paint
-  - choose colors
-  - choose brand of paint
-- paint house
-  - tape over parts that should not get painted
-  - purchase or borrow supplies (ladders, rollers, and so on)
-  - bribe friends with pizza
-  - schedule a day and time
-  - actually paint the house
-- clean up
-  - return or put away supplies
-  - un-tape the taped bits
-  - finish any fine detail work
+- get the order
+  - ask how many coffees
+  - ask how many muffins
+- work out the total
+  - add up the cost of the coffees and the muffins
+  - add sales tax
+- show the total
+  - print the total
 
-Keep going until you know every small step that needs to happen.
+Now ask again. What do we mean by "show the total"? A bare number like `7.3` is
+not much use to a customer, and a calculation can produce `7.299999999`, which
+looks wrong. We want a label and exactly two decimal places. And what is "the
+cost of the coffees"? We need a price, and a tax rate, and nobody has said where
+those come from. One more layer:
+
+- get the order
+  - ask how many coffees and convert the answer to a whole number
+  - ask how many muffins and convert the answer to a whole number
+- work out the total
+  - set the coffee price, the muffin price, and the tax rate
+  - coffee cost = coffees times the coffee price
+  - muffin cost = muffins times the muffin price
+  - subtotal = coffee cost plus muffin cost
+  - tax = subtotal times the tax rate
+  - total = subtotal plus tax
+- show the total
+  - round the total to two decimal places
+  - print it with a label such as "Total: $"
+
+Keep going until you know every small step that needs to happen. A step is
+detailed enough when you could write it as one or two lines of code without
+guessing.
+
+Notice what the extra layers turned up: the prices and the tax rate, converting
+typed answers to numbers, rounding, and the label. None of them were in the first
+outline, and each is easy to forget until the program gives a wrong answer.
+Finding them on paper is much cheaper than finding them halfway through writing
+code. The habit to build is to look at each step and ask "what do I mean by
+this?" until no step is vague.
 
 ### Work through examples by hand
 
