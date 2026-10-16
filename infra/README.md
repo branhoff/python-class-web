@@ -46,39 +46,9 @@ the `infra` run. Without the roles, the apply fails with a permission error.
 The database has **point-in-time recovery** (the last 7 days, to the minute) and a
 **daily backup** kept for 28 days (`backup.tf`). Use point-in-time recovery for a
 recent mistake and a backup for an older one. Both restore into a **new**
-database, so a restore never overwrites live data; check the copy, then point the
-app at it or copy documents back.
+database, so a restore never overwrites live data.
 
-Restore from a point in time (pick a time in the last 7 days, in UTC):
-
-```sh
-gcloud firestore databases clone \
-  --source-database=projects/PROJECT_ID/databases/'(default)' \
-  --snapshot-time=2026-10-15T12:00:00Z \
-  --destination-database=restore-check \
-  --project PROJECT_ID
-```
-
-Restore from a backup:
-
-```sh
-gcloud firestore backups list --project PROJECT_ID
-gcloud firestore databases restore \
-  --source-backup=projects/PROJECT_ID/locations/us-west1/backups/BACKUP_ID \
-  --destination-database=restore-check \
-  --project PROJECT_ID
-```
-
-Then read a few documents in the console (Firestore, switch to `restore-check`),
-and delete the scratch database when done:
-
-```sh
-gcloud firestore databases delete --database=restore-check --project PROJECT_ID
-```
-
-The database name must be new and unused. A restore can take several minutes.
-Try one restore after any change to this setup, so the first time is not during
-an incident.
+**To restore, follow the runbook: [`docs/RESTORE.md`](../docs/RESTORE.md).**
 
 **Cost.** Point-in-time recovery and backups are billed by the storage they use.
 With under 100 learners and an append-only progress log this is cents a month.
