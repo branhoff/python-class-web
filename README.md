@@ -87,6 +87,23 @@ require-corp` to every response. Anything the pages load from another origin
   everything is same-origin. If the headers are missing, the cells say Python
   is unavailable and explain why.
 
+## Security headers
+
+Every response carries a Content-Security-Policy plus `X-Content-Type-Options`,
+`Referrer-Policy` and `X-Frame-Options` (`src/security-headers.ts`, tested in
+`test/security-headers.test.ts` and, in a real browser, `test/e2e/csp.smoke.spec.ts`).
+Everything the pages load comes from this origin. The exceptions are the two
+Google Identity Platform endpoints that sign-in calls, and `'wasm-unsafe-eval'`
+for Pyodide. Styles may be inline because each page carries its CSS in a `<style>`
+tag.
+
+The policy is sent as **Content-Security-Policy-Report-Only**, so a missing source
+is logged in the browser console instead of breaking a page. It is enforced by
+changing the header name in `src/security-headers.ts` once production has been
+watched with the console open on every kind of page, sign-in and a code run. A
+policy that blocks the Python worker would break every code cell, so check before
+enforcing. `Strict-Transport-Security` waits for the custom domain (#86).
+
 ## What counts as done
 
 Progress is an append-only log of events per learner (`completed`, `reopened`,
