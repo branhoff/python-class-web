@@ -17,7 +17,7 @@ export function escapeHtml(text: string): string {
 }
 
 function highlightCode({ text, lang }: Tokens.Code): string {
-  const language = (lang ?? '').trim().split(/\s/)[0];
+  const language = (lang ?? '').split(/\s/)[0];
   const body =
     language === 'python' || language === 'py'
       ? hljs.highlight(text, { language: 'python' }).value

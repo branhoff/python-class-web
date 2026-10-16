@@ -1,6 +1,6 @@
 import { renderTopbar } from './chrome.ts';
 import type { Course } from './courses.ts';
-import { buildNav, progressItemIds } from './nav.ts';
+import { buildSections, progressItemIds } from './nav.ts';
 import { escapeHtml } from './render.ts';
 import { HOME_STYLE } from './styles.ts';
 import type { Lesson } from './types.ts';
@@ -89,8 +89,7 @@ ${cards}
 }
 
 export function renderCourse(course: Course, lessons: Lesson[]): string {
-  const { sections } = buildNav(lessons, '');
-  const body = sections
+  const body = buildSections(lessons)
     .map((section) => {
       const list = (project: boolean) => {
         const items = section.lessons

@@ -42,3 +42,33 @@ test('a lesson with no project, no projects list and no neighbours adds nothing 
 test('a section with no projects closes its list straight into the section', () => {
   assert.match(pageOf('Body text'), /<\/ul>\n<\/details>/);
 });
+
+function plain(id: string, section: number, after?: string): Lesson {
+  return { id, title: id, section, blocks: [], ...(after === undefined ? {} : { after }) };
+}
+
+test('sidebar lessons, sidebar sections and project links are each on their own line', () => {
+  const lessons = [
+    plain('a', 1),
+    plain('b', 1),
+    plain('c', 2),
+    plain('p1', 2, 'a'),
+    plain('p2', 2, 'a'),
+  ];
+  const html = renderLesson(lessons[0]!, buildNav(lessons, 'a'));
+  assert.match(html, /<li data-items=""><a href="\/lessons\/a"[^\n]*<\/li>\n<li data-items="">/);
+  assert.match(html, /<\/details>\n<details>/);
+  assert.match(
+    html,
+    /<li><a href="\/lessons\/p1">p1<\/a><\/li>\n<li><a href="\/lessons\/p2">p2<\/a><\/li>/,
+  );
+});
+
+test('a section lists its projects under their own heading, one to a line', () => {
+  const lessons = [plain('a', 1), plain('p1', 1, 'a'), plain('p2', 1, 'a')];
+  const html = renderLesson(lessons[0]!, buildNav(lessons, 'a'));
+  assert.match(
+    html,
+    /<p class="group-label" aria-hidden="true">Projects<\/p>\n<ul aria-label="Projects">\n<li class="project"[^\n]*<\/li>\n<li class="project"[^\n]*<\/li>\n<\/ul>/,
+  );
+});

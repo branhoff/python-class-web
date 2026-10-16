@@ -9,6 +9,8 @@ test('the home page has a title and lists every course card on its own line', ()
   assert.match(html, /<title>Courses<\/title>/);
   assert.equal(html.match(/<a class="course available"/g)?.length, 1);
   assert.equal(html.match(/<div class="course soon">/g)?.length, 3);
+  assert.match(html, /<\/a>\n<div class="course soon">/);
+  assert.match(html, /<\/div>\n<div class="course soon">/);
 });
 
 test('a course page with no lessons still renders, with a title and a way back', () => {
@@ -106,5 +108,13 @@ test('a section with a project lists it under its own heading, after the lessons
   assert.match(
     html,
     /<h2>Section 1<\/h2>\n<ul class="lessons">\n<li><a href="\/lessons\/a">a<\/a><\/li>\n<\/ul>\n<h3 class="group-label">Projects<\/h3>\n<ul class="lessons">\n<li><a href="\/lessons\/p">p<\/a><\/li>\n<\/ul>/,
+  );
+});
+
+test('lessons in a section are listed one to a line', () => {
+  const html = renderCourse(COURSES[0]!, [plain('a', 1), plain('b', 1)]);
+  assert.match(
+    html,
+    /<li><a href="\/lessons\/a">a<\/a><\/li>\n<li><a href="\/lessons\/b">b<\/a><\/li>/,
   );
 });
