@@ -136,24 +136,43 @@ patterns in how you solve them. You can combine this with stepwise refinement
 to help figure out what the sub-tasks should be.
 
 For example, how could you round `7.299999999` to two decimal places without
-calling `round()`? It looks hard until you do it by hand and write down each
-step:
+calling `round()`? It looks hard. A good way in is to solve an easier problem
+first.
 
-1. Start with `7.299999999`. We want `7.3`.
-2. The digits we want to keep are the first two after the decimal point. Move
-   them to the left of it by multiplying by 100: `729.9999999`.
-3. Now we need to drop everything after the decimal point. But rounding is not
-   chopping. Try `3.159`. The answer should be `3.16`, and chopping gives
-   `3.15`. If the next digit is 5 or more, we need to go up. Adding `0.5` does
-   that: `729.9999999 + 0.5` is `730.4999999`.
-4. Drop everything after the decimal point: `730`.
-5. Move the decimal point back by dividing by 100: `7.3`.
+**An easier problem: round to a whole number.** Python can drop everything after
+the decimal point with `int()`, so `int(7.9)` is `7`. That is chopping, not
+rounding, because `7.9` should round to `8`. Work a few by hand:
 
-Check the steps on another number. For `3.14159`, multiply by 100 to get
-`314.159`, add `0.5` to get `314.659`, drop the decimals to get `314`, and
-divide by 100 to get `3.14`. The same steps work, so you can turn them into
-code. Dropping the decimals can be done with `int()`, which cuts off everything
-after the decimal point:
+- `7.3` rounds to `7`
+- `7.49` rounds to `7`
+- `7.5` rounds to `8`
+- `7.9` rounds to `8`
+
+The pattern: if the part after the decimal point is `.5` or more, the number goes
+up to the next whole number. Otherwise it stays. Chopping gets the second case
+right and the first case wrong. Can we fix the first case with something we
+already know? Try adding `0.5` before chopping:
+
+- `7.5 + 0.5` is `8.0`, which chops to `8`
+- `7.9 + 0.5` is `8.4`, which chops to `8`
+- `7.3 + 0.5` is `7.8`, which chops to `7`
+- `7.49 + 0.5` is `7.99`, which chops to `7`
+
+Adding `0.5` pushes numbers that are `.5` or more over the next whole number, and
+leaves the others below it. So `int(number + 0.5)` rounds to a whole number.
+
+**Back to the real problem.** We can round to a whole number, but we want two
+decimal places. Can we turn this problem into the one we just solved? Multiplying
+by 100 moves the decimal point two places to the right, so `7.299999999` becomes
+`729.9999999`. Now the digits we want to keep are in the whole-number part, and
+the digits we want to get rid of come after the decimal point. Rounding that to a
+whole number gives `730`. Dividing by 100 moves the decimal point back: `7.3`.
+
+Check it on a number where chopping and rounding give different answers. `3.159`
+should round to `3.16`. Multiplying by 100 gives `315.9`. Adding `0.5` gives
+`316.4`, which chops to `316`. Dividing by 100 gives `3.16`.
+
+Now it is a few lines of code:
 
 :::cell id=problem-solving-round-by-hand
 ```python starter
@@ -162,9 +181,9 @@ print(int(price * 100 + 0.5) / 100)
 ```
 :::
 
-Each step on its own is simple. Writing them down one at a time is what made the
-whole thing possible. This version only works for positive numbers, so in real
-programs use `round()`.
+Nobody has to remember this formula. Each step was a small problem on its own:
+solve an easier version first, then turn the harder problem into the easier one.
+This version only works for positive numbers, so in real programs use `round()`.
 
 Now use the same steps on a different case:
 
