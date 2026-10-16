@@ -94,3 +94,10 @@ test('the policy is enforced only when CSP_ENFORCE is exactly 1', () => {
   }
   assert.equal(cspEnforced({}), false);
 });
+
+test('everything not named above falls back to this origin, with only inline styles and data images added', async () => {
+  assert.deepEqual(await directive('default-src'), ["'self'"]);
+  assert.deepEqual(await directive('font-src'), ["'self'"]);
+  assert.deepEqual(await directive('img-src'), ["'self'", 'data:']);
+  assert.deepEqual(await directive('style-src'), ["'self'", "'unsafe-inline'"]);
+});
