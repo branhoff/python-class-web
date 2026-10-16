@@ -13,9 +13,9 @@ import sys
 LESSONS = [
     "getting-started", "print-and-types", "variables", "comments-arithmetic-strings",
     "input-and-casting", "error-messages", "problem-solving", "comparison-logical",
-    "conditionals", "loops", "code-tracing", "functions", "testing-and-debugging",
-    "recursion", "classes", "strings", "lists", "tuples", "references", "dictionaries",
-    "sets",
+    "conditionals", "loops", "code-tracing", "functions", "function-scope",
+    "testing-and-debugging", "recursion", "classes", "strings", "lists", "tuples", "references",
+    "dictionaries", "sets",
 ]
 
 # Syntax nodes: node class name -> lesson that first teaches it (None = never).

@@ -1,7 +1,7 @@
 # Lesson format
 
 A lesson is one markdown file under `content/<course>/`, for example
-`content/python/04-functions/functions.md`. Each top-level folder under
+`content/python/04-functions/04a-functions.md`. Each top-level folder under
 `content/` is one course (its folder name is the course id). A lesson file is
 plain markdown plus a front matter block and a `:::cell` directive for runnable
 cells.

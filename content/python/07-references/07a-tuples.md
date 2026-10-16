@@ -197,7 +197,7 @@ If you have a tuple that contains mutable objects, the tuple itself is immutable
 
 ### Mutability and Immutability of Function Arguments
 
-In the page on functions we saw that changing a parameter in a function did not change the value of the variable that was passed in the function call, and said we'd discuss the reason in a later module. The reason is that the variable we passed referred to an immutable type. Integers, like tuples, are immutable and cannot be changed. In fact, lists are the **only** mutable type we've looked at so far; all the others we've seen are immutable (objects of user-defined classes, which we looked at in module 5, are also mutable). If a variable refers to a list, and we pass that list to a function, then the function can change the actual list that was passed.
+In the Function Scope and Parameters page we saw that changing a parameter in a function did not change the value of the variable that was passed in the function call, and said we'd discuss the reason in a later module. The reason is that the variable we passed referred to an immutable type. Integers, like tuples, are immutable and cannot be changed. In fact, lists are the **only** mutable type we've looked at so far; all the others we've seen are immutable (objects of user-defined classes, which we looked at in module 5, are also mutable). If a variable refers to a list, and we pass that list to a function, then the function can change the actual list that was passed.
 
 :::cell id=tuples-demo15
 ```python starter
