@@ -184,7 +184,10 @@ change()
 z = x + 1
 ```
 
-Set `final_x` and `final_z` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions:
+
+- `final_x` is the value of `x` at the end
+- `final_z` is the value of `z` at the end
 
 ```python starter
 final_x = None
@@ -285,7 +288,10 @@ add_ten(num)
 other = add_ten(num)
 ```
 
-Set `final_num` and `final_other` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions:
+
+- `final_num` is the value of `num` at the end
+- `final_other` is the value of `other` at the end
 
 ```python starter
 final_num = None

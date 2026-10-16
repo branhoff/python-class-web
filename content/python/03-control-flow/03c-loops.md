@@ -86,7 +86,10 @@ for n in range(10, 0, -3):
     y += n
 ```
 
-Set `final_x` and `final_y` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions:
+
+- `final_x` is the value of `x` at the end
+- `final_y` is the value of `y` at the end
 
 ```python starter
 final_x = None
@@ -147,7 +150,10 @@ for x in range(1, 11):
     y += x
 ```
 
-Set `final_x` and `final_y` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions:
+
+- `final_x` is the value of `x` at the end
+- `final_y` is the value of `y` at the end
 
 ```python starter
 final_x = None
@@ -369,7 +375,10 @@ for a in range(0, 3):
 y = b
 ```
 
-Set `final_x` and `final_y` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions:
+
+- `final_x` is the value of `x` at the end
+- `final_y` is the value of `y` at the end
 
 ```python starter
 final_x = None

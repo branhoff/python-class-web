@@ -267,7 +267,11 @@ mine = ["x"]
 add_item("y", mine)
 ```
 
-Set `final_first` and `final_second` and `final_mine` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions:
+
+- `final_first` is the value of `first` at the end
+- `final_second` is the value of `second` at the end
+- `final_mine` is the value of `mine` at the end
 
 ```python starter
 final_first = None
@@ -386,7 +390,9 @@ nums = [1, 2, 3]
 change(nums)
 ```
 
-Set `final_nums` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions:
+
+- `final_nums` is the value of `nums` at the end
 
 ```python starter
 final_nums = None

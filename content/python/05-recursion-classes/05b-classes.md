@@ -199,7 +199,10 @@ x = a.get_count()
 y = b.get_count()
 ```
 
-Set `final_x` and `final_y` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions:
+
+- `final_x` is the value of `x` at the end
+- `final_y` is the value of `y` at the end
 
 ```python starter
 final_x = None
@@ -360,7 +363,10 @@ x = t1.get_level()
 y = t2.get_level()
 ```
 
-Set `final_x` and `final_y` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions:
+
+- `final_x` is the value of `x` at the end
+- `final_y` is the value of `y` at the end
 
 ```python starter
 final_x = None

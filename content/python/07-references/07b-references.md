@@ -292,7 +292,11 @@ c = list(a)
 a.append(4)
 ```
 
-Set `final_a` and `final_b` and `final_c` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions:
+
+- `final_a` is the value of `a` at the end
+- `final_b` is the value of `b` at the end
+- `final_c` is the value of `c` at the end
 
 ```python starter
 final_a = None
@@ -388,7 +392,10 @@ copied[0] = 99
 copied[1].append(4)
 ```
 
-Set `final_original` and `final_copied` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions:
+
+- `final_original` is the value of `original` at the end
+- `final_copied` is the value of `copied` at the end
 
 ```python starter
 final_original = None

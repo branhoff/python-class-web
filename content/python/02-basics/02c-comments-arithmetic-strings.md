@@ -63,7 +63,10 @@ x = 8 / 4
 y = -9 // 2
 ```
 
-Set `final_x` and `final_y` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions:
+
+- `final_x` is the value of `x` at the end
+- `final_y` is the value of `y` at the end
 
 ```python starter
 final_x = None
@@ -297,7 +300,10 @@ x /= 4
 y = 2 + 3 * 4 ** 2 // 5
 ```
 
-Set `final_x` and `final_y` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions:
+
+- `final_x` is the value of `x` at the end
+- `final_y` is the value of `y` at the end
 
 ```python starter
 final_x = None

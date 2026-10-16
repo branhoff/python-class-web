@@ -49,7 +49,7 @@ print(name)
 print(Name)
 ```
 
-Set `error_name` to the name of the error type as a string, for example `"ZeroDivisionError"`.
+Python stops with an error on one of these lines. Change `error_name` to the name of that error, written as a string, for example `"ZeroDivisionError"`.
 
 ```python starter
 error_name = ""
@@ -106,7 +106,7 @@ age = 12
 print("Age: " + age)
 ```
 
-Set `error_name` to the name of the error type as a string, for example `"ZeroDivisionError"`.
+Python stops with an error on one of these lines. Change `error_name` to the name of that error, written as a string, for example `"ZeroDivisionError"`.
 
 ```python starter
 error_name = ""
