@@ -90,7 +90,7 @@ print(int(3.25))
 ```
 :::
 
-:::cell id=predict-cast-vs-concat kind=exercise
+:::cell id=predict-cast-vs-concat kind=check
 **Check your understanding.** Predict the result. One value is cast to a number and one stays a string.
 
 ```python
@@ -142,7 +142,7 @@ print(str(43))
 ```
 :::
 
-:::cell id=predict-cast-truncate kind=exercise
+:::cell id=predict-cast-truncate kind=check
 **Check your understanding.** Predict the result. Check what int() does to a decimal, and what str() gives back.
 
 ```python

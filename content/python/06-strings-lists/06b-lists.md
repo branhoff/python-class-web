@@ -260,7 +260,7 @@ The `sort` method works "in place": it changes the original list. Sorting also w
 ```
 :::
 
-:::cell id=predict-sort-result kind=exercise
+:::cell id=predict-sort-result kind=check
 **Check your understanding.** Predict the result. Look at what `sort` gives back.
 
 ```python
@@ -317,7 +317,7 @@ print(fun_floats)
 ```
 :::
 
-:::cell id=predict-concatenation-copy kind=exercise
+:::cell id=predict-concatenation-copy kind=check
 **Check your understanding.** Predict the result. One of these changes a list and one makes a new one.
 
 ```python

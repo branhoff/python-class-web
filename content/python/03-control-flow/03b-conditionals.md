@@ -86,7 +86,7 @@ print("Letter grade = ", grade)
 
 Here `elif` is short for `else if`.
 
-:::cell id=predict-elif-vs-if kind=exercise
+:::cell id=predict-elif-vs-if kind=check
 **Check your understanding.** Predict the result. Look at what the first `if` does to `x` before the second test runs.
 
 ```python

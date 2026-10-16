@@ -282,7 +282,7 @@ print(copied_list)
 ```
 :::
 
-:::cell id=predict-alias-or-copy kind=exercise
+:::cell id=predict-alias-or-copy kind=check
 **Check your understanding.** Predict the result. One of the names is an alias and one is a copy.
 
 ```python

@@ -55,7 +55,7 @@ print(remainder_2)
 ```
 :::
 
-:::cell id=predict-division-kinds kind=exercise
+:::cell id=predict-division-kinds kind=check
 **Check your understanding.** Predict the result. Think about the type each kind of division gives back.
 
 ```python
