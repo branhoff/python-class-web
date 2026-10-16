@@ -11,6 +11,7 @@ import { createLessonSite, type AuthConfig } from './lessons/site.ts';
 import { createFirestoreProgressRepository } from './repository/firestore.ts';
 import { MemoryProgressRepository } from './repository/memory.ts';
 import { resolveRunMode } from './run-mode.ts';
+import { cspEnforced, securityHeaders } from './security-headers.ts';
 import type { ProgressRepository } from './repository/repository.ts';
 
 const SECURETOKEN_JWKS_URL =
@@ -74,6 +75,7 @@ const { devIdentity, authConfig, ...deps } = await wire();
 
 const root = new Hono();
 root.use('*', crossOriginIsolation);
+root.use('*', securityHeaders(cspEnforced(process.env)));
 root.route('/', createApp(deps));
 if (devIdentity) root.route('/dev-identity', devIdentity);
 root.route('/', createLessonSite('content', authConfig));
