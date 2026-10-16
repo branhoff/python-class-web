@@ -2,7 +2,7 @@
 id: first-python-file
 title: Your first Python file
 section: 1
-after: getting-started
+after: editor-setup
 ---
 
 Create a Python file named `my_color.py` in your project folder. Type the
