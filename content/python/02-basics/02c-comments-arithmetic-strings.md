@@ -55,6 +55,42 @@ print(remainder_2)
 ```
 :::
 
+:::cell id=predict-division-kinds kind=exercise
+**Check your understanding.** Predict the result. Think about the type each kind of division gives back.
+
+```python
+x = 8 / 4
+y = -9 // 2
+```
+
+Set `final_x` and `final_y` to the values the program ends with.
+
+```python starter
+final_x = None
+final_y = None
+```
+
+```python tests
+program = """
+x = 8 / 4
+y = -9 // 2
+"""
+real = {}
+exec(program, real)
+assert final_x == real["x"] and type(final_x) is type(real["x"]), "final_x is not right. Normal division always gives a float."
+assert final_y == real["y"], "final_y is not right. Floor division rounds down, toward the smaller number."
+```
+
+```python solution
+final_x = 2.0
+final_y = -5
+```
+
+```hint
+Normal division gives a float even for whole results. Rounding down on a negative number goes away from zero.
+```
+:::
+
 Exponentiation is done with the `**` symbol.
 
 :::cell id=comments-arithmetic-strings-demo4
@@ -246,5 +282,49 @@ assert stdout.strip() == "Doctor Strange", f"Your program should print Doctor St
 title: str = "Doctor"
 last_name: str = "Strange"
 print(title + " " + last_name)
+```
+:::
+
+:::cell id=predict-shortcut-chain kind=exercise
+6. Predict the result. Follow x one line at a time, then work out y by order of operations.
+
+```python
+x = 20
+x //= 3
+x %= 4
+x **= 3
+x /= 4
+y = 2 + 3 * 4 ** 2 // 5
+```
+
+Set `final_x` and `final_y` to the values the program ends with.
+
+```python starter
+final_x = None
+final_y = None
+```
+
+```python tests
+program = """
+x = 20
+x //= 3
+x %= 4
+x **= 3
+x /= 4
+y = 2 + 3 * 4 ** 2 // 5
+"""
+real = {}
+exec(program, real)
+assert final_x == real["x"] and type(final_x) is type(real["x"]), "final_x is not right. Write down x after every line, and note whether it is an int or a float."
+assert final_y == real["y"], "final_y is not right. Do the exponent first, then * and // left to right, then +."
+```
+
+```python solution
+final_x = 2.0
+final_y = 11
+```
+
+```hint
+Track x after each line. Only the last step uses /.
 ```
 :::

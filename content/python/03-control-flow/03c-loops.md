@@ -74,6 +74,50 @@ for num in range(10, 0, -1):
 ```
 :::
 
+:::cell id=predict-zero-times kind=exercise
+**Check your understanding.** Predict the result. Check whether each range has any numbers in it, and what the step does.
+
+```python
+x = 100
+y = 0
+for x in range(5, 1):
+    y += 1
+for n in range(10, 0, -3):
+    y += n
+```
+
+Set `final_x` and `final_y` to the values the program ends with.
+
+```python starter
+final_x = None
+final_y = None
+```
+
+```python tests
+program = """
+x = 100
+y = 0
+for x in range(5, 1):
+    y += 1
+for n in range(10, 0, -3):
+    y += n
+"""
+real = {}
+exec(program, real)
+assert final_x == real["x"], "final_x is not right. Does the first range have any numbers? List the second one."
+assert final_y == real["y"], "final_y is not right. Does the first range have any numbers? List the second one."
+```
+
+```python solution
+final_x = 100
+final_y = 22
+```
+
+```hint
+A range with no numbers never runs the body, so the loop variable is never set. The second range counts down by 3.
+```
+:::
+
 ### `break` and `continue`
 
 The `break` keyword ends a loop early. For example:
@@ -90,6 +134,50 @@ for num in range(1, 11):
 This loop only prints the numbers up to 4 because when `break` runs, it immediately exits the loop.
 
 The `continue` keyword skips the rest of the current iteration and jumps to the next one. Try replacing `break` with `continue` in the code above. It then prints the numbers from 1 through 10 except for 5.
+
+:::cell id=predict-loop-var-continue kind=exercise
+**Check your understanding.** Predict the result. Think about what `x` holds when the loop ends, and which numbers `continue` skips.
+
+```python
+x = 0
+y = 0
+for x in range(1, 11):
+    if x % 3 == 0:
+        continue
+    y += x
+```
+
+Set `final_x` and `final_y` to the values the program ends with.
+
+```python starter
+final_x = None
+final_y = None
+```
+
+```python tests
+program = """
+x = 0
+y = 0
+for x in range(1, 11):
+    if x % 3 == 0:
+        continue
+    y += x
+"""
+real = {}
+exec(program, real)
+assert final_x == real["x"], "final_x is not right. Check which numbers get added and what x is last."
+assert final_y == real["y"], "final_y is not right. Check which numbers get added and what x is last."
+```
+
+```python solution
+final_x = 10
+final_y = 37
+```
+
+```hint
+`continue` still leaves the loop variable set. The range stops before 11.
+```
+:::
 
 ### Proper use of `break`
 
@@ -264,5 +352,53 @@ def echo_until_quit(words: list) -> None:
         index += 1
 
 echo_until_quit(["red", "green", "quit", "blue"])
+```
+:::
+
+:::cell id=predict-nested-break kind=exercise
+4. Predict the result. Count how many times the inner body reaches `x += 1`, and what `b` is at the end.
+
+```python
+x = 0
+y = 0
+for a in range(0, 3):
+    for b in range(0, 4):
+        if b == 2:
+            break
+        x += 1
+y = b
+```
+
+Set `final_x` and `final_y` to the values the program ends with.
+
+```python starter
+final_x = None
+final_y = None
+```
+
+```python tests
+program = """
+x = 0
+y = 0
+for a in range(0, 3):
+    for b in range(0, 4):
+        if b == 2:
+            break
+        x += 1
+y = b
+"""
+real = {}
+exec(program, real)
+assert final_x == real["x"], "final_x is not right. Count the inner passes per outer pass, then multiply."
+assert final_y == real["y"], "final_y is not right. Count the inner passes per outer pass, then multiply."
+```
+
+```python solution
+final_x = 6
+final_y = 2
+```
+
+```hint
+`break` only leaves the inner loop. The outer loop still goes around each time.
 ```
 :::

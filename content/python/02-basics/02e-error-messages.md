@@ -40,6 +40,44 @@ print(phrase)
 
 We never assigned a value to `phrase` before trying to print it.
 
+:::cell id=predict-error-case kind=exercise
+**Check your understanding.** Predict the result. Name the error Python reports for the last line.
+
+```python
+name = "Sam"
+print(name)
+print(Name)
+```
+
+Set `error_name` to the name of the error type as a string, for example `"ZeroDivisionError"`.
+
+```python starter
+error_name = ""
+```
+
+```python tests
+program = """
+name = "Sam"
+print(name)
+print(Name)
+"""
+try:
+    exec(program, {})
+except Exception as e:
+    assert error_name == type(e).__name__, "error_name is not right. Read the line that fails and think about what kind of problem it is."
+else:
+    assert False, "The program raised no error, so there is nothing to name."
+```
+
+```python solution
+error_name = "NameError"
+```
+
+```hint
+Python treats upper and lower case letters as different.
+```
+:::
+
 ## SyntaxError
 
 ```python
@@ -59,6 +97,42 @@ print("The result is", num_1 ** num_2)
 We did not cast the input strings to numbers before doing math with them. The
 `**` operator does not work on strings. Strings do support `+` (concatenation),
 but not `**`.
+
+:::cell id=predict-error-add kind=exercise
+**Check your understanding.** Predict the result. Name the error Python reports for the last line.
+
+```python
+age = 12
+print("Age: " + age)
+```
+
+Set `error_name` to the name of the error type as a string, for example `"ZeroDivisionError"`.
+
+```python starter
+error_name = ""
+```
+
+```python tests
+program = """
+age = 12
+print("Age: " + age)
+"""
+try:
+    exec(program, {})
+except Exception as e:
+    assert error_name == type(e).__name__, "error_name is not right. Read the line that fails and think about what kind of problem it is."
+else:
+    assert False, "The program raised no error, so there is nothing to name."
+```
+
+```python solution
+error_name = "TypeError"
+```
+
+```hint
+The code is written correctly. Look at the types being joined.
+```
+:::
 
 ## Concatenation
 

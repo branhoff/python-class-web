@@ -85,6 +85,44 @@ print(dino[-12])
 ```
 :::
 
+:::cell id=predict-negative-index kind=exercise
+**Check your understanding.** Predict the result. Count from the back of the string.
+
+```python
+word = "bookshelf"
+x = word[-3]
+y = len(word)
+```
+
+Set `final_x` and `final_y` to the values the program ends with.
+
+```python starter
+final_x = None
+final_y = None
+```
+
+```python tests
+program = """
+word = "bookshelf"
+x = word[-3]
+y = len(word)
+"""
+real = {}
+exec(program, real)
+assert final_x == real["x"], "final_x is not right. Check which letter sits at that negative index."
+assert final_y == real["y"], "final_y is not right. Check how many letters there are."
+```
+
+```python solution
+final_x = "e"
+final_y = 9
+```
+
+```hint
+Negative indices start at -1 for the last character. len counts every character.
+```
+:::
+
 ## Slicing
 
 Slicing a string gives you back part of that string, based on the indices for the start and end of the part you want.
@@ -112,6 +150,44 @@ The character at index 6 (the seventh character) doesn't get included in the fir
 ```python starter
 poem: str = "mary had a little lamb"
 print(poem[::-1])
+```
+:::
+
+:::cell id=predict-stride-slices kind=exercise
+**Check your understanding.** Predict the result. Look at where each slice starts and which way it moves.
+
+```python
+text = "abcdefgh"
+x = text[1:6:2]
+y = text[::-2]
+```
+
+Set `final_x` and `final_y` to the values the program ends with.
+
+```python starter
+final_x = None
+final_y = None
+```
+
+```python tests
+program = """
+text = "abcdefgh"
+x = text[1:6:2]
+y = text[::-2]
+"""
+real = {}
+exec(program, real)
+assert final_x == real["x"], "final_x is not right. Remember the end index is not included."
+assert final_y == real["y"], "final_y is not right. A negative stride starts at the end."
+```
+
+```python solution
+final_x = "bdf"
+final_y = "hfdb"
+```
+
+```hint
+The stride is the step between characters. A negative stride walks backward from the last character.
 ```
 :::
 
