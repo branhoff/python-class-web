@@ -12,7 +12,7 @@ The other syntax difference is with tuples that contain only one value. In order
 
 :::cell id=tuples-demo1
 ```python starter
-some_primes = (2, 3, 5, 7, 11, 13, 17, 19, 23, 27, 31)
+some_primes = (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31)
 some_names = ("Groucho", "Harpo", "Chico", "Zeppo", "Karl")
 some_stuff = (98, "Fido", -4.925, ("phantom", "tollbooth"))
 zero = ()   # The empty tuple
@@ -28,13 +28,13 @@ Although parentheses are used for creating a new tuple, we still use square brac
 
 Now let's look at type hinting for tuples.
 
-## Type hinting with Tuples as of Python `3.11.1`
+## Type hinting with tuples
 
 To type hint tuples in Python, you can use the `tuple` type and specify the types of the individual elements in the tuple.
 
 :::cell id=tuples-demo2
 ```python starter
-some_primes: tuple[int, int, int, int, int, int, int, int, int, int, int] = (2, 3, 5, 7, 11, 13, 17, 19, 23, 27, 31)
+some_primes: tuple[int, int, int, int, int, int, int, int, int, int, int] = (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31)
 some_names: tuple[str, str, str, str, str] = ("Groucho", "Harpo", "Chico", "Zeppo", "Karl")
 some_stuff: tuple[int, str, float, tuple[str, str]] = (98, "Fido", -4.925, ("phantom", "tollbooth"))
 zero: tuple[()] = ()  # the empty tuple
@@ -55,7 +55,7 @@ Here's an example of using the `tuple` type to type hint a tuple without declari
 
 :::cell id=tuples-demo3
 ```python starter
-some_primes: tuple[int, ...] = (2, 3, 5, 7, 11, 13, 17, 19, 23, 27, 31)
+some_primes: tuple[int, ...] = (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31)
 some_names: tuple[str, ...] = ("Groucho", "Harpo", "Chico", "Zeppo", "Karl")
 some_stuff: tuple[int, str, float, tuple[str, ...]] = (98, "Fido", -4.925, ("phantom", "tollbooth"))
 zero: tuple[()] = ()

@@ -20,7 +20,9 @@ answer = hailstone_step(1000)
 print(answer)
 ```
 
-Do not use recursion.
+Splitting the work across several small functions can make code easier to read
+and to test. You may do that here, but `hailstone_step` must still return the
+count. Do not use recursion.
 
 Save the file as `hailstone_step.py`.
 

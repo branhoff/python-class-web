@@ -10,9 +10,13 @@ name and age. Its `__init__` method takes the two values and stores them. It als
 has a `get_age` method.
 
 Then write a separate function, outside the class, called `std_dev`. It takes a
-list of `Person` objects and returns the standard deviation of their ages. Use the population standard
-deviation: find the mean age, average the squared gaps from the mean over all the
-people, then take the square root.
+list of `Person` objects and returns the standard deviation of their ages. Use
+the population standard deviation, in these steps:
+
+1. Find the mean age.
+2. For each person, subtract the mean from their age and square the result.
+3. Average those squared gaps (add them up and divide by the number of people).
+4. Take the square root.
 
 To find a standard deviation you need a square root. Raising a number to the
 power 0.5 gives its square root, so `9 ** 0.5` is `3.0`. Python also has a
