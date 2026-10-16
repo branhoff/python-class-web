@@ -129,6 +129,18 @@ print(answer)
 
 Here the variable `answer` is assigned the value 12.
 
+You can round a number with `round()`. Give it the number and how many decimal
+places to keep. If you leave out the second value, you get a whole number.
+
+:::cell id=comments-arithmetic-strings-demo11
+```python starter
+price: float = 7.299999999
+print(round(price, 2))
+print(round(3.14159, 3))
+print(round(3.7))
+```
+:::
+
 ## Concatenation
 
 The `+` operator also works on strings. Concatenating strings joins them end to

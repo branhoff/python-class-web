@@ -14,6 +14,16 @@ test('an exercise passes when the tests pass, and exposes stdout', () => {
   assert.deepEqual(result, { ok: true, stdout: 'hi\n' });
 });
 
+test('tests can read the learner code as source', () => {
+  const code = 'total = 1 + 1';
+  assert.equal(pythonRunner.exercise(code, 'assert source == "total = 1 + 1"').ok, true);
+  const banned = pythonRunner.exercise(
+    'x = round(2.5)',
+    'import ast\nassert not any(isinstance(n, ast.Name) and n.id == "round" for n in ast.walk(ast.parse(source))), "no round"',
+  );
+  assert.deepEqual(banned, { ok: false, stage: 'tests', message: 'no round', stdout: '' });
+});
+
 test('tests can call functions the learner defined', () => {
   const result = pythonRunner.exercise('def f(x):\n    return x * 2', 'assert f(2) == 4');
   assert.equal(result.ok, true);

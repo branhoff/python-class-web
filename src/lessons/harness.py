@@ -71,6 +71,7 @@ def run_exercise(code, tests, on_write=None):
     if failure:
         return {"ok": False, "stage": "code", "message": failure, "stdout": stdout}
     namespace["stdout"] = stdout
+    namespace["source"] = code
     failure = run_tests(tests, namespace)
     if failure:
         return {"ok": False, "stage": "tests", "message": failure, "stdout": stdout}
