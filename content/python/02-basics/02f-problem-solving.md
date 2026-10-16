@@ -135,6 +135,37 @@ paying close attention to each tiny step. Doing this often helps you notice
 patterns in how you solve them. You can combine this with stepwise refinement
 to help figure out what the sub-tasks should be.
 
+For example, how could you round `7.299999999` to two decimal places without
+calling `round()`? It looks hard until you do it by hand and write down each
+step:
+
+1. Start with `7.299999999`. We want `7.3`.
+2. The digits we want to keep are the first two after the decimal point. Move
+   them to the left of it by multiplying by 100: `729.9999999`.
+3. Now we need to drop everything after the decimal point. But rounding is not
+   chopping. Try `3.159`. The answer should be `3.16`, and chopping gives
+   `3.15`. If the next digit is 5 or more, we need to go up. Adding `0.5` does
+   that: `729.9999999 + 0.5` is `730.4999999`.
+4. Drop everything after the decimal point: `730`.
+5. Move the decimal point back by dividing by 100: `7.3`.
+
+Check the steps on another number. For `3.14159`, multiply by 100 to get
+`314.159`, add `0.5` to get `314.659`, drop the decimals to get `314`, and
+divide by 100 to get `3.14`. The same steps work, so you can turn them into
+code. Dropping the decimals can be done with `int()`, which cuts off everything
+after the decimal point:
+
+:::cell id=problem-solving-round-by-hand
+```python starter
+price = 7.299999999
+print(int(price * 100 + 0.5) / 100)
+```
+:::
+
+Each step on its own is simple. Writing them down one at a time is what made the
+whole thing possible. This version only works for positive numbers, so in real
+programs use `round()`.
+
 ## 4a. Translate your outline into code
 
 Translate each sub-task of your outline (or pseudocode) into code, but not all at

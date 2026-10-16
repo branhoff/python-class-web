@@ -106,7 +106,8 @@ learner's code.
   (a bare trailing expression does not auto-display).
 - **Exercises** run the learner's code in a fresh namespace, then run the tests
   in that same namespace. The tests see everything the learner defined, plus
-  `stdout`, the text the learner's program printed.
+  `stdout`, the text the learner's program printed, and `source`, the learner's
+  code as text (for example, to check that a function was not used with `ast`).
 - A test fails by raising `AssertionError`. Its message is shown to the learner,
   so write helpful ones.
 
