@@ -176,7 +176,7 @@ print("balance =", account_1.get_balance())
 
 If we want other code to be able to access a private data member, we provide get and/or set methods. A get method returns the current value of a data member. A set method takes a parameter and stores it in the data member. The usual naming convention is `get_` or `set_` followed by the name of the data member. For the account ID we provided both. For the balance we provided only a get method, since the balance changes through the deposit and withdraw methods.
 
-:::cell id=predict-two-counters kind=exercise
+:::cell id=predict-two-counters kind=check
 **Check your understanding.** Predict the result. Each object keeps its own count.
 
 ```python

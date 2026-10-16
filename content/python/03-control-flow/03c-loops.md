@@ -74,7 +74,7 @@ for num in range(10, 0, -1):
 ```
 :::
 
-:::cell id=predict-zero-times kind=exercise
+:::cell id=predict-zero-times kind=check
 **Check your understanding.** Predict the result. Check whether each range has any numbers in it, and what the step does.
 
 ```python
@@ -135,7 +135,7 @@ This loop only prints the numbers up to 4 because when `break` runs, it immediat
 
 The `continue` keyword skips the rest of the current iteration and jumps to the next one. Try replacing `break` with `continue` in the code above. It then prints the numbers from 1 through 10 except for 5.
 
-:::cell id=predict-loop-var-continue kind=exercise
+:::cell id=predict-loop-var-continue kind=check
 **Check your understanding.** Predict the result. Think about what `x` holds when the loop ends, and which numbers `continue` skips.
 
 ```python

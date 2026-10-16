@@ -40,7 +40,7 @@ print(phrase)
 
 We never assigned a value to `phrase` before trying to print it.
 
-:::cell id=predict-error-case kind=exercise
+:::cell id=predict-error-case kind=check
 **Check your understanding.** Predict the result. Name the error Python reports for the last line.
 
 ```python
@@ -98,7 +98,7 @@ We did not cast the input strings to numbers before doing math with them. The
 `**` operator does not work on strings. Strings do support `+` (concatenation),
 but not `**`.
 
-:::cell id=predict-error-add kind=exercise
+:::cell id=predict-error-add kind=check
 **Check your understanding.** Predict the result. Name the error Python reports for the last line.
 
 ```python

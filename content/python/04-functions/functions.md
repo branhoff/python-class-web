@@ -170,7 +170,7 @@ The program starts at the line `num: int = 5`, which assigns the value `5` to a 
 
 Assigning `12` to it does not affect the other variable named `num`. Next, the function prints the local `num`, which is `12`. At the end of the function, execution returns to the function call. The next line prints the original `num`, which is still `5`.
 
-:::cell id=predict-scope kind=exercise
+:::cell id=predict-scope kind=check
 **Check your understanding.** Predict the result. The program is not run for you.
 
 ```python
@@ -272,7 +272,7 @@ In this version we changed two things:
 
 Now when we run the code, `num` is updated to the square of its previous value.
 
-:::cell id=predict-parameter kind=exercise
+:::cell id=predict-parameter kind=check
 **Check your understanding.** Predict the result. Look closely at what happens to each call's return value.
 
 ```python

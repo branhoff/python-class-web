@@ -253,7 +253,7 @@ print(add_to_new_list(2))  # prints [2], as expected
 
 In this code, the `add_to_new_list` function has a default argument `lst` that is set to `None`. If the default value is encountered, a new list is created inside the function. This ensures that each call creates a separate, independent list, avoiding the unexpected behavior.
 
-:::cell id=predict-default-argument kind=exercise
+:::cell id=predict-default-argument kind=check
 **Check your understanding.** Predict the result. Remember when a default argument is created.
 
 ```python

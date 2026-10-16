@@ -85,7 +85,7 @@ print(dino[-12])
 ```
 :::
 
-:::cell id=predict-negative-index kind=exercise
+:::cell id=predict-negative-index kind=check
 **Check your understanding.** Predict the result. Count from the back of the string.
 
 ```python
@@ -153,7 +153,7 @@ print(poem[::-1])
 ```
 :::
 
-:::cell id=predict-stride-slices kind=exercise
+:::cell id=predict-stride-slices kind=check
 **Check your understanding.** Predict the result. Look at where each slice starts and which way it moves.
 
 ```python

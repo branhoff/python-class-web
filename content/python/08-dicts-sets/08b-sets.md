@@ -69,7 +69,7 @@ print(some_ints)
 ```
 :::
 
-:::cell id=predict-set-duplicates kind=exercise
+:::cell id=predict-set-duplicates kind=check
 **Check your understanding.** Predict the result. Think about what a set keeps when the same value shows up again.
 
 ```python
@@ -173,7 +173,7 @@ print(set_B - set_A)
 ```
 :::
 
-:::cell id=predict-set-difference kind=exercise
+:::cell id=predict-set-difference kind=check
 **Check your understanding.** Predict the result. Remember that a set operation makes a new set and leaves the originals alone.
 
 ```python

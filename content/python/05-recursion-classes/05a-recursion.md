@@ -44,7 +44,7 @@ The `else` can be left out because if the condition is true, `return 1` runs and
 
 When a recursive function runs, several copies of it are active at once, but only the most recent one is executing. The others are paused, waiting for a result. When a recursive call is made, the computer saves its place in the current copy so it can come back later, then starts a new copy. It saves that place on the **call stack**, which keeps track of all active function calls. Watch the video "Flow of execution example for recursion" to see how this works.
 
-:::cell id=predict-call-stack-mystery kind=exercise
+:::cell id=predict-call-stack-mystery kind=check
 **Check your understanding.** Predict the result. Follow each call down to the base case, then work back up.
 
 ```python

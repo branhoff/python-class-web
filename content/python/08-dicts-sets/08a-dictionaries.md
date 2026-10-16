@@ -76,7 +76,7 @@ print(state_capitals["Florida"])
 ```
 :::
 
-:::cell id=predict-dict-update-add kind=exercise
+:::cell id=predict-dict-update-add kind=check
 **Check your understanding.** Predict the result. Notice which assignment changes a value and which adds a pair.
 
 ```python
@@ -231,7 +231,7 @@ for attribute in capybara:
 
 A loop returns the keys in the order they were added.
 
-:::cell id=predict-dict-loop kind=exercise
+:::cell id=predict-dict-loop kind=check
 **Check your understanding.** Predict the result. Look at what the loop variable holds on each pass.
 
 ```python
