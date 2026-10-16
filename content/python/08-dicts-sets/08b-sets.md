@@ -69,6 +69,43 @@ print(some_ints)
 ```
 :::
 
+:::cell id=predict-set-duplicates kind=exercise
+**Check your understanding.** Predict the result. Think about what a set keeps when the same value shows up again.
+
+```python
+letters = {"a", "b", "a", "c", "b"}
+letters.add("c")
+letters.add("d")
+count = len(letters)
+```
+
+Set `final_count` to the value the program ends with.
+
+```python starter
+final_count = None
+```
+
+```python tests
+program = """
+letters = {"a", "b", "a", "c", "b"}
+letters.add("c")
+letters.add("d")
+count = len(letters)
+"""
+real = {}
+exec(program, real)
+assert final_count == real["count"], "final_count is not right. Count each distinct value once."
+```
+
+```python solution
+final_count = 4
+```
+
+```hint
+A set holds each value at most once, whether it came from the braces or from add.
+```
+:::
+
 The `len` function tells you how many elements are in a set:
 
 :::cell id=sets-demo7
@@ -133,6 +170,46 @@ set_A: set[int] = {1, 2, 3}
 set_B: set[int] = {5, 3, 4}
 print(set_A - set_B)
 print(set_B - set_A)
+```
+:::
+
+:::cell id=predict-set-difference kind=exercise
+**Check your understanding.** Predict the result. Remember that a set operation makes a new set and leaves the originals alone.
+
+```python
+a = {1, 2, 3, 4}
+b = {3, 4, 5}
+only_b = b - a
+size_a = len(a)
+```
+
+Set `final_only_b` and `final_size_a` to the values the program ends with.
+
+```python starter
+final_only_b = None
+final_size_a = None
+```
+
+```python tests
+program = """
+a = {1, 2, 3, 4}
+b = {3, 4, 5}
+only_b = b - a
+size_a = len(a)
+"""
+real = {}
+exec(program, real)
+assert final_only_b == real["only_b"], "final_only_b is not right. Order matters for difference."
+assert final_size_a == real["size_a"], "final_size_a is not right. Did the subtraction change a?"
+```
+
+```python solution
+final_only_b = {5}
+final_size_a = 4
+```
+
+```hint
+b - a keeps what is in b but not in a. The original sets stay as they were.
 ```
 :::
 

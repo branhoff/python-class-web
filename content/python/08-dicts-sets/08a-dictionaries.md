@@ -76,6 +76,48 @@ print(state_capitals["Florida"])
 ```
 :::
 
+:::cell id=predict-dict-update-add kind=exercise
+**Check your understanding.** Predict the result. Notice which assignment changes a value and which adds a pair.
+
+```python
+stock = {"apple": 4, "pear": 2}
+stock["apple"] = 9
+stock["plum"] = 1
+size = len(stock)
+apples = stock["apple"]
+```
+
+Set `final_size` and `final_apples` to the values the program ends with.
+
+```python starter
+final_size = None
+final_apples = None
+```
+
+```python tests
+program = """
+stock = {"apple": 4, "pear": 2}
+stock["apple"] = 9
+stock["plum"] = 1
+size = len(stock)
+apples = stock["apple"]
+"""
+real = {}
+exec(program, real)
+assert final_size == real["size"], "final_size is not right. Does assigning to an existing key add a pair?"
+assert final_apples == real["apples"], "final_apples is not right. Check what happened to the old value."
+```
+
+```python solution
+final_size = 3
+final_apples = 9
+```
+
+```hint
+Assigning to a key that already exists replaces its value. Assigning to a new key adds a pair.
+```
+:::
+
 You can delete an entry using `del`:
 
 :::cell id=dictionaries-demo6
@@ -188,6 +230,48 @@ for attribute in capybara:
 :::
 
 A loop returns the keys in the order they were added.
+
+:::cell id=predict-dict-loop kind=exercise
+**Check your understanding.** Predict the result. Look at what the loop variable holds on each pass.
+
+```python
+prices = {"tea": 3, "milk": 2}
+joined = ""
+for item in prices:
+    joined = joined + item
+count = len(prices)
+```
+
+Set `final_joined` and `final_count` to the values the program ends with.
+
+```python starter
+final_joined = None
+final_count = None
+```
+
+```python tests
+program = """
+prices = {"tea": 3, "milk": 2}
+joined = ""
+for item in prices:
+    joined = joined + item
+count = len(prices)
+"""
+real = {}
+exec(program, real)
+assert final_joined == real["joined"], "final_joined is not right. Check what a for loop hands you from a dictionary."
+assert final_count == real["count"], "final_count is not right. Count the key-value pairs."
+```
+
+```python solution
+final_joined = "teamilk"
+final_count = 2
+```
+
+```hint
+A for loop over a dictionary gives you one thing per pass. Is it a key or a value?
+```
+:::
 
 The `clear` method makes a dictionary empty:
 

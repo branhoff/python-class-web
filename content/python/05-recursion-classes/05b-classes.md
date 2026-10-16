@@ -176,6 +176,73 @@ print("balance =", account_1.get_balance())
 
 If we want other code to be able to access a private data member, we provide get and/or set methods. A get method returns the current value of a data member. A set method takes a parameter and stores it in the data member. The usual naming convention is `get_` or `set_` followed by the name of the data member. For the account ID we provided both. For the balance we provided only a get method, since the balance changes through the deposit and withdraw methods.
 
+:::cell id=predict-two-counters kind=exercise
+**Check your understanding.** Predict the result. Each object keeps its own count.
+
+```python
+class Counter:
+    def __init__(self, start):
+        self._count = start
+
+    def add(self, amount):
+        self._count += amount
+
+    def get_count(self):
+        return self._count
+
+a = Counter(10)
+b = Counter(10)
+a.add(5)
+b.add(1)
+a.add(b.get_count())
+x = a.get_count()
+y = b.get_count()
+```
+
+Set `final_x` and `final_y` to the values the program ends with.
+
+```python starter
+final_x = None
+final_y = None
+```
+
+```python tests
+program = """
+class Counter:
+    def __init__(self, start):
+        self._count = start
+
+    def add(self, amount):
+        self._count += amount
+
+    def get_count(self):
+        return self._count
+
+a = Counter(10)
+b = Counter(10)
+a.add(5)
+b.add(1)
+a.add(b.get_count())
+x = a.get_count()
+y = b.get_count()
+"""
+real = {}
+exec(program, real)
+assert final_x == real["x"], "final_x is not right. Track a and b separately after every line."
+assert final_y == real["y"], "final_y is not right. Only b.add(1) changes b."
+```
+
+```python solution
+final_x = 26
+final_y = 11
+```
+
+```hint
+Each object has its own _count, and a method only changes the object it is called on.
+```
+:::
+
+
 You might wonder why we would use private data members if it means writing more methods. The reason is that it lets us control access. If we don't want a data member to be accessed, we don't write get or set methods for it. If a data member should only hold certain values, the set method can check for that. If a data member is public, it can be changed to anything from anywhere, which makes your program harder to understand and debug. Controlling access this way is called **information hiding** (or data hiding).
 
 Information hiding also separates the interface from the implementation. The interface is the names and parameters of the public functions. The implementation is the code inside those functions, plus any private data members and private functions. If users' code reaches into the implementation, it comes to depend on those details, and changing the implementation later will break it. With a defined interface, the implementation can change as long as the interface stays the same.
@@ -265,5 +332,75 @@ class Box:
 
 ```hint
 Volume is length times width times height. Surface area is `2 * (length*width + length*height + width*height)`.
+```
+:::
+
+:::cell id=predict-tank-levels kind=exercise
+3. Predict the result. Notice which methods change the object and which only return a value.
+
+```python
+class Tank:
+    def __init__(self, level):
+        self._level = level
+
+    def fill(self, amount):
+        self._level += amount
+
+    def level_after(self, amount):
+        return self._level + amount
+
+    def get_level(self):
+        return self._level
+
+t1 = Tank(20)
+t2 = Tank(5)
+t1.level_after(10)
+t2.fill(t1.get_level())
+x = t1.get_level()
+y = t2.get_level()
+```
+
+Set `final_x` and `final_y` to the values the program ends with.
+
+```python starter
+final_x = None
+final_y = None
+```
+
+```python tests
+program = """
+class Tank:
+    def __init__(self, level):
+        self._level = level
+
+    def fill(self, amount):
+        self._level += amount
+
+    def level_after(self, amount):
+        return self._level + amount
+
+    def get_level(self):
+        return self._level
+
+t1 = Tank(20)
+t2 = Tank(5)
+t1.level_after(10)
+t2.fill(t1.get_level())
+x = t1.get_level()
+y = t2.get_level()
+"""
+real = {}
+exec(program, real)
+assert final_x == real["x"], "final_x is not right. Does level_after change t1?"
+assert final_y == real["y"], "final_y is not right. t2.fill adds t1's current level to t2."
+```
+
+```python solution
+final_x = 20
+final_y = 25
+```
+
+```hint
+A method that only returns a value leaves the data member as it was.
 ```
 :::

@@ -44,6 +44,53 @@ The `else` can be left out because if the condition is true, `return 1` runs and
 
 When a recursive function runs, several copies of it are active at once, but only the most recent one is executing. The others are paused, waiting for a result. When a recursive call is made, the computer saves its place in the current copy so it can come back later, then starts a new copy. It saves that place on the **call stack**, which keeps track of all active function calls. Watch the video "Flow of execution example for recursion" to see how this works.
 
+:::cell id=predict-call-stack-mystery kind=exercise
+**Check your understanding.** Predict the result. Follow each call down to the base case, then work back up.
+
+```python
+def mystery(n):
+    if n == 0:
+        return 0
+    return mystery(n - 1) * 2 + n
+
+x = mystery(3)
+y = mystery(1)
+```
+
+Set `final_x` and `final_y` to the values the program ends with.
+
+```python starter
+final_x = None
+final_y = None
+```
+
+```python tests
+program = """
+def mystery(n):
+    if n == 0:
+        return 0
+    return mystery(n - 1) * 2 + n
+
+x = mystery(3)
+y = mystery(1)
+"""
+real = {}
+exec(program, real)
+assert final_x == real["x"], "final_x is not right. Start from mystery(0) and build up one call at a time."
+assert final_y == real["y"], "final_y is not right. mystery(1) calls mystery(0) first."
+```
+
+```python solution
+final_x = 11
+final_y = 1
+```
+
+```hint
+Each paused copy finishes its multiply and add only after the call below it returns.
+```
+:::
+
+
 ## More examples
 
 Here's a recursive function that finds the greatest common divisor of two integers:
@@ -165,5 +212,61 @@ def sum_countup(n: int) -> int:
 
 ```hint
 The base case returns 1 when `n` is 1. Otherwise add `n` to `sum_countup(n - 1)`.
+```
+:::
+
+:::cell id=predict-string-order kind=exercise
+4. Predict the result. Look at which side of the recursive call each number goes on.
+
+```python
+def build_up(n):
+    if n == 0:
+        return ""
+    return build_up(n - 1) + str(n)
+
+def build_down(n):
+    if n == 0:
+        return ""
+    return str(n) + build_down(n - 1)
+
+x = build_up(3)
+y = build_down(3)
+```
+
+Set `final_x` and `final_y` to the values the program ends with.
+
+```python starter
+final_x = None
+final_y = None
+```
+
+```python tests
+program = """
+def build_up(n):
+    if n == 0:
+        return ""
+    return build_up(n - 1) + str(n)
+
+def build_down(n):
+    if n == 0:
+        return ""
+    return str(n) + build_down(n - 1)
+
+x = build_up(3)
+y = build_down(3)
+"""
+real = {}
+exec(program, real)
+assert final_x == real["x"], "final_x is not right. Which number is joined first?"
+assert final_y == real["y"], "final_y is not right. Which number is joined first?"
+```
+
+```python solution
+final_x = "123"
+final_y = "321"
+```
+
+```hint
+The recursive call returns a string, and the current number is joined on one side of it.
 ```
 :::

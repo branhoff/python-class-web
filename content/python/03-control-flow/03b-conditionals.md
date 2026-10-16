@@ -86,6 +86,52 @@ print("Letter grade = ", grade)
 
 Here `elif` is short for `else if`.
 
+:::cell id=predict-elif-vs-if kind=exercise
+**Check your understanding.** Predict the result. Look at what the first `if` does to `x` before the second test runs.
+
+```python
+x = 10
+y = 0
+if x > 5:
+    x = 2
+    y += 1
+if x > 1:
+    y += 10
+```
+
+Set `final_x` and `final_y` to the values the program ends with.
+
+```python starter
+final_x = None
+final_y = None
+```
+
+```python tests
+program = """
+x = 10
+y = 0
+if x > 5:
+    x = 2
+    y += 1
+if x > 1:
+    y += 10
+"""
+real = {}
+exec(program, real)
+assert final_x == real["x"], "final_x is not right. Re-check the value of x when each test runs."
+assert final_y == real["y"], "final_y is not right. Re-check the value of x when each test runs."
+```
+
+```python solution
+final_x = 2
+final_y = 11
+```
+
+```hint
+The second `if` is a new test, and it reads `x` as it is after the first block ran.
+```
+:::
+
 ## Extra note on indentation
 
 In Python, indentation is **required** and must be consistent. Every line in a block must have the same indentation. Avoid mixing spaces and tabs, because they can look the same but count differently.
@@ -182,5 +228,65 @@ def number_word(num: int) -> str:
         return "input not recognized"
 
 print(number_word(3))
+```
+:::
+
+:::cell id=predict-nested-branch kind=exercise
+4. Predict the result. Find which inner branch runs, then see what the last test reads.
+
+```python
+x = 7
+y = 0
+if x > 5:
+    if x > 8:
+        y = 1
+    elif x > 6:
+        y = 2
+        x += 10
+    else:
+        y = 3
+else:
+    y = 4
+if x > 10:
+    y += 5
+```
+
+Set `final_x` and `final_y` to the values the program ends with.
+
+```python starter
+final_x = None
+final_y = None
+```
+
+```python tests
+program = """
+x = 7
+y = 0
+if x > 5:
+    if x > 8:
+        y = 1
+    elif x > 6:
+        y = 2
+        x += 10
+    else:
+        y = 3
+else:
+    y = 4
+if x > 10:
+    y += 5
+"""
+real = {}
+exec(program, real)
+assert final_x == real["x"], "final_x is not right. Find the one branch that runs, then check the last test."
+assert final_y == real["y"], "final_y is not right. Find the one branch that runs, then check the last test."
+```
+
+```python solution
+final_x = 17
+final_y = 7
+```
+
+```hint
+Only one branch of a chain runs. Then the final `if` sees the changed `x`.
 ```
 :::

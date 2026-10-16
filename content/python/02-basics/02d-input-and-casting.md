@@ -90,6 +90,44 @@ print(int(3.25))
 ```
 :::
 
+:::cell id=predict-cast-vs-concat kind=exercise
+**Check your understanding.** Predict the result. One value is cast to a number and one stays a string.
+
+```python
+typed = "5"
+x = int(typed) + 1
+y = typed + "1"
+```
+
+Set `final_x` and `final_y` to the values the program ends with.
+
+```python starter
+final_x = None
+final_y = None
+```
+
+```python tests
+program = """
+typed = "5"
+x = int(typed) + 1
+y = typed + "1"
+"""
+real = {}
+exec(program, real)
+assert final_x == real["x"], "final_x is not right. After int, the + adds numbers."
+assert final_y == real["y"], "final_y is not right. The + on two strings joins them."
+```
+
+```python solution
+final_x = 6
+final_y = "51"
+```
+
+```hint
+int() makes a number, so + adds. A string stays a string, so + joins.
+```
+:::
+
 You can also cast values to strings with `str()`.
 
 :::cell id=input-and-casting-demo8
@@ -101,6 +139,44 @@ print(str(-9.4))
 :::cell id=input-and-casting-demo9
 ```python starter
 print(str(43))
+```
+:::
+
+:::cell id=predict-cast-truncate kind=exercise
+**Check your understanding.** Predict the result. Check what int() does to a decimal, and what str() gives back.
+
+```python
+n = 42
+x = int(9.99) + 1
+y = str(n) + "0"
+```
+
+Set `final_x` and `final_y` to the values the program ends with.
+
+```python starter
+final_x = None
+final_y = None
+```
+
+```python tests
+program = """
+n = 42
+x = int(9.99) + 1
+y = str(n) + "0"
+"""
+real = {}
+exec(program, real)
+assert final_x == real["x"], "final_x is not right. int() cuts off the decimal part, it does not round."
+assert final_y == real["y"], "final_y is not right. str(n) is text, so + joins."
+```
+
+```python solution
+final_x = 10
+final_y = "420"
+```
+
+```hint
+int() truncates. Adding a string to a string joins them.
 ```
 :::
 
