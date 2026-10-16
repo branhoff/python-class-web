@@ -115,9 +115,10 @@ different type later on in the code. For example, if you did this:
 name = 30;  // This would raise a compile-time error
 ```
 
-Static typing also makes code easier to read and maintain. The trade-off is less
-flexibility: you must state each variable's type up front, and changing it later
-means updating every place that uses it.
+Static typing also makes code easier to read and maintain, because you always
+know what kind of value a variable holds. The cost is flexibility: a variable
+cannot hold a different type later. That limit is usually a good thing, since a
+variable that switches between, say, a string and a number is hard to follow.
 
 ## Type hinting
 
