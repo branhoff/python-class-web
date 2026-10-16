@@ -79,7 +79,9 @@ letters.add("d")
 count = len(letters)
 ```
 
-Set `final_count` to the value the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions:
+
+- `final_count` is the value of `count` at the end
 
 ```python starter
 final_count = None
@@ -183,7 +185,10 @@ only_b = b - a
 size_a = len(a)
 ```
 
-Set `final_only_b` and `final_size_a` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions:
+
+- `final_only_b` is the value of `only_b` at the end
+- `final_size_a` is the value of `size_a` at the end
 
 ```python starter
 final_only_b = None

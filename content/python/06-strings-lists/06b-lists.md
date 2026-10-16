@@ -268,7 +268,10 @@ nums = [3, 1, 2]
 result = nums.sort()
 ```
 
-Set `final_nums` and `final_result` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions:
+
+- `final_nums` is the value of `nums` at the end
+- `final_result` is the value of `result` at the end
 
 ```python starter
 final_nums = None
@@ -326,7 +329,10 @@ b = a + [3]
 a[0] = 9
 ```
 
-Set `final_a` and `final_b` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions:
+
+- `final_a` is the value of `a` at the end
+- `final_b` is the value of `b` at the end
 
 ```python starter
 final_a = None

@@ -87,7 +87,10 @@ size = len(stock)
 apples = stock["apple"]
 ```
 
-Set `final_size` and `final_apples` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions:
+
+- `final_size` is the value of `size` at the end
+- `final_apples` is the value of `apples` at the end
 
 ```python starter
 final_size = None
@@ -242,7 +245,10 @@ for item in prices:
 count = len(prices)
 ```
 
-Set `final_joined` and `final_count` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions, and write strings with quotes:
+
+- `final_joined` is the value of `joined` at the end
+- `final_count` is the value of `count` at the end
 
 ```python starter
 final_joined = None

@@ -99,7 +99,10 @@ x = int(typed) + 1
 y = typed + "1"
 ```
 
-Set `final_x` and `final_y` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions, and write strings with quotes:
+
+- `final_x` is the value of `x` at the end
+- `final_y` is the value of `y` at the end
 
 ```python starter
 final_x = None
@@ -151,7 +154,10 @@ x = int(9.99) + 1
 y = str(n) + "0"
 ```
 
-Set `final_x` and `final_y` to the values the program ends with.
+Predict what each variable holds after the program finishes. The program is not run for you. Change the values below to your predictions, and write strings with quotes:
+
+- `final_x` is the value of `x` at the end
+- `final_y` is the value of `y` at the end
 
 ```python starter
 final_x = None
