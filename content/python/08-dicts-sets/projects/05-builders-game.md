@@ -28,8 +28,9 @@ and something that tracks whose turn it is.
 
 - `__init__` sets up an empty board, sets the state to "UNFINISHED", and sets
   up the other data members. A list of lists works well for the board: five
-  lists, each holding five empty strings (or any character you like for an empty
-  square).
+  lists, each holding five numbers. Each number is the tower level on that
+  square, and 0 means no tower yet. Keep track of where the builders are
+  separately.
 - `get_current_state` returns the current state.
 - `initial_placement` takes five parameters: the row and column of each of the
   player's two builders, and `'x'` or `'o'` to say which player is placing them.

@@ -7,7 +7,7 @@ after: sets
 
 Write a class named `AddThreeGame` for a two-player game. The players take turns
 choosing numbers from 1 to 9. A number cannot be chosen if either player has
-already chosen it. If exactly three of a player's numbers add up to 15, that
+already chosen it. If any three of a player's numbers add up to 15, that
 player wins. If all nine numbers are chosen and nobody has won, the game is a
 draw.
 
