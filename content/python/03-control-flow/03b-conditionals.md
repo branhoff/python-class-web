@@ -6,7 +6,7 @@ section: 3
 
 ## `if` Statements
 
-The `if` statement enables us to define branches in our code based on whether a given condition is `True` or `False`. Here's a simple example:
+The `if` statement lets our code take different branches depending on whether a condition is `True` or `False`. Here's a simple example:
 
 :::cell id=conditionals-demo1
 ```python starter
@@ -18,7 +18,7 @@ else:
 ```
 :::
 
-The else case is optional. Both the `if` and `else` cases can contain as many statements as needed:
+The `else` case is optional. Both the `if` and `else` cases can contain as many statements as needed:
 
 :::cell id=conditionals-demo2
 ```python starter
@@ -35,9 +35,9 @@ else:
 ```
 :::
 
-Indentation is crucial for the proper functioning of a Python program. While indentation is important for readability in many programming languages, in Python it plays a larger role as it determines the grouping of statements. Code blocks related to a specific if statement, for example, are indented underneath, and a new block of related statements begins with a return to the original indentation.
+Indentation matters in Python. Many languages use it only for readability, but in Python it determines which statements belong together. The code for an `if` statement is indented underneath it, and returning to the original indentation ends the block.
 
-While the Python language does not dictate a specific number of spaces for indentation, it is generally recommended to indent 4 spaces, unless the existing code uses a different amount.
+Python does not require a specific number of spaces, but 4 is the usual choice (unless the existing code uses a different amount).
 
 ## Nested `if` statements and `elif`
 
@@ -64,7 +64,7 @@ print("Letter grade = ", grade)
 ```
 :::
 
-The indentation tells the Python interpreter which ifs and elses go together, however, this level of nesting can get a little hard to read, so the more common way to express this example would be:
+The indentation tells Python which `if`s and `else`s go together. This much nesting is hard to read, so the more common way to write this example is:
 
 :::cell id=conditionals-demo4
 ```python starter
@@ -84,15 +84,13 @@ print("Letter grade = ", grade)
 ```
 :::
 
-Where `elif` is short for `else if`.
+Here `elif` is short for `else if`.
 
 ## Extra note on indentation
 
-Additionally, it's worth mentioning that in Python, indentation is **MANDATORY** and must be consistent throughout the code. This means that each code block must be indented to the same level, and every line within a block must have the same indentation. Mixing spaces and tabs for indentation is not recommended, as it can cause issues with code readability and portability.
+In Python, indentation is **required** and must be consistent. Every line in a block must have the same indentation. Avoid mixing spaces and tabs, because they can look the same but count differently.
 
-Furthermore, it's important to note that changing the indentation level of a code block can change its meaning, and can lead to unexpected results. For example, an if statement that is indented correctly to indicate that a block of code should be executed only if a certain condition is met, may not work as expected if the indentation is incorrect.
-
-Proper indentation is essential for writing correct and readable Python code, and should be given careful consideration when writing or modifying code. Consistent indentation and adherence to recommended conventions can greatly improve the readability and maintainability of your code.
+Changing the indentation of a line can change what your program does. For example, if a line meant to run only when a condition is met is indented incorrectly, it may run every time, or never.
 
 ## Exercises
 

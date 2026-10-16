@@ -6,9 +6,8 @@ section: 2
 
 ## Input function
 
-The `input()` function reads typed input from the user. You can use it in a
-couple of ways. For example, if you want to ask the user for their name, you can
-do this:
+The `input()` function reads text typed by the user. You can use it in two ways.
+For example, to ask for the user's name, you can do this:
 
 :::cell id=input-and-casting-demo1
 ```python starter
@@ -29,12 +28,11 @@ print("Hi", name)
 ```
 :::
 
-Notice that with the first way, your input will appear on the line after the
-prompt, and with the second way, your input would appear on the same line as the
-prompt.
+With the first way, the user types on the line after the prompt. With the second
+way, the user types on the same line as the prompt.
 
-User input is always a string. If you want a numeric value from user input, then
-you need to cast the string to an int or a float.
+User input is always a string. To get a number, you need to cast the string to an
+int or a float. Casting means converting a value from one type to another.
 
 :::cell id=input-and-casting-demo3
 ```python starter
@@ -46,10 +44,10 @@ print(height_in_meters)
 ```
 :::
 
-Each of the lines above combines two functions. First the input function gets a
-string from the user. Next the `int()` or `float()` function casts that string
-to a numeric value. That value is then assigned to the variable. We can call
-those functions on separate lines if we want:
+Each of the first two lines above combines two functions. First `input()` gets a
+string from the user. Next `int()` or `float()` casts that string to a number.
+That number is then assigned to the variable. We can also call those functions
+on separate lines:
 
 :::cell id=input-and-casting-demo4
 ```python starter
@@ -61,9 +59,9 @@ print(int_age)
 ```
 :::
 
-If the user enters a string that cannot be cast to the specified type, that
-causes an error. For example, if for height in meters we try to enter "hi", what
-happens?
+If the user enters text that cannot be cast to the requested type, Python
+reports an error. For example, what happens if you enter "hi" for the height in
+meters in the earlier example? Try it.
 
 Here is an example that asks the user for two numbers and prints out their sum:
 

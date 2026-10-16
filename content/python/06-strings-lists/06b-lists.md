@@ -8,7 +8,7 @@ section: 6
 
 A list is an ordered collection of objects of any type. You can have lists of floats, strings, objects made from classes you've defined, and more. You can even have lists contain other lists. You're allowed to mix the types of objects in a list, for example you can have a list that contains both integers and strings.
 
-Most lists contain multiple values, but we can have lists of one or zero values, which can be useful. Here are a few lists for you to interact with.
+Most lists contain multiple values, but we can have lists of one or zero values, which can be useful. Run this cell to see a few lists.
 
 :::cell id=06b-lists-demo1
 ```python starter
@@ -147,7 +147,7 @@ print(some_stuff[3][1][0])
 
 ## `in`, `not in`
 
-Also like strings, we can use `in` and `not in`. With these two operators, the second operand can be of any iterable type, which includes both strings and lists, and the first operand can be of any type at all. Try these examples to see for yourself:
+Also like strings, we can use `in` and `not in`. With these two operators, the second operand can be a string or a list, and the first operand can be any value. Try these examples to see for yourself:
 
 :::cell id=06b-lists-demo13
 ```python starter
@@ -252,7 +252,7 @@ print(palindromes)
 ```
 :::
 
-The `sort` method works "in place" and directly edits the list. Sorting also wouldn't make sense for `some_stuff`, again because Python doesn't know how to compare the different types in that list. Try it and see!
+The `sort` method works "in place": it changes the original list. Sorting also wouldn't make sense for `some_stuff`, again because Python doesn't know how to compare the different types in that list. Try it and see!
 
 :::cell id=06b-lists-demo25
 ```python starter
@@ -408,7 +408,7 @@ Here `account_list[0]` gives us a `BankAccount` object, and `.get_balance()` ret
 
 ## List Comprehensions
 
-List comprehensions are a concise way to construct a new list by applying some transformation to an existing list. Python has other types that can be iterated over the same way. We have a name for things that can be iterated over: "iterables". For example, the following code creates a new list whose elements are double the elements in `fun_floats` (defined earlier):
+List comprehensions are a concise way to construct a new list by applying some transformation to an existing list. Anything you can loop over, such as a list or a range, is called an **iterable**. For example, the following code creates a new list whose elements are double the elements in `fun_floats` (defined earlier):
 
 :::cell id=06b-lists-demo33
 ```python starter
@@ -445,12 +445,12 @@ print([x for x in nums if x % 3 == 0])
 ```
 :::
 
-Don't let this new use of the `for` and `if` keywords confuse you. List comprehensions are a related concept to for loops and if statements, but a different flavor. The best thing you can do to learn how list comprehensions will be another powerful tool in your toolbelt is to try a few exercises.
+Don't let this new use of the `for` and `if` keywords confuse you. List comprehensions are a related concept to for loops and if statements, but a different flavor. The best way to get comfortable with list comprehensions is to try the exercises.
 
 ## Exercises
 
 :::cell id=06b-lists-ex1 kind=exercise
-1. Write a function named `every_other` that takes a list as a parameter and returns a list that only contains every other element starting with the first one. For example, if the original list is `[7, "joe", "apple", 9.81, False]`, then the new list should be `[7, "apple", False]`. Use slicing.
+1. Write a function named `every_other` that takes a list as a parameter and returns a list that contains only every other element starting with the first one. For example, if the original list is `[7, "joe", "apple", 9.81, False]`, then the new list should be `[7, "apple", False]`. Use slicing.
 
 ```python starter
 # Type code here

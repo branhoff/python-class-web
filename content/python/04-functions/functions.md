@@ -6,12 +6,12 @@ section: 4
 
 ## Function Calls
 
-We've already been using function calls to print values, read input, get the type of a value or variable, cast from one type to another, and to create ranges. A function call consists of the name of a function followed by a pair of parentheses, which contain all the arguments for the function. A function carries out some task and returns a value when it's done. In python all functions return the special value `None` if no other value is defined.
+We've already been using function calls to print values, read input, get the type of a value or variable, convert from one type to another, and create ranges. A function call is the name of a function followed by a pair of parentheses containing the function's arguments (the values you give it). A function carries out some task and returns a value when it's done. In Python, a function returns the special value `None` if it doesn't return anything else.
 
 ```python
 int(-12.5)
 ```
-In the above function call, the name of the function is *int*. It's being passed one argument, the number -12.5. In this example, the int function would return the integer -12 as its **return value**.
+In the above function call, the name of the function is *int*. It's being passed one argument, the number -12.5. The int function returns the integer -12. This is its **return value**.
 
 ```python
 print("num orders =", num_orders)
@@ -23,13 +23,13 @@ In the above function call, the name of the function is *print*. It's being pass
 print(float(input()))
 ```
 
-As we've already seen, you can chain function calls together. The above line would read input from the user, cast that input to a float, and then print out the result.
+As we've already seen, you can chain function calls together. The above line reads input from the user, converts it to a float, and then prints the result.
 
-When you make a function call that returns a value, make sure you don't accidentally "drop" it. Most of the time you would either assign the return value to a variable or have the function call be part of a larger expression that uses the return value (like in the example above where we directly use the result of one function in another function).
+When you call a function that returns a value, make sure you don't accidentally "drop" it. Either assign the return value to a variable or make the call part of a larger expression that uses it (like the example above, where the result of one function goes straight into another).
 
 ## Function definitions
 
-To define a function, you use the "def" keyword. For example, we could define a function that adds together three numbers as in the example below. Try calling the `sum_three` function below by typing `print(sum_three(-5, 189, 12))` underneath the `# Type here` comment and hit **&lt;Shift> + &lt;Enter>**
+To define a function, you use the `def` keyword. For example, the function below adds together three numbers. Try calling `sum_three` by typing `print(sum_three(-5, 189, 12))` underneath the `# Type here` comment, then click **Run**.
 
 :::cell id=sum-three-try
 ```python starter
@@ -44,7 +44,7 @@ def sum_three(num1, num2, num3):  # The first line is the "function header"
 ```
 :::
 
-In the above definition, the name of the function is sum_three. The rules for function names are the same as for variable names. The parameters of the function are num1, num2, and num3. When you call a function, the arguments in the function call are matched up (in order) with the parameters given in the function definition, so if we called the function like this:
+In the above definition, the name of the function is `sum_three`. The rules for function names are the same as for variable names. The parameters (the names the function uses for the values it receives) are `num1`, `num2`, and `num3`. When you call a function, the arguments are matched up in order with the parameters, so if we called the function like this:
 
 ```python
 result = sum_three(-5, 189, 12)
@@ -52,11 +52,11 @@ result = sum_three(-5, 189, 12)
 
 Then `-5` is assigned to `num1`, `189` is assigned to `num2`, and `12` is assigned to `num3`.
 
-When the computer is executing the program and it reaches a function call, then it jumps to the function definition and executes the code there. Once the function is done, the computer returns back to the function call and continues from there.
+When the computer reaches a function call, it jumps to the function definition and runs the code there. Once the function is done, the computer returns to the function call and continues from there.
 
-A function is done when the computer either reaches the end of the code in the definition, or it reaches a return statement, whichever happens first. A return statement doesn't have to go at the end of the function, and you can even have multiple return statements in a function. As soon as the code executes any return statement, it immediately ends the function and returns execution (and any return value) back to the function call.
+A function is done when the computer reaches the end of the definition or a return statement, whichever happens first. A return statement doesn't have to go at the end of the function, and a function can have several. As soon as any return statement runs, the function ends and execution (and any return value) goes back to the function call.
 
-If your function doesn't have a return value, you can still use the return keyword if you want to end the function before reaching the end of the definition for some reason. You can see how this works in the first function below.
+If your function doesn't have a return value, you can still use the `return` keyword to end the function early. You can see how this works in the first function below.
 
 :::cell id=print-choice
 ```python starter
@@ -94,7 +94,7 @@ def print_choice_v2(num):
 ```
 :::
 
-Both versions have their uses, they both give the same output for the same input. In programming, often there is no clear right answer for how to solve a problem, so it comes down to personal preference, and the preferences of the development team working on a shared codebase.
+Both versions give the same output for the same input. In programming, there is often no single right way to solve a problem, so the choice comes down to personal preference and the preferences of the team sharing the code.
 
 The sum_three function could also be defined like this:
 
@@ -107,7 +107,7 @@ print(sum(-5, 189, 12))
 ```
 :::
 
-This definition is more concise and probably preferable for this function, but in cases where you have a long and/or complicated expression, splitting it up into separate steps can make it easier to read and debug.
+This definition is shorter and probably better for this function, but when an expression is long or complicated, splitting it into separate steps can make it easier to read and debug.
 
 If a function doesn't have any parameters, you still need the parentheses following the function name:
 
@@ -121,10 +121,10 @@ We would call this function like so:
 print_greeting()
 ```
 
-A function must be defined somewhere above the place where it's called. That is, you cannot have the function call appear earlier in the file than the function definition. Otherwise when the computer is executing your program it will see the function call before it knows what that function does.
+A function must be defined above the place where it's called. If the call appears earlier in the file than the definition, the computer reaches the call before it knows what the function does.
 
 ## Type hinting with functions
-Type hinting with functions in Python allows you to specify the expected data types of the arguments and return values of a function. This information is not used by the Python interpreter at runtime, but it can be used by tools like IDEs, linters, and type checkers to provide better feedback to the developer, improve code documentation, and catch potential bugs early in the development process.
+Type hints let you state the expected data types of a function's arguments and return value. Python does not use this information when the program runs. Tools such as code editors, linters (which flag likely mistakes), and type checkers do use it to give better feedback, document the code, and catch bugs early.
 
 Here's an example of a function with type hints:
 
@@ -132,9 +132,9 @@ Here's an example of a function with type hints:
 def repeat_string(string: str, times: int) -> str:
     return string * times
 ```
-In this example, the `: str` type hint after string indicates that the string argument must be a string, and the `: int` type hint after times indicates that the times argument must be an integer. The `-> str` type hint after the function definition indicates that the function returns a string.
+In this example, the `: str` after `string` says the `string` argument should be a string, and the `: int` after `times` says the `times` argument should be an integer. The `-> str` after the parameter list says the function returns a string.
 
-Type hints can also be used with basic data types like integers, strings, and floats. For example:
+Here are more examples with integers, strings, and floats:
 
 ```python
 def add_numbers(a: int, b: int) -> int:
@@ -146,13 +146,13 @@ def concatenate_strings(a: str, b: str) -> str:
 def divide_numbers(a: float, b: float) -> float:
     return a / b
 ```
-In these examples, the type hints specify that the `a` and `b` arguments in each function must be of the corresponding data type (integer, string, or float), and that the return type of each function must also be of the corresponding data type.
+In these examples, the type hints say that `a` and `b` in each function should have the matching data type (integer, string, or float), and so should the return value.
 
-It is important to remember that type hints in Python are only suggestions, and the Python interpreter will not enforce them at runtime. It is however considered best practice to utilize them, and we believe making use of them prepares you for stricter staticly type languages. So going forward, we'll utilize type hinting in our functions as well.
+Remember that type hints are only suggestions: Python will not enforce them when the program runs. Using them is still considered good practice, and it prepares you for languages with stricter static typing. So going forward, we'll use type hints in our functions.
 
 ## Function Scope
 
-Variables in a function definition only exist while that function is executing. When the function is done, those variables go away. Such variables have **function scope**. If a function uses a variable name that is already being used in some other part of the program, it is a separate variable - changing the one in the function does not change any other variables of that name. If you run the following code:
+Variables created in a function only exist while that function is running. When the function is done, they go away. Such variables have **function scope**. If a function uses a variable name that is already used elsewhere in the program, it is a separate variable: changing the one in the function does not change any other variable with that name. Consider this code:
 
 :::cell id=scope-demo
 ```python starter
@@ -166,25 +166,25 @@ print(num)
 ```
 :::
 
-Then the program will start at the line `num = 5`, which assigns the value `5` to a variable called `num`. Next is the function call `func()`. At this point execution jumps to the function definition, which assigns the value `12` to a variable called `num`, but this is a separate variable, which has function scope.
+The program starts at the line `num: int = 5`, which assigns the value `5` to a variable called `num`. Next is the function call `func()`. Execution jumps to the function definition, which assigns the value `12` to a variable called `num`. This is a separate variable with function scope.
 
-Assigning `12` to it does not affect the value of the other variable named num. Next, the function prints out the value of the local `num` variable, which is `12`. Having reached the end of the function definition, execution returns back to the function call. The next line prints out the value of the original `num` variable, which is still `5`.
+Assigning `12` to it does not affect the other variable named `num`. Next, the function prints the local `num`, which is `12`. At the end of the function, execution returns to the function call. The next line prints the original `num`, which is still `5`.
 
 ## Default arguments
 
-It's possible to give a parameter a default value that it will have if no value is passed for it in the function call. The syntax looks like you're assigning a value to that parameter, but if the function call does pass a value for that parameter, then the default argument is not used. Here's a simple example:
+You can give a parameter a default value, which it has if the function call doesn't pass a value for it. The syntax looks like an assignment. If the call does pass a value for that parameter, the default is not used. Here's a simple example:
 ```python
 def sum(num_1: int, num_2: int, num_3: int = 0) -> int:
     return num_1 + num_2 + num_3
 ```
 
-We've made zero the default argument for `num_3`. This allows us to call `sum` with either two or three arguments.
+We've made zero the default argument for `num_3`, so we can call `sum` with either two or three arguments.
 
-Parameters with default arguments must all go at the end of the parameter list. In the `sum` function, we can't give `num_1` a default argument and then not give `num_2` and `num_3` default arguments.
+Parameters with default arguments must go at the end of the parameter list. In the `sum` function, we can't give `num_1` a default argument without also giving `num_2` and `num_3` default arguments.
 
 ## Changing the Value of a Parameter
 
-If we pass a variable to a function and the function changes that parameter, what happens to the original variable that was passed? Does it change because the parameter in the function was changed? Let's try it and see:
+If we pass a variable to a function and the function changes that parameter, does the original variable change too? Let's try it and see:
 
 :::cell id=square-no-return
 ```python starter
@@ -198,9 +198,9 @@ print(num)
 ```
 :::
 
-Here the program starts by assigning `8` to `num`. Next it calls the function `square_val`, passing `num` as an argument. Now execution jumps to the function definition, and the argument `num` is matched with the parameter `val`, so now `val` and `num` refer to the same value. Next, `val` is assigned the value of `val` times itself. Then the function prints out the value of `val`, which is `64`.
+The program starts by assigning `8` to `num`. Next it calls `square_val`, passing `num` as an argument. Execution jumps to the function definition, and the argument `num` is matched with the parameter `val`, so `val` and `num` refer to the same value. Next, `val` is assigned `val` times itself. Then the function prints `val`, which is `64`.
 
-Since the function has finished, execution returns to the function call. Next the value of `num` is printed out, which is `8`. We can see that even though `val` and `num` referred to the same value, changing `val` did not change `num`. This is not because of scope. We'll discuss the reason behind it in a later module. What if we want `num` to change?
+The function has finished, so execution returns to the function call. Next `num` is printed, and it is still `8`. Even though `val` and `num` started with the same value, changing `val` did not change `num`. We'll discuss the reason in a later module. What if we want `num` to change?
 
 We can accomplish that like so:
 
@@ -222,11 +222,11 @@ In this version we changed two things:
  1. We have the function return the altered value.
  2. When we call the function, we store the result of the function call (its return value) in `num`.
 
-Now when we run the code, we see that `num` is updated to the square of its previous value.
+Now when we run the code, `num` is updated to the square of its previous value.
 
 ## Docstrings
 
-A docstring is a special type of string you should use to help document your functions. A docstring gives a description of the function's purpose, with a triple quotation mark at the beginning and end. It goes on the first indented line of the function.
+A docstring is a special string that documents a function. It describes the function's purpose and starts and ends with triple quotation marks. It goes on the first indented line of the function.
 
 ```python
 def area_of_circle(radius: float) -> float:
@@ -250,17 +250,17 @@ def rando(num_digits: int) -> int:
     """
 ```
 
-Python has a built-in help function that will print out the description you provided in the docstring:
+Python's built-in `help` function prints the description you wrote in the docstring:
 
 ```python
 help(area_of_circle)
 ```
 
-There also exist third-party tools that will read and display docstrings in various formats.
+Other tools can also read and display docstrings.
 
 ## Stack Traces
 
-When a Python program crashes, the error messages will include a stack trace that tells you which functions were active at the time. If function A calls function B, which calls function C, and if there is an error in C that crashes the program, then the stack trace that is printed out will include which line of code we were on in functions A, B, and C. Here is an example:
+When a Python program crashes, the error message includes a stack trace that lists the functions that were active at the time. If function A calls function B, which calls function C, and an error in C crashes the program, the stack trace shows which line we were on in A, B, and C. Here is an example:
 
 :::cell id=stack-trace-setup
 ```python starter
@@ -280,7 +280,7 @@ def func_C():
 ```
 :::
 
-So now if we try to run this program by calling it,
+Now we run the program by calling `func_A`:
 
 :::cell id=stack-trace-call
 ```python starter
@@ -302,11 +302,11 @@ func_A()
 ```
 :::
 
-Then because `func_C` tries to use a nonexistent variable, the program crashes and gives us the stack trace.
+Because `func_C` tries to use a variable that doesn't exist, the program crashes and prints the stack trace.
 
-This can be helpful when trying to figure out exactly what sequence of events caused a program to crash.
+A stack trace helps you work out what sequence of events caused a crash.
 
-*NOTE: this is a good example of the importance of type hinting and docstrings. It's hard to see what these three functions are intending to do on their own. This could be vastly improved using better naming conventions for the functions, paramaters and variables, docstrings explaining the WHY of the function, and type hinting (lacking in `func_C`) so we can understand quickly what expectations should be*
+*NOTE: this is a good example of why type hints and docstrings matter. It's hard to tell what these three functions are meant to do. They would be much clearer with better names for the functions, parameters, and variables, docstrings explaining why each function exists, and type hints (missing in `func_C`) showing what each function expects.*
 
 ## Exercises
 

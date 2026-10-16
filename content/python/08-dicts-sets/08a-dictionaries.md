@@ -6,7 +6,7 @@ section: 8
 
 ## Dictionary Data Types
 
-Another data type that's built-in to Python is called a dictionary. A dictionary is a way of storing key-value pairs. For example:
+Python has a built-in data type called a dictionary. A dictionary stores key-value pairs. For example:
 
 :::cell id=dictionaries-demo1
 ```python starter
@@ -19,7 +19,7 @@ state_capitals = {
 ```
 :::
 
-The first column has the keys and the second column has their associated values (the extra spaces that align the columns and colons are just for ease of reading, they are not required). Each key can only have one value, but the same value can be used for multiple keys. Dictionaries, like lists, are **mutable**. However, unlike lists, you cannot index into a dictionary by the position of an element. You still use the square bracket notation, but instead of a positional index, you give the key that you want the associated value of.
+The first column has the keys and the second column has their associated values (the extra spaces that align the columns and colons only make it easier to read, and are not required). Each key can only have one value, but the same value can be used for multiple keys. Dictionaries, like lists, are **mutable** (you can change them after you create them). Unlike lists, though, you cannot look up an element by its position. You still use square brackets, but you put the key inside them, and you get back that key's value.
 
 :::cell id=dictionaries-demo2
 ```python starter
@@ -92,7 +92,7 @@ print(state_capitals)
 ```
 :::
 
-If you print a dictionary, it will list all of its key-value pairs:
+Printing a dictionary shows all of its key-value pairs:
 
 :::cell id=dictionaries-demo7
 ```python starter
@@ -108,7 +108,7 @@ print(state_capitals)
 
 ## Type hinting with dictionaries
 
-Type hinting in Python can be used to specify the expected types of variables, including dictionaries. In the case of the `state_capitals` dictionary, you can add type hinting as follows:
+A type hint states the type a variable is expected to hold. You can add one to a dictionary. For `state_capitals`, it looks like this:
 
 ```python
 state_capitals: dict[str, str] = {
@@ -119,9 +119,9 @@ state_capitals: dict[str, str] = {
 }
 ```
 
-The `state_capitals` variable is declared as a `dict[str, str]`, indicating that it is a dictionary with keys of type `str` and values of type `str`.
+The `state_capitals` variable is declared as a `dict[str, str]`, meaning a dictionary with keys of type `str` and values of type `str`.
 
-The keys in a dictionary must be immutable, but the associated values can be of any type. The keys are not required to all be the same type. You can even nest dictionaries. Here's an example of a dictionary with some string values and an integer value. For mixing expected types, we can use the `|` operator.
+The keys in a dictionary must be immutable (unchangeable, like strings and numbers), but the values can be of any type. The keys do not all have to be the same type. You can even nest dictionaries. Here's a dictionary with some string values and an integer value. To allow more than one type, use the `|` operator in the hint.
 
 :::cell id=dictionaries-demo8
 ```python starter
@@ -171,7 +171,7 @@ print(len(capybara))
 ```
 :::
 
-You can use a for loop to iterate through a dictionary.
+A `for` loop goes through a dictionary's keys:
 
 :::cell id=dictionaries-demo12
 ```python starter
@@ -187,7 +187,7 @@ for attribute in capybara:
 ```
 :::
 
-When you iterate through a dictionary, Python by default guarantees to return keys in the same order they were created.
+A loop returns the keys in the order they were added.
 
 The `clear` method makes a dictionary empty:
 
@@ -204,7 +204,7 @@ print(len(capybara))
 ```
 :::
 
-As with lists, there are other operators, functions and methods available for working with dictionaries.
+As with lists, there are other operators, functions, and methods for working with dictionaries.
 
 ## Exercises
 
@@ -253,7 +253,7 @@ eng_to_span: dict[str, str] = {
 :::
 
 :::cell id=dictionaries-ex2 kind=exercise
-2. Using the dictionary from #1, write a loop that prints out both the key and value of each key-value pair. For example the first iteration of the loop should print `one uno`.
+2. Using the dictionary from #1, write a loop that prints both the key and value of each key-value pair. For example the first iteration of the loop should print `one uno`.
 
 ```python starter
 # Type code here

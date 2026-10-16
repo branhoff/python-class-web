@@ -6,9 +6,9 @@ section: 7
 
 ## Tuples
 
-Tuples are almost the same thing as a list, with one big use-case difference: they can't be changed. We'll go over that in the *Mutability vs. Immutability* section. There are two minor differences having to do with syntax, and one more significant difference. Let's talk about the syntax first. The first difference is that we use square brackets to create a new list, but we use parentheses to create a new tuple.
+Tuples are almost the same as lists, with one big difference: they can't be changed. We'll cover that in the *Mutability vs. Immutability* section. First, two small differences in syntax. One is that we use square brackets to create a new list, but parentheses to create a new tuple.
 
-The other syntax difference is with tuples that contain only one value. In order for Python to know that it's a tuple, you have to include a trailing comma.
+The other difference is for tuples that contain only one value. For Python to know it's a tuple, you have to include a trailing comma.
 
 :::cell id=tuples-demo1
 ```python starter
@@ -49,7 +49,7 @@ In this code, each of the tuples is declared with a type hint using the `tuple` 
 
 Naturally, the syntax can be a little tedious if you have a large number of items to declare in your tuple.
 
-You can use the `tuple` type with the `...` syntax to specify that the tuple can contain any number of elements of any type.
+You can use `...` to say that a tuple can contain any number of elements of one type.
 
 Here's an example of using the `tuple` type to type hint a tuple without declaring individual elements:
 
@@ -66,15 +66,15 @@ numbers: tuple[int, ...] = (3, 2, 1)
 ```
 :::
 
-In this code, the `tuple` type is used with the `...` syntax to specify that each tuple can contain any number of elements of the specified type. For example, `tuple[int, ...]` specifies a tuple that can contain any number of `int` elements.
+In this code, the `tuple` type is used with the `...` syntax to say that each tuple can contain any number of elements of the given type. For example, `tuple[int, ...]` specifies a tuple that can contain any number of `int` elements.
 
-Using the `tuple` type with the `...` syntax can make your code more concise and easier to read, as well as make it more flexible if you need to change the number of elements in your tuples in the future.
+Using the `tuple` type with the `...` syntax can make your code more concise and easier to read, and lets you change the number of elements later without editing the hint.
 
-Now let's finally talk about the big difference between lists and tuples in detail.
+Now let's look at the big difference between lists and tuples in detail.
 
 ## Mutability vs. Immutability
 
-The big important difference between lists and tuples is that lists are mutable, but tuples are immutable. Put more simply, you can change a list, but you can't change a tuple. So far we've seen ways to create new lists based on old lists, but we haven't looked at ways we can change an existing list, with one exception. The sort method doesn't create a new sorted version of the list; it rearranges the existing list into sorted order.
+The main difference between lists and tuples is that lists are mutable, but tuples are immutable. Put more simply, you can change a list, but you can't change a tuple. So far we've seen ways to create new lists based on old lists, but we haven't looked at ways we can change an existing list, with one exception. The sort method doesn't create a new sorted version of the list; it rearranges the existing list into sorted order.
 
 :::cell id=tuples-demo4
 ```python starter
@@ -108,7 +108,7 @@ print(members)
 ```
 :::
 
-We can also put a slice on the left side of the assignment. In this case the value on the right must be of an iterable type.
+We can also put a slice on the left side of the assignment. The value on the right must be an iterable (something you can loop over, such as a list).
 
 :::cell id=tuples-demo7
 ```python starter
@@ -193,11 +193,11 @@ None of these assignments will work with tuples because they cannot be mutated. 
 
 ### Immutable Collections of Mutable Objects
 
-If you have a tuple that contains mutable objects, the tuple itself is immutable because you cannot change which objects it contains, however the mutable objects it contains can still be mutated.
+If you have a tuple that contains mutable objects, the tuple itself is immutable because you cannot change which objects it contains, but the mutable objects inside it can still be mutated.
 
 ### Mutability and Immutability of Function Arguments
 
-In the page on functions we saw that changing a parameter in a function did not change the value of the variable that was passed in the function call, and said we'd discuss the reason in a later module. The reason is because the variable we passed referred to an immutable type. Integers, like tuples, are immutable and cannot be changed. In fact, lists are the **only** mutable type we've looked at so far; all the others we've seen are immutable (objects of user-defined classes, which we looked at in module 5, are also mutable). If a variable refers to a list, and we pass that list to a function, then the function can change the actual list that was passed.
+In the page on functions we saw that changing a parameter in a function did not change the value of the variable that was passed in the function call, and said we'd discuss the reason in a later module. The reason is that the variable we passed referred to an immutable type. Integers, like tuples, are immutable and cannot be changed. In fact, lists are the **only** mutable type we've looked at so far; all the others we've seen are immutable (objects of user-defined classes, which we looked at in module 5, are also mutable). If a variable refers to a list, and we pass that list to a function, then the function can change the actual list that was passed.
 
 :::cell id=tuples-demo15
 ```python starter

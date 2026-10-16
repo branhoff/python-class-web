@@ -78,12 +78,11 @@ my_number = 57
 my_number = 'fifty-seven'
 ```
 
-Dynamic typing can make for an easy introduction to programming, but can be
-quite problematic as your codebase gets more and more complex and ever changing
-variables are harder to track.
+Dynamic typing makes programming easy to start, but it becomes a problem as
+your code grows, because variables that keep changing type are harder to track.
 
-To help you keep your variables straight, you can use the `type` function to see
-what type of value a variable currently refers to. See the example below:
+To keep your variables straight, use the `type` function to see what type of
+value a variable currently refers to. See the example below:
 
 :::cell id=variables-demo4
 ```python starter
@@ -96,11 +95,10 @@ print("The type of my_number is ", type(my_number))
 
 ### Static typing
 
-Static typing is a type of type checking that occurs before the code is
-executed, at compile time. In a statically typed language, the data type of a
-variable must be specified in advance and cannot be changed during runtime. This
-helps to catch type-related bugs early in the development process, before the
-code is executed.
+Static typing means types are checked before the code runs, when the program is
+translated into machine code (compile time). In a statically typed language, you
+must declare the type of a variable in advance, and it cannot change while the
+program runs. This catches type-related bugs early, before the code is run.
 
 Static typing in the programming language C++, for example, would look something
 like:
@@ -117,24 +115,20 @@ different type later on in the code. For example, if you did this:
 name = 30;  // This would raise a compile-time error
 ```
 
-Static typing can help catch bugs early in the development process and improve
-the readability and maintainability of code. However, it can also make code less
-flexible, as changing the type of a variable requires changing the code in
-multiple places.
+Static typing also makes code easier to read and maintain. The trade-off is less
+flexibility: you must state each variable's type up front, and changing it later
+means updating every place that uses it.
 
 ## Type hinting
 
-Type hinting is a feature in Python that allows you to specify the expected data
-type of an argument or a variable in a function or a class. We will only go over
-variables for now. It is almost like a middle ground between dynamic typing and
-static typing.
+Type hinting lets you state the expected data type of a variable (or of a
+function argument, which we cover later). It is a middle ground between dynamic
+typing and static typing.
 
-Type hinting is not used by the Python interpreter at runtime, but it can be
-used by tools like IDEs, linters, and type checkers to provide better feedback
-to the developer, improve code documentation, and catch potential bugs early in
-the development process. In essence, it helps the readability and debugging
-efforts but it will not prevent you from executing code when you have made an
-assignment or reassignment mistake.
+The Python interpreter ignores type hints when the program runs. Tools such as
+IDEs, linters, and type checkers use them to give better feedback, document the
+code, and catch bugs early. Hints help readability and debugging, but they will
+not stop your code from running when you assign the wrong type of value.
 
 Type hints are specified using annotations placed immediately after the
 argument, parameter, or variable declaration. For example:
@@ -148,10 +142,9 @@ In this example, the `: str` annotation after `name` indicates that `name` is a
 string variable, and the `: int` annotation after `age` indicates that `age` is
 an integer variable.
 
-However, it is important to remember that type hints are technically only
-suggestions, and the Python interpreter will not enforce them at runtime like a
-compiler in a statically typed language. If you need to enforce the types of
-arguments or variables, you can use a type checker like
+Remember that type hints are only suggestions. Unlike a compiler for a
+statically typed language, the Python interpreter does not enforce them. To
+check the types of arguments or variables, you can use a type checker like
 [`mypy`](https://www.mypy-lang.org/).
 
 ## Best practice and what we will do going forward in the course
@@ -162,39 +155,33 @@ where code documentation and maintainability are important. "Declaring" our
 types is a far more common design pattern in programming languages, especially
 in influential, widespread languages like C, C#, C++, and Java.
 
-As such, we will treat type hinting as gospel and STRONGLY encourage its use
-while utilizing it in the training materials and in the project solutions. We
-believe this will help fulfill the aim of learning good, general programming
-practices and not overly niche language specific knowledge.
+As such, we use type hints throughout the lessons and project solutions, and we
+strongly encourage you to use them too. We believe this teaches good, general
+programming practice rather than niche, language-specific knowledge.
 
-Type hinting is an important tool that your future self will be glad you took the
-time to implement in your program when you inevitably forget what you originally
-intended only days after you wrote the code to begin with.
+Type hints also help your future self. Days after writing code, you will forget
+what you intended, and the hints will remind you.
 
 ## Literals
 
 When a value is written in the code without being assigned to a variable, it is
-called a literal. A literal is a value that is represented directly in the code,
-and is not assigned to a name (variable). Here are a few examples, which we
-should be familiar with in Python:
+called a literal. A literal is a value written directly in the code, not
+assigned to a name (variable). Here are a few examples:
 
 ```python
 print(42)  # This line prints the integer literal 42
 print('Hello, world!')  # This line prints the string literal 'Hello, world!'
 ```
 
-In Python, literals are used to represent constant values in the code. They can
-be assigned to variables, passed as arguments to functions, and used in other
-ways just like any other value. It is important to note that literals in Python
-are immutable, which means that their values cannot be changed once they are
-created. If you need a value that can change, you need to use a variable instead.
+Literals represent fixed values in the code. You can assign them to variables,
+pass them to functions, and use them like any other value. A literal's value
+cannot be changed. If you need a value that can change, use a variable.
 
 ## Exercises
 
-Note: in our exercises today we are reminding you to add type hints. This is just
-a courtesy. Future exercises and projects will simply assume you know to use type
-hinting. Python does not inherently enforce this, so listen to your better
-programming angels and use type hinting.
+Note: these exercises remind you to add type hints. Future exercises and
+projects will assume you know to use them. Python does not enforce type hints,
+so make it a habit anyway.
 
 :::cell id=variables-ex1 kind=exercise
 1. Assign the value `3.14159` to a variable named `pi` with the appropriate type hint, and then print out the value of that variable.

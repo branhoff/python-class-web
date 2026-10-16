@@ -6,9 +6,8 @@ section: 2
 
 ## Print statements
 
-The `print()` function can be used to print out values. You just put the value
-you want to print inside the parentheses. Here is an example that prints
-`"Hello world"`.
+The `print()` function displays values. Put the value you want to print inside
+the parentheses. Here is an example that prints `"Hello world"`.
 
 :::cell id=print-and-types-demo1
 ```python starter
@@ -25,9 +24,8 @@ Try it yourself by typing `print("Your Name")`.
 ```
 :::
 
-A print statement can print more than one value, you just need to separate them
-with commas. By default, a space will be inserted between the values. Try this
-and see:
+A print statement can print more than one value. Separate the values with
+commas. By default, Python inserts a space between them. Try this and see:
 
 :::cell id=print-and-types-demo3
 ```python starter
@@ -115,9 +113,9 @@ print("")
 ```
 :::
 
-If you want to have a quotation mark be part of a string, there are two ways. One
-way is that if the string contains a double quote, you can use single quotes to
-mark the ends of the string (or vice-versa).
+There are two ways to put a quotation mark inside a string. One way: if the
+string contains a double quote, use single quotes to mark the ends of the string
+(or vice versa).
 
 :::cell id=print-and-types-demo9
 ```python starter
@@ -134,10 +132,9 @@ print("She explained, \"Mae fy hofrenfad yn llawn llyswennod.\"")
 ```
 :::
 
-The backslash is an "escape character", because it escapes the normal
-significance of the following character. Because of that, if you want to have a
-backslash be part of a string, you need to put two of them in a row (the first
-one escapes the normal significance of the second one).
+The backslash is an "escape character", because it removes the special meaning
+of the character after it. To put a backslash itself in a string, write two in
+a row (the first removes the special meaning of the second).
 
 :::cell id=print-and-types-demo11
 ```python starter
@@ -252,7 +249,7 @@ print(True)
 :::
 
 :::cell id=print-and-types-ex4 kind=exercise
-4. Write a statement that prints out the result of using the type command on the value 77.
+4. Write a statement that prints out the result of calling the `type()` function on the value 77.
 
 ```python starter
 # Type code here

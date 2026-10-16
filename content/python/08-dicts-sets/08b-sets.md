@@ -6,7 +6,7 @@ section: 8
 
 ## Introduction
 
-You're probably familiar with the concept of sets from math classes. A **set** is an unordered collection of elements where every element is unique. Adding a duplicate element doesn't change a set. Non-duplicate elements can be added to a set, so sets are **mutable**. However, the elements in a set must be **immutable**, so a set cannot contain lists or dictionaries or sets. Sets can contain values of different types, or be empty.
+You may know sets from math class. A **set** is an unordered collection of unique elements. Adding a duplicate does not change a set. You can add new elements, so sets are **mutable**. The elements themselves must be **immutable** (unchangeable), so a set cannot contain lists, dictionaries, or other sets. A set can hold values of different types, or be empty.
 
 :::cell id=sets-demo1
 ```python starter
@@ -19,7 +19,7 @@ empty = set()   # The empty set
 
 ## Type hinting with sets
 
-Since Python 3.9, we can type hint with `set`.
+You can add a type hint to a set with `set`.
 
 :::cell id=sets-demo2
 ```python starter
@@ -30,9 +30,9 @@ empty: set = set()   # The empty set
 ```
 :::
 
-The `some_ints` variable is declared as a `set[int]`, indicating that it is a set of integers. The `some_elements` variable is declared as a `set[int | str | float | bool | tuple[int]]`, indicating that it is a set of elements that can be either integers, strings, floats, booleans, or tuples. The `empty` variable is declared as a `set`, indicating that it is an empty set without any type restrictions.
+The `some_ints` variable is declared as a `set[int]`, meaning a set of integers. The `some_elements` variable is declared as a `set[int | str | float | bool | tuple[int]]`, meaning a set of elements that can be integers, strings, floats, booleans, or tuples. The `empty` variable is declared as a `set`, meaning a set with no restriction on the element type.
 
-You cannot index or slice sets.
+You cannot index or slice sets, because they have no order.
 
 You can use `in` and `not in` to check whether a value is in the set:
 
@@ -90,7 +90,7 @@ print(len(some_elements))
 
 ### Set Operations
 
-Python has operators for performing various set operations. The most common set operations are *union*, *intersection*, *difference*, and *symmetric difference*. Each of these operations produces a new set and leaves the original sets unchanged.
+Python has operators for common set operations. The most common set operations are *union*, *intersection*, *difference*, and *symmetric difference*. Each of these operations produces a new set and leaves the original sets unchanged.
 
 :::cell id=sets-demo9
 ```python starter
@@ -123,7 +123,7 @@ print(set_A | set_B)  # the union operator is the vertical bar symbol
 ```
 :::
 
-The *difference* of two sets is a new set that contains every element that is in the first set **except for** the elements that are also in the second set. This operation is not "symmetric", the result may be different depending on which set comes first.
+The *difference* of two sets is a new set that contains every element that is in the first set **except for** the elements that are also in the second set. This operation is not "symmetric": the result can change depending on which set comes first.
 
 > Diagram: two overlapping circles (a Venn diagram) labeled set A and set B. Only the part of circle A that does not overlap circle B is shaded. That shaded crescent is the difference A minus B.
 
@@ -157,7 +157,7 @@ print((set_A | set_B) - (set_A & set_B))
 ```
 :::
 
-We can iterate through a set with a for loop:
+You can loop through a set with a `for` loop:
 
 :::cell id=sets-demo15
 ```python starter
@@ -174,7 +174,7 @@ How do you know when to use a list and when to use a set?
 
 1. A set cannot contain duplicate elements, but a list can.
 2. A set can only contain values that are immutable, but lists can contain mutable values.
-3. A list is ordered, so you can know that its elements will be traversed or printed out in a particular order. The same is not true of sets (or dictionaries), which are unordered.
+3. A list is ordered, so you can know that its elements will be looped over or printed in a fixed order. Sets are unordered, so that is not guaranteed for them.
 4. Checking whether a certain value is in a list takes time proportional to the length of the list, but doing so in a set is very fast, regardless of the size of the set.
 
 ### Set Comprehensions
@@ -192,7 +192,7 @@ print(name_set)
 ```
 :::
 
-Checking for equality to the reverse slice checks for palindromes. Using `lower()` makes sure that a capital letter does not make us pay attention to case. The curly braces mean it creates a set, which will automatically exclude any duplicates.
+Comparing a name to its reverse (`[::-1]`) checks for a palindrome. Calling `lower()` first makes the check ignore case. The curly braces create a set, which drops duplicates automatically.
 
 ## Exercises
 

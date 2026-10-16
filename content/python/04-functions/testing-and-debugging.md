@@ -81,8 +81,8 @@ Traceback (most recent call last):
 AssertionError: 0 is even
 ```
 
-Read it from the bottom. The last line says which check failed and your message
-tells you why. The line above it points to the assert. The lines above that show
+Read it from the bottom. The last line gives the error type and your message,
+which says which check failed. The line above it points to the assert. The lines above that show
 which functions were running, the same stack trace you met in Functions. Your
 line numbers will differ from this example.
 

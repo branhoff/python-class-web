@@ -6,7 +6,7 @@ section: 5
 
 ## Introduction
 
-A recursive function is a function that calls itself. Each time it calls itself, a separate copy is created that has its own values for its parameters and variables. Of course, if every copy creates another copy, then the recursion will never end, and we'll run out of memory, so it's crucial that every recursive function have one or more base cases. A base case is a case where the function doesn't call itself.
+A recursive function is a function that calls itself. Each time it calls itself, a separate copy is created that has its own values for its parameters and variables. If every copy created another copy, the recursion would never end and the computer would run out of memory. So every recursive function needs at least one base case. A base case is a case where the function doesn't call itself.
 
 Let's look at a common first example of recursion:
 
@@ -23,7 +23,7 @@ print(factorial(5))
 ```
 :::
 
-The condition of the if statement checks whether `num` is equal to zero. This is the base case. If it's true, then the function does not call itself. However, if the base case is not true, then it calls itself, performs a multiplication with the return value, and returns the result. We could also write it like this:
+The `if` statement checks whether `num` is equal to zero. This is the base case. If it's true, the function does not call itself. Otherwise, it calls itself, multiplies the return value by `num`, and returns the result. We could also write it like this:
 
 :::cell id=recursion-demo2
 ```python starter
@@ -38,11 +38,11 @@ print(factorial(5))
 ```
 :::
 
-The else can be omitted here because if the condition is true, then `return 1` is executed, and the function ends before it can reach the recursive call. This is the logic I'll use in the other examples in this lesson.
+The `else` can be left out because if the condition is true, `return 1` runs and the function ends before it reaches the recursive call. The other examples in this lesson use this style.
 
 ## The Call Stack
 
-When running a recursive function, multiple copies of the function will be active at once, but only the most recent one will be executing. The others are paused while waiting for a result. When a recursive call is made, the computer needs to save our place in the current copy of the function, so that we can come back to it later. Then we can start executing a new copy of the function. The computer saves our place in the current copy by storing its information on the **call stack**, which keeps track of all active function calls. Watch the video "Flow of execution example for recursion" to see how this works.
+When a recursive function runs, several copies of it are active at once, but only the most recent one is executing. The others are paused, waiting for a result. When a recursive call is made, the computer saves its place in the current copy so it can come back later, then starts a new copy. It saves that place on the **call stack**, which keeps track of all active function calls. Watch the video "Flow of execution example for recursion" to see how this works.
 
 ## More examples
 
@@ -61,7 +61,7 @@ print(gcd(48, 36))
 ```
 :::
 
-The base case is when b evenly divides `a`, in which case `b` is the greatest common divisor. Otherwise we make a recursive call with the value of `b` passed for `a`, and the value of `a % b` passed for `b`. Nothing needs to be done with the return values on the way back out of the recursive calls.
+The base case is when b evenly divides `a`, in which case `b` is the greatest common divisor. Otherwise we make a recursive call, passing `b` for `a` and `a % b` for `b`. The function just returns whatever the recursive call returns, with no extra work.
 
 Here's a recursive function that computes the hailstone sequence starting from a given number and counts how many steps it takes to reach 1:
 
@@ -81,15 +81,15 @@ print(hailstone(3))
 ```
 :::
 
-Here the base case is when the sequence arrives at 1. You can see that there are two different recursive cases, one that happens if `num` is odd, and one that happens if `num` is even. We add 1 to the return value, since the current copy of hailstone takes one more step to reach 1 than the recursive call does. For example, if we start at 3, the sequence goes: 3, 10, 5, 16, 8, 4, 2, 1. If we find the number of steps it takes to go from 10 to 1, then we can just add 1 more step to get the number of steps it takes to go from 3 to 1.
+Here the base case is when the sequence arrives at 1. There are two recursive cases: one if `num` is even and one if it is odd. We add 1 to the return value, since the current copy of `hailstone` takes one more step to reach 1 than the recursive call does. For example, if we start at 3, the sequence goes: 3, 10, 5, 16, 8, 4, 2, 1. Once we know how many steps it takes to go from 10 to 1, we add 1 more step to get the number of steps from 3 to 1.
 
 ## Writing a Recursive Function
 
-Recursion can feel like it's partly magic, because you're writing a function that is calling the function you're still writing. It feels like an M.C. Escher print. The general strategy for designing a recursive function is to identify how a problem can be broken up into a smaller problem of the same kind, plus a bit of work at the current level.
+Recursion can feel like magic, because you're writing a function that calls the function you're still writing. The general strategy is to find a way to break the problem into a smaller problem of the same kind, plus a bit of work at the current level.
 
-- In the factorial example, `num`! is equal to (`num`-1)! multiplied by `num`. The smaller problem of the same kind is (`num`-1)! and multiplying by `num` is the bit of work at the current level.
-- In the gcd example, the gcd of `a` and `b` is the same as the gcd of `b` and `a % b`, which is a smaller problem of the same type. In this example no additional work at the current level is needed.
-- In the hailstone sequence example, the smaller problem of the same type is counting how many steps it takes to get from the next number in the sequence to 1. The bit of work at the current level is adding 1 to that result.
+- In the factorial example, `num`! is equal to (`num`-1)! multiplied by `num`. The smaller problem of the same kind is (`num`-1)!, and multiplying by `num` is the bit of work at the current level.
+- In the gcd example, the gcd of `a` and `b` is the same as the gcd of `b` and `a % b`, which is a smaller problem of the same kind. No additional work at the current level is needed.
+- In the hailstone sequence example, the smaller problem of the same kind is counting how many steps it takes to get from the next number in the sequence to 1. The bit of work at the current level is adding 1 to that result.
 
 ## Exercises
 
