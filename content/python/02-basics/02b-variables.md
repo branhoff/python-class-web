@@ -142,12 +142,46 @@ age: int = 33
 
 In this example, the `: str` annotation after `name` indicates that `name` is a
 string variable, and the `: int` annotation after `age` indicates that `age` is
-an integer variable.
+an integer variable. Run it and change the values:
+
+:::cell id=variables-type-hint-demo
+```python starter
+name: str = "Tuan Nguyen"
+age: int = 33
+print(name)
+print(age)
+```
+:::
 
 Remember that type hints are only suggestions. Unlike a compiler for a
 statically typed language, the Python interpreter does not enforce them. To
 check the types of arguments or variables, you can use a type checker like
 [`mypy`](https://www.mypy-lang.org/).
+
+:::cell id=variables-hint-not-enforced kind=check
+**Check your understanding.** Here the hint says `int`, but the value is a string. Predict what the program prints, then change `output` to that exact text, in quotes.
+
+```python
+age: int = "thirty-three"
+print(age)
+```
+
+```python starter
+output = ""
+```
+
+```python tests
+assert output == "thirty-three", "output is not right. Python ignores type hints when the program runs, so print just shows the value."
+```
+
+```python solution
+output = "thirty-three"
+```
+
+```hint
+The program does not stop. A type hint is only a note for you and for tools, so the value is stored and printed as it is.
+```
+:::
 
 ## Best practice and what we will do going forward in the course
 
@@ -178,6 +212,31 @@ print('Hello, world!')  # This line prints the string literal 'Hello, world!'
 Literals represent fixed values in the code. You can assign them to variables,
 pass them to functions, and use them like any other value. A literal's value
 cannot be changed. If you need a value that can change, use a variable.
+
+:::cell id=variables-count-literals kind=check
+**Check your understanding.** Count the literals in this program. A literal is a value written directly in the code. Change `literal_count` to that number.
+
+```python
+total = 5 + 7
+print("Total:", total)
+```
+
+```python starter
+literal_count = None
+```
+
+```python tests
+assert literal_count == 3, "literal_count is not right. Count each value typed directly in the code. A variable name is not a literal."
+```
+
+```python solution
+literal_count = 3
+```
+
+```hint
+There are two numbers on the first line and one piece of text on the second. `total` is a variable, so it does not count.
+```
+:::
 
 ## Exercises
 

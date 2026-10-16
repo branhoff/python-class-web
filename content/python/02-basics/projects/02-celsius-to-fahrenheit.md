@@ -24,6 +24,9 @@ The corresponding temperature in Fahrenheit is:
 Your result only needs to match to 7 decimal places. For example, 13.0999999999
 counts as correct.
 
+In the Problem Solving lesson you worked out the expected results for 0, 100 and
+-40 degrees Celsius. Run your program with those three values to test it.
+
 Save the file as `temp_conversion.py`.
 
 
