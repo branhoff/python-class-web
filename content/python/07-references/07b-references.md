@@ -282,6 +282,49 @@ print(copied_list)
 ```
 :::
 
+:::cell id=predict-alias-or-copy kind=exercise
+**Check your understanding.** Predict the result. One of the names is an alias and one is a copy.
+
+```python
+a = [1, 2, 3]
+b = a
+c = list(a)
+a.append(4)
+```
+
+Set `final_a` and `final_b` and `final_c` to the values the program ends with.
+
+```python starter
+final_a = None
+final_b = None
+final_c = None
+```
+
+```python tests
+program = """
+a = [1, 2, 3]
+b = a
+c = list(a)
+a.append(4)
+"""
+real = {}
+exec(program, real)
+assert final_a == real["a"], "final_a is not right. `a.append(4)` changes the list `a` refers to."
+assert final_b == real["b"], "final_b is not right. `b = a` gives the list a second name."
+assert final_c == real["c"], "final_c is not right. `list(a)` made a separate list before the append."
+```
+
+```python solution
+final_a = [1, 2, 3, 4]
+final_b = [1, 2, 3, 4]
+final_c = [1, 2, 3]
+```
+
+```hint
+`b` is another name for the same list as `a`, so it sees the append. `c` is a copy made before the append, so it does not.
+```
+:::
+
 ## Automatic Sharing
 
 Sometimes Python is able to figure out that it can save memory by automatically making variables refer to the same object.
@@ -335,51 +378,8 @@ It happens when a new value is assigned to the variable. For example:
 The first line creates a string object with the value "97331" and binds `zip_code` to it. The second line creates a new string object with the value "98225" and rebinds `zip_code` to that new object.
 ```
 
-:::cell id=predict-alias-or-copy kind=exercise
-4. Predict the result. One of the names is an alias and one is a copy.
-
-```python
-a = [1, 2, 3]
-b = a
-c = list(a)
-a.append(4)
-```
-
-Set `final_a` and `final_b` and `final_c` to the values the program ends with.
-
-```python starter
-final_a = None
-final_b = None
-final_c = None
-```
-
-```python tests
-program = """
-a = [1, 2, 3]
-b = a
-c = list(a)
-a.append(4)
-"""
-real = {}
-exec(program, real)
-assert final_a == real["a"], "final_a is not right. `a.append(4)` changes the list `a` refers to."
-assert final_b == real["b"], "final_b is not right. `b = a` gives the list a second name."
-assert final_c == real["c"], "final_c is not right. `list(a)` made a separate list before the append."
-```
-
-```python solution
-final_a = [1, 2, 3, 4]
-final_b = [1, 2, 3, 4]
-final_c = [1, 2, 3]
-```
-
-```hint
-`b` is another name for the same list as `a`, so it sees the append. `c` is a copy made before the append, so it does not.
-```
-:::
-
 :::cell id=predict-shallow-copy kind=exercise
-5. Predict the result. The copy is a shallow copy.
+4. Predict the result. The copy is a shallow copy.
 
 ```python
 original = [1, [2, 3]]

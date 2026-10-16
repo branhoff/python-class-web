@@ -260,6 +260,42 @@ The `sort` method works "in place": it changes the original list. Sorting also w
 ```
 :::
 
+:::cell id=predict-sort-result kind=exercise
+**Check your understanding.** Predict the result. Look at what `sort` gives back.
+
+```python
+nums = [3, 1, 2]
+result = nums.sort()
+```
+
+Set `final_nums` and `final_result` to the values the program ends with.
+
+```python starter
+final_nums = None
+final_result = None
+```
+
+```python tests
+program = """
+nums = [3, 1, 2]
+result = nums.sort()
+"""
+real = {}
+exec(program, real)
+assert final_nums == real["nums"], "final_nums is not right. What does `sort` do to the list it is called on?"
+assert final_result == real["result"], "final_result is not right. What does a method that changes a list in place give back?"
+```
+
+```python solution
+final_nums = [1, 2, 3]
+final_result = None
+```
+
+```hint
+`sort` rearranges the list itself and gives back `None`, so `result` is `None`.
+```
+:::
+
 ## Concatenation
 
 We can concatenate lists with the `+` operator.
@@ -278,6 +314,44 @@ Here's one more list example for us to practice on.
 ```python starter
 fun_floats: list[float] = [3.141, 2.718, 6.283, 1.618, 1.414, 2.502, 0.577, 1.303, 2.685, 1.282]
 print(fun_floats)
+```
+:::
+
+:::cell id=predict-concatenation-copy kind=exercise
+**Check your understanding.** Predict the result. One of these changes a list and one makes a new one.
+
+```python
+a = [1, 2]
+b = a + [3]
+a[0] = 9
+```
+
+Set `final_a` and `final_b` to the values the program ends with.
+
+```python starter
+final_a = None
+final_b = None
+```
+
+```python tests
+program = """
+a = [1, 2]
+b = a + [3]
+a[0] = 9
+"""
+real = {}
+exec(program, real)
+assert final_a == real["a"], "final_a is not right. Which line changes the list that `a` refers to?"
+assert final_b == real["b"], "final_b is not right. `a + [3]` builds a new list before `a[0] = 9` runs."
+```
+
+```python solution
+final_a = [9, 2]
+final_b = [1, 2, 3]
+```
+
+```hint
+`a + [3]` makes a new list, so `b` is not affected when `a[0] = 9` changes the first item of `a`.
 ```
 :::
 
