@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { Hono } from 'hono';
-import { securityHeaders } from '../src/security-headers.ts';
+import { cspEnforced, securityHeaders } from '../src/security-headers.ts';
 import { createLessonSite } from '../src/lessons/site.ts';
 
 const REPORT_ONLY = 'content-security-policy-report-only';
@@ -85,4 +85,12 @@ test('the page cannot be framed, embed plugins, or change its base or form targe
   assert.deepEqual(await directive('object-src'), ["'none'"]);
   assert.deepEqual(await directive('base-uri'), ["'self'"]);
   assert.deepEqual(await directive('form-action'), ["'self'"]);
+});
+
+test('the policy is enforced only when CSP_ENFORCE is exactly 1', () => {
+  assert.equal(cspEnforced({ CSP_ENFORCE: '1' }), true);
+  for (const value of [undefined, '', '0', 'true', 'yes', ' 1']) {
+    assert.equal(cspEnforced({ CSP_ENFORCE: value }), false, `CSP_ENFORCE=${value}`);
+  }
+  assert.equal(cspEnforced({}), false);
 });

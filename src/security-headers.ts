@@ -19,6 +19,10 @@ const CONTENT_SECURITY_POLICY = [
   "frame-ancestors 'none'",
 ].join('; ');
 
+export function cspEnforced(env: Record<string, string | undefined>): boolean {
+  return env['CSP_ENFORCE'] === '1';
+}
+
 export function securityHeaders(enforce: boolean): MiddlewareHandler {
   const policyHeader = enforce ? 'Content-Security-Policy' : 'Content-Security-Policy-Report-Only';
   return async (c, next) => {
