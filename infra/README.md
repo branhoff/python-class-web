@@ -14,6 +14,7 @@ can run OpenTofu:
 | file            | resources                                                                                                        |
 | --------------- | ---------------------------------------------------------------------------------------------------------------- |
 | `main.tf`       | API enablement, the Firestore `(default)` database (delete-protected), Identity Platform config (email/password) |
+| `backup.tf`     | a daily Firestore backup schedule, kept 28 days                                                                  |
 | `runtime.tf`    | runtime service account (`roles/datastore.user` only), the Cloud Run service, public invoker binding             |
 | `monitoring.tf` | email notification channel, an uptime check on `/health`, and alert policies for downtime and server errors      |
 
@@ -39,6 +40,52 @@ The budget alerts go to the same address through their own channel in
 that `bootstrap/` grants, and it cannot grant them to itself. Set `alert_email`
 in `bootstrap/terraform.tfvars` and run `tofu apply` there first, then approve
 the `infra` run. Without the roles, the apply fails with a permission error.
+
+## Backups and restore
+
+The database has **point-in-time recovery** (the last 7 days, to the minute) and a
+**daily backup** kept for 28 days (`backup.tf`). Use point-in-time recovery for a
+recent mistake and a backup for an older one. Both restore into a **new**
+database, so a restore never overwrites live data; check the copy, then point the
+app at it or copy documents back.
+
+Restore from a point in time (pick a time in the last 7 days, in UTC):
+
+```sh
+gcloud firestore databases clone \
+  --source-database=projects/PROJECT_ID/databases/'(default)' \
+  --snapshot-time=2026-10-15T12:00:00Z \
+  --destination-database=restore-check \
+  --project PROJECT_ID
+```
+
+Restore from a backup:
+
+```sh
+gcloud firestore backups list --project PROJECT_ID
+gcloud firestore databases restore \
+  --source-backup=projects/PROJECT_ID/locations/us-west1/backups/BACKUP_ID \
+  --destination-database=restore-check \
+  --project PROJECT_ID
+```
+
+Then read a few documents in the console (Firestore, switch to `restore-check`),
+and delete the scratch database when done:
+
+```sh
+gcloud firestore databases delete --database=restore-check --project PROJECT_ID
+```
+
+The database name must be new and unused. A restore can take several minutes.
+Try one restore after any change to this setup, so the first time is not during
+an incident.
+
+**Cost.** Point-in-time recovery and backups are billed by the storage they use.
+With under 100 learners and an append-only progress log this is cents a month.
+
+**Deleted learners.** If account deletion (#60) lands, a deleted learner's data
+stays in backups and point-in-time history until they expire (up to 28 days).
+Say so in whatever learners are told about deletion.
 
 ## Ownership split
 

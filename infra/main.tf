@@ -19,14 +19,18 @@ resource "google_project_service" "apis" {
 # Native-mode (default) database. The default database is the one eligible for
 # the free tier, and Cloud Run reaches it through its service identity, so there
 # is no password or connection string anywhere. Delete protection guards the
-# learner data; turn it off deliberately to tear down.
+# learner data; turn it off deliberately to tear down. Point-in-time recovery
+# keeps a week of history so any moment in it can be restored (see backup.tf for
+# the daily backups).
 resource "google_firestore_database" "default" {
-  name                        = "(default)"
-  location_id                 = var.region
-  type                        = "FIRESTORE_NATIVE"
-  delete_protection_state     = "DELETE_PROTECTION_ENABLED"
-  deletion_policy             = "ABANDON"
-  app_engine_integration_mode = "DISABLED"
+  name                    = "(default)"
+  location_id             = var.region
+  type                    = "FIRESTORE_NATIVE"
+  delete_protection_state = "DELETE_PROTECTION_ENABLED"
+  deletion_policy         = "ABANDON"
+
+  point_in_time_recovery_enablement = "POINT_IN_TIME_RECOVERY_ENABLED"
+  app_engine_integration_mode       = "DISABLED"
 
   depends_on = [google_project_service.apis]
 }
