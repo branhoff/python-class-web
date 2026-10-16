@@ -25,7 +25,7 @@ function parseAttributes(text: string, line: number): { id: string; kind: CellKi
     throw new LessonError('cell needs an id made of lowercase letters, digits and dashes', line);
   }
   const kind = attributes.get('kind') ?? 'sandbox';
-  if (kind !== 'sandbox' && kind !== 'exercise') {
+  if (kind !== 'sandbox' && kind !== 'exercise' && kind !== 'check') {
     throw new LessonError(`unknown cell kind "${kind}"`, line);
   }
   return { id, kind };
@@ -36,8 +36,11 @@ function requireParts(cell: Cell, roles: Map<Role, string>, line: number): void 
   if (cell.kind === 'sandbox' && hasExtras) {
     throw new LessonError(`sandbox cell "${cell.id}" cannot have tests or a solution`, line);
   }
-  if (cell.kind === 'exercise' && !(roles.has('tests') && roles.has('solution'))) {
-    throw new LessonError(`exercise "${cell.id}" needs "python tests" and "python solution"`, line);
+  if (cell.kind !== 'sandbox' && !(roles.has('tests') && roles.has('solution'))) {
+    throw new LessonError(
+      `${cell.kind} "${cell.id}" needs "python tests" and "python solution"`,
+      line,
+    );
   }
 }
 

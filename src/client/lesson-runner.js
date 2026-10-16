@@ -24,6 +24,11 @@ export function formatResult(result, hasTests) {
   return { state, text: shown.join('\n') };
 }
 
+// A check is for practice: passing it marks the cell but is never recorded as progress.
+export function countsTowardProgress(cell) {
+  return !cell.classList.contains('check');
+}
+
 function showVerdict(cell, state, lines) {
   const output = cell.querySelector('.output');
   output.hidden = false;
@@ -154,10 +159,12 @@ async function runCell(runner, button) {
   showVerdict(cell, state, lines);
   if (state === 'pass') {
     markCompleted(cell);
-    recordCompletion(cell.dataset.cellId);
-    document.dispatchEvent(
-      new CustomEvent('item-done', { detail: { id: cell.dataset.cellId, done: true } }),
-    );
+    if (countsTowardProgress(cell)) {
+      recordCompletion(cell.dataset.cellId);
+      document.dispatchEvent(
+        new CustomEvent('item-done', { detail: { id: cell.dataset.cellId, done: true } }),
+      );
+    }
   }
 }
 

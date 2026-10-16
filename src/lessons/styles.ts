@@ -33,6 +33,11 @@ pre { background: #fff1e8; color: #1a1a2e; white-space: pre-wrap; overflow-wrap:
 textarea { background: #1d2b53; color: #fff1e8; width: 100%; box-sizing: border-box; }
 .cell { border-left: 4px solid #29adff; padding-left: 1rem; margin: 1.5rem 0; }
 .cell.exercise { border-left-color: #ffa300; }
+.cell.check { border-left-style: dashed; }
+.legend { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .85rem; color: #5f574f; }
+.legend .swatch { display: inline-block; width: 0; height: 1em; border-left: 4px solid #29adff; vertical-align: text-bottom; margin: 0 .25rem 0 .5rem; }
+.legend .swatch.exercise { border-left-color: #ffa300; }
+.legend .swatch.check { border-left-style: dashed; }
 .cell.completed { border-left-color: #00e436; }
 .output { background: #5f574f; color: #fff1e8; white-space: pre-wrap; }
 .output.pass { border-color: #00e436; }

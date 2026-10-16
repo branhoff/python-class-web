@@ -75,14 +75,14 @@ Use the `*` operator.
 | attribute | values                                                         |
 | --------- | -------------------------------------------------------------- |
 | `id`      | required; lowercase letters, digits, dashes; unique per lesson |
-| `kind`    | `sandbox` (default) or `exercise`                              |
+| `kind`    | `sandbox` (default), `exercise` or `check`                     |
 
 Inside a cell:
 
 - Text and ordinary code fences are the **prompt** (markdown).
 - `python starter` is the code the learner starts with. Required.
-- `python tests` and `python solution` are required for `exercise` and not
-  allowed for `sandbox`.
+- `python tests` and `python solution` are required for `exercise` and `check`
+  and not allowed for `sandbox`.
 - `hint` blocks are optional, shown one at a time in order.
 - Each of starter, tests and solution may appear once.
 
@@ -108,6 +108,11 @@ learner's code.
   in that same namespace. The tests see everything the learner defined, plus
   `stdout`, the text the learner's program printed, and `source`, the learner's
   code as text (for example, to check that a function was not used with `ast`).
+- A **check** (`kind=check`) is graded like an exercise but is just for practice:
+  it has a dashed border, it is never recorded as progress, and it does not count
+  toward the sidebar tick. A lesson with a check shows a one-line legend under its
+  title. Use checks for quick "did that sink in" questions placed right after a
+  concept, and keep exercises for the work that should count.
 - A test fails by raising `AssertionError`. Its message is shown to the learner,
   so write helpful ones.
 

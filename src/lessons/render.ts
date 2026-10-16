@@ -108,6 +108,12 @@ ${pagerLink(nav.next, 'Next', 'next')}
 </nav>`;
 }
 
+const LEGEND = `<p class="legend"><span class="swatch exercise"></span> Exercise: counts toward finishing the lesson. <span class="swatch check"></span> Check: just for practice.</p>`;
+
+function hasChecks(lesson: Lesson): boolean {
+  return lesson.blocks.some((block) => block.type === 'cell' && block.kind === 'check');
+}
+
 export function renderLesson(lesson: Lesson, nav?: LessonNav): string {
   const body = lesson.blocks
     .map((block) =>
@@ -115,7 +121,7 @@ export function renderLesson(lesson: Lesson, nav?: LessonNav): string {
     )
     .join('\n');
   const title = lesson.after === undefined ? lesson.title : `Project: ${lesson.title}`;
-  const heading = `<h1>${escapeHtml(title)}</h1>`;
+  const heading = `<h1>${escapeHtml(title)}</h1>${hasChecks(lesson) ? `\n${LEGEND}` : ''}`;
   const content = nav
     ? `${renderTopbar('<a class="home" href="/">Home</a>')}
 <div class="layout">

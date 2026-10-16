@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { formatResult, verdictOf } from '../src/client/lesson-runner.js';
+import { countsTowardProgress, formatResult, verdictOf } from '../src/client/lesson-runner.js';
 
 test('an exercise that passes its tests shows a pass verdict', () => {
   assert.deepEqual(formatResult({ ok: true, stdout: '' }, true), {
@@ -48,4 +48,13 @@ test('the verdict alone leaves out the output, which is streamed into the cell',
 
 test('a failure without a message still says something went wrong', () => {
   assert.deepEqual(verdictOf({ ok: false }, true).lines, ['✗ Something went wrong.']);
+});
+
+test('only a check cell is left out of recorded progress', () => {
+  const cell = (...names: string[]) => ({
+    classList: { contains: (n: string) => names.includes(n) },
+  });
+  assert.equal(countsTowardProgress(cell('cell', 'check')), false);
+  assert.equal(countsTowardProgress(cell('cell', 'exercise')), true);
+  assert.equal(countsTowardProgress(cell('cell', 'sandbox')), true);
 });
