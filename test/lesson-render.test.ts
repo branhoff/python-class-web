@@ -13,7 +13,7 @@ const lesson: Lesson = {
     {
       type: 'cell',
       id: 'ex',
-      kind: 'exercise',
+      kind: 'quiz',
       prompt: 'Write `f`.',
       starter: 'if a < b:\n    pass',
       tests: 'assert SECRET_TESTS',
@@ -30,7 +30,7 @@ test('renders markdown, cells, hints and an escaped title', () => {
   assert.match(html, /<h1>A &lt;b&gt; &quot;title&quot; &amp; more<\/h1>/);
   assert.match(html, /<h2>Heading<\/h2>/);
   assert.match(html, /<em>text<\/em>/);
-  assert.match(html, /class="cell exercise" data-cell-id="ex"/);
+  assert.match(html, /class="cell quiz" data-cell-id="ex"/);
   assert.match(html, /class="cell sandbox" data-cell-id="play"/);
   assert.match(html, /<code>f<\/code>/);
   assert.match(html, /<summary>Hint 1<\/summary><p>Try <em>this<\/em>\.<\/p>/);
@@ -50,7 +50,7 @@ test('the solution is never shipped, and tests ride only in the data-tests attri
   assert.equal(html.match(/SECRET_TESTS/g)?.length, 1);
 });
 
-test('exercise and sandbox cells both get an enabled-later Run button and output area', () => {
+test('quiz and sandbox cells both get an enabled-later Run button and output area', () => {
   const html = renderLesson(lesson);
   assert.match(html, /<button type="button" class="run" disabled>Loading Python…<\/button>/);
   assert.match(html, /<pre class="output" aria-live="polite" hidden><\/pre>/);
@@ -111,16 +111,16 @@ test('without nav, no sidebar or pager is rendered', () => {
   assert.doesNotMatch(html, /class="pager"/);
 });
 
-test('the sidebar tags each lesson with its exercise ids and each section with a count slot', () => {
-  const withExercise: Lesson = {
+test('the sidebar tags each lesson with its quiz ids and each section with a count slot', () => {
+  const withQuiz: Lesson = {
     ...lesson,
     id: 'drills',
     blocks: [
-      { type: 'cell', id: 'drill-a', kind: 'exercise', prompt: '', starter: '', hints: [] },
-      { type: 'cell', id: 'drill-b', kind: 'exercise', prompt: '', starter: '', hints: [] },
+      { type: 'cell', id: 'drill-a', kind: 'quiz', prompt: '', starter: '', hints: [] },
+      { type: 'cell', id: 'drill-b', kind: 'quiz', prompt: '', starter: '', hints: [] },
     ],
   };
-  const html = renderLesson(withExercise, buildNav([withExercise], withExercise.id));
+  const html = renderLesson(withQuiz, buildNav([withQuiz], withQuiz.id));
   assert.match(html, /<li data-items="drill-a,drill-b"><a href="\/lessons\/drills"/);
   assert.match(html, /<summary>Section 1<span class="count"><\/span><\/summary>/);
   assert.match(html, /<script type="module" src="\/static\/sidebar-progress.js">/);

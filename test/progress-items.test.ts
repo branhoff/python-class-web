@@ -6,20 +6,20 @@ import { renderLesson } from '../src/lessons/render.ts';
 import { createLessonSite } from '../src/lessons/site.ts';
 import type { Cell, Lesson } from '../src/lessons/types.ts';
 
-function exercise(id: string): Cell {
-  return { type: 'cell', id, kind: 'exercise', prompt: '', starter: '', hints: [] };
+function quiz(id: string): Cell {
+  return { type: 'cell', id, kind: 'quiz', prompt: '', starter: '', hints: [] };
 }
 
-const lesson: Lesson = { id: 'loops', title: 'Loops', section: 1, blocks: [exercise('loops-ex1')] };
+const lesson: Lesson = { id: 'loops', title: 'Loops', section: 1, blocks: [quiz('loops-ex1')] };
 const project: Lesson = { id: 'guess', title: 'Guessing', section: 1, after: 'loops', blocks: [] };
 
-test('a lesson is finished by its exercises; a project page is finished by the project itself', () => {
+test('a lesson is finished by its quizzes; a project page is finished by the project itself', () => {
   assert.deepEqual(progressItemIds(lesson), ['loops-ex1']);
   assert.deepEqual(progressItemIds(project), ['project:guess']);
 });
 
-test('a project page with exercise cells of its own needs those and the project', () => {
-  const both: Lesson = { ...project, blocks: [exercise('drill')] };
+test('a project page with quiz cells of its own needs those and the project', () => {
+  const both: Lesson = { ...project, blocks: [quiz('drill')] };
   assert.deepEqual(progressItemIds(both), ['drill', 'project:guess']);
 });
 
@@ -28,7 +28,7 @@ test('a project item cannot collide with a cell id, which never contains a colon
   assert.doesNotMatch('loops-ex1', /:/);
 });
 
-test('course totals count projects as well as exercises, and pages keep course order', () => {
+test('course totals count projects as well as quizzes, and pages keep course order', () => {
   const meta = courseProgressMeta(new Map([['python', [lesson, project]]]));
   assert.equal(meta['python']!.total, 2);
   assert.deepEqual(meta['python']!.itemIds, ['loops-ex1', 'project:guess']);

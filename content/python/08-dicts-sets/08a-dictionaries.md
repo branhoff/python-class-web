@@ -296,9 +296,9 @@ print(len(capybara))
 
 As with lists, there are other operators, functions, and methods for working with dictionaries.
 
-## Exercises
+## Quizzes
 
-:::cell id=dictionaries-ex1 kind=exercise
+:::cell id=dictionaries-ex1 kind=quiz
 1. Make a dictionary called `eng_to_span` where the keys are the English words `"one"` through `"ten"`, and the corresponding values are their Spanish translations.
 
 ```python starter
@@ -342,7 +342,7 @@ eng_to_span: dict[str, str] = {
 ```
 :::
 
-:::cell id=dictionaries-ex2 kind=exercise
+:::cell id=dictionaries-ex2 kind=quiz
 2. Using the dictionary from #1, write a loop that prints both the key and value of each key-value pair. For example the first iteration of the loop should print `one uno`.
 
 ```python starter
@@ -394,7 +394,7 @@ for word in eng_to_span:
 ```
 :::
 
-:::cell id=dictionaries-ex3 kind=exercise
+:::cell id=dictionaries-ex3 kind=quiz
 3. Write a function named `some_squares` that takes a positive integer parameter and returns a dictionary where the keys are the integers from `1` through the value of the parameter, and the corresponding values are the squares of those integers. For example, if it's passed `3`, then the dictionary should contain the following key-value pairs: `{1: 1, 2: 4, 3: 9}`.
 
 ```python starter

@@ -95,7 +95,7 @@ test('a new password must have at least six characters, an existing one is not c
   assert.equal(checkForm({ mode: 'signIn', email: 'a@b.co', password: '12345' }), null);
 });
 
-test('progress rows count finished exercises per course and round the percentage', () => {
+test('progress rows count finished quizzes per course and round the percentage', () => {
   const courses = [
     { id: 'python', title: 'Python', total: 3, itemIds: ['a', 'b', 'c'] },
     { id: 'empty', title: 'Empty', total: 0, itemIds: [] },

@@ -183,9 +183,9 @@ In the second example, we pass `num_list` to the function and `val` gets bound t
 
 So if you need for a function to mutate a value, then that value needs to be of a mutable type. Note that in Python a variable doesn't have a type; it's the value it references that has a type, and that type determines whether the value is mutable or immutable.
 
-## Exercises
+## Questions to think through
 
-These exercises are questions to think through rather than code to write. Try to answer each in your own words first, then open the hint to check your reasoning.
+These are questions to think through rather than code to write. Try to answer each in your own words first, then open the hint to check your reasoning.
 
 1. Is it possible to have variables be equal, but not refer to the same object? Is it possible to have variables refer to the same object, but not be equal? Explain both answers.
 

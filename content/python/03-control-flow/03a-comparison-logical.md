@@ -119,9 +119,9 @@ or since we know we can chain comparisons:
 num_x == num_y == 5
 ```
 
-## Exercises
+## Quizzes
 
-:::cell id=comparison-logical-ex1 kind=exercise
+:::cell id=comparison-logical-ex1 kind=quiz
 1. Print the value of `17 < 5`.
 
 ```python starter
@@ -137,7 +137,7 @@ print(17 < 5)
 ```
 :::
 
-:::cell id=comparison-logical-ex2 kind=exercise
+:::cell id=comparison-logical-ex2 kind=quiz
 2. Write a function named `greater_than_ten` that takes one numeric parameter and returns `True` if the value is greater than 10 and `False` otherwise.
 
 ```python starter
@@ -159,7 +159,7 @@ print(greater_than_ten(42))
 ```
 :::
 
-:::cell id=comparison-logical-ex3 kind=exercise
+:::cell id=comparison-logical-ex3 kind=quiz
 3. Write a function named `in_range` that takes one numeric parameter and returns `True` if the value is between 50 and 100 (inclusive) and `False` otherwise.
 
 ```python starter

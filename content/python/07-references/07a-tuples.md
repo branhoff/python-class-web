@@ -310,7 +310,7 @@ The default list is created once, when the function is defined. Both calls witho
 
 Resources: [Types: union](https://docs.python.org/3/library/stdtypes.html#types-union)
 
-## Exercises
+## Quizzes
 
 1. Does the following program contradict the idea that tuples are immutable? Why or why not?
 
@@ -323,7 +323,7 @@ def tuple_madness(tup):
 No, it does not. `tuple_madness` returns a brand new tuple that contains the same items as `tup` except the first. The original `tup` is never modified, so immutability still holds.
 ```
 
-:::cell id=tuples-ex2 kind=exercise
+:::cell id=tuples-ex2 kind=quiz
 2. Write a function named `insert_front` that takes as a parameter a list and a value to add at the front of the list. It should not return anything; it should mutate the original list. For example, if the arguments passed to the function are `[9, -55, 37]` and `"bob"`, then after calling the function, the list should now be `["bob", 9, -55, 37]`.
 
 ```python starter
@@ -350,7 +350,7 @@ You don't need to return anything. Assign a one-element list to the empty slice 
 ```
 :::
 
-:::cell id=tuples-ex3 kind=exercise
+:::cell id=tuples-ex3 kind=quiz
 3. Write a function named `delete_last` that takes as a parameter a list and removes the last element from that list. It should not return anything; it should mutate the original list. For example, if the list passed to the function is `[7, "joe", "apple", 9.81, False]`, then after calling the function, the list should be `[7, "joe", "apple", 9.81]`.
 
 ```python starter
@@ -377,7 +377,7 @@ Use the `del` operator with the index `-1`, which refers to the last element.
 ```
 :::
 
-:::cell id=predict-mutate-or-rebind kind=exercise
+:::cell id=predict-mutate-or-rebind kind=quiz
 4. Predict the result. The function changes the list in two different ways.
 
 ```python

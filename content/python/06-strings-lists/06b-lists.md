@@ -527,9 +527,9 @@ print([x for x in nums if x % 3 == 0])
 
 Don't let this new use of the `for` and `if` keywords confuse you. List comprehensions are a related concept to for loops and if statements, but a different flavor. The best way to get comfortable with list comprehensions is to try the exercises.
 
-## Exercises
+## Quizzes
 
-:::cell id=06b-lists-ex1 kind=exercise
+:::cell id=06b-lists-ex1 kind=quiz
 1. Write a function named `every_other` that takes a list as a parameter and returns a list that contains only every other element starting with the first one. For example, if the original list is `[7, "joe", "apple", 9.81, False]`, then the new list should be `[7, "apple", False]`. Use slicing.
 
 ```python starter
@@ -551,7 +551,7 @@ print(every_other([7, "joe", "apple", 9.81, False]))
 ```
 :::
 
-:::cell id=06b-lists-ex2 kind=exercise
+:::cell id=06b-lists-ex2 kind=quiz
 2. Write a function named `array_sum` that takes a list of strings as a parameter and returns the total number of characters in all the strings.
 
 ```python starter
@@ -576,7 +576,7 @@ print(array_sum(["Mary", "had", "a", "little", "lamb"]))
 ```
 :::
 
-:::cell id=06b-lists-ex3 kind=exercise
+:::cell id=06b-lists-ex3 kind=quiz
 3. Write a function named `rev_string_list` that takes a list of strings as a parameter and returns a list that contains the reverse of each of those strings. **Use a list comprehension.**
 
 ```python starter
@@ -597,7 +597,7 @@ print(rev_string_list(["abc", "hello"]))
 ```
 :::
 
-:::cell id=06b-lists-ex4 kind=exercise
+:::cell id=06b-lists-ex4 kind=quiz
 4. Write a function named `contain_string` that takes a list of strings and a target string as parameters, and returns a list of the strings from the original list that contain the target string. Use a list comprehension. As an example, if the function call is `contain_string(["cats", "tacks", "scat", "stack"], "cat")`, then the return value should be `["cats", "scat"]`, because `"cats"` and `"scat"` both contain `"cat"`.
 
 ```python starter

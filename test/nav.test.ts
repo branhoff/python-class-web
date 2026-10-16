@@ -21,7 +21,7 @@ test('groups lessons by section in ascending order, keeping course order within'
   );
 });
 
-test('each sidebar lesson lists its exercise cell ids, not its sandbox or check cells', () => {
+test('each sidebar lesson lists its quiz cell ids, not its sandbox or check cells', () => {
   const withCells: Lesson = {
     id: 'e',
     title: 'E',
@@ -29,8 +29,8 @@ test('each sidebar lesson lists its exercise cell ids, not its sandbox or check 
     blocks: [
       { type: 'markdown', text: 'intro' },
       { type: 'cell', id: 'try-it', kind: 'sandbox', prompt: '', starter: '', hints: [] },
-      { type: 'cell', id: 'do-it', kind: 'exercise', prompt: '', starter: '', hints: [] },
-      { type: 'cell', id: 'do-it-too', kind: 'exercise', prompt: '', starter: '', hints: [] },
+      { type: 'cell', id: 'do-it', kind: 'quiz', prompt: '', starter: '', hints: [] },
+      { type: 'cell', id: 'do-it-too', kind: 'quiz', prompt: '', starter: '', hints: [] },
       { type: 'cell', id: 'just-check', kind: 'check', prompt: '', starter: '', hints: [] },
     ],
   };

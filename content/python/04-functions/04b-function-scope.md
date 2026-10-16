@@ -264,9 +264,9 @@ A stack trace helps you work out what sequence of events caused a crash.
 
 *NOTE: this is a good example of why type hints and docstrings matter. It's hard to tell what these three functions are meant to do. They would be much clearer with better names for the functions, parameters, and variables, docstrings explaining why each function exists, and type hints (missing in `func_C`) showing what each function expects.*
 
-## Exercises
+## Quizzes
 
-:::cell id=default-greeting kind=exercise
+:::cell id=default-greeting kind=quiz
 1. Write a function named `greet` that takes a `name` and a `greeting`, and returns the greeting, a comma, a space, the name and an exclamation mark. Give `greeting` a default value of `"Hello"`, so `greet("Ava")` returns `"Hello, Ava!"` and `greet("Ava", "Hi")` returns `"Hi, Ava!"`.
 
 ```python starter

@@ -150,9 +150,9 @@ In these examples, the type hints say that `a` and `b` in each function should h
 
 Remember that type hints are only suggestions: Python will not enforce them when the program runs. Using them is still considered good practice, and it prepares you for languages with stricter static typing. So going forward, we'll use type hints in our functions.
 
-## Exercises
+## Quizzes
 
-:::cell id=double-number kind=exercise
+:::cell id=double-number kind=quiz
 1. Write a function that takes a numeric parameter and returns twice that number. Write a print statement that calls your function with the number `5` and prints the function's return value.
 
 ```python starter
@@ -171,7 +171,7 @@ print(double_num(5))
 ```
 :::
 
-:::cell id=concat-strings kind=exercise
+:::cell id=concat-strings kind=quiz
 2. Write a function that takes two string parameters and returns the string formed by concatenating those two strings together. Write a print statement that calls your function with the values `"hello"` and `"world"` and prints the function's return value.
 
 ```python starter
@@ -190,7 +190,7 @@ print(combine_string("hello ", "world"))
 ```
 :::
 
-:::cell id=is-even kind=exercise
+:::cell id=is-even kind=quiz
 3. Write a function named `is_even` that takes an `int` parameter and returns a `bool` value - `True` if the integer is even, and `False` if the integer is odd.
 
 ```python starter

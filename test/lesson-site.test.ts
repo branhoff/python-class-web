@@ -14,7 +14,7 @@ test('the home page shows a square for each course, available and coming soon', 
   assert.match(html, /id="progress-meta"/);
 });
 
-test('the home page embeds each available course total and exercise ids', async () => {
+test('the home page embeds each available course total and quiz ids', async () => {
   const html = await (await site.request('/')).text();
   const meta = JSON.parse(html.match(/id="progress-meta">(.*?)<\/script>/)![1]!);
   assert.ok(meta.python.total > 0);

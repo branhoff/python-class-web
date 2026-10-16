@@ -47,7 +47,7 @@ Each program below is shown but not run. Trace it by hand, then set the variable
 in the code cell to the values you expect at the end. Press **Run** to check. If a
 value is wrong, trace the program again one line at a time.
 
-:::cell id=trace-assignments kind=exercise
+:::cell id=trace-assignments kind=quiz
 1. Trace this program.
 
 ```python
@@ -87,7 +87,7 @@ Write a row for each line and update the column of the variable that line change
 ```
 :::
 
-:::cell id=trace-loop kind=exercise
+:::cell id=trace-loop kind=quiz
 2. Trace this program. The loop body runs once for each value of `i`.
 
 ```python
@@ -126,7 +126,7 @@ final_i = 3
 ```
 :::
 
-:::cell id=trace-conditionals kind=exercise
+:::cell id=trace-conditionals kind=quiz
 3. Trace this program. Both `if` statements are checked, one after the other.
 
 ```python

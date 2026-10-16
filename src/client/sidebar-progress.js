@@ -1,8 +1,8 @@
 /* Browser-only: marks completed lessons in the section sidebar. A lesson is
-   complete when it has something to finish (exercises, or the project itself)
+   complete when it has something to finish (quizzes, or the project itself)
    and all of it is done. Each sidebar entry carries those ids in data-items; we
    fetch /progress/summary once, then update live when an item is marked done (a
-   passed exercise or a ticked project).
+   passed quiz or a ticked project).
    Best-effort: a signed-out learner (401) or offline gets no markers at all.
    Not imported by the TS graph; the pure functions below are unit-tested. */
 
@@ -13,9 +13,9 @@ export function lessonDone(itemIds, completed) {
 }
 
 export function sectionCount(lessons, completed) {
-  const withExercises = lessons.filter((ids) => ids.length > 0);
-  const done = withExercises.filter((ids) => lessonDone(ids, completed)).length;
-  return { done, total: withExercises.length };
+  const withQuizzes = lessons.filter((ids) => ids.length > 0);
+  const done = withQuizzes.filter((ids) => lessonDone(ids, completed)).length;
+  return { done, total: withQuizzes.length };
 }
 
 export function parseItems(attribute) {

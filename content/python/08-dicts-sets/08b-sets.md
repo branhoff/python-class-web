@@ -276,9 +276,9 @@ print(name_set)
 
 Comparing a name to its reverse (`[::-1]`) checks for a palindrome. Calling `lower()` first makes the check ignore case. The curly braces create a set, which drops duplicates automatically.
 
-## Exercises
+## Quizzes
 
-:::cell id=sets-ex1 kind=exercise
+:::cell id=sets-ex1 kind=quiz
 1. Write your own function called `unionize` for finding the union of two sets. Your function should take as parameters two sets, and return a new set that is the union of those two sets. Do not use Python's built-in union functionality.
 
 ```python starter
@@ -318,7 +318,7 @@ def unionize(s1: set[object], s2: set[object]) -> set[object]:
 ```
 :::
 
-:::cell id=sets-ex2 kind=exercise
+:::cell id=sets-ex2 kind=quiz
 2. Write your own function called `intersect` for finding the intersection of two sets. Your function should take as parameters two sets, and return a new set that is the intersection of those two sets. Do not use Python's built-in intersection functionality.
 
 ```python starter
@@ -346,7 +346,7 @@ def intersect(s1: set[object], s2: set[object]) -> set[object]:
 ```
 :::
 
-:::cell id=sets-ex3 kind=exercise
+:::cell id=sets-ex3 kind=quiz
 3. Write your own function called `sym_diff` for finding the symmetric difference of two sets. Your function should take as parameters two sets, and return a new set that is the symmetric difference of those two sets. Do not use Python's built-in symmetric difference functionality.
 
 ```python starter

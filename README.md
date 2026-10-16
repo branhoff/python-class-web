@@ -2,10 +2,10 @@
 
 A web app for learning to code in the browser. The home page is a catalog of
 courses, shown as squares; pick one to work through notebook-style lessons with
-runnable exercise cells, and finish each section with a project you build and
+runnable cells and quizzes, and finish each section with a project you build and
 test on your own machine. The first course is a web version of the
 `python_class_101` course; more are placeholders for now. Each learner's
-progress (exercises completed) is tracked per course and shown on the home page.
+progress (quizzes completed) is tracked per course and shown on the home page.
 
 Status: **early scaffold.** The plan and decisions are in
 [`docs/PLAN.md`](docs/PLAN.md); quality rules in [`AGENTS.md`](AGENTS.md); restoring learner data in
@@ -114,7 +114,8 @@ Progress is an append-only log of events per learner (`completed`, `reopened`,
 `attempt`), and a learner's state is derived from it (`src/progress.ts`). Two
 kinds of thing can be finished:
 
-- an **exercise** cell, finished when its tests pass in the browser;
+- a **quiz** cell, finished when its tests pass in the browser (a check is
+  practice only and is never recorded);
 - a **project**, which is built on the learner's own computer, so it is finished
   when the learner ticks "I finished this project". Ticking records `completed`
   for the id `project:<page id>`, and unticking records `reopened`, which takes
@@ -122,7 +123,7 @@ kinds of thing can be finished:
 
 A lesson or project page is complete when everything it contains is finished.
 The sidebar check marks, the section counts, the course card and the account
-page all count both kinds. The total is the number of exercises plus the number
+page all count both kinds. The total is the number of quizzes plus the number
 of projects.
 
 **Continue where you left off.** Each lesson page remembers the learner's last

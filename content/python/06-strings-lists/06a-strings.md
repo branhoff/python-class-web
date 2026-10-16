@@ -236,9 +236,9 @@ print("Zebra".upper() > "aardvark".upper())
 ```
 :::
 
-## Exercises
+## Quizzes
 
-:::cell id=06a-strings-ex1 kind=exercise
+:::cell id=06a-strings-ex1 kind=quiz
 1. Write a function called `last_char` that takes a string parameter and returns the last letter of that string.
 
 ```python starter
@@ -259,7 +259,7 @@ print(last_char("hello"))
 ```
 :::
 
-:::cell id=06a-strings-ex2 kind=exercise
+:::cell id=06a-strings-ex2 kind=quiz
 2. Write a function called `midstring` that takes a string parameter and returns a copy of that string minus its first and last letters. If the string passed in has only 1 or 2 letters, the function should return the empty string `""`.
 
 ```python starter
@@ -282,7 +282,7 @@ print(midstring("hello"))
 ```
 :::
 
-:::cell id=06a-strings-ex3 kind=exercise
+:::cell id=06a-strings-ex3 kind=quiz
 3. Write a function called `sort_two_strings` that takes two string parameters and returns a single string of both of them in dictionary order, ignoring case. For example, if the strings `"aardvark"` and `"Zebra"` are passed, it should return `"aardvark Zebra"`.
 
 ```python starter
@@ -305,7 +305,7 @@ print(sort_two_strings("aardvark", "Zebra"))
 ```
 :::
 
-:::cell id=06a-strings-ex4 kind=exercise
+:::cell id=06a-strings-ex4 kind=quiz
 4. A palindrome is a string that reads the same forward or backward. Write a function called `is_palindrome` that takes a string parameter and returns `True` if that string is a palindrome and `False` otherwise.
 
 ```python starter

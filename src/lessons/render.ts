@@ -50,9 +50,9 @@ type SidebarLesson = NavSection['lessons'][number];
 
 function renderSidebarItem(lesson: SidebarLesson, current: string): string {
   const marker = lesson.id === current ? ' aria-current="page"' : '';
-  const exercises = escapeHtml(lesson.itemIds.join(','));
+  const items = escapeHtml(lesson.itemIds.join(','));
   const kind = lesson.project ? ' class="project"' : '';
-  return `<li${kind} data-items="${exercises}"><a href="/lessons/${encodeURIComponent(lesson.id)}"${marker}>${escapeHtml(lesson.title)}</a></li>`;
+  return `<li${kind} data-items="${items}"><a href="/lessons/${encodeURIComponent(lesson.id)}"${marker}>${escapeHtml(lesson.title)}</a></li>`;
 }
 
 function renderSection(section: NavSection, current: string): string {
@@ -108,7 +108,7 @@ ${pagerLink(nav.next, 'Next', 'next')}
 </nav>`;
 }
 
-const LEGEND = `<p class="legend"><span class="swatch exercise"></span> Exercise: counts toward finishing the lesson. <span class="swatch check"></span> Check: just for practice.</p>`;
+const LEGEND = `<p class="legend"><span class="swatch quiz"></span> Quiz: counts toward finishing the lesson. <span class="swatch check"></span> Check: just for practice.</p>`;
 
 function hasChecks(lesson: Lesson): boolean {
   return lesson.blocks.some((block) => block.type === 'cell' && block.kind === 'check');

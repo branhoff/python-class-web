@@ -186,13 +186,13 @@ int() truncates. Adding a string to a string joins them.
 ```
 :::
 
-## Exercises
+## Quizzes
 
-The exercises below are written as functions you can test without typing input.
+The quizzes below are written as functions you can test without typing input.
 In a real program you would read these values with `input()`, but a function
 that takes its values as parameters is easier to test and reuse.
 
-:::cell id=input-and-casting-ex1 kind=exercise
+:::cell id=input-and-casting-ex1 kind=quiz
 1. Write a function named `greet` that takes a `name` parameter and prints out `"Hello"` followed by the name. For example, `greet("Sam")` should print `Hello Sam`.
 
 ```python starter
@@ -221,7 +221,7 @@ greet("Sam")
 ```
 :::
 
-:::cell id=input-and-casting-ex2 kind=exercise
+:::cell id=input-and-casting-ex2 kind=quiz
 2. Write a function named `multiply` that takes two numbers and prints out `"The result is"` followed by the result of multiplying those numbers. For example, `multiply(3, 4)` should print `The result is 12`.
 
 ```python starter
@@ -250,7 +250,7 @@ multiply(6, 7)
 ```
 :::
 
-:::cell id=input-and-casting-ex3 kind=exercise
+:::cell id=input-and-casting-ex3 kind=quiz
 3. Write a function named `divide_report` that takes two integers, a `dividend` and a `divisor`, and prints a report in this exact form:
 
     `<divisor> goes into <dividend> <i> times with <r> as the remainder.`

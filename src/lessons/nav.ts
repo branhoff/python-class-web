@@ -24,10 +24,10 @@ export interface LessonNav {
 }
 
 export function progressItemIds(lesson: Lesson): string[] {
-  const exercises = lesson.blocks.flatMap((block) =>
-    block.type === 'cell' && block.kind === 'exercise' ? [block.id] : [],
+  const quizzes = lesson.blocks.flatMap((block) =>
+    block.type === 'cell' && block.kind === 'quiz' ? [block.id] : [],
   );
-  return lesson.after === undefined ? exercises : [...exercises, `project:${lesson.id}`];
+  return lesson.after === undefined ? quizzes : [...quizzes, `project:${lesson.id}`];
 }
 
 export function buildSections(lessons: Lesson[]): NavSection[] {

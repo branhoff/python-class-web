@@ -141,9 +141,9 @@ In Python, indentation is **required** and must be consistent. Every line in a b
 
 Changing the indentation of a line can change what your program does. For example, if a line meant to run only when a condition is met is indented incorrectly, it may run every time, or never.
 
-## Exercises
+## Quizzes
 
-:::cell id=conditionals-ex1 kind=exercise
+:::cell id=conditionals-ex1 kind=quiz
 1. Write a function named `range_label` that takes one numeric parameter. It returns `"in range"` if the value is between 50 and 100 (inclusive) and `"out of range"` otherwise.
 
 ```python starter
@@ -169,7 +169,7 @@ print(range_label(72))
 ```
 :::
 
-:::cell id=conditionals-ex2 kind=exercise
+:::cell id=conditionals-ex2 kind=quiz
 2. Write a function named `size_label` that takes one numeric parameter. It returns `"small"` if the value is less than 10, `"medium"` if it is at least 10 but less than 50, and `"large"` if it is at least 50.
 
 ```python starter
@@ -198,7 +198,7 @@ print(size_label(25))
 ```
 :::
 
-:::cell id=conditionals-ex3 kind=exercise
+:::cell id=conditionals-ex3 kind=quiz
 3. Write a function named `number_word` that takes an integer parameter. If the integer is a value from 1 to 5, it returns the English word for that number. Otherwise it returns `"input not recognized"`.
 
 ```python starter
@@ -234,7 +234,7 @@ print(number_word(3))
 ```
 :::
 
-:::cell id=predict-nested-branch kind=exercise
+:::cell id=predict-nested-branch kind=quiz
 4. Predict the result. Find which inner branch runs, then see what the last test reads.
 
 ```python

@@ -9,7 +9,7 @@ test('syntax check accepts valid code and explains bad code', () => {
   assert.match(bad.message!, /^SyntaxError: .* \(line 1\)$/);
 });
 
-test('an exercise passes when the tests pass, and exposes stdout', () => {
+test('a quiz passes when the tests pass, and exposes stdout', () => {
   const result = pythonRunner.exercise('print("hi")', 'assert stdout == "hi\\n"');
   assert.deepEqual(result, { ok: true, stdout: 'hi\n' });
 });
