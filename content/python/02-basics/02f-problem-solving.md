@@ -166,6 +166,37 @@ Each step on its own is simple. Writing them down one at a time is what made the
 whole thing possible. This version only works for positive numbers, so in real
 programs use `round()`.
 
+Now use the same steps on a different case:
+
+:::cell id=problem-solving-round-one-decimal kind=exercise
+1. Round `price` and `tip` to **one** decimal place and print each one, without using `round()`. Use the steps above and change what needs to change.
+
+```python starter
+price = 3.14159
+tip = 2.96
+# Type code here
+```
+
+```python tests
+import ast
+
+calls = [n for n in ast.walk(ast.parse(source)) if isinstance(n, ast.Name) and n.id == "round"]
+assert not calls, "Do not use round(). Build the result from the steps above."
+assert stdout.split() == ["3.1", "3.0"], f"Expected 3.1 and then 3.0 on separate lines, but the output was {stdout!r}."
+```
+
+```python solution
+price = 3.14159
+tip = 2.96
+print((price * 10 + 0.5) // 1 / 10)
+print((tip * 10 + 0.5) // 1 / 10)
+```
+
+```hint
+Which number do you multiply by to move exactly one digit to the left of the decimal point? Use the same number to shift back at the end.
+```
+:::
+
 ## 4a. Translate your outline into code
 
 Translate each sub-task of your outline (or pseudocode) into code, but not all at

@@ -248,32 +248,3 @@ last_name: str = "Strange"
 print(title + " " + last_name)
 ```
 :::
-
-:::cell id=comments-arithmetic-strings-ex6 kind=exercise
-6. Round `price` and `tip` to two decimal places and print each one, without using `round()`. Use only the arithmetic operators from this page. This one is a puzzle. Try rounding a few numbers by hand first and write down each step you take. Open the hint if you get stuck.
-
-```python starter
-price = 7.299999999
-tip = 3.14159
-# Type code here
-```
-
-```python tests
-import ast
-
-calls = [n for n in ast.walk(ast.parse(source)) if isinstance(n, ast.Name) and n.id == "round"]
-assert not calls, "Do not use round(). Use the arithmetic operators from this page."
-assert stdout.split() == ["7.3", "3.14"], f"Expected 7.3 and then 3.14 on separate lines, but the output was {stdout!r}."
-```
-
-```python solution
-price = 7.299999999
-tip = 3.14159
-print((price * 100 + 0.5) // 1 / 100)
-print((tip * 100 + 0.5) // 1 / 100)
-```
-
-```hint
-Think about where the decimal point is. If you multiply by 100, the digits you want to keep are in the whole-number part. Then you need to get rid of everything after the decimal point, and shift back. Rounding is not the same as chopping, so think about what to do when the next digit is 5 or more. The lesson on problem solving walks through this one step at a time.
-```
-:::
