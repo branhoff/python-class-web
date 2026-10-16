@@ -27,6 +27,7 @@ None of these can change what the program does, so no test can tell them apart.
 | ------------------------------------------------- | -------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | `load.ts`, `readdirSync(... encoding: 'utf8')`    | `encoding: ''`                         | Node reads an empty encoding as utf8. TypeScript needs the explicit value for the return type. |
 | `nav.ts`, `progressItemIds`                       | `block.type === 'cell'` becomes `true` | Only cells have a `kind`, so the check is for the compiler's type narrowing.                   |
+| `render.ts`, `hasChecks`                          | `block.type === 'cell'` becomes `true` | Same as `nav.ts`: only cells have a `kind`, so the check is for the compiler's type narrowing. |
 | `parse-cell.ts`, the main loop                    | `i < body.length` becomes `<=`         | One extra pass reads `undefined`, which is not a fence and adds nothing.                       |
 | `parse-cell.ts`, `findIndex`                      | `j > i` becomes `j >= i`               | A bare opening fence is added to the prompt unchanged either way.                              |
 | `parse-cell.ts`, `words[1] ?? ''`                 | the fallback text                      | The role is only read when there are two words.                                                |
