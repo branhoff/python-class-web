@@ -15,8 +15,7 @@ Python's `split()` method helps here:
 
 ```python
 sentence = 'Not the comfy chair!'
-print(sentence.split())
-['Not', 'the', 'comfy', 'chair!']
+print(sentence.split())  # ['Not', 'the', 'comfy', 'chair!']
 ```
 
 Here is how the function could be used:

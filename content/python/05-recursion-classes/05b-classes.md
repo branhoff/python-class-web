@@ -20,21 +20,21 @@ class Pet:
 ```
 :::
 
-The `class` keyword is used to define a class. The name of a class should start with a capital letter. Classes should have a docstring that describes their purpose and any additional information someone might need to know when using the class. Functions that are part of a class are often referred to as **methods**. This `Pet` class only has a single method with the special name `__init__` (two underscores on either side). This method creates a `Pet` with whatever species and name you passed to that method. The species and name are the **data members** (or fields or attributes) of the `Pet` class. The special parameter `self` refers to the object itself. You don't call the `__init__` method by name, instead you use the name of the class. You also don't pass an argument for `self`, that's done automatically for you. Confused? Some examples should help. Let's create a couple of Pets:
+The `class` keyword defines a class. The name of a class should start with a capital letter. A class should have a docstring that describes its purpose and anything else someone needs to know to use it. Functions that are part of a class are called **methods**. This `Pet` class has a single method with the special name `__init__` (two underscores on either side). It runs when a `Pet` is created and stores the species and name you passed in. The species and name are the **data members** (also called fields or attributes) of the `Pet` class. The special parameter `self` refers to the object being created. You don't call `__init__` by name. Instead you use the name of the class. You also don't pass an argument for `self`, Python does that for you. Confused? Some examples should help. Let's create a couple of Pets:
 
 ```python
 pet_1 = Pet("capybara", "Beatrice")
 pet_2 = Pet("kangaroo", "Joey")
 ```
 
-Each of these lines creates a new `Pet` **object**. The `Pet` class is just a general blueprint for Pets. To create a specific `Pet` object, we use the name of the class as shown above. This automatically calls the `__init__` method. An object is sometimes referred to as an "instance" of a class, and creating an object as "instantiating" a class. Once we've created an object, we can access its attributes using dot notation:
+Each of these lines creates a new `Pet` **object**. The `Pet` class is a general blueprint for pets. To create a specific `Pet` object, we use the name of the class as shown above, which automatically calls `__init__`. An object is also called an "instance" of a class, and creating an object is called "instantiating" the class. Once we've created an object, we can access its attributes using dot notation:
 
 ```python
 print(pet_1.species)
 print(pet_1.name)
 ```
 
-We would also use dot notation to call an object's methods, but our `Pet` class doesn't have any besides `__init__`, so let's look at another example:
+We also use dot notation to call an object's methods, but our `Pet` class has none besides `__init__`, so let's look at another example:
 
 :::cell id=classes-demo2
 ```python starter
@@ -57,7 +57,7 @@ class Rectangle:
 ```
 :::
 
-Notice that the `area` and `perimeter` methods have only the `self` parameter. They don't need to be passed the `width` or `height`, because they are already part of the object, and can be accessed via the self parameter. Now that we've defined the `Rectangle` class, here's an example of using it:
+Notice that the `area` and `perimeter` methods have only the `self` parameter. They don't need `width` or `height` passed in, because those are already part of the object and can be reached through `self`. Now that we've defined the `Rectangle` class, here's an example of using it:
 
 :::cell id=classes-demo3
 ```python starter
@@ -87,13 +87,13 @@ print("perimeter = ", rect.perimeter())
 
 ## How do you know what to put in a class?
 
-When designing a class, we need to decide what are the relevant features, for our purposes, of the thing we're representing. That helps us figure out what data and functions the class should have. For example, if what we're concerned with is the selling of cars, then price would be one of the relevant features, but if we're only concerned with the driving of cars, then it wouldn't be.
+When designing a class, we decide which features of the thing we're representing matter for our purposes. That tells us what data and functions the class needs. For example, if we're concerned with selling cars, price is a relevant feature. If we're only concerned with driving cars, it isn't.
 
 ## "Private" class members
 
-Some languages have a keyword ("private" in Java and C++) that means a certain class data member or method can't be accessed from outside the class. The methods that are part of the class can still access it, but not external code that uses the class. Python does not have such a keyword. Instead, it has the convention that any data member or method whose name begins with an underscore should be treated as private even though the language doesn't enforce it.
+Some languages have a keyword (`private` in Java and C++) that stops code outside a class from accessing a data member or method. Methods of the class can still use it. Python has no such keyword. Instead, it has a convention: a data member or method whose name begins with an underscore should be treated as private, even though Python doesn't enforce it.
 
-Here's an example of a bank account class that has private class variables:
+Here's an example of a bank account class that has private data members:
 
 :::cell id=classes-demo4
 ```python starter
@@ -128,7 +128,7 @@ class BankAccount:
 ```
 :::
 
-Notice that for class names, instead of separating words with underscores ("snake case"), we [follow python convention](https://peps.python.org/pep-0008/#class-names) and start each new word with a capital letter ("camel case"). Here's an example of using the BankAccount class:
+Notice that for class names, instead of separating words with underscores ("snake case"), we [follow Python convention](https://peps.python.org/pep-0008/#class-names) and start each new word with a capital letter ("CapWords", sometimes called "Pascal case"). Here's an example of using the `BankAccount` class:
 
 :::cell id=classes-demo5
 ```python starter
@@ -174,17 +174,17 @@ print("balance =", account_1.get_balance())
 ```
 :::
 
-If we want for other code to be able to access a private data member, we need to provide get and/or set methods. A get method just returns the current value of the corresponding data member. A set method takes a parameter and just sets the corresponding data member to the value of the parameter. The normal naming convention is `get_` or `set_` followed by the name of the corresponding data member. For the account ID we provided both get and set methods. For the balance, we only provided a `get` method, since the balance is changed via the deposit and withdraw methods.
+If we want other code to be able to access a private data member, we provide get and/or set methods. A get method returns the current value of a data member. A set method takes a parameter and stores it in the data member. The usual naming convention is `get_` or `set_` followed by the name of the data member. For the account ID we provided both. For the balance we provided only a get method, since the balance changes through the deposit and withdraw methods.
 
-You might wonder why we would want to have private data members if it means writing more methods. The reason is that it allows us to control access to the data members. If we don't want a data member to be accessed, we can just not write get and/or set methods for it. Or if a data member should only be set to a certain range of values, then we can check for that in the set method. If a data member is public, then it can be changed to anything from anywhere, which can make your program logic harder to understand and debug. Controlling access to data members this way is referred to as **information hiding** (or data hiding).
+You might wonder why we would use private data members if it means writing more methods. The reason is that it lets us control access. If we don't want a data member to be accessed, we don't write get or set methods for it. If a data member should only hold certain values, the set method can check for that. If a data member is public, it can be changed to anything from anywhere, which makes your program harder to understand and debug. Controlling access this way is called **information hiding** (or data hiding).
 
-Information hiding is important because it allows you to control how certain parts of the class are accessed. It allows you to separate interface (the names and expected parameters of any public functions) from implementation (the definitions of those functions, and also any private data members or private functions). Making that distinction makes it easier to modify the class later on. If you allow the user to directly access any part of the class, then some users' code will end up depending on specific details of the implementation, which means that if you change the implementation later, you'll break any code that depends on it. It makes code much more modular if you provide a defined interface. The specific implementation details can then be allowed to change as long as the interface remains the same.
+Information hiding also separates the interface from the implementation. The interface is the names and parameters of the public functions. The implementation is the code inside those functions, plus any private data members and private functions. If users' code reaches into the implementation, it comes to depend on those details, and changing the implementation later will break it. With a defined interface, the implementation can change as long as the interface stays the same.
 
-In addition to private data members, we can also indicate that methods are private in the same way. The reason we would make a method private is if it's just meant for internal use by the class and not part of the way we expect users to interact with the class. An example of this would be if we had a `Fraction` class and we wanted the Fractions to always be in reduced form. To accomplish this, we could have a `greatest_common_divisor()` function that can be used within the class. However, we wouldn't normally expect users to interact with a `Fraction` object by asking it to find the gcd of two integers, we expect them to do more explicitly Fraction-y things, like printing the `Fraction` or multiplying it by another `Fraction`. Finding the gcd of two integers is an implementation detail that can be "hidden" from the users.
+Methods can be private in the same way. A method should be private if it is only for internal use by the class and not part of how we expect users to work with it. For example, suppose a `Fraction` class keeps every fraction in reduced form. It could have a `greatest_common_divisor()` method for its own use. We wouldn't expect users to ask a `Fraction` for the gcd of two integers. We expect them to do Fraction-like things, such as printing a `Fraction` or multiplying it by another. Finding the gcd is an implementation detail that can be hidden from users.
 
 ## Everything is an object
 
-In Python, everything is an object. Strings, integers, and all other values are objects. Functions are objects. Even the special value `None` is an object. Given the power and popularity of Python (and other object-oriented languages), it's clear that object-oriented design can be a valuable tool for organizing code in ways that help make programming easier. It can feel very abstract at first, but it's definitely worthwhile to master the concepts involved.
+In Python, everything is an object. Strings, integers, and all other values are objects. Functions are objects. Even the special value `None` is an object. Object-oriented design is a useful way to organize code. It can feel abstract at first, but it is worth learning.
 
 ## Printing objects of user-defined classes
 
@@ -192,10 +192,10 @@ If you try to print an object of a user-defined class, you'll get something like
 
 ```python
 print(account_1)
-__main__.BankAccount object at 0x103506d30>
+<__main__.BankAccount object at 0x103506d30>
 ```
 
-by default python just tells you what class it belongs to and its address in memory. In order to print out the values of the data members, you need to specifically access those data members in the print statement, as shown earlier. There are ways to customize what the printed value of an object looks like, but that is for a future lesson.
+By default, Python only shows which class the object belongs to and its address in memory. To print the values of the data members, access them in the print statement, as shown earlier. There are ways to customize how an object prints, but that is for a future lesson.
 
 ## Exercises
 

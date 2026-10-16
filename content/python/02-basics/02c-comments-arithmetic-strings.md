@@ -6,10 +6,9 @@ section: 2
 
 ## Comments
 
-Comments are notes for those reading the code, and are ignored by the Python
-interpreter. A comment begins with `#`. A comment can be either on its own line
-or on the same line as other code. Either way, the interpreter ignores
-everything between the `#` and the end of the line.
+Comments are notes for people reading the code. Python ignores them. A comment
+begins with `#`. It can be on its own line or on the same line as other code.
+Either way, Python ignores everything from the `#` to the end of the line.
 
 :::cell id=comments-arithmetic-strings-demo1
 ```python starter
@@ -18,19 +17,18 @@ height: float = 1.8 # this is also a comment
 ```
 :::
 
-You should write comments that explain non-obvious aspects of your code, such as
-the purpose of a particular section, the units for the value of some variable,
-the reason for a certain design choice, and so on. You certainly do not need to
-comment every line, but keep in mind that how your code works may not be obvious
-to other people, or even to yourself in a few months.
+Write comments that explain what is not obvious, such as the purpose of a
+section, the units of a variable, or the reason for a design choice. You do not
+need to comment every line, but remember that code that is clear to you now may
+not be clear to other people, or to you in a few months.
 
 ## Arithmetic
 
 Addition, subtraction, multiplication and division are done with the `+`, `-`,
 `*`, and `/` symbols.
 
-The floor division operation is done with the `//` symbol, and gives you the
-rounded down result of division.
+Floor division uses the `//` symbol. It divides and rounds the result down to a
+whole number.
 
 :::cell id=comments-arithmetic-strings-demo2
 ```python starter
@@ -41,11 +39,11 @@ print(floor_2)
 ```
 :::
 
-Normal division results in a float value, even if the result is an integer. For
-example 8 / 4 would give you 2.0. If you need an integer remainder, use floor
+Normal division always gives a float, even when the result is a whole number.
+For example, `8 / 4` gives `2.0`. If you want a whole-number result, use floor
 division.
 
-The mod operation is done with the `%` symbol, and gives you the **remainder** of
+The mod operation uses the `%` symbol. It gives you the **remainder** of a
 division.
 
 :::cell id=comments-arithmetic-strings-demo3
@@ -68,10 +66,9 @@ print(power_2)
 ```
 :::
 
-The order of operations is exponentiation, followed by multiplication, division,
-floor, and mod, followed by addition and subtraction. However parentheses can be
-used to give whatever order is needed, since operations in parentheses happen
-first.
+The order of operations is exponentiation first, then multiplication, division,
+floor division, and mod, then addition and subtraction. Parentheses let you
+choose a different order, since operations in parentheses happen first.
 
 :::cell id=comments-arithmetic-strings-demo5
 ```python starter
@@ -82,9 +79,8 @@ print(result_2)
 ```
 :::
 
-The `+=` operator is a slightly shorter way to express that you want to add
-something to an existing value. The following statements do exactly the same
-thing:
+The `+=` operator is a shorter way to add something to an existing value. The
+following statements do exactly the same thing:
 
 :::cell id=comments-arithmetic-strings-demo6
 ```python starter
@@ -96,15 +92,8 @@ print(my_sum)
 ```
 :::
 
-You can combine `=` with each of the operators above to get the following
-shortcut operators. See for yourself by typing in the following examples and
-then checking the value of `num`.
-
-:::cell id=comments-arithmetic-strings-demo7
-```python starter
-num: int = 1
-```
-:::
+You can combine `=` with each of the operators above to get more shortcut
+operators. Run the cells below and read the printed values.
 
 :::cell id=comments-arithmetic-strings-demo8
 ```python starter
@@ -126,8 +115,8 @@ print(num)
 ```
 :::
 
-The `+=` operator is the most commonly used of these, since it is handy for
-accumulating totals.
+The `+=` operator is the most common of these, since it is handy for keeping a
+running total.
 
 You can get the absolute value of a number like this:
 
@@ -138,11 +127,12 @@ print(answer)
 ```
 :::
 
-In the above line, the variable `answer` is assigned the value 12.
+Here the variable `answer` is assigned the value 12.
 
 ## Concatenation
 
-The `+` operator can also be used with strings to concatenate them together.
+The `+` operator also works on strings. Concatenating strings joins them end to
+end.
 
 :::cell id=comments-arithmetic-strings-demo10
 ```python starter

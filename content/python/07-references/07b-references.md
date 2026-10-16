@@ -67,7 +67,7 @@ The `is` operator tests whether `num_1` and `num_2` refer to (are bound to) the 
 
 The last box has one more assignment, `num_2 = -89`, which creates an object for the value `-89` and rebinds `num_2` to it. Now `num_1` and `num_2` no longer refer to the same object. Assigning `-89` to `num_2` did not change the object for the value `1000`, which `num_1` still refers to (notice `num_1` still prints `1000`). We cannot change the value of an integer object, because integers are immutable, but we can rebind a variable to a different object.
 
-You can think of a variable as like a sticky note that you can stick to different objects. You can have multiple sticky notes attached (bound) to the same object, and you can take a sticky note off one object and attach it to another object, even an object of another type.
+You can think of a variable as a sticky note that you can stick to different objects. You can have multiple sticky notes attached (bound) to the same object, and you can take a sticky note off one object and attach it to another object, even an object of another type.
 
 ## Example Using Lists
 
@@ -304,9 +304,9 @@ print(name_1 is name_2)
 
 This only ever happens with (equal) immutable values, so it can't affect your code's results.
 
-*Kind of interesting note about Python internals:*
+*A note about Python internals:*
 
-You might notice that this example using 5 gives you different results than the earlier example that used 1000. It depends too on whether you're running the code in the interactive console or running it as a script. In the interactive console, Python internally keeps an array of integer objects for -5 through 256. When you create an int in that range, you actually just get back a reference to the existing object. So if you do that with two (or more) variables, they will then refer to the same object. However, if you type that code as a script in an IDE and then try running it with different values, you can see that any integer values will be shared, not just from -5 to 256. This is because when you're running a script, the Python interpreter can look through the entire script before running it, so it knows all the values that could be shared.
+You might notice that this example using 5 gives a different result from the earlier example that used 1000. It depends too on whether you're running the code in the interactive console or running it as a script. In the interactive console, Python internally keeps an array of integer objects for -5 through 256. When you create an int in that range, you actually just get back a reference to the existing object. So if you do that with two (or more) variables, they will then refer to the same object. However, if you type that code as a script in an IDE and then try running it with different values, you can see that any integer values will be shared, not just from -5 to 256. This is because when you're running a script, the Python interpreter can look through the entire script before running it, so it knows all the values that could be shared.
 
 ## Exercises
 

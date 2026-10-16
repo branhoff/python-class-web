@@ -21,8 +21,9 @@ print("Your favorite color is " + fave_color + ".")
 ```
 :::
 
-Save the file in VS Code and run it there too. The program asks for your favorite color. After you
-type one, it prints "Your favorite color is" followed by what you typed.
+Save the file in VS Code and run it there too. The program asks for your
+favorite color. After you type one, it prints "Your favorite color is" followed
+by what you typed.
 
 If you can do this, your editor and Python are working and you are ready for the
 rest of the course.

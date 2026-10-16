@@ -6,7 +6,7 @@ section: 6
 
 ## `in`, `not in`
 
-There are operators called `in` and `not in` that can be used to check whether or not a string contains another string. For example:
+There are operators called `in` and `not in` that can be used to check whether a string contains another string. For example:
 
 :::cell id=06a-strings-demo1
 ```python starter
@@ -106,7 +106,7 @@ print(hero[6:])
 ```
 :::
 
-The character at index 6 (the seventh character) doesn't get included in the first slice, but does in the second slice. We can also specify the "stride" for a slice, which allows us to get a slice that has every other character (a stride of 2), every third character (a stride of 3), and so on. A stride of -1 walks the string backward.
+The character at index 6 (the seventh character) doesn't get included in the first slice, but does in the second slice. We can also add a third number after a second colon, the "stride". A stride of 2 gives every other character, a stride of 3 gives every third character, and so on. A stride of -1 walks the string backward.
 
 :::cell id=06a-strings-demo10
 ```python starter
@@ -117,7 +117,7 @@ print(poem[::-1])
 
 ## Comparison Operators
 
-We can use the normal comparison operators with strings, where if it's true that A < B, then that means A comes before B in lexicographic order (dictionary order).
+We can use the normal comparison operators with strings, where `A < B` is true when A comes before B in lexicographic (dictionary) order.
 
 :::cell id=06a-strings-demo11
 ```python starter
@@ -138,7 +138,7 @@ print("cat" == word[:3])
 ```
 :::
 
-However, there's an important caveat: because characters are encoded as numbers, and because upper-case letters have a lower number encoding than lower-case letters, Python will say that upper-case letters come before lower-case letters.
+However, there is a catch. Characters are stored as numbers, and upper-case letters have lower numbers than lower-case letters, so Python puts every upper-case letter before every lower-case letter.
 
 :::cell id=06a-strings-demo14
 ```python starter
@@ -224,7 +224,7 @@ print(sort_two_strings("aardvark", "Zebra"))
 :::
 
 :::cell id=06a-strings-ex4 kind=exercise
-4. A palindrome is a string that reads the same forward or backward. Write a function called `is_palindrome` that takes a string parameter and returns `True` if that string is a palindrome, but returns `False` otherwise.
+4. A palindrome is a string that reads the same forward or backward. Write a function called `is_palindrome` that takes a string parameter and returns `True` if that string is a palindrome and `False` otherwise.
 
 ```python starter
 # Type code here

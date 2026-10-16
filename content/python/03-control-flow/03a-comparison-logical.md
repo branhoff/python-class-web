@@ -6,7 +6,7 @@ section: 3
 
 ## Comparison Operators
 
-We often need to compare two values. Is one value greater? lesser? equal to?
+We often need to compare two values. Is one value greater, smaller, or equal?
 
 Python has the following comparison operators:
 
@@ -19,7 +19,7 @@ num_1 >= num_2 # num_1 is greater than or equal to num_2
 num_1 <= num_2 # num_1 is less than or equal to num_2
 ```
 
-Each of the above **conditions** is either `True` or `False`, so if you print out the type of the comparison, you'll see that it's a bool value (`True` or `False`).
+Each of the above **conditions** is either `True` or `False`, which is a bool value.
 
 For example:
 
@@ -37,7 +37,7 @@ print(3 != 12)
 
 Don't mix up the assignment operator (`=`) and the equality operator (`==`). It's a common mistake that can be hard to see.
 
-**Careful, You shouldn't test two floats for exact equality because of possible lack of precision or round-off errors.**
+**Careful: don't test two floats for exact equality, because round-off errors can make values that should be equal differ slightly.**
 
 Instead, if you need to compare float values for equality, you can do something like this:
 
@@ -53,7 +53,7 @@ Unlike many computer languages, Python allows you to chain comparison operators.
 2 < x < 7
 ```
 
-whereas in most languages you would need to write that as
+whereas in many languages you would need to write that as
 
 ```python
 2 < x and x < 7
@@ -71,7 +71,7 @@ bool_1 or bool_2                   # At least one of bool_1 and bool_2 equals Tr
 not bool_1                         # Flips the value of bool_1. If bool_1 is True not bool_1 is False and vice versa
 ```
 
-Each of these conditions is also either True or False.
+Each of these conditions is also either `True` or `False`.
 
 :::cell id=comparison-logical-demo3
 ```python starter
@@ -93,7 +93,7 @@ print(not 17 >= 10)              # not True, which equals False
 
 ## Some Clarification
 
-Logical conditionals can appear confusing, but they're actually similar to everyday language.
+Logical operators can look confusing, but they work like everyday language.
 
 Consider two conditions, represented by `P` and `Q`. When `P` and `Q` are joined with the `and` operator, the statement is true only if both `P` and `Q` are true. For example, if someone asks *"Do you have a car and a driver's license?"* The answer would be yes only if you have **BOTH** a car **AND** a driver's license. On the other hand, the `or` operator makes the statement `True` if either `P` or `Q` (or both) are `True`. If someone asks *"Do you have a car or a bike?"* The answer would be yes if you have either a car or a bike (or both).
 
@@ -107,7 +107,7 @@ To check if num_x and num_y are both equal to 5, it is **not** correct to do the
 num_x and num_y == 5  # wrong
 ```
 
-since that would check whether `num_x` is `True` and `num_y==5` is `True`. Instead, you would need to do this:
+since that checks `num_x` on its own as a true or false value, and also checks `num_y == 5`. Instead, you would need to do this:
 
 ```python
 num_x == 5 and num_y == 5

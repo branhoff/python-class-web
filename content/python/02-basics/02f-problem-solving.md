@@ -6,13 +6,11 @@ section: 2
 
 ## Introduction
 
-How do you get from a set of requirements to a working program? Sadly, there is
-no single solution or approach. Your first instinct might just be to sit down at
-the keyboard and start typing out code, and that might work okay for tiny
-problems, but for bigger problems, it can easily get you into a time-wasting
-spiral of errors that you are not sure how to fix. To help you avoid that
-outcome, here are some general principles you can follow to help guide you
-toward a solution:
+How do you get from a set of requirements to a working program? There is no
+single approach. Your first instinct might be to start typing code right away.
+That can work for tiny problems, but for bigger ones it easily leads to a
+time-wasting spiral of errors you do not know how to fix. These general steps
+can guide you toward a solution:
 
 1. Understand the requirements
 2. Design tests that anticipate problems you need your code to solve
@@ -23,29 +21,24 @@ toward a solution:
    - Iterate the steps in 4 until your solution meets your requirements
 5. Reflect on your approach and process
 
-You may find all of these steps overkill for very small programs, but you should
-practice them throughout all the provided material.
+These steps may feel like overkill for very small programs, but practice them
+throughout this course.
 
 ## 1. Understand the requirements
 
-In real life this is sometimes the most challenging part, since sometimes your
-clients themselves will not have a super clear idea of exactly what they want,
-but for the assignments you will of course have clear guidelines of
-requirements. However you may find it useful to go through the assignment
-specifications and put them in the form of a checklist. Naturally, you may come
-across a scenario that the current version of this material does not consider. In
-that case, do your best to logic through it, or feel free to leave a comment or
-submit an issue to try and get an answer.
+In real life this is often the hardest part, because clients may not have a
+clear idea of exactly what they want. In this course, the assignments come with
+clear requirements. It still helps to go through the assignment and turn the
+requirements into a checklist. If you run into a case the assignment does not
+cover, do your best to reason it through, or ask the instructor.
 
 ## 2. Design tests
 
-It is important to come up with test cases that are representative of how your
-code could be used. You want them to be good enough that if your code passes all
-your tests, you will feel confident that it correctly meets all of the
-requirements. It is also important that for each test, you decide what result or
-results you expect from that test. If you do not do that ahead of time, then it
-can be easy to run a test, briefly look at the output, and convince yourself
-that it looks reasonable.
+Come up with test cases that represent how your code could be used. They should
+be good enough that if your code passes all of them, you can be confident it
+meets the requirements. For each test, decide what result you expect before you
+run it. Otherwise it is easy to glance at the output and convince yourself it
+looks reasonable.
 
 How do you know what cases to test?
 
@@ -56,8 +49,8 @@ How do you know what cases to test?
 - Boundary values: for example if a customer gets a special discount when they
   order 10 or more items, then you should check the numbers on both sides of
   that boundary (9 and 10) to make sure they are handled correctly.
-- Path coverage: you should have test cases that check different possible paths
-  through your logic, to make sure the different paths give correct results.
+- Path coverage: include test cases that exercise each possible path through
+  your logic, to make sure every path gives correct results.
 - Edge cases: extreme or unusual cases that might expose problems.
 - Unit tests: when your solution consists of multiple parts that each solve a
   piece of the problem, it is good to test each part separately, since it is
@@ -65,100 +58,116 @@ How do you know what cases to test?
 - Integration tests: once you are satisfied that the different parts work
   correctly on their own, you need to make sure they work correctly together.
 
-It is always better for you to find cases that break your code than for a
-customer (or employer) to do so.
+It is better for you to find cases that break your code than for a customer or
+employer to find them.
 
 ## 3. Outline your approach
 
-You will want to come up with an outline of the steps your code will need to take
-to meet the requirements. Two useful strategies to help with this are stepwise
-refinement and working through examples of the problem by hand.
+Write an outline of the steps your code needs to take to meet the requirements.
+Two useful strategies are stepwise refinement and working through examples by
+hand.
 
 ### Stepwise refinement
 
-One of the most common methods for outlining your problem-solving approach is
-stepwise refinement. This is a process of breaking up the original problem into
-some number of smaller sub-problems. Next, you take each sub-problem and break it
-up into even smaller sub-problems. This is repeated until you get a list of steps
-that are detailed enough to be translated into code. This list of steps is often
-referred to as pseudocode.
+Stepwise refinement is a common way to outline an approach. You break the
+original problem into smaller sub-problems, then break each sub-problem into
+even smaller ones. Repeat until you have a list of steps detailed enough to
+translate into code. This list of steps is often called pseudocode.
 
-As an example of stepwise refinement, consider the problem of wanting to paint
-your house, which is a big job. It might seem overwhelming at first, but you can
-break that top-level task into the following sub-tasks:
+As an example, suppose you want a program that works out what a customer owes
+at a coffee shop. It might seem like a lot at first, but you can break it into
+these sub-tasks:
 
-- buy paint
-- paint house
-- clean up
+- get the order
+- work out the total
+- show the total
 
-Those sub-tasks can in turn be broken down further:
+Each step sounds clear until you ask what it means. What do we mean by "get the
+order"? The program needs to know how many coffees and how many muffins the
+customer wants. And "work out the total" from what? Let's break the steps down
+further:
 
-- buy paint
-  - choose colors
-  - choose brand of paint
-- paint house
-  - tape over parts that should not get painted
-  - purchase or borrow supplies (ladders, rollers, and so on)
-  - bribe friends with pizza
-  - schedule a day and time
-  - actually paint the house
-- clean up
-  - return or put away supplies
-  - un-tape the taped bits
-  - finish any fine detail work
+- get the order
+  - ask how many coffees
+  - ask how many muffins
+- work out the total
+  - add up the cost of the coffees and the muffins
+  - add sales tax
+- show the total
+  - print the total
 
-This process continues until you have defined everything to a level of detail
-where you feel comfortable that you know every small step that needs to happen.
+Now ask again. What do we mean by "show the total"? A bare number like `7.3` is
+not much use to a customer, and a calculation can produce `7.299999999`, which
+looks wrong. We want a label and exactly two decimal places. And what is "the
+cost of the coffees"? We need a price, and a tax rate, and nobody has said where
+those come from. One more layer:
+
+- get the order
+  - ask how many coffees and convert the answer to a whole number
+  - ask how many muffins and convert the answer to a whole number
+- work out the total
+  - set the coffee price, the muffin price, and the tax rate
+  - coffee cost = coffees times the coffee price
+  - muffin cost = muffins times the muffin price
+  - subtotal = coffee cost plus muffin cost
+  - tax = subtotal times the tax rate
+  - total = subtotal plus tax
+- show the total
+  - round the total to two decimal places
+  - print it with a label such as "Total: $"
+
+Keep going until you know every small step that needs to happen. A step is
+detailed enough when you could write it as one or two lines of code without
+guessing.
+
+Notice what the extra layers turned up: the prices and the tax rate, converting
+typed answers to numbers, rounding, and the label. None of them were in the first
+outline, and each is easy to forget until the program gives a wrong answer.
+Finding them on paper is much cheaper than finding them halfway through writing
+code. The habit to build is to look at each step and ask "what do I mean by
+this?" until no step is vague.
 
 ### Work through examples by hand
 
-Brains are pretty smart (most of the time). They know how to do lots of stuff
-without us really being conscious of the steps we go through to make that stuff
-happen. In this method, you solve multiple examples of the problem yourself with
-pencil and paper, paying close attention to each tiny step. Doing this will often
-help you notice the patterns in how you solve different examples of that problem.
-This strategy can be used together with stepwise refinement, to help you figure
-out what the sub-tasks should be.
+People do many tasks without being aware of the steps involved. In this method,
+you solve several examples of the problem yourself with pencil and paper,
+paying close attention to each tiny step. Doing this often helps you notice
+patterns in how you solve them. You can combine this with stepwise refinement
+to help figure out what the sub-tasks should be.
 
 ## 4a. Translate your outline into code
 
-Take the outline (or pseudocode) you have created and translate each small
-sub-task into code, but do not do it all at once (unless it is a tiny program).
-Instead, you should produce a short section of code and then try running it to
-see if that part does what you expect. If it does, then you can add another
-short section and run it again, until you have translated your whole outline. If
-you avoid making lots of changes at once, it is easier to track down any new bugs
-that pop up.
+Translate each sub-task of your outline (or pseudocode) into code, but not all at
+once (unless it is a tiny program). Write a short section of code and run it to
+see if it does what you expect. If it does, add another short section and run
+again, until the whole outline is translated. Avoiding big changes makes it
+easier to track down new bugs.
 
 ## 4b. Run your tests
 
-How do you know if your code does what you expect? By running the tests you
-designed back in step 2. If you have thought of more tests while coding, add
-those in. The more testing you do, the more bugs you will catch.
+How do you know if your code does what you expect? Run the tests you designed in
+step 2. If you think of more tests while coding, add them. The more you test,
+the more bugs you will catch.
 
 ## 4c. Debug your code
 
-What if your code does not do what you expect? Well then you need to find the
-problem and fix it. Fortunately, since you are only making a few changes to your
-code at a time, that means any new problem is almost certainly among those few
-changes. Often error messages will also give you information about what the
-problem is and where it occurred. If you do not see the problem at first, try to
-methodically narrow down where it could be. After making corrections, re-run your
-tests to make sure that part works now, and that you have not accidentally broken
-anything else.
+What if your code does not do what you expect? Then you need to find the problem
+and fix it. Since you only change a few lines at a time, a new problem is almost
+certainly among those lines. Error messages often tell you what the problem is
+and where it occurred. If you do not see the problem at first, narrow down where
+it could be, step by step. After fixing it, re-run your tests to make sure that
+part works now and that you have not broken anything else.
 
 ## 4d. Let me reiterate to iterate
 
-As you build each piece of your code, test along the way and fix the bugs if
-there are any. Then do it again: build, test, and debug. Essentially, do not just
-write the whole program in one go, hoping there is not a single typo or error in
-logic. Ensure each piece you write works as expected, and by the time it is
-complete it will be much more likely to act as you would expect.
+As you build each piece of your code, test it and fix any bugs. Then repeat:
+build, test, and debug. Do not write the whole program in one go and hope it has
+no typos or logic errors. If each piece works as you build it, the finished
+program is much more likely to work too.
 
 ## 5. Reflect on your process
 
-Reflecting on your problem solving process can help you fine tune it to work
-better next time. What did you learn about the problem as you went? What tests
+Reflecting on your problem-solving process helps you improve it for next time. What did you learn about the problem as you went? What tests
 did not work out the way you expected? What alterations did you have to make to
 your program due to failed tests? How could your planned tests have been more
 complete? What was missing or needed to be altered from your initial design, and

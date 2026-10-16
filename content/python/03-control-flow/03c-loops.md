@@ -6,11 +6,11 @@ section: 3
 
 ## Iteration
 
-While loops and for loops enable us to make certain sections of code repeat multiple times.
+`while` loops and `for` loops repeat sections of code.
 
 ### `while` loops
 
-A while loop continues iterating as long as its condition remains true. Here's an example:
+A `while` loop keeps repeating as long as its condition is true. Here's an example:
 
 :::cell id=loops-demo1
 ```python starter
@@ -22,7 +22,7 @@ while total_score < 100:
 ```
 :::
 
-The loop will first test the condition. If it's true, then the code in the loop is executed. It will continue testing the condition and executing the loop until the condition is false, at which point we drop out of the loop and execution resumes with whatever code comes after it. It's important that something in the loop will eventually cause the loop condition to become false. Otherwise the loop will continue forever, which is known as an infinite loop. This is an example of a script that wil run until you forcefully quit your program.
+The loop first tests the condition. If it's true, the code in the loop runs. This repeats until the condition is false, and then execution continues with the code after the loop. Something in the loop must eventually make the condition false. Otherwise the loop runs forever, which is called an infinite loop. This example never stops on its own, so you would have to stop the program yourself.
 
 ```python
 while True:
@@ -31,7 +31,7 @@ while True:
 
 ### `for` loops
 
-A for loop traverses a sequence (or iterable type), looping once for each element in the sequence. A loop variable takes on the value of the current element, which can then be used inside the loop. So far, strings are the only iterable type we've looked at - we'll see one more on this page and others later. Here's an example of iterating through a string:
+A `for` loop goes through a sequence (an iterable type) and repeats once for each element. A loop variable takes on the value of the current element, so you can use it inside the loop. So far, strings are the only iterable type we've seen. We'll see one more on this page and others later. Here's an example that loops through a string:
 
 :::cell id=loops-demo2
 ```python starter
@@ -45,7 +45,7 @@ The first time through the loop, letter equals "a", next time through it equals 
 
 ### Using ranges with `for` loops
 
-If we need a for loop to iterate over some increasing (or decreasing) sequence of integers, we can achieve that by using a range. Ranges are another iterable type. Here's an example that counts from 1 to 10:
+If we need a for loop to iterate over some increasing (or decreasing) sequence of integers, we can use a range. Ranges are another iterable type. Here's an example that counts from 1 to 10:
 
 :::cell id=loops-demo3
 ```python starter
@@ -76,7 +76,7 @@ for num in range(10, 0, -1):
 
 ### `break` and `continue`
 
-A loop can be terminated early with the "break" keyword. For example:
+The `break` keyword ends a loop early. For example:
 
 :::cell id=loops-demo6
 ```python starter
@@ -87,13 +87,13 @@ for num in range(1, 11):
 ```
 :::
 
-This loop only prints the numbers up to 4 because when the "break" is executed, it immediately drops us out of the loop.
+This loop only prints the numbers up to 4 because when `break` runs, it immediately exits the loop.
 
-The "continue" keyword allows us to skip iterations of a loop. For example, try replacing the word "break" with "continue" in line 3 of the cell above. With that change, it prints the numbers from 1 through 10 except for 5, because it skips that iteration, jumping us to the next iteration of the loop.
+The `continue` keyword skips the rest of the current iteration and jumps to the next one. Try replacing `break` with `continue` in the code above. It then prints the numbers from 1 through 10 except for 5.
 
 ### Proper use of `break`
 
-There may be occasions where using `break` is justified, but you should try to write your loop conditions such that `break` is not needed, since that usually makes the behavior of your loop simpler to read.
+Sometimes `break` is justified, but try to write your loop conditions so that `break` is not needed. That usually makes the loop easier to read.
 
 :::cell id=loops-demo7
 ```python starter
@@ -121,13 +121,13 @@ print(binary_str)
 ```
 :::
 
-Notice that we flipped from testing `==` to testing `!=`. That's because we were testing when to stop, but now we're testing when to keep going.
+Notice that we changed `==` to `!=`. The first version tested when to stop, and the second tests when to keep going.
 
 :::cell id=loops-demo9
 ```python starter
 # bad example
 while True:
-    user_num: int= int(input("Please enter an integer: "))
+    user_num: int = int(input("Please enter an integer: "))
     if user_num % 10 == 0: # This is the real loop condition
         break
     else:
@@ -150,12 +150,12 @@ print("all done")
 ```
 :::
 
-If there are two things that need to be `True` for a loop to continue, it's easy enough to use and to connect them in the loop condition. When there are more than two things that need to be `True`, or the condition starts to get long, try using `break` statements to split up your conditions across multiple lines. You can also use variables to save conditions into descriptive containers before using them.
+If two things must be `True` for a loop to continue, join them with `and` in the loop condition. If there are more than two, or the condition gets long, you can use `break` statements to split it across several lines. You can also save a condition in a variable with a descriptive name and use that variable in the loop condition.
 
 :::cell id=loops-demo11
 ```python starter
 # save a long condition into a variable
-is_positive_num: int = True
+is_positive_num: bool = True
 while is_positive_num:
     user_num = int(input("Please enter an integer: "))
     print("You entered", user_num)
@@ -166,7 +166,7 @@ print("all done")
 
 ### Nested loops
 
-Both `while` loops and `for` loops can be nested. You can also have `if` statements inside loops or loops inside `if` statements. You can have an `if` statement inside a `for` loop inside a `while` loop inside another `if` statement if you want to.
+Both `while` loops and `for` loops can be nested (placed inside other loops). You can also put `if` statements inside loops and loops inside `if` statements, to any depth.
 
 :::cell id=loops-demo12
 ```python starter

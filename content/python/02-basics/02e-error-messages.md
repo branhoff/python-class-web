@@ -4,21 +4,20 @@ title: Example Error Messages
 section: 2
 ---
 
-Here are a few examples of problems and their corresponding error messages. The
-code snippets below are shown as plain examples rather than runnable cells,
-because most of them are written to fail on purpose. Read each one and notice
-what the interpreter reports.
+Here are a few examples of problems and the error messages they cause. The
+snippets below are not runnable cells, because most of them fail on purpose.
+Read each one and notice what Python reports.
 
 ## EOF
 
-See what happens when you try to run the code below:
+This code has a mistake, and Python reports an error for it:
 
 ```python
 print("hello"
 ```
 
-We omitted the closing parenthesis. EOF stands for "end of file". The
-interpreter got to the end of the file and never found the missing parenthesis.
+We left out the closing parenthesis. EOF stands for "end of file". Python
+reached the end of the file without finding the missing parenthesis.
 
 ## EOL
 
@@ -28,10 +27,10 @@ Here is another example:
 print("hello)
 ```
 
-We omitted the closing quotation mark for the string. EOL stands for "end of
-line". The interpreter got to the end of the line without finding the missing
-quotation mark. Because strings cannot be split across lines, the interpreter
-does not need to look all the way to the end of the file.
+We left out the closing quotation mark of the string. EOL stands for "end of
+line". Python reached the end of the line without finding the missing quotation
+mark. Because a string cannot continue onto the next line, Python stops at the
+end of the line instead of reading to the end of the file.
 
 ## NameError
 
@@ -39,7 +38,7 @@ does not need to look all the way to the end of the file.
 print(phrase)
 ```
 
-We did not assign a value to `phrase` before trying to print it.
+We never assigned a value to `phrase` before trying to print it.
 
 ## SyntaxError
 
@@ -47,8 +46,7 @@ We did not assign a value to `phrase` before trying to print it.
 32 = age
 ```
 
-We have to have a variable on the left side of an assignment statement, not a
-literal value.
+The left side of an assignment must be a variable name, not a literal value.
 
 ## TypeError
 
@@ -58,21 +56,19 @@ num_2 = input("Enter second operand: ")
 print("The result is", num_1 ** num_2)
 ```
 
-We did not cast the input strings to numbers before trying to do math with them.
-The `**` operator is not defined for strings. As we learned in the Input and
-Casting lesson, we can concatenate strings with a `+` operator, but the `**`
-operator is not defined on the string type.
+We did not cast the input strings to numbers before doing math with them. The
+`**` operator does not work on strings. Strings do support `+` (concatenation),
+but not `**`.
 
 ## Concatenation
 
-In the example above, try running the code again after changing the `**` on the
-last line to a `+` sign, so that the last line looks like this:
+In the example above, suppose you changed the `**` on the last line to `+`, so
+that the line looked like this:
 
 ```python
 print("The result is", num_1 + num_2)
 ```
 
-The reason this does not cause an error message is because `+` is defined for
-strings as concatenation. If you enter 3 for `num_1` and 4 for `num_2`, then the
-last line will print that the result is 34, which is the concatenation of "3"
-and "4".
+This would cause no error because `+` on strings means concatenation. If you
+entered 3 for `num_1` and 4 for `num_2`, the last line would print 34, which is
+"3" joined to "4".

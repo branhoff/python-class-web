@@ -5,9 +5,9 @@ section: 1
 ---
 
 Welcome. This course teaches the fundamentals of programming using Python. The
-focus is on the core ideas, variables, control flow, loops, functions, objects,
-and data structures, rather than the most clever or optimal Python. Once you
-have the ideas you can carry them to any language.
+focus is on the core ideas (variables, control flow, loops, functions, objects,
+and data structures), not on clever or optimal Python. Once you have the ideas
+you can carry them to any language.
 
 ## How this course works
 
@@ -16,7 +16,7 @@ The course has two halves that work together.
 **Lessons and exercises, here in your browser.** Each lesson explains a concept
 with runnable examples. The code runs in the page itself (Python runs in your
 browser), so there is nothing to install to follow along. Press **Run** on the
-cell below, then edit the code and run it again. It is yours to experiment with.
+code cell below, then edit the code and run it again.
 
 :::cell id=welcome-demo
 ```python starter
@@ -142,7 +142,7 @@ single rule.
   To check the tests themselves, we use mutation testing: a tool makes small
   deliberate bugs in the solution, such as changing `<` to `<=` or `+` to `-`,
   and every one of them must make at least one test fail. Try it yourself: edit
-  a solution cell to introduce a bug, then press **Run** and watch a test catch it.
+  the solution code to add a bug, then press **Run** and watch a test catch it.
 - **Equivalent changes.** Sometimes a small change does not alter what the
   program does. For example, if a loop only runs while `guess != secret`, then
   `guess < secret` and `guess <= secret` behave the same. No test can tell them
