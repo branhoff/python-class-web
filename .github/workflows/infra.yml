@@ -49,6 +49,13 @@ jobs:
       - run: tofu fmt -check -recursive
       - run: tofu validate
       - run: tofu plan -input=false -out=tfplan ${{ github.event_name == 'pull_request' && '-lock=false' || '' }}
+      - name: Check the plan against the live image
+        working-directory: .
+        env:
+          PROJECT: ${{ vars.GCP_PROJECT_ID }}
+          REGION: ${{ vars.GCP_REGION }}
+          SERVICE: python-class-web
+        run: .github/scripts/refuse-stale-image.sh
       - name: Show the plan in the run summary
         run: |
           {
@@ -84,6 +91,13 @@ jobs:
         with:
           name: tfplan
           path: infra
+      - name: Refuse a plan that would write back an older image
+        working-directory: .
+        env:
+          PROJECT: ${{ vars.GCP_PROJECT_ID }}
+          REGION: ${{ vars.GCP_REGION }}
+          SERVICE: python-class-web
+        run: .github/scripts/refuse-stale-image.sh
       - run: tofu apply -input=false tfplan
       - name: Redeploy main so a stale plan cannot leave an older image live
         working-directory: .
