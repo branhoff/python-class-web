@@ -39,6 +39,12 @@ variable "alert_email" {
   default     = ""
 }
 
+variable "csp_enforce" {
+  type        = bool
+  description = "Send the Content-Security-Policy as an enforcing header instead of report-only. Turn on after production has been watched with the browser console open."
+  default     = false
+}
+
 variable "identity_platform_api_key" {
   type        = string
   description = "Public Identity Platform browser API key, served to the client for sign-in. Not a secret (it ships to browsers by design); empty leaves sign-in off. Set via the IDENTITY_PLATFORM_API_KEY repo variable."

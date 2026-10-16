@@ -106,7 +106,8 @@ learner's code.
   (a bare trailing expression does not auto-display).
 - **Exercises** run the learner's code in a fresh namespace, then run the tests
   in that same namespace. The tests see everything the learner defined, plus
-  `stdout`, the text the learner's program printed.
+  `stdout`, the text the learner's program printed, and `source`, the learner's
+  code as text (for example, to check that a function was not used with `ast`).
 - A **check** (`kind=check`) is graded like an exercise but is just for practice:
   it has a dashed border, it is never recorded as progress, and it does not count
   toward the sidebar tick. A lesson with a check shows a one-line legend under its

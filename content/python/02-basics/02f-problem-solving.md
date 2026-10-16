@@ -135,6 +135,87 @@ paying close attention to each tiny step. Doing this often helps you notice
 patterns in how you solve them. You can combine this with stepwise refinement
 to help figure out what the sub-tasks should be.
 
+For example, how could you round `7.299999999` to two decimal places without
+calling `round()`? It looks hard. A good way in is to solve an easier problem
+first.
+
+**An easier problem: round to a whole number.** Python can drop everything after
+the decimal point with `int()`, so `int(7.9)` is `7`. That is chopping, not
+rounding, because `7.9` should round to `8`. Work a few by hand:
+
+- `7.3` rounds to `7`
+- `7.49` rounds to `7`
+- `7.5` rounds to `8`
+- `7.9` rounds to `8`
+
+The pattern: if the part after the decimal point is `.5` or more, the number goes
+up to the next whole number. Otherwise it stays. Chopping gets the second case
+right and the first case wrong. Can we fix the first case with something we
+already know? Try adding `0.5` before chopping:
+
+- `7.5 + 0.5` is `8.0`, which chops to `8`
+- `7.9 + 0.5` is `8.4`, which chops to `8`
+- `7.3 + 0.5` is `7.8`, which chops to `7`
+- `7.49 + 0.5` is `7.99`, which chops to `7`
+
+Adding `0.5` pushes numbers that are `.5` or more over the next whole number, and
+leaves the others below it. So `int(number + 0.5)` rounds to a whole number.
+
+**Back to the real problem.** We can round to a whole number, but we want two
+decimal places. Can we turn this problem into the one we just solved? Multiplying
+by 100 moves the decimal point two places to the right, so `7.299999999` becomes
+`729.9999999`. Now the digits we want to keep are in the whole-number part, and
+the digits we want to get rid of come after the decimal point. Rounding that to a
+whole number gives `730`. Dividing by 100 moves the decimal point back: `7.3`.
+
+Check it on a number where chopping and rounding give different answers. `3.159`
+should round to `3.16`. Multiplying by 100 gives `315.9`. Adding `0.5` gives
+`316.4`, which chops to `316`. Dividing by 100 gives `3.16`.
+
+Now it is a few lines of code:
+
+:::cell id=problem-solving-round-by-hand
+```python starter
+price = 7.299999999
+print(int(price * 100 + 0.5) / 100)
+```
+:::
+
+Nobody has to remember this formula. Each step was a small problem on its own:
+solve an easier version first, then turn the harder problem into the easier one.
+This version only works for positive numbers, so in real programs use `round()`.
+
+Now use the same steps on a different case:
+
+:::cell id=problem-solving-round-one-decimal kind=exercise
+1. Round `price` and `tip` to **one** decimal place and print each one, without using `round()`. Use the steps above and change what needs to change.
+
+```python starter
+price = 3.14159
+tip = 2.96
+# Type code here
+```
+
+```python tests
+import ast
+
+calls = [n for n in ast.walk(ast.parse(source)) if isinstance(n, ast.Name) and n.id == "round"]
+assert not calls, "Do not use round(). Build the result from the steps above."
+assert stdout.split() == ["3.1", "3.0"], f"Expected 3.1 and then 3.0 on separate lines, but the output was {stdout!r}."
+```
+
+```python solution
+price = 3.14159
+tip = 2.96
+print((price * 10 + 0.5) // 1 / 10)
+print((tip * 10 + 0.5) // 1 / 10)
+```
+
+```hint
+Which number do you multiply by to move exactly one digit to the left of the decimal point? Use the same number to shift back at the end.
+```
+:::
+
 ## 4a. Translate your outline into code
 
 Translate each sub-task of your outline (or pseudocode) into code, but not all at

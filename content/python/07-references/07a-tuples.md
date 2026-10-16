@@ -253,6 +253,57 @@ print(add_to_new_list(2))  # prints [2], as expected
 
 In this code, the `add_to_new_list` function has a default argument `lst` that is set to `None`. If the default value is encountered, a new list is created inside the function. This ensures that each call creates a separate, independent list, avoiding the unexpected behavior.
 
+:::cell id=predict-default-argument kind=exercise
+**Check your understanding.** Predict the result. Remember when a default argument is created.
+
+```python
+def add_item(item: str, items: list[str] = []) -> list[str]:
+    items.append(item)
+    return items
+
+first = add_item("a")
+second = add_item("b")
+mine = ["x"]
+add_item("y", mine)
+```
+
+Set `final_first` and `final_second` and `final_mine` to the values the program ends with.
+
+```python starter
+final_first = None
+final_second = None
+final_mine = None
+```
+
+```python tests
+program = """
+def add_item(item: str, items: list[str] = []) -> list[str]:
+    items.append(item)
+    return items
+
+first = add_item("a")
+second = add_item("b")
+mine = ["x"]
+add_item("y", mine)
+"""
+real = {}
+exec(program, real)
+assert final_first == real["first"], "final_first is not right. `first` and `second` may refer to the same list."
+assert final_second == real["second"], "final_second is not right. The default list is created once and reused."
+assert final_mine == real["mine"], "final_mine is not right. A list you pass in is used instead of the default."
+```
+
+```python solution
+final_first = ["a", "b"]
+final_second = ["a", "b"]
+final_mine = ["x", "y"]
+```
+
+```hint
+The default list is created once, when the function is defined. Both calls without a list use it, so `first` and `second` are the same list holding both items. The call with `mine` uses `mine` instead.
+```
+:::
+
 Resources: [Types: union](https://docs.python.org/3/library/stdtypes.html#types-union)
 
 ## Exercises
@@ -319,5 +370,48 @@ def delete_last(some_list: list[object]) -> None:
 
 ```hint
 Use the `del` operator with the index `-1`, which refers to the last element.
+```
+:::
+
+:::cell id=predict-mutate-or-rebind kind=exercise
+4. Predict the result. The function changes the list in two different ways.
+
+```python
+def change(values: list[int]) -> None:
+    values.append(4)
+    values = [9, 9]
+    values.append(5)
+
+nums = [1, 2, 3]
+change(nums)
+```
+
+Set `final_nums` to the values the program ends with.
+
+```python starter
+final_nums = None
+```
+
+```python tests
+program = """
+def change(values: list[int]) -> None:
+    values.append(4)
+    values = [9, 9]
+    values.append(5)
+
+nums = [1, 2, 3]
+change(nums)
+"""
+real = {}
+exec(program, real)
+assert final_nums == real["nums"], "final_nums is not right. Which lines change the list that was passed in, and which do not?"
+```
+
+```python solution
+final_nums = [1, 2, 3, 4]
+```
+
+```hint
+`values.append(4)` changes the list that `nums` refers to. Then `values = [9, 9]` makes `values` refer to a new list, so the last `append` changes that new list and not `nums`.
 ```
 :::

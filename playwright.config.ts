@@ -25,6 +25,6 @@ export default defineConfig({
     url: `http://localhost:${PORT}/health`,
     reuseExistingServer: !process.env['CI'],
     timeout: 60_000,
-    env: { PORT: String(PORT), DEV_AUTH_USER: 'smoke-user' },
+    env: { PORT: String(PORT), DEV_AUTH_USER: 'smoke-user', CSP_ENFORCE: '1' },
   },
 });

@@ -170,6 +170,54 @@ The program starts at the line `num: int = 5`, which assigns the value `5` to a 
 
 Assigning `12` to it does not affect the other variable named `num`. Next, the function prints the local `num`, which is `12`. At the end of the function, execution returns to the function call. The next line prints the original `num`, which is still `5`.
 
+:::cell id=predict-scope kind=exercise
+**Check your understanding.** Predict the result. The program is not run for you.
+
+```python
+x = 4
+
+def change() -> None:
+    x = 9
+    y = x + 1
+
+change()
+z = x + 1
+```
+
+Set `final_x` and `final_z` to the values the program ends with.
+
+```python starter
+final_x = None
+final_z = None
+```
+
+```python tests
+program = """
+x = 4
+
+def change() -> None:
+    x = 9
+    y = x + 1
+
+change()
+z = x + 1
+"""
+real = {}
+exec(program, real)
+assert final_x == real["x"], "final_x is not right. Does the `x` inside the function change the `x` outside it?"
+assert final_z == real["z"], "final_z is not right. Which `x` does the last line use?"
+```
+
+```python solution
+final_x = 4
+final_z = 5
+```
+
+```hint
+The `x` inside `change` is a separate variable that disappears when the function ends. The outer `x` is still 4.
+```
+:::
+
 ## Default arguments
 
 You can give a parameter a default value, which it has if the function call doesn't pass a value for it. The syntax looks like an assignment. If the call does pass a value for that parameter, the default is not used. Here's a simple example:
@@ -223,6 +271,52 @@ In this version we changed two things:
  2. When we call the function, we store the result of the function call (its return value) in `num`.
 
 Now when we run the code, `num` is updated to the square of its previous value.
+
+:::cell id=predict-parameter kind=exercise
+**Check your understanding.** Predict the result. Look closely at what happens to each call's return value.
+
+```python
+def add_ten(val: int) -> int:
+    val = val + 10
+    return val
+
+num = 5
+add_ten(num)
+other = add_ten(num)
+```
+
+Set `final_num` and `final_other` to the values the program ends with.
+
+```python starter
+final_num = None
+final_other = None
+```
+
+```python tests
+program = """
+def add_ten(val: int) -> int:
+    val = val + 10
+    return val
+
+num = 5
+add_ten(num)
+other = add_ten(num)
+"""
+real = {}
+exec(program, real)
+assert final_num == real["num"], "final_num is not right. Does calling a function change the variable you pass in?"
+assert final_other == real["other"], "final_other is not right. Each call starts again from the value of `num`."
+```
+
+```python solution
+final_num = 5
+final_other = 15
+```
+
+```hint
+Changing `val` inside the function never changes `num`. The first call's result is thrown away because it is not stored. `other` gets the result of the second call, which is 5 + 10.
+```
+:::
 
 ## Docstrings
 
