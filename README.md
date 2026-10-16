@@ -8,7 +8,8 @@ test on your own machine. The first course is a web version of the
 progress (exercises completed) is tracked per course and shown on the home page.
 
 Status: **early scaffold.** The plan and decisions are in
-[`docs/PLAN.md`](docs/PLAN.md); quality rules in [`AGENTS.md`](AGENTS.md);
+[`docs/PLAN.md`](docs/PLAN.md); quality rules in [`AGENTS.md`](AGENTS.md); restoring learner data in
+[`docs/RESTORE.md`](docs/RESTORE.md);
 deployment rules in [`DEPLOY.md`](DEPLOY.md).
 
 ## Develop
