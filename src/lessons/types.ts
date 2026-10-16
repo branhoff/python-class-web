@@ -1,4 +1,4 @@
-export type CellKind = 'sandbox' | 'exercise' | 'check';
+export type CellKind = 'sandbox' | 'quiz' | 'check';
 
 interface MarkdownBlock {
   type: 'markdown';

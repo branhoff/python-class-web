@@ -58,7 +58,7 @@ test('a cell attribute with a second = is rejected, not silently truncated', () 
 
 test('multi-line starter, tests and solution keep their line breaks', () => {
   const [cell] = cellsOf(
-    `${HEADER}:::cell id=a kind=exercise\n\`\`\`python starter\na\nb\n\`\`\`\n\`\`\`python tests\nc\nd\n\`\`\`\n\`\`\`python solution\ne\nf\n\`\`\`\n:::\n`,
+    `${HEADER}:::cell id=a kind=quiz\n\`\`\`python starter\na\nb\n\`\`\`\n\`\`\`python tests\nc\nd\n\`\`\`\n\`\`\`python solution\ne\nf\n\`\`\`\n:::\n`,
   );
   assert.equal(cell!.starter, 'a\nb');
   assert.equal(cell!.tests, 'c\nd');
@@ -160,7 +160,7 @@ test('an interpreter that fails reports its stderr', () => {
   );
 });
 
-test('the real runner dispatches syntax and exercise requests differently', () => {
+test('the real runner dispatches syntax and graded-cell requests differently', () => {
   assert.equal(pythonRunner.syntax('x = 1').stdout, undefined);
   assert.equal(pythonRunner.exercise('print(1)', 'pass').stdout, '1\n');
 });

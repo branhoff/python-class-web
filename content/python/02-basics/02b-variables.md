@@ -238,13 +238,13 @@ There are two numbers on the first line and one piece of text on the second. `to
 ```
 :::
 
-## Exercises
+## Quizzes
 
-Note: these exercises remind you to add type hints. Future exercises and
+Note: these quizzes remind you to add type hints. Future quizzes and
 projects will assume you know to use them. Python does not enforce type hints,
 so make it a habit anyway.
 
-:::cell id=variables-ex1 kind=exercise
+:::cell id=variables-ex1 kind=quiz
 1. Assign the value `3.14159` to a variable named `pi` with the appropriate type hint, and then print out the value of that variable.
 
 ```python starter
@@ -263,7 +263,7 @@ print(pi)
 ```
 :::
 
-:::cell id=variables-ex2 kind=exercise
+:::cell id=variables-ex2 kind=quiz
 2. Assign the value `"Nguyen"` to a variable named `last_name` with an appropriate type hint, and then print out the value of that variable.
 
 ```python starter
@@ -282,7 +282,7 @@ print(last_name)
 ```
 :::
 
-:::cell id=variables-ex3 kind=exercise
+:::cell id=variables-ex3 kind=quiz
 3. Assign the value `16.4` to a variable named `length` with an appropriate type hint, and then print out the type of the value that variable refers to.
 
 ```python starter
@@ -301,7 +301,7 @@ print(type(length))
 ```
 :::
 
-:::cell id=variables-ex4 kind=exercise
+:::cell id=variables-ex4 kind=quiz
 4. Assign the value `"blacksmith"` to a variable named `occupation` with an appropriate type hint, and then print out the type of the value that variable refers to.
 
 ```python starter

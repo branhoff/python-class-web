@@ -149,9 +149,9 @@ value is wrong. That line, or the one before it, holds the bug. You can type any
 expression into the **Watch** panel to follow it as you step, and the **Call
 Stack** panel shows which function called which.
 
-## Exercises
+## Quizzes
 
-:::cell id=fix-last-digit kind=exercise
+:::cell id=fix-last-digit kind=quiz
 1. The asserts below fail. Run the code and read the message, then fix the
 function so every assert passes.
 
@@ -186,7 +186,7 @@ assert last_digit(40) == 0, "last_digit(40) should be 0"
 ```
 :::
 
-:::cell id=write-leap-tests kind=exercise
+:::cell id=write-leap-tests kind=quiz
 2. A year is a leap year if it is divisible by 4, except that years divisible by
 100 are not leap years unless they are also divisible by 400. The function
 `is_leap_year` below follows that rule.
@@ -247,7 +247,7 @@ a year divisible by 400.
 ```
 :::
 
-:::cell id=debug-sum-to kind=exercise
+:::cell id=debug-sum-to kind=quiz
 3. `sum_to(n)` should add the whole numbers from 1 to `n`, so `sum_to(4)` is
 `1 + 2 + 3 + 4 = 10`. It prints 6. Add a `print` inside the loop to see which
 values `i` takes, then fix the function. Remove your debugging prints afterward.

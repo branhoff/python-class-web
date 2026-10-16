@@ -31,7 +31,7 @@ after: loops
 
 `after` names the lesson the project follows. A project page has an "I finished
 this project" checkbox, because projects are built locally; ticking it counts
-toward the learner's progress like a passed exercise. A project is a normal page, with
+toward the learner's progress like a passed quiz. A project is a normal page, with
 three differences: it is listed in the sidebar and on the course page under its
 section, after that section's lessons, and marked with a small arrow; the lesson
 it follows ends with an automatic "Projects" list linking to it; and its
@@ -48,7 +48,7 @@ ordinary markdown, and ordinary code fences (even ones containing `:::cell`) are
 left alone.
 
 ````
-:::cell id=double-number kind=exercise
+:::cell id=double-number kind=quiz
 Write a function that returns twice its argument, then print `double_num(5)`.
 
 ```python starter
@@ -75,13 +75,13 @@ Use the `*` operator.
 | attribute | values                                                         |
 | --------- | -------------------------------------------------------------- |
 | `id`      | required; lowercase letters, digits, dashes; unique per lesson |
-| `kind`    | `sandbox` (default), `exercise` or `check`                     |
+| `kind`    | `sandbox` (default), `quiz` or `check`                         |
 
 Inside a cell:
 
 - Text and ordinary code fences are the **prompt** (markdown).
 - `python starter` is the code the learner starts with. Required.
-- `python tests` and `python solution` are required for `exercise` and `check`
+- `python tests` and `python solution` are required for `quiz` and `check`
   and not allowed for `sandbox`.
 - `hint` blocks are optional, shown one at a time in order.
 - Each of starter, tests and solution may appear once.
@@ -97,22 +97,24 @@ Every cell runs in a web worker. Output appears as the program prints it,
 `input()` shows a box under the cell where the learner types a line, and a Stop
 button interrupts the program. A program that runs for more than 10 seconds
 (not counting time spent waiting for typed input) is stopped with a message
-about loops. Tests for `exercise` cells run in the same worker after the
+about loops. Tests for `quiz` and `check` cells run in the same worker after the
 learner's code.
 
 - **Sandbox cells** run in isolation: each cell runs on its own in a fresh
   namespace, so nothing defined in one cell carries over to another. A cell that
   uses a variable or function must define it, and only `print(...)` shows output
   (a bare trailing expression does not auto-display).
-- **Exercises** run the learner's code in a fresh namespace, then run the tests
-  in that same namespace. The tests see everything the learner defined, plus
+- **Quizzes** (and checks) run the learner's code in a fresh namespace, then run
+  the tests in that same namespace. The tests see everything the learner defined, plus
   `stdout`, the text the learner's program printed, and `source`, the learner's
   code as text (for example, to check that a function was not used with `ast`).
-- A **check** (`kind=check`) is graded like an exercise but is just for practice:
+- A **quiz** (`kind=quiz`) counts toward finishing the lesson. A **check**
+  (`kind=check`) is graded the same way but is just for practice:
   it has a dashed border, it is never recorded as progress, and it does not count
   toward the sidebar tick. A lesson with a check shows a one-line legend under its
   title. Use checks for quick "did that sink in" questions placed right after a
-  concept, and keep exercises for the work that should count.
+  concept, and keep quizzes for the work that should count. A plain runnable cell
+  (the default) has no tests and is not graded.
 - A test fails by raising `AssertionError`. Its message is shown to the learner,
   so write helpful ones.
 
@@ -125,8 +127,8 @@ For every lesson the checker verifies that
 
 - the file parses (errors name the file and line),
 - every starter is valid Python syntax,
-- every exercise's solution passes its tests, and
-- every exercise's starter **fails** its tests, so no exercise is trivial.
+- every quiz's and check's solution passes its tests, and
+- every quiz's and check's starter **fails** its tests, so none is trivial.
 
 `npm run lessons:build` renders each lesson to `build/lessons/<id>.html` as a
 static preview (cells are not runnable yet).

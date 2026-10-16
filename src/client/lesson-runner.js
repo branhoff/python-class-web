@@ -1,4 +1,4 @@
-/* Browser-only glue: runs each cell's code (and tests, for exercises) in a web
+/* Browser-only glue: runs each cell's code (and tests, for quizzes and checks) in a web
    worker through the shared harness.py, so grading matches the CLI checker and
    a loop that never ends cannot freeze the page. Output streams into the cell,
    input() shows an inline box, and Stop interrupts the program. The run logic is
@@ -9,7 +9,7 @@ import { pressReset, resetControl } from './cell-reset.js';
 import { createPythonRunner, pythonSupport } from './py-runner.js';
 
 // A sandbox cell has no tests, so it has nothing to pass; it only shows output.
-// Only an exercise (hasTests) earns a pass/fail verdict.
+// Only a quiz or check (hasTests) earns a pass/fail verdict.
 export function verdictOf(result, hasTests) {
   if (!result.ok) {
     return { state: 'fail', lines: [`✗ ${result.message ?? 'Something went wrong.'}`] };

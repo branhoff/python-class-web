@@ -141,9 +141,9 @@ Recursion can feel like magic, because you're writing a function that calls the 
 - In the gcd example, the gcd of `a` and `b` is the same as the gcd of `b` and `a % b`, which is a smaller problem of the same kind. No additional work at the current level is needed.
 - In the hailstone sequence example, the smaller problem of the same kind is counting how many steps it takes to get from the next number in the sequence to 1. The bit of work at the current level is adding 1 to that result.
 
-## Exercises
+## Quizzes
 
-:::cell id=recursion-ex1 kind=exercise
+:::cell id=recursion-ex1 kind=quiz
 1. Write a **recursive** function called `countdown` that takes a positive integer parameter and returns a string that **counts down from that number to 1**. For example, if `5` is passed to the function, it should return the string `"5 4 3 2 1"`. You can use string concatenation in your recursive function to build up the return value.
 
 ```python starter
@@ -168,7 +168,7 @@ The base case is when `n` is 1. Otherwise, put `str(n)` in front of the result o
 ```
 :::
 
-:::cell id=recursion-ex2 kind=exercise
+:::cell id=recursion-ex2 kind=quiz
 2. Write a **recursive** function called `countup` that takes a positive integer parameter and returns a string that **counts up from 1 to that number**. For example, if `5` is passed to the function, it should return the string `"1 2 3 4 5"`. You can use string concatenation in your recursive function to build up the return value.
 
 ```python starter
@@ -193,7 +193,7 @@ This is the mirror of `countdown`. Put the result of `countup(n - 1)` in front o
 ```
 :::
 
-:::cell id=recursion-ex3 kind=exercise
+:::cell id=recursion-ex3 kind=quiz
 3. Write a **recursive** function called `sum_countup` that takes an integer parameter and returns the sum of all the integers from 1 to that number. For example if the function is passed the value `5`, then it should return `15` because 1 + 2 + 3 + 4 + 5 = 15.
 
 ```python starter
@@ -218,7 +218,7 @@ The base case returns 1 when `n` is 1. Otherwise add `n` to `sum_countup(n - 1)`
 ```
 :::
 
-:::cell id=predict-string-order kind=exercise
+:::cell id=predict-string-order kind=quiz
 4. Predict the result. Look at which side of the recursive call each number goes on.
 
 ```python

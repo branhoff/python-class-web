@@ -194,9 +194,9 @@ print(full_name)
 ```
 :::
 
-## Exercises
+## Quizzes
 
-:::cell id=comments-arithmetic-strings-ex1 kind=exercise
+:::cell id=comments-arithmetic-strings-ex1 kind=quiz
 1. Write a statement that prints out the remainder of 17 divided by 3.
 
 ```python starter
@@ -212,7 +212,7 @@ print(17 % 3)
 ```
 :::
 
-:::cell id=comments-arithmetic-strings-ex2 kind=exercise
+:::cell id=comments-arithmetic-strings-ex2 kind=quiz
 2. Write a statement that prints out 3 to the 4th power.
 
 ```python starter
@@ -228,7 +228,7 @@ print(3 ** 4)
 ```
 :::
 
-:::cell id=comments-arithmetic-strings-ex3 kind=exercise
+:::cell id=comments-arithmetic-strings-ex3 kind=quiz
 3. Write a statement that finds the result of 17 divided by 6 and assigns it to a variable named `conversion_ratio`.
 
 ```python starter
@@ -249,7 +249,7 @@ Normal division uses the `/` operator and produces a float.
 ```
 :::
 
-:::cell id=comments-arithmetic-strings-ex4 kind=exercise
+:::cell id=comments-arithmetic-strings-ex4 kind=quiz
 4. Write code that first assigns 9 to a variable called `num_planets`, then subtracts 1 from it, so that `num_planets` will now equal 8.
 
 ```python starter
@@ -267,7 +267,7 @@ num_planets -= 1
 ```
 :::
 
-:::cell id=comments-arithmetic-strings-ex5 kind=exercise
+:::cell id=comments-arithmetic-strings-ex5 kind=quiz
 5. Write code that assigns `"Doctor"` to a variable named `title`, assigns `"Strange"` to a variable called `last_name`, and then uses string concatenation to print out `"Doctor Strange"`.
 
 ```python starter
@@ -288,7 +288,7 @@ print(title + " " + last_name)
 ```
 :::
 
-:::cell id=predict-shortcut-chain kind=exercise
+:::cell id=predict-shortcut-chain kind=quiz
 6. Predict the result. Follow x one line at a time, then work out y by order of operations.
 
 ```python

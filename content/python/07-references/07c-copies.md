@@ -178,9 +178,9 @@ This only ever happens with (equal) immutable values, so it can't affect your co
 
 You might notice that this example using 5 gives a different result from the example that used 1000 on the previous page. It depends too on whether you're running the code in the interactive console or running it as a script. In the interactive console, Python internally keeps an array of integer objects for -5 through 256. When you create an int in that range, you actually just get back a reference to the existing object. So if you do that with two (or more) variables, they will then refer to the same object. However, if you type that code as a script in an IDE and then try running it with different values, you can see that any integer values will be shared, not just from -5 to 256. This is because when you're running a script, the Python interpreter can look through the entire script before running it, so it knows all the values that could be shared.
 
-## Exercises
+## Quizzes
 
-:::cell id=predict-shallow-copy kind=exercise
+:::cell id=predict-shallow-copy kind=quiz
 1. Predict the result. The copy is a shallow copy.
 
 ```python

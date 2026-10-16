@@ -25,7 +25,7 @@ test('a sandbox cell shows output but never claims a pass', async ({ page }) => 
   await expect(output).not.toContainText('Passed');
 });
 
-test('an exercise passes a correct solution and fails a wrong one', async ({ page }) => {
+test('a quiz passes a correct solution and fails a wrong one', async ({ page }) => {
   await page.goto('/lessons/functions');
   await waitForPythonReady(page);
 
@@ -44,7 +44,7 @@ test('an exercise passes a correct solution and fails a wrong one', async ({ pag
   await expect(output).toHaveClass(/fail/);
 });
 
-test('passing an exercise records progress and restores it on reload', async ({ page }) => {
+test('passing a quiz records progress and restores it on reload', async ({ page }) => {
   await page.goto('/lessons/functions');
   await waitForPythonReady(page);
 

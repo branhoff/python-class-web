@@ -305,7 +305,7 @@ This version only works for positive numbers, so in real programs use `round()`.
 
 Now use the same steps on a different case:
 
-:::cell id=problem-solving-round-one-decimal kind=exercise
+:::cell id=problem-solving-round-one-decimal kind=quiz
 1. Round `price` and `tip` to **one** decimal place and print each one, without using `round()`. Use the steps above and change what needs to change.
 
 ```python starter
@@ -374,7 +374,7 @@ part works now and that you have not broken anything else.
 
 Practice finding a bug:
 
-:::cell id=problem-solving-fix-average kind=exercise
+:::cell id=problem-solving-fix-average kind=quiz
 2. This program should print the average of `apples` and `oranges`, which is `3.5`. It prints something else. Run it, find the bug in the `average` line, and fix it. Keep using the variables, so the program would still work for other numbers.
 
 ```python starter

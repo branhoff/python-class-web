@@ -267,9 +267,9 @@ print(account_1)
 
 By default, Python only shows which class the object belongs to and its address in memory. To print the values of the data members, access them in the print statement, as shown earlier. There are ways to customize how an object prints, but that is for a future lesson.
 
-## Exercises
+## Quizzes
 
-:::cell id=classes-ex1 kind=exercise
+:::cell id=classes-ex1 kind=quiz
 1. Define a class named `HourlyWorker` that has three private data members: `_name`, `_ID`, and `_wage`. The class should have a docstring and an `__init__` method. The parameters to the `__init__` method should be in the order listed above.
 
 ```python starter
@@ -298,7 +298,7 @@ The `__init__` method takes `self`, `name`, `ID`, and `wage`, and assigns each o
 ```
 :::
 
-:::cell id=classes-ex2 kind=exercise
+:::cell id=classes-ex2 kind=quiz
 2. Define a class named `Box` that has three private data members: `_length`, `_width`, and `_height`. The class should have a docstring and an `__init__` method. The parameters to the `__init__` method should be in the order listed above. The class should also have a method named `volume` that returns the *volume* of the `Box`, and a method named `surface_area` that returns the *surface area* of the `Box`.
 
 ```python starter
@@ -338,7 +338,7 @@ Volume is length times width times height. Surface area is `2 * (length*width + 
 ```
 :::
 
-:::cell id=predict-tank-levels kind=exercise
+:::cell id=predict-tank-levels kind=quiz
 3. Predict the result. Notice which methods change the object and which only return a value.
 
 ```python

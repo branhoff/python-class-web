@@ -44,16 +44,16 @@ function runner(options: { syntax?: RunResult; solved?: RunResult; starter?: Run
   return { python, calls };
 }
 
-const exercise: Partial<Cell> = {
+const quizCell: Partial<Cell> = {
   id: 'ex',
-  kind: 'exercise',
+  kind: 'quiz',
   tests: 'TESTS',
   solution: 'SOLUTION',
 };
 
 test('a healthy lesson has no problems', () => {
   const { python, calls } = runner({});
-  assert.deepEqual(checkLesson(lessonWith({}, exercise), python), []);
+  assert.deepEqual(checkLesson(lessonWith({}, quizCell), python), []);
   assert.deepEqual(calls, [
     'syntax:START',
     'syntax:START',
@@ -77,7 +77,7 @@ test('reports a starter syntax error', () => {
 
 test('reports a solution that fails its own tests', () => {
   const { python } = runner({ solved: fail });
-  assert.deepEqual(checkLesson(lessonWith(exercise), python), [
+  assert.deepEqual(checkLesson(lessonWith(quizCell), python), [
     'demo/ex: the solution fails its own tests: boom',
   ]);
 });
@@ -86,15 +86,15 @@ test('a solution that errors before its tests is labeled an error, not a test fa
   const { python } = runner({
     solved: { ok: false, stage: 'code', message: 'SyntaxError: bad (line 1)' },
   });
-  assert.deepEqual(checkLesson(lessonWith(exercise), python), [
+  assert.deepEqual(checkLesson(lessonWith(quizCell), python), [
     'demo/ex: the solution has an error: SyntaxError: bad (line 1)',
   ]);
 });
 
 test('reports a starter that already passes', () => {
   const { python } = runner({ starter: pass });
-  assert.deepEqual(checkLesson(lessonWith(exercise), python), [
-    'demo/ex: the starter already passes the tests, so the exercise is trivial',
+  assert.deepEqual(checkLesson(lessonWith(quizCell), python), [
+    'demo/ex: the starter already passes the tests, so it is trivial',
   ]);
 });
 

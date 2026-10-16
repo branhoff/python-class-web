@@ -275,9 +275,9 @@ print("Those names contained a total of", total_num_letters, "characters.")
 ```
 :::
 
-## Exercises
+## Quizzes
 
-:::cell id=loops-ex1 kind=exercise
+:::cell id=loops-ex1 kind=quiz
 1. Write a function named `sum_to` that takes an integer parameter `n` and returns the sum of the integers from 1 to `n` (inclusive).
 
 ```python starter
@@ -302,7 +302,7 @@ print(sum_to(10))
 ```
 :::
 
-:::cell id=loops-ex2 kind=exercise
+:::cell id=loops-ex2 kind=quiz
 2. Write a function named `length_parity` that takes a string parameter, counts how many characters are in the string, and returns `"odd"` if that number is odd and `"even"` if that number is even.
 
 ```python starter
@@ -330,7 +330,7 @@ print(length_parity("hello"))
 ```
 :::
 
-:::cell id=loops-ex3 kind=exercise
+:::cell id=loops-ex3 kind=quiz
 3. Write a function named `echo_until_quit` that takes a list of strings. Starting from the first item, it prints each string on its own line, stopping as soon as it reaches the string `"quit"` (which is not printed). Then call your function with the list `["red", "green", "quit", "blue"]`.
 
 ```python starter
@@ -361,7 +361,7 @@ echo_until_quit(["red", "green", "quit", "blue"])
 ```
 :::
 
-:::cell id=predict-nested-break kind=exercise
+:::cell id=predict-nested-break kind=quiz
 4. Predict the result. Count how many times the inner body reaches `x += 1`, and what `b` is at the end.
 
 ```python

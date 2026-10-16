@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import { parseLesson } from '../src/lessons/parse.ts';
 import { HEADER, cellsOf, rejects } from './lesson-helpers.ts';
 
-test('parses front matter, markdown, a sandbox cell and an exercise', () => {
+test('parses front matter, markdown, a sandbox cell and a quiz', () => {
   const lesson = parseLesson(`${HEADER}
 # Intro
 
@@ -15,7 +15,7 @@ print(1)
 \`\`\`
 :::
 
-:::cell id=double kind=exercise
+:::cell id=double kind=quiz
 Write a function.
 
 \`\`\`python starter
@@ -54,7 +54,7 @@ Think about *
   assert.deepEqual(lesson.blocks[2], {
     type: 'cell',
     id: 'double',
-    kind: 'exercise',
+    kind: 'quiz',
     prompt: 'Write a function.',
     starter: '# code',
     tests: 'assert True',
@@ -111,12 +111,12 @@ test('cell problems are reported', () => {
   rejects(cell('id=Bad_Id', starter), 6, /needs an id/);
   rejects(cell('id=a color=red', starter), 6, /bad cell attribute/);
   rejects(cell('id=a kind', starter), 6, /bad cell attribute/);
-  rejects(cell('id=a kind=quiz', starter), 6, /unknown cell kind/);
+  rejects(cell('id=a kind=essay', starter), 6, /unknown cell kind/);
   rejects(cell('id=a'), 6, /needs a "python starter"/);
   rejects(cell('id=a', starter + tests), 6, /cannot have tests/);
   rejects(cell('id=a', starter + solution), 6, /cannot have tests or a solution/);
-  rejects(cell('id=a kind=exercise', starter + tests), 6, /needs "python tests" and/);
-  rejects(cell('id=a kind=exercise', starter + solution), 6, /needs "python tests" and/);
+  rejects(cell('id=a kind=quiz', starter + tests), 6, /needs "python tests" and/);
+  rejects(cell('id=a kind=quiz', starter + solution), 6, /needs "python tests" and/);
   rejects(cell('id=a kind=check', starter + tests), 6, /check "a" needs "python tests" and/);
   rejects(cell('id=a', starter + starter), 10, /two "python starter" blocks/);
   rejects(cell('id=a', '```python starter\nx\n'), 6, /cell is never closed/);
@@ -135,7 +135,7 @@ test('a lesson without "after" has no after property at all', () => {
   assert.equal('after' in lesson, false);
 });
 
-test('a check cell is parsed like an exercise, with tests and a solution', () => {
+test('a check cell is parsed like a quiz, with tests and a solution', () => {
   const source = `${HEADER}:::cell id=c kind=check\n\`\`\`python starter\nx = None\n\`\`\`\n\`\`\`python tests\nassert x == 1\n\`\`\`\n\`\`\`python solution\nx = 1\n\`\`\`\n:::\n`;
   const [cell] = cellsOf(source);
   assert.equal(cell!.kind, 'check');

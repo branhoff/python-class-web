@@ -19,7 +19,7 @@ export function checkLesson(lesson: Lesson, python: PythonRunner): string[] {
       problems.push(`${where}: ${reason}: ${solved.message}`);
     }
     if (python.exercise(block.starter, block.tests!).ok) {
-      problems.push(`${where}: the starter already passes the tests, so the exercise is trivial`);
+      problems.push(`${where}: the starter already passes the tests, so it is trivial`);
     }
   }
   return problems;

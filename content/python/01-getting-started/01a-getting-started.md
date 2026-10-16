@@ -13,7 +13,7 @@ you can carry them to any language.
 
 The course has two halves that work together.
 
-**Lessons and exercises, here in your browser.** Each lesson explains a concept
+**Lessons and quizzes, here in your browser.** Each lesson explains a concept
 with runnable examples. The code runs in the page itself (Python runs in your
 browser), so there is nothing to install to follow along. Press **Run** on the
 code cell below, then edit the code and run it again.
@@ -26,7 +26,7 @@ for i in range(3):
 ```
 :::
 
-Exercises are cells that check your work. You write code, press Run, and the
+Quizzes are cells that check your work. You write code, press Run, and the
 cell tells you whether it passed, with a message to guide you if it did not.
 Hints are there when you get stuck.
 

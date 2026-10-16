@@ -22,7 +22,7 @@ test('Reset puts a cell back to its original code, and Undo reset brings the edi
   await expect(reset).toHaveText('Reset');
 });
 
-test('an exercise can be reset after a failed attempt', async ({ page }) => {
+test('a quiz can be reset after a failed attempt', async ({ page }) => {
   await page.goto('/lessons/functions');
   await expect(page.locator('button.run').first()).toBeEnabled({ timeout: 45_000 });
   const cell = page.locator('[data-cell-id="double-number"]');

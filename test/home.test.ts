@@ -25,7 +25,7 @@ function cell(id: string, kind: Cell['kind']): Cell {
   return { type: 'cell', id, kind, prompt: '', starter: '', hints: [] };
 }
 
-test('course progress counts only exercise cells, not markdown or sandbox cells', () => {
+test('course progress counts only quiz cells, not markdown or sandbox cells', () => {
   const lessons: Lesson[] = [
     {
       id: 'one',
@@ -34,14 +34,14 @@ test('course progress counts only exercise cells, not markdown or sandbox cells'
       blocks: [
         { type: 'markdown', text: 'intro' },
         cell('try-it', 'sandbox'),
-        cell('drill-a', 'exercise'),
+        cell('drill-a', 'quiz'),
       ],
     },
     {
       id: 'two',
       title: 'Two',
       section: 1,
-      blocks: [cell('drill-b', 'exercise'), { type: 'markdown', text: 'outro' }],
+      blocks: [cell('drill-b', 'quiz'), { type: 'markdown', text: 'outro' }],
     },
   ];
   assert.deepEqual(courseProgressMeta(new Map([['python', lessons]])), {
@@ -56,7 +56,7 @@ test('course progress counts only exercise cells, not markdown or sandbox cells'
   });
 });
 
-test('a course with no exercises has a total of zero', () => {
+test('a course with no quizzes has a total of zero', () => {
   const lessons: Lesson[] = [
     { id: 'one', title: 'One', section: 1, blocks: [cell('try-it', 'sandbox')] },
   ];

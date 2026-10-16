@@ -192,9 +192,9 @@ print(type("False"))
 ```
 :::
 
-## Exercises
+## Quizzes
 
-:::cell id=print-and-types-ex1 kind=exercise
+:::cell id=print-and-types-ex1 kind=quiz
 1. Write a statement that prints out the float value 188.67.
 
 ```python starter
@@ -210,7 +210,7 @@ print(188.67)
 ```
 :::
 
-:::cell id=print-and-types-ex2 kind=exercise
+:::cell id=print-and-types-ex2 kind=quiz
 2. Write a statement that prints out the string value `"Knock knock, "Who's There?", "Your Mom."`
 
 ```python starter
@@ -232,7 +232,7 @@ both single and double quotes inside it.
 ```
 :::
 
-:::cell id=print-and-types-ex3 kind=exercise
+:::cell id=print-and-types-ex3 kind=quiz
 3. Write a statement that prints out the boolean value True (not the string value "True").
 
 ```python starter
@@ -248,7 +248,7 @@ print(True)
 ```
 :::
 
-:::cell id=print-and-types-ex4 kind=exercise
+:::cell id=print-and-types-ex4 kind=quiz
 4. Write a statement that prints out the result of calling the `type()` function on the value 77.
 
 ```python starter
@@ -264,7 +264,7 @@ print(type(77))
 ```
 :::
 
-:::cell id=print-and-types-ex5 kind=exercise
+:::cell id=print-and-types-ex5 kind=quiz
 5. Write a statement that prints out the type of the value `"You talkin' to me?"`
 
 ```python starter
