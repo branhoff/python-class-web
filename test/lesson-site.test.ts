@@ -33,6 +33,7 @@ test('an available course page lists its lessons by section', async () => {
 
 test('a coming-soon course has no page, and an unknown course is a 404', async () => {
   assert.equal((await site.request('/courses/javascript')).status, 404);
+  assert.equal((await site.request('/courses/c-cpp')).status, 404);
   assert.equal((await site.request('/courses/nope')).status, 404);
 });
 

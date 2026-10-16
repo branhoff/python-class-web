@@ -28,11 +28,19 @@ function failure(c: Context, message: string) {
   return c.json({ error: { code: 400, message } }, 400);
 }
 
+async function readBody(c: Context): Promise<Record<string, unknown>> {
+  return (await c.req.json().catch(() => ({}))) as Record<string, unknown>;
+}
+
+function emailOf(body: Record<string, unknown>): string {
+  const email = body['email'];
+  return typeof email === 'string' ? email.trim().toLowerCase() : '';
+}
+
 async function readCredentials(c: Context): Promise<{ email: string; password: string }> {
-  const body = (await c.req.json().catch(() => ({}))) as Record<string, unknown>;
-  const email = typeof body['email'] === 'string' ? body['email'].trim().toLowerCase() : '';
+  const body = await readBody(c);
   const password = typeof body['password'] === 'string' ? body['password'] : '';
-  return { email, password };
+  return { email: emailOf(body), password };
 }
 
 export async function createDevIdentity({
@@ -96,8 +104,8 @@ export async function createDevIdentity({
   });
 
   app.post('/v1/accounts:sendOobCode', async (c) => {
-    const body = (await c.req.json().catch(() => ({}))) as Record<string, unknown>;
-    const email = typeof body['email'] === 'string' ? body['email'].trim().toLowerCase() : '';
+    const body = await readBody(c);
+    const email = emailOf(body);
     if (body['requestType'] !== 'PASSWORD_RESET') return failure(c, 'INVALID_REQ_TYPE');
     if (!EMAIL_PATTERN.test(email)) return failure(c, 'INVALID_EMAIL');
     if (usersByEmail.has(email)) onPasswordReset(email);

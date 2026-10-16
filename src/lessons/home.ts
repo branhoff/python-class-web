@@ -89,7 +89,7 @@ ${cards}
 }
 
 export function renderCourse(course: Course, lessons: Lesson[]): string {
-  const { sections } = buildNav(lessons, lessons[0]?.id ?? '');
+  const { sections } = buildNav(lessons, '');
   const body = sections
     .map((section) => {
       const list = (project: boolean) => {

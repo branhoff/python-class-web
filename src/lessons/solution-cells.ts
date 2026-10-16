@@ -39,7 +39,7 @@ export function splitScriptTests(code: string): ScriptTestsParts {
     throw new Error(`must start with ${PROGRAM_PREFIX.trim()}`);
   }
   const end = code.indexOf(PROGRAM_SUFFIX, PROGRAM_PREFIX.length);
-  if (end < 0) {
+  if (end === -1) {
     throw new Error(`the PROGRAM string is never closed with ${PROGRAM_SUFFIX.trim()}`);
   }
   const program = code.slice(PROGRAM_PREFIX.length, end);

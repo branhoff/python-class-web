@@ -2,7 +2,7 @@ import { parseFrontMatter } from './front-matter.ts';
 import { parseCell } from './parse-cell.ts';
 import { LessonError, type Block, type Lesson } from './types.ts';
 
-const CELL_OPEN = /^:::cell(?:\s+(.*))?$/;
+const CELL_OPEN = /^:::cell(?:\s(.*))?$/;
 const CELL_CLOSE = /^:::\s*$/;
 const FENCE = /^```/;
 

@@ -75,3 +75,12 @@ test('the auth config carries the emulator endpoints when they are set', async (
   const emulated = createLessonSite('content', config);
   assert.deepEqual(await (await emulated.request('/auth/config')).json(), config);
 });
+
+test('the account page is titled Account and links back to the courses from the top bar', () => {
+  const html = renderAccount([]);
+  assert.match(html, /<title>Account<\/title>/);
+  assert.match(
+    html,
+    /<span class="topbar-left"><a class="back" href="\/">← All courses<\/a><\/span>/,
+  );
+});

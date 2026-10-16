@@ -16,7 +16,7 @@ export function parseFrontMatter(lines: string[]): FrontMatter {
       return { fields, bodyStart: i + 1 };
     }
     if (line.trim() === '') continue;
-    const match = /^([a-z]+):(.*)$/.exec(line);
+    const match = /^([a-z]+):(.*)/.exec(line);
     if (!match) {
       throw new LessonError(`bad front matter line: "${line}"`, i + 1);
     }

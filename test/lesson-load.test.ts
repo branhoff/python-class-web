@@ -46,3 +46,15 @@ test('a broken lesson names its file and line', () => {
 test('a non-error throw is still reported', () => {
   assert.throws(() => loadLessons(join(tmpdir(), 'does-not-exist-lessons')), /ENOENT/);
 });
+
+test('lessons come back in path order, so a file sorts before the folder that shares its name', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'lessons-'));
+  mkdirSync(join(dir, 'a'));
+  writeFileSync(join(dir, 'a', 'one.md'), lessonSource('one'));
+  writeFileSync(join(dir, 'a.md'), lessonSource('top-a'));
+  writeFileSync(join(dir, 'b.md'), lessonSource('top-b'));
+  assert.deepEqual(
+    loadLessons(dir).map(({ lesson }) => lesson.id),
+    ['top-a', 'one', 'top-b'],
+  );
+});
