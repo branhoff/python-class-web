@@ -55,3 +55,12 @@ test('the order of events decides, not their ids', () => {
   ]);
   assert.equal(progress.lastCompletedCell, 'a');
 });
+
+test('an attempt after a completion does not undo it', () => {
+  const progress = deriveProgress([
+    { cellId: 'a', kind: 'completed', at: 1 },
+    { cellId: 'a', kind: 'attempt', at: 2 },
+  ]);
+  assert.deepEqual(progress.completedCells, ['a']);
+  assert.equal(progress.lastCompletedCell, 'a');
+});

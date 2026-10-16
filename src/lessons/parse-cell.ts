@@ -3,7 +3,7 @@ import { LessonError, type Cell, type CellKind } from './types.ts';
 const ROLES = ['starter', 'tests', 'solution'] as const;
 type Role = (typeof ROLES)[number];
 
-const FENCE_OPEN = /^```(.*)$/;
+const FENCE_OPEN = /^```(.*)/;
 const FENCE_CLOSE = /^```\s*$/;
 
 function isRole(word: string): word is Role {
@@ -12,7 +12,7 @@ function isRole(word: string): word is Role {
 
 function parseAttributes(text: string, line: number): { id: string; kind: CellKind } {
   const attributes = new Map<string, string>();
-  for (const token of text.split(/\s+/).filter(Boolean)) {
+  for (const token of text.split(/\s/).filter(Boolean)) {
     const parts = token.split('=');
     const [key, value] = parts;
     if (parts.length !== 2 || (key !== 'id' && key !== 'kind') || !value) {

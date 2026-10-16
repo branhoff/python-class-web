@@ -30,10 +30,7 @@ export function progressItemIds(lesson: Lesson): string[] {
   return lesson.after === undefined ? exercises : [...exercises, `project:${lesson.id}`];
 }
 
-export function buildNav(lessons: Lesson[], currentId: string): LessonNav {
-  const order = lessons.map((lesson): NavLesson => ({ id: lesson.id, title: lesson.title }));
-  const index = order.findIndex((lesson) => lesson.id === currentId);
-
+export function buildSections(lessons: Lesson[]): NavSection[] {
   const bySection = new Map<number, SectionLesson[]>();
   for (const lesson of lessons) {
     const list = bySection.get(lesson.section) ?? [];
@@ -45,9 +42,15 @@ export function buildNav(lessons: Lesson[], currentId: string): LessonNav {
     });
     bySection.set(lesson.section, list);
   }
-  const sections = [...bySection.entries()]
+  return [...bySection.entries()]
     .sort(([a], [b]) => a - b)
     .map(([section, sectionLessons]): NavSection => ({ section, lessons: sectionLessons }));
+}
+
+export function buildNav(lessons: Lesson[], currentId: string): LessonNav {
+  const order = lessons.map((lesson): NavLesson => ({ id: lesson.id, title: lesson.title }));
+  const index = order.findIndex((lesson) => lesson.id === currentId);
+  const sections = buildSections(lessons);
 
   const projects = lessons
     .filter((lesson) => lesson.after === currentId)
