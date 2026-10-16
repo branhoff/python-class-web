@@ -13,10 +13,11 @@ you can carry them to any language.
 
 The course has two halves that work together.
 
-**Lessons and quizzes, here in your browser.** Each lesson explains a concept
-with runnable examples. The code runs in the page itself (Python runs in your
-browser), so there is nothing to install to follow along. Press **Run** on the
-code cell below, then edit the code and run it again.
+**Lessons, here in your browser.** Each lesson explains a concept with code you
+can run. The code runs in the page itself (Python runs in your browser), so
+there is nothing to install to follow along. Press **Run** on the code cell
+below, then edit the code and run it again. A plain code cell like this one is
+just for trying things. Nothing is graded.
 
 :::cell id=welcome-demo
 ```python starter
@@ -26,9 +27,64 @@ for i in range(3):
 ```
 :::
 
-Quizzes are cells that check your work. You write code, press Run, and the
-cell tells you whether it passed, with a message to guide you if it did not.
-Hints are there when you get stuck.
+Two other kinds of cell ask you something. Both tell you whether you got it
+right. The difference is whether they count.
+
+**Quizzes count.** You write the answer, press **Run**, and the cell tells you
+whether it passed, with a message to guide you if it did not. Hints are there
+when you get stuck. A quiz has a solid orange border, and when you pass it, it
+turns green. A lesson is finished when you have passed all of its quizzes. Try
+this one:
+
+:::cell id=welcome-quiz kind=quiz
+1. Change the code so that the program prints `Hello, Python!`.
+
+```python starter
+print("Hello, ???")
+```
+
+```python tests
+assert stdout.strip() == "Hello, Python!", f"The program should print Hello, Python! but it printed {stdout.strip()!r}."
+```
+
+```python solution
+print("Hello, Python!")
+```
+
+```hint
+Replace the three question marks with the word Python.
+```
+:::
+
+**Checks do not count.** They are quick questions that help you notice whether
+an idea sank in. You can skip one, retry it as often as you like, and nothing is
+recorded. A check has a dashed border, and a lesson that has checks shows a short
+key under its title. Here is one:
+
+:::cell id=welcome-check kind=check
+**Check your understanding.** Predict what this program prints. The program is not run for you. Change `output` to the text you expect, in quotes.
+
+```python
+count = 4
+print(count * 2)
+```
+
+```python starter
+output = ""
+```
+
+```python tests
+assert output == "8", "output is not right. Work out count * 2 by hand."
+```
+
+```python solution
+output = "8"
+```
+
+```hint
+The program multiplies 4 by 2 and prints the result.
+```
+:::
 
 **IDE projects, on your own machine.** Each section also has a larger project
 you build locally in a real code editor (the notes assume VS Code). The
