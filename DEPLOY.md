@@ -86,7 +86,12 @@ other and you chase phantom drift forever.
 `ignore_changes` stops the plan from _proposing_ an image change. It does not
 stop a **saved plan applied later** from writing back the image that was live
 when the plan was made. If deploys land while an apply waits for approval, the
-apply can leave an older image running. So the last step of the `apply` job
+apply can leave an older image running. So just before `tofu apply`, the job
+compares the image in the saved plan with the one that is live
+(`.github/scripts/refuse-stale-image.sh`) and refuses if they differ, which makes
+a fresh plan the only way forward. The same check runs after every plan, so a
+change to the plan format fails on a pull request instead of silently passing in
+production. As a second line of defence the last step of the `apply` job
 redeploys `main` (`.github/scripts/redeploy-main.sh`), but only when CI passed
 on its head commit; if CI is still running, the deploy that follows CI puts it
 live, and if CI failed it warns instead of shipping a broken build.
