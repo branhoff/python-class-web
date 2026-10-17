@@ -6,6 +6,7 @@ locals {
     "artifactregistry.googleapis.com",
     "iam.googleapis.com",
     "monitoring.googleapis.com",
+    "dns.googleapis.com",
   ]
 }
 
@@ -38,7 +39,7 @@ resource "google_firestore_database" "default" {
 # Email/password only. Social providers need an OAuth client secret, which would
 # land in state; add them out of band (see docs/PLAN.md).
 resource "google_identity_platform_config" "default" {
-  authorized_domains = var.authorized_domains
+  authorized_domains = local.authorized_domains
 
   sign_in {
     allow_duplicate_emails = false

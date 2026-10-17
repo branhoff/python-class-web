@@ -11,12 +11,13 @@ can run OpenTofu:
 
 ## What this root manages
 
-| file            | resources                                                                                                        |
-| --------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `main.tf`       | API enablement, the Firestore `(default)` database (delete-protected), Identity Platform config (email/password) |
-| `backup.tf`     | a daily Firestore backup schedule, kept 28 days                                                                  |
-| `runtime.tf`    | runtime service account (`roles/datastore.user` only), the Cloud Run service, public invoker binding             |
-| `monitoring.tf` | email notification channel, an uptime check on `/health`, and alert policies for downtime and server errors      |
+| file            | resources                                                                                                                             |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `main.tf`       | API enablement, the Firestore `(default)` database (delete-protected), Identity Platform config (email/password)                      |
+| `domain.tf`     | the custom domain: a Cloud Run domain mapping and the A/AAAA records in the Cloud DNS zone, all skipped when `custom_domain` is empty |
+| `backup.tf`     | a daily Firestore backup schedule, kept 28 days                                                                                       |
+| `runtime.tf`    | runtime service account (`roles/datastore.user` only), the Cloud Run service, public invoker binding                                  |
+| `monitoring.tf` | email notification channel, an uptime check on `/health`, and alert policies for downtime and server errors                           |
 
 There is no Secret Manager and no database password: Cloud Run reaches Firestore
 through its service identity, and ID-token verification uses Google's public
@@ -56,6 +57,45 @@ With under 100 learners and an append-only progress log this is cents a month.
 **Deleted learners.** If account deletion (#60) lands, a deleted learner's data
 stays in backups and point-in-time history until they expire (up to 28 days).
 Say so in whatever learners are told about deletion.
+
+## Custom domain
+
+The site is meant to live on `understandit.dev`. The domain is registered with
+Cloud Domains and its DNS zone `understandit-dev` is in Cloud DNS; both were
+created by hand with `gcloud` because registering costs money and is a one-off.
+`domain.tf` maps the domain to the Cloud Run service and writes the A and AAAA
+records the mapping asks for. It also adds the domain to `authorized_domains`, so
+sign-in and password-reset links work on it. The old `run.app` address keeps
+working.
+
+**Switching it on.** Do these in order; the first is why the PR's plan stays green
+until you are ready:
+
+1. Apply `bootstrap/` locally. It grants the CI identity `roles/dns.admin`, which
+   it cannot give itself.
+2. Set the repo variable `CUSTOM_DOMAIN` to `understandit.dev`
+   (`gh variable set CUSTOM_DOMAIN --body understandit.dev`) and run the infra
+   workflow. Approve the apply.
+3. Wait for the certificate, usually about 15 minutes and at most a day, then open
+   the site. Check progress with
+   `gcloud beta run domain-mappings describe --domain understandit.dev --region us-west1`.
+
+Leaving `CUSTOM_DOMAIN` empty skips all of it.
+
+**Known risks.**
+
+- Cloud Run domain mappings are in **preview**. Google says they are not
+  production-ready and cites latency. They cost nothing. If latency or reliability
+  becomes a problem, the replacement is a global external Application Load
+  Balancer in front of the service, which has a monthly cost.
+- The mapping needs the caller to be a verified owner of the domain. The CI
+  identity is a service account, so the apply may be refused. If it is, create the
+  mapping once with your own account
+  (`gcloud beta run domain-mappings create --service python-class-web --domain understandit.dev --region us-west1`),
+  import it with `tofu import 'google_cloud_run_domain_mapping.site[0]' locations/us-west1/namespaces/PROJECT_ID/domainmappings/understandit.dev`,
+  and let OpenTofu manage the records.
+- `.dev` is on the HSTS preload list, so browsers only use HTTPS for it. Nothing on
+  the site needs plain HTTP.
 
 ## Ownership split
 

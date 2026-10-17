@@ -27,6 +27,8 @@ locals {
     "roles/monitoring.uptimeCheckConfigEditor",
     "roles/monitoring.alertPolicyEditor",
     "roles/monitoring.notificationChannelEditor",
+    # The infra/ root manages the DNS records for the site's domain.
+    "roles/dns.admin",
     # The infra/ root binds a project-level role to the runtime SA, so the
     # deployer must read and set the project IAM policy. It cannot grant this to
     # itself; this bootstrap, run by an owner, is what grants it.

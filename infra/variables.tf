@@ -33,6 +33,18 @@ variable "authorized_domains" {
   default     = ["localhost", "python-class-web-250740822837.us-west1.run.app"]
 }
 
+variable "custom_domain" {
+  type        = string
+  description = "Domain that serves the site, for example understandit.dev. Empty leaves the site on its run.app address. Needs a Cloud DNS zone (dns_zone_name) for the domain. Set via the CUSTOM_DOMAIN repo variable."
+  default     = ""
+}
+
+variable "dns_zone_name" {
+  type        = string
+  description = "Name of the Cloud DNS managed zone that holds the records for custom_domain. Created with the domain registration, outside OpenTofu."
+  default     = "understandit-dev"
+}
+
 variable "alert_email" {
   type        = string
   description = "Address that receives uptime and error alerts. Empty turns the monitoring resources off. Set via the ALERT_EMAIL repo variable."
