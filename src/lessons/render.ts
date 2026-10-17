@@ -1,7 +1,7 @@
 import hljs from 'highlight.js/lib/core';
 import python from 'highlight.js/lib/languages/python';
 import { Marked, type Tokens } from 'marked';
-import { renderTopbar } from './chrome.ts';
+import { renderReportFooter, renderTopbar } from './chrome.ts';
 import type { LessonNav, NavLesson, NavSection } from './nav.ts';
 import { LESSON_STYLE } from './styles.ts';
 import type { Cell, Lesson } from './types.ts';
@@ -133,7 +133,8 @@ ${lesson.after === undefined ? '' : renderProjectDone(lesson.id)}
 ${renderProjects(nav)}
 ${renderPager(nav)}
 </main>
-</div>`
+</div>
+${renderReportFooter({ title, path: `/lessons/${lesson.id}` })}`
     : `${heading}
 ${body}`;
   return `<!doctype html>
