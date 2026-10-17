@@ -1,4 +1,7 @@
-const TOPBAR_STYLE = `.topbar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.25rem; min-height: 2.75rem; }
+const REPORT_STYLE = `footer.report { margin-top: 3rem; padding-top: .75rem; border-top: 2px solid #c2c3c7; font-family: 'Departure Mono', ui-monospace, monospace; font-size: .85rem; color: #5f574f; }
+`;
+
+const TOPBAR_STYLE = `${REPORT_STYLE}.topbar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.25rem; min-height: 2.75rem; }
 .topbar-left { min-width: 0; }
 a.account-link { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .95rem; background: #fff1e8; color: #1d2b53; border: 2px solid #000; border-radius: 0; padding: .4rem .8rem; box-shadow: 3px 3px 0 #000; text-decoration: none; max-width: 18rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-left: auto; }
 a.account-link:visited { color: #1d2b53; }

@@ -1,4 +1,4 @@
-import { renderTopbar } from './chrome.ts';
+import { renderReportFooter, renderTopbar } from './chrome.ts';
 import type { Course } from './courses.ts';
 import { buildSections, progressItemIds } from './nav.ts';
 import { escapeHtml } from './render.ts';
@@ -79,6 +79,7 @@ ${renderTopbar()}
 <div class="grid">
 ${cards}
 </div>
+${renderReportFooter({ title: 'Courses', path: '/' })}
 <script type="application/json" id="progress-meta">${JSON.stringify(meta)}</script>
 <script type="module" src="/static/app-shell.js"></script>
 <script type="module" src="/static/home.js"></script>
@@ -115,6 +116,7 @@ ${renderTopbar()}
 <p>${escapeHtml(course.description)}</p>
 <section id="continue" class="continue" aria-label="Continue where you left off" hidden></section>
 ${body}
+${renderReportFooter({ title: course.title, path: `/courses/${course.id}` })}
 <script type="application/json" id="progress-meta">${JSON.stringify(courseProgressMeta(new Map([[course.id, lessons]])))}</script>
 <script type="module" src="/static/app-shell.js"></script>
 <script type="module" src="/static/continue.js"></script>
