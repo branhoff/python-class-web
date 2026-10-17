@@ -21,6 +21,16 @@ resource "google_cloud_run_domain_mapping" "site" {
     route_name = google_cloud_run_v2_service.app.name
   }
 
+  # The mapping is created once by hand, because the CI identity is not a verified
+  # owner of the domain, and then imported. An import leaves certificate_mode
+  # unset in state, which the provider reads as a change that forces replacement.
+  # prevent_destroy makes any plan that would delete the mapping fail instead of
+  # waiting for approval, since CI cannot create it again.
+  lifecycle {
+    prevent_destroy = true
+    ignore_changes  = [spec[0].certificate_mode]
+  }
+
   depends_on = [google_project_service.apis]
 }
 
