@@ -1,8 +1,12 @@
 const REPORT_STYLE = `footer.report { margin-top: 3rem; padding-top: .75rem; border-top: 2px solid #c2c3c7; font-family: 'Departure Mono', ui-monospace, monospace; font-size: .85rem; color: #5f574f; }
 `;
 
-const TOPBAR_STYLE = `${REPORT_STYLE}.topbar { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.25rem; min-height: 2.75rem; }
-.topbar-left { min-width: 0; }
+const TOPBAR_STYLE = `${REPORT_STYLE}.topbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .5rem 1.5rem; margin-bottom: 1.25rem; min-height: 2.75rem; }
+.topbar-left { min-width: 0; margin-right: auto; }
+a.wordmark { font-family: 'Press Start 2P', system-ui, sans-serif; font-size: .8rem; line-height: 1.4; color: #1d2b53; text-decoration: none; text-shadow: 2px 2px 0 #29adff; white-space: nowrap; }
+a.wordmark:visited { color: #1d2b53; }
+a.wordmark span { color: #ff004d; }
+a.wordmark:active { text-shadow: 1px 1px 0 #29adff; transform: translate(1px, 1px); }
 a.account-link { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .95rem; background: #fff1e8; color: #1d2b53; border: 2px solid #000; border-radius: 0; padding: .4rem .8rem; box-shadow: 3px 3px 0 #000; text-decoration: none; max-width: 18rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-left: auto; }
 a.account-link:visited { color: #1d2b53; }
 a.account-link:active { box-shadow: 1px 1px 0 #000; transform: translate(2px, 2px); }
@@ -111,6 +115,9 @@ a { color: #1d2b53; }
 .group-label { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .8rem; text-transform: uppercase; letter-spacing: 1px; color: #5f574f; margin: 1rem 0 .25rem; }
 .lessons a { font-family: 'Departure Mono', ui-monospace, monospace; font-size: 1rem; }
 .back { font-family: 'Departure Mono', ui-monospace, monospace; }
+body.home a.wordmark { font-size: clamp(1.4rem, 5vw, 2.4rem); text-shadow: 4px 4px 0 #29adff; }
+body.home a.wordmark:active { text-shadow: 2px 2px 0 #29adff; transform: translate(2px, 2px); }
+body.home .topbar { margin-bottom: 2rem; }
 ${TOPBAR_STYLE}.panel { background: #fff1e8; border: 3px solid #000; box-shadow: 5px 5px 0 #000; padding: 1.25rem; max-width: 30rem; margin: 1.5rem 0; }
 .panel p { margin: .5rem 0; }
 .tabs { display: flex; gap: .5rem; margin-bottom: 1rem; }

@@ -29,7 +29,7 @@ test('lesson pages keep the Home button on the left of the same top bar', async 
   const html = await (await site.request('/lessons/loops')).text();
   assert.match(
     html,
-    /<nav class="topbar" aria-label="Site"><span class="topbar-left"><a class="home" href="\/">Home<\/a><\/span><a id="account-link"/,
+    /<nav class="topbar" aria-label="Site"><a class="wordmark" href="\/">Understand<span>It<\/span><\/a><span class="topbar-left"><a class="home" href="\/">Home<\/a><\/span><a id="account-link"/,
   );
 });
 

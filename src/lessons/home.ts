@@ -72,7 +72,7 @@ export function renderHome(
 ): string {
   const cards = courses.map(courseCard).join('\n');
   return `${head('Courses')}
-<body>
+<body class="home">
 ${renderTopbar()}
 <h1>Choose a course</h1>
 <section id="continue" class="continue" aria-label="Continue where you left off" hidden></section>
