@@ -167,6 +167,7 @@ Every project, in course order. Each name links to its page.
 | [Fibonacci number](/lessons/fibonacci-number) | [Functions](/lessons/functions) |
 | [Hailstone steps](/lessons/hailstone-steps) | [Functions](/lessons/functions) |
 | [Multiply with recursion](/lessons/multiply-recursively) | [Recursion](/lessons/recursion) |
+| [Hailstone steps with recursion](/lessons/hailstone-recursive) | [Recursion](/lessons/recursion) |
 | [Taxicab](/lessons/taxicab) | [Classes](/lessons/classes) |
 | [Find the median](/lessons/find-median) | [Lists](/lessons/lists) |
 | [Add a surname](/lessons/add-surname) | [Lists](/lessons/lists) |
