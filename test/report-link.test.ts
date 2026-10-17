@@ -19,10 +19,15 @@ test('the report URL opens a new issue prefilled with the page title and address
     'https://github.com/branhoff/python-class-web/issues/new',
   );
   assert.equal(url.searchParams.get('title'), 'Problem on: Loops');
-  assert.equal(
-    url.searchParams.get('body'),
-    'Page: Loops\nAddress: /lessons/loops\n\nWhat is wrong or confusing?\n',
-  );
+  const body = url.searchParams.get('body') ?? '';
+  assert.match(body, /^Page: Loops\nAddress: \/lessons\/loops\n\n/);
+  for (const heading of [
+    'What is wrong or confusing?',
+    'What did you expect instead?',
+    'Anything else?',
+  ]) {
+    assert.match(body, new RegExp(`^## ${heading.replace('?', '\\?')}$`, 'm'));
+  }
 });
 
 test('the report URL survives titles with quotes, ampersands and angle brackets', () => {
@@ -31,14 +36,14 @@ test('the report URL survives titles with quotes, ampersands and angle brackets'
   assert.equal(url.searchParams.get('title'), `Problem on: ${title}`);
 });
 
-test('the footer link opens GitHub in a new tab without leaking the opener, and says an account is needed', () => {
+test('the footer link opens GitHub in a new tab without leaking the opener', () => {
   const html = renderReportFooter({ title: 'Loops', path: '/lessons/loops' });
   assert.match(html, /^<footer class="report"><a href="https:\/\/github\.com\//);
   assert.match(
     html,
     /target="_blank" rel="noopener noreferrer">Report a problem with this page<\/a>/,
   );
-  assert.match(html, /you need an account/);
+  assert.doesNotMatch(html, /account/);
 });
 
 test('the footer href escapes ampersands so the markup stays valid', () => {
