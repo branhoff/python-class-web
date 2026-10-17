@@ -6,6 +6,7 @@
 
 import { authHeader } from './app-shell.js';
 import { pressReset, resetControl } from './cell-reset.js';
+import { setupEditor } from './editor.js';
 import { createPythonRunner, pythonSupport } from './py-runner.js';
 
 // A sandbox cell has no tests, so it has nothing to pass; it only shows output.
@@ -205,7 +206,10 @@ async function startRunner(buttons) {
 }
 
 async function main() {
-  for (const cell of document.querySelectorAll('.cell')) setupReset(cell);
+  for (const cell of document.querySelectorAll('.cell')) {
+    setupReset(cell);
+    setupEditor(cell);
+  }
   const buttons = [...document.querySelectorAll('button.run')];
   await startRunner(buttons);
   await loadProgress();

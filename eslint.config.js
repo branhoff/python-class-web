@@ -48,6 +48,7 @@ export default tseslint.config(
         clearTimeout: 'readonly',
         CustomEvent: 'readonly',
         document: 'readonly',
+        Event: 'readonly',
         fetch: 'readonly',
         loadPyodide: 'readonly',
         localStorage: 'readonly',

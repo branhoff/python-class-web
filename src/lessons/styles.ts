@@ -43,6 +43,7 @@ main thead th { border-bottom: 2px solid #fff1e8; font-weight: normal; color: #f
 main thead:not(:has(th:not(:empty))) { display: none; }
 main table a, main table a:visited { color: #29adff; }
 main table code { background: none; padding: 0; }
+kbd { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .85em; background: #fff1e8; color: #1d2b53; border: 2px solid #000; border-radius: 0; padding: .05rem .4rem; box-shadow: 2px 2px 0 #000; white-space: nowrap; }
 .legend { font-family: 'Departure Mono', ui-monospace, monospace; font-size: .85rem; color: #5f574f; }
 .legend .swatch { display: inline-block; width: 0; height: 1em; border-left: 4px solid #29adff; vertical-align: text-bottom; margin: 0 .25rem 0 .5rem; }
 .legend .swatch.quiz { border-left-color: #ffa300; }
