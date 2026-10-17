@@ -27,6 +27,16 @@ for i in range(3):
 ```
 :::
 
+The code box works like a small editor. These keys help while you type:
+
+| Keys | What they do |
+| --- | --- |
+| <kbd>Tab</kbd> | Indent by four spaces |
+| <kbd>Shift</kbd> + <kbd>Tab</kbd> | Take an indent back |
+| <kbd>Enter</kbd> | Start a new line at the same indentation, one level deeper after a line that ends in a colon |
+| <kbd>Shift</kbd> + <kbd>Enter</kbd> | Run the cell (<kbd>Ctrl</kbd> + <kbd>Enter</kbd> works too) |
+| <kbd>Esc</kbd> then <kbd>Tab</kbd> | Leave the box, if you move around the page with the keyboard |
+
 Two other kinds of cell ask you something. Both tell you whether you got it
 right. The difference is whether they count.
 
