@@ -6,5 +6,5 @@ export function renderTopbar(left = ''): string {
 
 export function renderReportFooter(page: ReportPage): string {
   const href = reportProblemUrl(page).replaceAll('&', '&amp;');
-  return `<footer class="report"><a href="${href}" target="_blank" rel="noopener noreferrer">Report a problem with this page</a> <span>(opens GitHub; you need an account)</span></footer>`;
+  return `<footer class="report"><a href="${href}" target="_blank" rel="noopener noreferrer">Report a problem with this page</a></footer>`;
 }
