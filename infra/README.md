@@ -94,6 +94,11 @@ Leaving `CUSTOM_DOMAIN` empty skips all of it.
   (`gcloud beta run domain-mappings create --service python-class-web --domain understandit.dev --region us-west1`),
   import it with `tofu import 'google_cloud_run_domain_mapping.site[0]' locations/us-west1/namespaces/PROJECT_ID/domainmappings/understandit.dev`,
   and let OpenTofu manage the records.
+- The mapping is protected with `prevent_destroy`, so a plan that would delete or
+  replace it fails instead of waiting for approval. CI cannot recreate it. To turn
+  the domain off on purpose, remove `prevent_destroy` in `domain.tf` first. After an
+  import, `certificate_mode` is ignored: the provider otherwise sees a change that
+  forces replacement.
 - `.dev` is on the HSTS preload list, so browsers only use HTTPS for it. Nothing on
   the site needs plain HTTP.
 
